@@ -1,8 +1,6 @@
 {
-  "rootDirectory": "artifacts/taptempo",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": "artifacts/taptempo/dist",
   "installCommand": "pnpm install",
-  "devCommand": "pnpm run dev",
-  "framework": "vite"
+  "devCommand": "pnpm run dev"
 }
