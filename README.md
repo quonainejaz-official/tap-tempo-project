@@ -172,7 +172,7 @@ The dev server will start at `http://localhost:3000` (or the port specified in y
 | Command | Description |
 |---------|-------------|
 | `pnpm run dev` | Start Vite dev server with HMR |
-| `pnpm run build` | Production build → `dist/public/` |
+| `pnpm run build` | Production build → `dist/` |
 | `pnpm run serve` | Preview the production build |
 | `pnpm run typecheck` | Run TypeScript type checking |
 
