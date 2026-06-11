@@ -190,10 +190,10 @@ The dev server will start at `http://localhost:3000` (or the port specified in y
 | Setting | Value |
 |---------|-------|
 | **Framework Preset** | `Vite` |
+| **Root Directory** | `artifacts/taptempo` |
 | **Build Command** | `pnpm run build` |
-| **Output Directory** | `artifacts/taptempo/dist/public` |
+| **Output Directory** | `dist` |
 | **Install Command** | `pnpm install` |
-| **Root Directory** | *(leave blank — uses repo root)* |
 
 5. Click **Deploy** ✅
 
