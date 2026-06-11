@@ -189,9 +189,9 @@ The dev server will start at `http://localhost:3000` (or the port specified in y
 
 | Setting | Value |
 |---------|-------|
-| **Framework Preset** | `Other` (ya blank — Vite auto-detect se bachne ke liye) |
+| **Root Directory** | `artifacts/taptempo` |
 | **Build Command** | `pnpm run build` |
-| **Output Directory** | `artifacts/taptempo/dist` |
+| **Output Directory** | `dist` |
 | **Install Command** | `pnpm install` |
 
 5. Click **Deploy** ✅
