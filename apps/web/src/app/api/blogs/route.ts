@@ -1,0 +1,64 @@
+import { NextResponse } from "next/server"
+import { getCollection } from "@/lib/mongodb"
+import { revalidatePath } from "next/cache"
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url)
+    const limit = Math.min(Number(searchParams.get("limit")) || 100, 100)
+
+    const blogs = await getCollection("blogs")
+    const data = await blogs
+      .find({ published: true })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .toArray()
+
+    const serialized = data.map((b) => ({
+      ...b,
+      _id: b._id.toString(),
+      createdAt: b.createdAt?.toISOString(),
+      updatedAt: b.updatedAt?.toISOString(),
+    }))
+
+    return NextResponse.json({ blogs: serialized })
+  } catch {
+    return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 })
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json()
+    const blogs = await getCollection("blogs")
+
+    const now = new Date()
+    const blog = {
+      title: body.title,
+      slug: body.slug,
+      content: body.content || "",
+      excerpt: body.excerpt || "",
+      coverImage: body.coverImage || "",
+      coverImagePublicId: body.coverImagePublicId || "",
+      metaTitle: body.metaTitle || "",
+      metaDescription: body.metaDescription || "",
+      author: body.author || "Admin",
+      tags: body.tags || [],
+      published: body.published ?? true,
+      readTime: body.readTime || "",
+      createdAt: now,
+      updatedAt: now,
+    }
+
+    const result = await blogs.insertOne(blog)
+    revalidatePath("/blog")
+    revalidatePath("/")
+
+    return NextResponse.json(
+      { ...blog, _id: result.insertedId.toString() },
+      { status: 201 },
+    )
+  } catch {
+    return NextResponse.json({ error: "Failed to create blog" }, { status: 500 })
+  }
+}
