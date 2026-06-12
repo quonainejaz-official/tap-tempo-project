@@ -1,42 +1,34 @@
+import OpenAI from "openai"
+
 export async function POST(req: Request) {
   const { messages } = await req.json()
 
   const apiKey = process.env.OPencode_API_KEY
-  const baseUrl = process.env.OPencode_API_BASE_URL || "https://api.opencode.ai/v1"
-  const model = process.env.OPencode_MODEL || "opencode-mimo-2.5"
+  const baseUrl = process.env.OPencode_API_BASE_URL || "https://opencode.ai/zen/v1"
+  const model = process.env.OPencode_MODEL || "big-pickle"
 
   if (!apiKey) {
     return Response.json({ error: "API key not configured" }, { status: 500 })
   }
 
-  const res = await fetch(`${baseUrl}/chat/completions`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  const client = new OpenAI({ apiKey, baseURL: baseUrl })
+
+  try {
+    const res = await client.chat.completions.create({
       model,
       messages: [
-        {
-          role: "system",
-          content: SYSTEM_PROMPT,
-        },
+        { role: "system", content: SYSTEM_PROMPT },
         ...messages.slice(-20),
       ],
       max_tokens: 1024,
       temperature: 0.7,
-    }),
-  })
+    })
 
-  if (!res.ok) {
-    const err = await res.text()
-    console.error("OpenCode API error:", err)
-    return Response.json({ error: "Failed to get response" }, { status: 500 })
+    return Response.json({ content: res.choices?.[0]?.message?.content || "" })
+  } catch (err: any) {
+    console.error("OpenCode Zen API error:", err)
+    return Response.json({ error: err.message || "Failed to get response" }, { status: 500 })
   }
-
-  const data = await res.json()
-  return Response.json({ content: data.choices?.[0]?.message?.content || "" })
 }
 
 const SYSTEM_PROMPT = `You are TapTempo Assistant — a helpful AI guide for TheTapTempo website.
