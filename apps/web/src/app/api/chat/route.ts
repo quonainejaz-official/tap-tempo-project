@@ -13,22 +13,34 @@ export async function POST(req: Request) {
 
   const client = new OpenAI({ apiKey, baseURL: baseUrl })
 
-  try {
-    const res = await client.chat.completions.create({
-      model,
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        ...messages.slice(-20),
-      ],
-      max_tokens: 1024,
-      temperature: 0.7,
-    })
+  const stream = await client.chat.completions.create({
+    model,
+    messages: [
+      { role: "system", content: SYSTEM_PROMPT },
+      ...messages.slice(-20),
+    ],
+    max_tokens: 1024,
+    temperature: 0.7,
+    stream: true,
+  })
 
-    return Response.json({ content: res.choices?.[0]?.message?.content || "" })
-  } catch (err: any) {
-    console.error("OpenCode Zen API error:", err)
-    return Response.json({ error: err.message || "Failed to get response" }, { status: 500 })
-  }
+  const encoder = new TextEncoder()
+
+  const readable = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of stream) {
+        const text = chunk.choices?.[0]?.delta?.content
+        if (text) {
+          controller.enqueue(encoder.encode(text))
+        }
+      }
+      controller.close()
+    },
+  })
+
+  return new Response(readable, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  })
 }
 
 const SYSTEM_PROMPT = `You are TapTempo Assistant — a helpful AI guide for TheTapTempo website.
