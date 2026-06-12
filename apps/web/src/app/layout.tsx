@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/lib/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Layout } from "@/components/layout"
+import ChatAssistant from "@/components/chat-assistant"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <TooltipProvider>
             <Layout>{children}</Layout>
+            <ChatAssistant />
             <Toaster />
           </TooltipProvider>
         </ThemeProvider>
