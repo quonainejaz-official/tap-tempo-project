@@ -1,116 +1,155 @@
-class AudioEngine {
-  private ctx: AudioContext | null = null
+export class AudioEngine {
+  private static instance: AudioEngine
+  public ctx: AudioContext | null = null
   private noiseBuffer: AudioBuffer | null = null
 
-  init() {
+  private constructor() {}
+
+  public static getInstance(): AudioEngine {
+    if (!AudioEngine.instance) {
+      AudioEngine.instance = new AudioEngine()
+    }
+    return AudioEngine.instance
+  }
+
+  public init() {
     if (!this.ctx) {
       this.ctx = new AudioContext()
-      this.generateNoiseBuffer()
+      this.createNoiseBuffer()
     }
-    if (this.ctx.state === "suspended") {
+    if (this.ctx.state === 'suspended') {
       this.ctx.resume()
     }
-    return this.ctx.currentTime
   }
 
-  private generateNoiseBuffer() {
+  private createNoiseBuffer() {
     if (!this.ctx) return
-    const bufferSize = this.ctx.sampleRate * 0.1
-    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate)
-    const data = buffer.getChannelData(0)
+    const bufferSize = this.ctx.sampleRate * 2
+    this.noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate)
+    const output = this.noiseBuffer.getChannelData(0)
     for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1
+      output[i] = Math.random() * 2 - 1
     }
-    this.noiseBuffer = buffer
   }
 
-  playKick(volume = 0.5) {
+  public playKick(volume = 1) {
     if (!this.ctx) return
+    const t = this.ctx.currentTime
+
     const osc = this.ctx.createOscillator()
     const gain = this.ctx.createGain()
-    osc.type = "sine"
-    osc.frequency.setValueAtTime(150, this.ctx.currentTime)
-    osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.1)
-    gain.gain.setValueAtTime(volume, this.ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15)
+
     osc.connect(gain)
     gain.connect(this.ctx.destination)
-    osc.start()
-    osc.stop(this.ctx.currentTime + 0.15)
+
+    osc.frequency.setValueAtTime(150, t)
+    osc.frequency.exponentialRampToValueAtTime(40, t + 0.1)
+
+    gain.gain.setValueAtTime(volume, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.2)
+
+    osc.start(t)
+    osc.stop(t + 0.2)
   }
 
-  playClap(volume = 0.5) {
+  public playClap(volume = 1) {
     if (!this.ctx || !this.noiseBuffer) return
-    const source = this.ctx.createBufferSource()
-    const gain = this.ctx.createGain()
+    const t = this.ctx.currentTime
+
+    const noiseSource = this.ctx.createBufferSource()
+    noiseSource.buffer = this.noiseBuffer
+
     const filter = this.ctx.createBiquadFilter()
-    source.buffer = this.noiseBuffer
-    filter.type = "bandpass"
-    filter.frequency.value = 2000
-    filter.Q.value = 0.5
-    gain.gain.setValueAtTime(volume, this.ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1)
-    source.connect(filter)
+    filter.type = 'bandpass'
+    filter.frequency.value = 1000
+
+    const gain = this.ctx.createGain()
+
+    noiseSource.connect(filter)
     filter.connect(gain)
     gain.connect(this.ctx.destination)
-    source.start()
+
+    gain.gain.setValueAtTime(volume, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08)
+
+    noiseSource.start(t)
+    noiseSource.stop(t + 0.08)
   }
 
-  playHiHat(volume = 0.5) {
+  public playHiHat(volume = 1) {
     if (!this.ctx || !this.noiseBuffer) return
-    const source = this.ctx.createBufferSource()
-    const gain = this.ctx.createGain()
+    const t = this.ctx.currentTime
+
+    const noiseSource = this.ctx.createBufferSource()
+    noiseSource.buffer = this.noiseBuffer
+
     const filter = this.ctx.createBiquadFilter()
-    source.buffer = this.noiseBuffer
-    filter.type = "highpass"
-    filter.frequency.value = 7000
-    gain.gain.setValueAtTime(volume, this.ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05)
-    source.connect(filter)
+    filter.type = 'highpass'
+    filter.frequency.value = 8000
+
+    const gain = this.ctx.createGain()
+
+    noiseSource.connect(filter)
     filter.connect(gain)
     gain.connect(this.ctx.destination)
-    source.start()
+
+    gain.gain.setValueAtTime(volume, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.04)
+
+    noiseSource.start(t)
+    noiseSource.stop(t + 0.04)
   }
 
-  playCowbell(volume = 0.5) {
+  public playCowbell(volume = 1) {
     if (!this.ctx) return
+    const t = this.ctx.currentTime
+
     const osc1 = this.ctx.createOscillator()
     const osc2 = this.ctx.createOscillator()
-    const gain = this.ctx.createGain()
     const filter = this.ctx.createBiquadFilter()
-    osc1.type = "square"
-    osc1.frequency.value = 800
-    osc2.type = "square"
-    osc2.frequency.value = 1200
-    filter.type = "bandpass"
-    filter.frequency.value = 3000
-    filter.Q.value = 1
-    gain.gain.setValueAtTime(volume * 0.3, this.ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08)
+    const gain = this.ctx.createGain()
+
+    osc1.type = 'square'
+    osc2.type = 'square'
+
+    osc1.frequency.setValueAtTime(800, t)
+    osc2.frequency.setValueAtTime(562, t)
+
+    filter.type = 'bandpass'
+    filter.frequency.value = 1000
+
     osc1.connect(filter)
     osc2.connect(filter)
     filter.connect(gain)
     gain.connect(this.ctx.destination)
-    osc1.start()
-    osc2.start()
-    osc1.stop(this.ctx.currentTime + 0.08)
-    osc2.stop(this.ctx.currentTime + 0.08)
+
+    gain.gain.setValueAtTime(volume, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.4)
+
+    osc1.start(t)
+    osc2.start(t)
+    osc1.stop(t + 0.4)
+    osc2.stop(t + 0.4)
   }
 
-  playMetronomeClick(accent: boolean, volume = 0.5) {
+  public playMetronomeClick(accent = false, volume = 1) {
     if (!this.ctx) return
+    const t = this.ctx.currentTime
+
     const osc = this.ctx.createOscillator()
     const gain = this.ctx.createGain()
-    osc.type = "sine"
-    osc.frequency.value = accent ? 880 : 660
-    gain.gain.setValueAtTime(volume, this.ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05)
+
     osc.connect(gain)
     gain.connect(this.ctx.destination)
-    osc.start()
-    osc.stop(this.ctx.currentTime + 0.05)
+
+    osc.frequency.setValueAtTime(accent ? 880 : 660, t)
+
+    gain.gain.setValueAtTime(volume, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.05)
+
+    osc.start(t)
+    osc.stop(t + 0.05)
   }
 }
 
-export const audioEngine = new AudioEngine()
-export type { AudioEngine }
+export const audioEngine = AudioEngine.getInstance()

@@ -3,9 +3,11 @@
 import { useState, useRef, useCallback, useEffect } from "react"
 
 export interface TapData {
-  index: number
-  bpm: number
+  tapIndex: number
   timestamp: number
+  instantBpm: number | null
+  rollingBpm: number | null
+  interval: number | null
 }
 
 const MAX_TAPS = 8
@@ -13,26 +15,22 @@ const MAX_GRAPH_POINTS = 30
 const TIMEOUT_MS = 3000
 
 export function useTapTempo() {
-  const [bpm, setBpm] = useState(0)
+  const [bpm, setBpm] = useState<number | null>(null)
   const [taps, setTaps] = useState<TapData[]>([])
-  const [tapCount, setTapCount] = useState(0)
-  const timestamps = useRef<number[]>([])
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const clearTimeout_ = useCallback(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-      timeoutRef.current = null
-    }
-  }, [])
+  const tapTimesRef = useRef<number[]>([])
+  const lastTapTimeRef = useRef(0)
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const tapIndexRef = useRef(0)
 
   const reset = useCallback(() => {
-    timestamps.current = []
+    setBpm(null)
     setTaps([])
-    setBpm(0)
-    setTapCount(0)
-    clearTimeout_()
-  }, [clearTimeout_])
+    tapTimesRef.current = []
+    lastTapTimeRef.current = 0
+    tapIndexRef.current = 0
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    localStorage.removeItem("taptempo_last_bpm")
+  }, [])
 
   useEffect(() => {
     const saved = localStorage.getItem("taptempo_last_bpm")
@@ -41,64 +39,76 @@ export function useTapTempo() {
 
   const tap = useCallback(() => {
     const now = performance.now()
-    clearTimeout_()
 
-    timestamps.current.push(now)
-    if (timestamps.current.length > MAX_TAPS) {
-      timestamps.current.shift()
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+
+    // Auto reset after 3s of inactivity
+    if (lastTapTimeRef.current > 0 && now - lastTapTimeRef.current > 3000) {
+      tapTimesRef.current = []
+      tapIndexRef.current = 0
+      setTaps([])
+      setBpm(null)
     }
 
-    setTapCount((c) => c + 1)
+    tapTimesRef.current.push(now)
+    lastTapTimeRef.current = now
+    tapIndexRef.current += 1
+    const currentIndex = tapIndexRef.current
 
-    if (timestamps.current.length >= 2) {
+    // Keep last 8 taps
+    if (tapTimesRef.current.length > MAX_TAPS) tapTimesRef.current.shift()
+
+    const times = tapTimesRef.current
+    let rollingBpm: number | null = null
+    let instantBpm: number | null = null
+    let rawInterval: number | null = null
+
+    if (times.length >= 2) {
       const intervals: number[] = []
-      for (let i = 1; i < timestamps.current.length; i++) {
-        intervals.push(timestamps.current[i] - timestamps.current[i - 1])
+      for (let i = 1; i < times.length; i++) {
+        intervals.push(times[i] - times[i - 1])
       }
 
-      const mean = intervals.reduce((a, b) => a + b, 0) / intervals.length
-      const filtered = intervals.filter((iv) => iv <= mean * 2.5)
+      // Instantaneous BPM: BPM from only the most recent interval
+      rawInterval = intervals[intervals.length - 1]
+      instantBpm = Math.round(60000 / rawInterval)
 
-      let avgInterval: number
-      if (filtered.length === 0) {
-        avgInterval = intervals[intervals.length - 1]
-      } else {
-        const weights = filtered.map((_, i) => (i + 1) / filtered.length)
-        const totalWeight = weights.reduce((a, b) => a + b, 0)
-        avgInterval =
-          filtered.reduce((sum, iv, i) => sum + iv * weights[i], 0) / totalWeight
+      // Outlier rejection for rolling average (discard >2.5x of simple mean)
+      const simpleAvg = intervals.reduce((a, b) => a + b, 0) / intervals.length
+      const valid = intervals.filter(v => v < simpleAvg * 2.5)
+
+      if (valid.length > 0) {
+        // Weighted: more recent intervals count more
+        let weightedSum = 0
+        let weightTotal = 0
+        valid.forEach((inv, idx) => {
+          const w = idx + 1
+          weightedSum += inv * w
+          weightTotal += w
+        })
+        const finalAvg = weightedSum / weightTotal
+        rollingBpm = Math.round(60000 / finalAvg)
+        setBpm(rollingBpm)
+        localStorage.setItem("taptempo_last_bpm", rollingBpm.toString())
       }
-
-      const calculatedBpm = avgInterval > 0 ? 60000 / avgInterval : 0
-      const rounded = Math.round(calculatedBpm)
-      setBpm(rounded)
-      localStorage.setItem("taptempo_last_bpm", String(rounded))
-
-      const instantInterval = intervals[intervals.length - 1]
-      const instantBpm = instantInterval > 0 ? 60000 / instantInterval : 0
-
-      setTaps((prev) => {
-        const newTap: TapData = {
-          index: tapCount,
-          bpm: Math.round(instantBpm),
-          timestamp: now,
-        }
-        const updated = [...prev, newTap]
-        if (updated.length > MAX_GRAPH_POINTS) {
-          return updated.slice(updated.length - MAX_GRAPH_POINTS)
-        }
-        return updated
-      })
     }
 
-    timeoutRef.current = setTimeout(() => {
-      reset()
+    setTaps(prev => {
+      const newTap: TapData = {
+        tapIndex: currentIndex,
+        timestamp: now,
+        instantBpm,
+        rollingBpm,
+        interval: rawInterval,
+      }
+      // Keep at most 30 points on the graph
+      return [...prev.slice(-(MAX_GRAPH_POINTS - 1)), newTap]
+    })
+
+    resetTimerRef.current = setTimeout(() => {
+      tapTimesRef.current = []
     }, TIMEOUT_MS)
-  }, [tapCount, clearTimeout_, reset])
+  }, [])
 
-  useEffect(() => {
-    return () => clearTimeout_()
-  }, [clearTimeout_])
-
-  return { bpm, taps, tap, reset, tapCount }
+  return { bpm, taps, tap, reset, tapCount: tapIndexRef.current }
 }

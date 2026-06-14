@@ -1,20 +1,16 @@
 "use client"
 
-import { useRef } from "react"
-import { audioEngine } from "@/lib/audio-engine"
+import { AudioEngine } from "@/lib/audio-engine"
 
 export function useAudioEngine() {
-  const engine = useRef(audioEngine)
+  const engine = AudioEngine.getInstance()
 
-  const init = () => engine.current.init()
-  const playKick = (vol?: number) => { init(); engine.current.playKick(vol) }
-  const playClap = (vol?: number) => { init(); engine.current.playClap(vol) }
-  const playHiHat = (vol?: number) => { init(); engine.current.playHiHat(vol) }
-  const playCowbell = (vol?: number) => { init(); engine.current.playCowbell(vol) }
-  const playMetronomeClick = (accent: boolean, vol?: number) => {
-    init()
-    engine.current.playMetronomeClick(accent, vol)
-  }
+  const init = () => engine.init()
+  const playKick = (vol = 1) => { init(); engine.playKick(vol) }
+  const playClap = (vol = 1) => { init(); engine.playClap(vol) }
+  const playHiHat = (vol = 1) => { init(); engine.playHiHat(vol) }
+  const playCowbell = (vol = 1) => { init(); engine.playCowbell(vol) }
+  const playMetronomeClick = (accent = false, vol = 1) => { init(); engine.playMetronomeClick(accent, vol) }
 
   return { init, playKick, playClap, playHiHat, playCowbell, playMetronomeClick }
 }
