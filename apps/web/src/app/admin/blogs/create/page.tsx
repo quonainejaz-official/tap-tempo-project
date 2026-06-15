@@ -104,8 +104,15 @@ export default function CreateBlogPage() {
         </div>
 
         <div>
-          <Label>Excerpt (short description)</Label>
-          <Input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
+          <Label className="text-sm font-semibold">Short Description / Excerpt</Label>
+          <textarea
+            value={excerpt}
+            onChange={(e) => setExcerpt(e.target.value)}
+            placeholder="A brief summary that appears in blog listings and search results..."
+            rows={3}
+            className="mt-1 w-full rounded-xl border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+          />
+          <p className="text-xs text-muted-foreground mt-1">This appears below the title in blog listings. Keep it under 160 characters for SEO.</p>
         </div>
 
         <div>

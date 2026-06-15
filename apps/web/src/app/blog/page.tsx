@@ -17,19 +17,28 @@ export default function BlogPage() {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
       <div className="mb-12 text-center">
-        <h1 className="text-5xl font-serif font-bold tracking-tight mb-4">TheTempo Blog</h1>
+        <h1 className="text-5xl font-serif font-bold tracking-tight mb-4">TheTapTempo Blog</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Thoughts, guides, and technical breakdowns on rhythm, tempo, and music production.
+          Guides, theory, and production tips on rhythm, tempo, and music production.
         </p>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-8">
         {articles.length > 0 ? (
           articles.map((article: any) => (
             <Link key={article._id || article.slug} href={`/blog/${article.slug}`}>
-              <Card className="hover:border-primary/50 transition-colors cursor-pointer group">
-                <CardHeader>
-                  <div className="flex gap-4 text-sm text-muted-foreground mb-2 font-mono">
+              <Card className="hover:border-primary/50 transition-all cursor-pointer group hover:shadow-md">
+                {article.coverImage && (
+                  <div className="rounded-t-xl overflow-hidden">
+                    <img
+                      src={article.coverImage}
+                      alt={article.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <CardHeader className="p-6">
+                  <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-3 font-mono">
                     <span>
                       {article.createdAt
                         ? new Date(article.createdAt).toLocaleDateString("en-US", {
@@ -41,17 +50,25 @@ export default function BlogPage() {
                     </span>
                     {article.readTime && (
                       <>
-                        <span>•</span>
+                        <span>&middot;</span>
                         <span>{article.readTime}</span>
                       </>
                     )}
+                    {article.author && (
+                      <>
+                        <span>&middot;</span>
+                        <span>By {article.author}</span>
+                      </>
+                    )}
                   </div>
-                  <CardTitle className="text-2xl font-serif group-hover:text-primary transition-colors">
+                  <CardTitle className="text-2xl md:text-3xl font-serif group-hover:text-primary transition-colors leading-tight">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="text-base mt-2 text-foreground/70">
-                    {article.excerpt || article.metaDescription}
-                  </CardDescription>
+                  {(article.excerpt || article.metaDescription) && (
+                    <CardDescription className="text-base mt-3 text-foreground/60 leading-relaxed line-clamp-3">
+                      {article.excerpt || article.metaDescription}
+                    </CardDescription>
+                  )}
                 </CardHeader>
               </Card>
             </Link>
