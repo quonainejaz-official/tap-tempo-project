@@ -46,53 +46,54 @@ export default async function BlogPostPage({ params }: Props) {
   if (!blog) notFound()
 
   return (
-    <article className="container mx-auto px-4 py-12 max-w-3xl">
-      <Link
-        href="/blog"
-        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-      >
-        <ChevronLeft className="w-4 h-4 mr-1" /> Back to blog
-      </Link>
+    <article className="min-h-screen">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 max-w-3xl">
+        <Link
+          href="/blog"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-10 transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4 mr-1" /> Back to blog
+        </Link>
 
-      <header className="mb-12">
-        <h1 className="text-5xl font-serif font-bold tracking-tight mb-6 leading-tight">
-          {blog.title}
-        </h1>
-        <div className="flex flex-wrap items-center gap-4 text-muted-foreground font-mono text-sm border-b pb-6">
-          <span>By {blog.author || "TheTapTempo Team"}</span>
-          <span>•</span>
-          <span>
-            {blog.createdAt
-              ? new Date(blog.createdAt).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })
-              : ""}
-          </span>
-          {blog.readTime && (
-            <>
-              <span>•</span>
-              <span>{blog.readTime}</span>
-            </>
-          )}
+        <header className="mb-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight mb-8 leading-[1.15]">
+            {blog.title}
+          </h1>
+          <div className="flex flex-wrap items-center gap-3 text-muted-foreground font-mono text-sm border-b border-border pb-8">
+            <span>By {blog.author || "TheTapTempo Team"}</span>
+            <span className="text-border">&middot;</span>
+            <span>
+              {blog.createdAt
+                ? new Date(blog.createdAt).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })
+                : ""}
+            </span>
+            {blog.readTime && (
+              <>
+                <span className="text-border">&middot;</span>
+                <span>{blog.readTime}</span>
+              </>
+            )}
+          </div>
+        </header>
+
+        {blog.coverImage && (
+          <div className="mb-12 rounded-xl overflow-hidden">
+            <img
+              src={blog.coverImage}
+              alt={blog.title}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
+
+        <div className="blog-content">
+          <div dangerouslySetInnerHTML={{ __html: blog.content }} />
         </div>
-      </header>
-
-      {blog.coverImage && (
-        <div className="mb-8 rounded-xl overflow-hidden">
-          <img
-            src={blog.coverImage}
-            alt={blog.title}
-            className="w-full h-auto object-cover"
-          />
-        </div>
-      )}
-
-      <div
-        className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary"
-        dangerouslySetInnerHTML={{ __html: blog.content }}
-      />
+      </div>
     </article>
   )
 }
