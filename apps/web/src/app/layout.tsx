@@ -6,7 +6,13 @@ import { Layout } from "@/components/layout"
 import ChatAssistant from "@/components/chat-assistant"
 import "./globals.css"
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
     template: "%s | TheTapTempo",
@@ -20,6 +26,7 @@ export const metadata: Metadata = {
       "Professional music tools for musicians, producers, and DJs. Tap any rhythm, calculate BPM instantly.",
     type: "website",
     siteName: "TheTapTempo",
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",

@@ -8,6 +8,8 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
+
 const reservedSlugs = [
   "tap-tempo", "metronome", "bpm-calculator", "bpm-to-ms",
   "delay-time-calculator", "tempo-markings", "beats-per-bar-calculator",
@@ -23,12 +25,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!page) return { title: "Page Not Found" }
 
+  const canonical = `${siteUrl}/${slug}`
+
   return {
     title: page.metaTitle || `${page.title} | TheTapTempo`,
     description: page.metaDescription || "",
+    alternates: { canonical },
     openGraph: {
       title: page.metaTitle || page.title,
       description: page.metaDescription || "",
+      url: canonical,
     },
   }
 }

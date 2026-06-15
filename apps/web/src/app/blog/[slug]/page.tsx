@@ -8,6 +8,8 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const blogs = await getCollection("blogs")
@@ -15,13 +17,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!blog) return { title: "Blog Not Found" }
 
+  const canonical = `${siteUrl}/blog/${slug}`
+
   return {
     title: blog.metaTitle || `${blog.title} | TheTapTempo`,
     description: blog.metaDescription || blog.excerpt || "",
+    alternates: { canonical },
     openGraph: {
       title: blog.metaTitle || blog.title,
       description: blog.metaDescription || blog.excerpt || "",
       type: "article",
+      url: canonical,
       ...(blog.coverImage ? { images: [{ url: blog.coverImage }] } : {}),
     },
     twitter: {
