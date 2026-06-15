@@ -189,7 +189,7 @@ export default function MetronomePage() {
         <p className="text-muted-foreground">Precision audio engine metronome for practice.</p>
       </div>
 
-      <div className="rounded-3xl border bg-[#111] text-white p-8 shadow-2xl">
+      <div className="rounded-3xl border bg-card text-card-foreground p-8 shadow-2xl">
 
         {/* BPM Display + Tap Button */}
         <div className="flex flex-col items-center mb-8">
@@ -199,9 +199,9 @@ export default function MetronomePage() {
                 type="number"
                 value={bpm}
                 onChange={e => handleBpmInput(parseInt(e.target.value) || 120)}
-                className="font-mono text-6xl h-24 w-40 text-center bg-transparent border-none focus-visible:ring-0 text-white"
+                className="font-mono text-6xl h-24 w-40 text-center bg-transparent border-none focus-visible:ring-0"
               />
-              <span className="text-xl font-medium text-white/50 mb-4">BPM</span>
+              <span className="text-xl font-medium text-muted-foreground mb-4">BPM</span>
             </div>
 
             {/* Inline Tap Button */}
@@ -212,17 +212,17 @@ export default function MetronomePage() {
                 w-20 h-20 rounded-2xl border-2 select-none cursor-pointer
                 transition-all duration-100 active:scale-95
                 ${tapPulse
-                  ? "border-[#0066FF] bg-[#0066FF]/20 scale-95 shadow-[0_0_20px_rgba(0,102,255,0.4)]"
-                  : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
+                  ? "border-primary bg-primary/20 scale-95 shadow-[0_0_20px_rgba(0,102,255,0.4)]"
+                  : "border-border bg-muted hover:border-primary/40 hover:bg-muted/80"
                 }
               `}
             >
-              <Hand size={20} className={`mb-1 transition-colors ${tapPulse ? "text-[#0066FF]" : "text-white/60"}`} />
-              <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${tapPulse ? "text-[#0066FF]" : "text-white/40"}`}>
+              <Hand size={20} className={`mb-1 transition-colors ${tapPulse ? "text-primary" : "text-muted-foreground"}`} />
+              <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${tapPulse ? "text-primary" : "text-muted-foreground"}`}>
                 TAP
               </span>
               {tapPulse && (
-                <span className="absolute inset-0 rounded-2xl border-2 border-[#0066FF] animate-ping opacity-60" />
+                <span className="absolute inset-0 rounded-2xl border-2 border-primary animate-ping opacity-60" />
               )}
             </button>
           </div>
@@ -230,19 +230,19 @@ export default function MetronomePage() {
           {/* Tap feedback row */}
           <div className="h-6 flex items-center gap-3 mb-3">
             {tapCount >= 2 && tapBpm !== null && (
-              <span className="text-xs text-[#0066FF] font-mono font-medium animate-in fade-in slide-in-from-bottom-1 duration-200">
+              <span className="text-xs text-primary font-mono font-medium animate-in fade-in slide-in-from-bottom-1 duration-200">
                 Tapped {tapBpm} BPM
               </span>
             )}
             {tapCount > 0 && (
-              <span className="text-xs text-white/30 font-mono">
+              <span className="text-xs text-muted-foreground font-mono">
                 {tapCount} tap{tapCount !== 1 ? "s" : ""}
                 {tapCount < 2 ? " — tap again" : ""}
               </span>
             )}
             {tapCount === 0 && (
-              <span className="text-xs text-white/20 font-mono">
-                Tap the button or press <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/40 text-[10px]">T</kbd> to set BPM
+              <span className="text-xs text-muted-foreground/60 font-mono">
+                Tap the button or press <kbd className="px-1 py-0.5 rounded bg-muted text-xs">T</kbd> to set BPM
               </span>
             )}
           </div>
@@ -252,7 +252,7 @@ export default function MetronomePage() {
             min={20}
             max={300}
             onValueChange={v => handleBpmInput(v[0])}
-            className="w-full max-w-md [&_.bg-primary]:bg-[#0066FF]"
+            className="w-full max-w-md"
           />
         </div>
 
@@ -263,8 +263,8 @@ export default function MetronomePage() {
               key={i}
               className={`w-6 h-6 rounded-full transition-all duration-75 ${
                 i === beat
-                  ? "bg-[#0066FF] scale-125 shadow-[0_0_15px_rgba(0,102,255,0.8)]"
-                  : "bg-white/10"
+                  ? "bg-primary scale-125 shadow-[0_0_15px_rgba(0,102,255,0.8)]"
+                  : "bg-muted"
               }`}
             />
           ))}
@@ -276,8 +276,8 @@ export default function MetronomePage() {
             size="lg"
             className={`w-48 h-16 rounded-full text-xl font-bold tracking-widest transition-all ${
               playing
-                ? "bg-destructive text-white hover:bg-destructive/90"
-                : "bg-[#0066FF] hover:bg-[#0052CC] text-white"
+                ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                : "bg-primary text-primary-foreground hover:bg-primary/90"
             }`}
             onClick={() => setPlaying(p => !p)}
           >
@@ -292,11 +292,6 @@ export default function MetronomePage() {
                 variant={signature === sig ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => setSignature(sig)}
-                className={
-                  signature === sig
-                    ? "bg-white text-black hover:bg-white/90"
-                    : "text-white/60 hover:text-white hover:bg-white/10"
-                }
               >
                 {sig}
               </Button>
@@ -311,7 +306,6 @@ export default function MetronomePage() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleBpmInput(p.val)}
-                className="border-white/20 text-white/80 hover:bg-white/10"
               >
                 {p.label} <span className="opacity-50 ml-1">{p.val}</span>
               </Button>
@@ -320,12 +314,11 @@ export default function MetronomePage() {
 
           {/* Volume */}
           <div className="w-full max-w-sm flex items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
-            <span className="text-xs font-medium uppercase tracking-wider text-white/50">VOL</span>
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">VOL</span>
             <Slider
               value={[Math.round(volume * 100)]}
               onValueChange={v => setVolume(v[0] / 100)}
               max={100}
-              className="[&_.bg-primary]:bg-white"
             />
           </div>
         </div>
