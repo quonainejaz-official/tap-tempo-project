@@ -48,6 +48,25 @@ export default async function DynamicPage({ params }: Props) {
 
   if (!page) notFound()
 
+  if (page.allowHtml) {
+    return (
+      <>
+        <div className="fixed top-0 left-0 z-50 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-br-lg border-r border-b text-xs flex items-center gap-2">
+          <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+            <ChevronLeft className="w-3 h-3" /> Home
+          </Link>
+        </div>
+        <iframe
+          srcDoc={page.content}
+          className="w-full border-0"
+          style={{ height: "100dvh" }}
+          title={page.title}
+          sandbox="allow-scripts"
+        />
+      </>
+    )
+  }
+
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
       <Link
@@ -61,14 +80,10 @@ export default async function DynamicPage({ params }: Props) {
         {page.title}
       </h1>
 
-      {page.allowHtml ? (
-        <div dangerouslySetInnerHTML={{ __html: page.content }} />
-      ) : (
-        <div
-          className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary"
-          dangerouslySetInnerHTML={{ __html: page.content }}
-        />
-      )}
+      <div
+        className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary"
+        dangerouslySetInnerHTML={{ __html: page.content }}
+      />
     </div>
   )
 }
