@@ -71,6 +71,14 @@ export default async function BlogPostPage({ params }: Props) {
                   })
                 : ""}
             </span>
+            {blog.createdAt && (
+              <span className="text-xs">
+                {new Date(blog.createdAt).toLocaleTimeString("en-US", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            )}
             {blog.readTime && (
               <>
                 <span className="text-border">&middot;</span>

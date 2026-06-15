@@ -2,10 +2,23 @@
 
 import Link from "next/link"
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
+import { ArrowUpDown, Calendar, Clock, TextQuote } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+type SortField = "createdAt" | "title" | "readTime"
+type SortDir = "asc" | "desc"
+
+const sortLabels: Record<SortField, string> = {
+  createdAt: "Date",
+  title: "Title",
+  readTime: "Read Time",
+}
 
 export default function BlogPage() {
   const [articles, setArticles] = useState<any[]>([])
+  const [sortField, setSortField] = useState<SortField>("createdAt")
+  const [sortDir, setSortDir] = useState<SortDir>("desc")
 
   useEffect(() => {
     fetch("/api/blogs")
@@ -13,6 +26,27 @@ export default function BlogPage() {
       .then((data) => setArticles(data.blogs || data || []))
       .catch(() => {})
   }, [])
+
+  const sorted = useMemo(() => {
+    const items = [...articles]
+    items.sort((a, b) => {
+      let cmp = 0
+      if (sortField === "createdAt") {
+        const da = new Date(a.createdAt || 0).getTime()
+        const db = new Date(b.createdAt || 0).getTime()
+        cmp = da - db
+      } else if (sortField === "title") {
+        cmp = (a.title || "").localeCompare(b.title || "")
+      } else if (sortField === "readTime") {
+        const getMin = (rt: string) => parseInt(rt) || 0
+        cmp = getMin(a.readTime) - getMin(b.readTime)
+      }
+      return sortDir === "asc" ? cmp : -cmp
+    })
+    return items
+  }, [articles, sortField, sortDir])
+
+  const toggleDir = () => setSortDir((d) => (d === "asc" ? "desc" : "asc"))
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
@@ -23,9 +57,40 @@ export default function BlogPage() {
         </p>
       </div>
 
+      {/* Sort controls */}
+      <div className="flex flex-wrap items-center gap-2 mb-8 pb-6 border-b">
+        <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider mr-2">Sort by</span>
+        {(Object.keys(sortLabels) as SortField[]).map((field) => (
+          <Button
+            key={field}
+            variant={sortField === field ? "secondary" : "ghost"}
+            size="sm"
+            onClick={() => {
+              if (sortField === field) toggleDir()
+              else {
+                setSortField(field)
+                setSortDir(field === "createdAt" ? "desc" : "asc")
+              }
+            }}
+            className="h-8 text-xs gap-1"
+          >
+            {field === "createdAt" && <Calendar className="w-3 h-3" />}
+            {field === "title" && <TextQuote className="w-3 h-3" />}
+            {field === "readTime" && <Clock className="w-3 h-3" />}
+            {sortLabels[field]}
+            {sortField === field && (
+              <ArrowUpDown className={`w-3 h-3 transition-transform ${sortDir === "asc" ? "rotate-180" : ""}`} />
+            )}
+          </Button>
+        ))}
+        <span className="text-xs text-muted-foreground ml-auto">
+          {articles.length} article{articles.length !== 1 ? "s" : ""}
+        </span>
+      </div>
+
       <div className="grid gap-8">
-        {articles.length > 0 ? (
-          articles.map((article: any) => (
+        {sorted.length > 0 ? (
+          sorted.map((article: any) => (
             <Link key={article._id || article.slug} href={`/blog/${article.slug}`}>
               <Card className="hover:border-primary/50 transition-all cursor-pointer group hover:shadow-md">
                 {article.coverImage && (
@@ -38,7 +103,7 @@ export default function BlogPage() {
                   </div>
                 )}
                 <CardHeader className="p-6">
-                  <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-3 font-mono">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground mb-3 font-mono">
                     <span>
                       {article.createdAt
                         ? new Date(article.createdAt).toLocaleDateString("en-US", {
@@ -48,6 +113,14 @@ export default function BlogPage() {
                           })
                         : ""}
                     </span>
+                    {article.createdAt && (
+                      <span className="text-xs">
+                        {new Date(article.createdAt).toLocaleTimeString("en-US", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    )}
                     {article.readTime && (
                       <>
                         <span>&middot;</span>

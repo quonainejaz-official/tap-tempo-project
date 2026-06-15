@@ -160,8 +160,12 @@ export default function CreateBlogPage() {
 }
 
 function calculateReadTime(html: string): string {
-  const text = html.replace(/<[^>]*>/g, "")
-  const words = text.split(/\s+/).length
-  const minutes = Math.max(1, Math.ceil(words / 200))
+  const text = html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&[^;]+;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+  const words = text ? text.split(" ").length : 0
+  const minutes = Math.max(1, Math.ceil(words / 180))
   return `${minutes} min read`
 }
