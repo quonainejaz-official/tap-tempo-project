@@ -23,9 +23,8 @@ export default function ChatAssistant() {
   const [fabPos, setFabPos] = useState({ x: 0, y: 0 })
   const listRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const isDragging = useRef(false)
 
-  const baseRight = 24
-  const baseBottom = 24
   const fabSize = 56
   const panelGap = 16
 
@@ -41,8 +40,16 @@ export default function ChatAssistant() {
     }
   }, [open])
 
+  const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v))
+
   const handleDragEnd = (_: any, info: any) => {
-    setFabPos((p) => ({ x: p.x + info.offset.x, y: p.y + info.offset.y }))
+    const margin = 24
+    const w = window.innerWidth
+    const h = window.innerHeight
+    setFabPos((p) => ({
+      x: clamp(p.x + info.offset.x, -(w - fabSize - margin * 2), margin),
+      y: clamp(p.y + info.offset.y, -(h - fabSize - margin * 2), margin),
+    }))
   }
 
   const handleSend = async () => {
@@ -109,14 +116,18 @@ export default function ChatAssistant() {
       <motion.button
         drag
         dragMomentum={false}
+        onDragStart={() => { isDragging.current = false }}
+        onDrag={() => { isDragging.current = true }}
         onDragEnd={handleDragEnd}
+        onClick={() => {
+          if (!isDragging.current) setOpen(!open)
+        }}
         style={{
           position: "fixed",
           right: `calc(1.5rem - ${fabPos.x}px)`,
           bottom: `calc(1.5rem - ${fabPos.y}px)`,
-          zIndex: 50,
+          zIndex: 51,
         }}
-        onClick={() => setOpen(!open)}
         className="flex h-14 w-14 cursor-grab items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-colors hover:bg-primary/90 active:cursor-grabbing"
         aria-label="Toggle chat assistant"
       >
@@ -155,7 +166,7 @@ export default function ChatAssistant() {
             style={{
               position: "fixed",
               right: `calc(1.5rem - ${fabPos.x}px)`,
-              bottom: `calc(${baseBottom + fabSize + panelGap}px - ${fabPos.y}px)`,
+              bottom: `calc(${24 + fabSize + panelGap}px - ${fabPos.y}px)`,
               zIndex: 50,
               width: "380px",
               height: "600px",
