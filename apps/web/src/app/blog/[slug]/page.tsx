@@ -78,6 +78,12 @@ export default async function BlogPostPage({ params }: Props) {
               </>
             )}
           </div>
+
+          {(blog.excerpt || blog.metaDescription) && (
+            <p className="text-lg text-muted-foreground leading-relaxed mt-6">
+              {blog.excerpt || blog.metaDescription}
+            </p>
+          )}
         </header>
 
         {blog.coverImage && (
