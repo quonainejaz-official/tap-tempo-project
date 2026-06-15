@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -58,7 +59,7 @@ export default function EditPagePage() {
     if (res.ok) {
       router.push("/admin/pages")
     } else {
-      alert("Failed to update page")
+      toast.error("Failed to update page")
       setSaving(false)
     }
   }

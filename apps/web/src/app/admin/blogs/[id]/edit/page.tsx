@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -93,7 +94,7 @@ export default function EditBlogPage() {
     if (res.ok) {
       router.push("/admin/blogs")
     } else {
-      alert("Failed to update blog")
+      toast.error("Failed to update blog")
       setSaving(false)
     }
   }

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -38,7 +39,7 @@ export default function CreatePagePage() {
       router.push("/admin/pages")
     } else {
       const err = await res.json().catch(() => ({}))
-      alert(err.error || "Failed to create page")
+      toast.error(err.error || "Failed to create page")
       setSaving(false)
     }
   }
