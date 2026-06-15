@@ -34,7 +34,15 @@ export function Header() {
               href: i.href,
               label: i.label,
             }))
-          if (sorted.length) setNavLinks(sorted)
+          if (sorted.length) {
+            const merged = [...defaultLinks]
+            for (const link of sorted) {
+              if (!merged.some((l) => l.href === link.href)) {
+                merged.push(link)
+              }
+            }
+            setNavLinks(merged)
+          }
         }
       })
       .catch(() => {})
