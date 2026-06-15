@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Layout } from "@/components/layout"
 import ChatAssistant from "@/components/chat-assistant"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
@@ -57,6 +59,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Toaster />
           </TooltipProvider>
         </ThemeProvider>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
