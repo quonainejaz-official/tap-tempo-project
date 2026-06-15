@@ -37,7 +37,8 @@ export default function CreatePagePage() {
     if (res.ok) {
       router.push("/admin/pages")
     } else {
-      alert("Failed to create page")
+      const err = await res.json().catch(() => ({}))
+      alert(err.error || "Failed to create page")
       setSaving(false)
     }
   }

@@ -27,9 +27,19 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const pages = await getCollection("pages")
 
+    if (!body.title || !body.slug) {
+      return NextResponse.json({ error: "Title and slug are required" }, { status: 400 })
+    }
+
+    const pages = await getCollection("pages")
     const now = new Date()
+
+    const existing = await pages.findOne({ slug: body.slug })
+    if (existing) {
+      return NextResponse.json({ error: "A page with this slug already exists" }, { status: 409 })
+    }
+
     const page = {
       title: body.title,
       slug: body.slug,
@@ -49,7 +59,8 @@ export async function POST(req: Request) {
       { ...page, _id: result.insertedId.toString() },
       { status: 201 },
     )
-  } catch {
+  } catch (e) {
+    console.error("Create page error:", e)
     return NextResponse.json({ error: "Failed to create page" }, { status: 500 })
   }
 }
