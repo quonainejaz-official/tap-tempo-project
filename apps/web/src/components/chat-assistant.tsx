@@ -23,9 +23,13 @@ export default function ChatAssistant() {
   const [fabPos, setFabPos] = useState({ right: 24, bottom: 24 })
   const listRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const fabRef = useRef<HTMLButtonElement>(null)
-  const constraintsRef = useRef<HTMLDivElement>(null)
-  const isDragging = useRef(false)
+  const dragRef = useRef<{
+    startX: number
+    startY: number
+    startRight: number
+    startBottom: number
+    moved: boolean
+  } | null>(null)
 
   const fabSize = 56
   const panelGap = 16
@@ -42,14 +46,63 @@ export default function ChatAssistant() {
     }
   }, [open])
 
-  const handleDragEnd = () => {
-    if (fabRef.current) {
-      const r = fabRef.current.getBoundingClientRect()
-      setFabPos({
-        right: window.innerWidth - r.right,
-        bottom: window.innerHeight - r.bottom,
-      })
+  const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v))
+
+  const startDrag = (clientX: number, clientY: number) => {
+    dragRef.current = {
+      startX: clientX,
+      startY: clientY,
+      startRight: fabPos.right,
+      startBottom: fabPos.bottom,
+      moved: false,
     }
+  }
+
+  const moveDrag = (clientX: number, clientY: number) => {
+    if (!dragRef.current) return
+    const dx = dragRef.current.startX - clientX
+    const dy = dragRef.current.startY - clientY
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragRef.current.moved = true
+    const margin = 24
+    setFabPos({
+      right: clamp(dragRef.current.startRight + dx, 0, window.innerWidth - fabSize - margin),
+      bottom: clamp(dragRef.current.startBottom + dy, 0, window.innerHeight - fabSize - margin),
+    })
+  }
+
+  const endDrag = () => {
+    dragRef.current = null
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
+    startDrag(e.clientX, e.clientY)
+    const onMove = (ev: MouseEvent) => moveDrag(ev.clientX, ev.clientY)
+    const onUp = () => {
+      document.removeEventListener("mousemove", onMove)
+      document.removeEventListener("mouseup", onUp)
+      endDrag()
+    }
+    document.addEventListener("mousemove", onMove)
+    document.addEventListener("mouseup", onUp)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0]
+    startDrag(t.clientX, t.clientY)
+    const onMove = (ev: TouchEvent) => moveDrag(ev.touches[0].clientX, ev.touches[0].clientY)
+    const onEnd = () => {
+      document.removeEventListener("touchmove", onMove)
+      document.removeEventListener("touchend", onEnd)
+      endDrag()
+    }
+    document.addEventListener("touchmove", onMove, { passive: true })
+    document.addEventListener("touchend", onEnd)
+  }
+
+  const handleFabClick = () => {
+    if (dragRef.current?.moved) return
+    setOpen(!open)
   }
 
   const handleSend = async () => {
@@ -113,27 +166,17 @@ export default function ChatAssistant() {
 
   return (
     <>
-      <div ref={constraintsRef} className="pointer-events-none fixed inset-0 z-50" />
-
-      <motion.button
-        ref={fabRef}
-        drag
-        dragMomentum={false}
-        dragConstraints={constraintsRef}
-        dragElastic={0}
-        onDragStart={() => { isDragging.current = false }}
-        onDrag={() => { isDragging.current = true }}
-        onDragEnd={handleDragEnd}
-        onClick={() => {
-          if (!isDragging.current) setOpen(!open)
-        }}
+      <button
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+        onClick={handleFabClick}
         style={{
           position: "fixed",
           right: `${fabPos.right}px`,
           bottom: `${fabPos.bottom}px`,
           zIndex: 51,
         }}
-        className="flex h-14 w-14 cursor-grab items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-colors hover:bg-primary/90 active:cursor-grabbing"
+        className="flex h-14 w-14 cursor-grab items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-shadow hover:shadow-xl active:cursor-grabbing"
         aria-label="Toggle chat assistant"
       >
         <AnimatePresence mode="wait">
@@ -159,7 +202,7 @@ export default function ChatAssistant() {
             </motion.span>
           )}
         </AnimatePresence>
-      </motion.button>
+      </button>
 
       <AnimatePresence>
         {open && (
