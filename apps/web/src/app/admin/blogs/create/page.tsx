@@ -8,9 +8,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { RichEditor } from "@/components/rich-editor"
+import { AiContentGenerator } from "@/components/ai-content-generator"
+import { Sparkles, Pencil } from "lucide-react"
 
 export default function CreateBlogPage() {
   const router = useRouter()
+  const [mode, setMode] = useState<"select" | "manual" | "ai">("select")
   const [title, setTitle] = useState("")
   const [slug, setSlug] = useState("")
   const [content, setContent] = useState("")
@@ -76,6 +79,46 @@ export default function CreateBlogPage() {
       toast.error("Failed to create blog")
       setSaving(false)
     }
+  }
+
+  if (mode === "ai") {
+    return (
+      <div>
+        <h1 className="text-3xl font-serif font-bold mb-6">Create Blog</h1>
+        <AiContentGenerator
+          type="blog"
+          onContentGenerated={(generatedContent) => {
+            setContent(generatedContent)
+            setMode("manual")
+          }}
+          onBack={() => setMode("select")}
+        />
+      </div>
+    )
+  }
+
+  if (mode === "select") {
+    return (
+      <div>
+        <h1 className="text-3xl font-serif font-bold mb-6">Create Blog</h1>
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl">
+          <Card className="cursor-pointer hover:border-primary transition-colors" onClick={() => setMode("manual")}>
+            <CardContent className="pt-6 text-center space-y-3">
+              <Pencil className="h-10 w-10 mx-auto text-muted-foreground" />
+              <h3 className="text-lg font-semibold">Write Manually</h3>
+              <p className="text-sm text-muted-foreground">Use the rich text editor to write your blog post from scratch.</p>
+            </CardContent>
+          </Card>
+          <Card className="cursor-pointer hover:border-primary transition-colors" onClick={() => setMode("ai")}>
+            <CardContent className="pt-6 text-center space-y-3">
+              <Sparkles className="h-10 w-10 mx-auto text-primary" />
+              <h3 className="text-lg font-semibold">Generate with AI</h3>
+              <p className="text-sm text-muted-foreground">Describe what you want and let AI write it. You can edit later.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
   }
 
   return (
