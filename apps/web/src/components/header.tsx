@@ -5,9 +5,9 @@ import { ThemeToggle } from "./theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const links = [
+const defaultLinks = [
   { href: "/tap-tempo", label: "Tap Tempo" },
   { href: "/metronome", label: "Metronome" },
   { href: "/bpm-calculator", label: "Calculator" },
@@ -20,6 +20,25 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [navLinks, setNavLinks] = useState(defaultLinks)
+
+  useEffect(() => {
+    fetch("/api/navigation")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.items?.length) {
+          const sorted = data.items
+            .filter((i: any) => !i.parentId)
+            .sort((a: any, b: any) => a.order - b.order)
+            .map((i: any) => ({
+              href: i.href,
+              label: i.label,
+            }))
+          if (sorted.length) setNavLinks(sorted)
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -30,7 +49,7 @@ export function Header() {
 
         <div className="hidden md:flex flex-1 items-center justify-between space-x-2">
           <nav className="flex items-center space-x-6 text-sm font-medium">
-            {links.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -54,7 +73,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <nav className="flex flex-col space-y-4 mt-6">
-                {links.map((link) => (
+                {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}

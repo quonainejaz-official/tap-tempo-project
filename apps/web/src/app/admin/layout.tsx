@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
-import { FileText, Layout, LogOut, Pen, Newspaper } from "lucide-react"
+import { FileText, Layout, LogOut, Pen, Newspaper, Menu as MenuIcon } from "lucide-react"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
@@ -73,6 +73,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <FileText className="w-4 h-4" /> Pages
           </Link>
+          <Link
+            href="/admin/navigation"
+            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm hover:bg-accent transition-colors"
+          >
+            <MenuIcon className="w-4 h-4" /> Navigation
+          </Link>
+          <Link
+            href="/admin/footer-links"
+            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm hover:bg-accent transition-colors"
+          >
+            <MenuIcon className="w-4 h-4" /> Footer Links
+          </Link>
         </nav>
         <div className="p-3 border-t">
           <button
@@ -101,6 +113,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Link>
           <Link href="/admin/pages" className="text-xs text-muted-foreground hover:text-foreground">
             Pages
+          </Link>
+          <Link href="/admin/navigation" className="text-xs text-muted-foreground hover:text-foreground">
+            Nav
+          </Link>
+          <Link href="/admin/footer-links" className="text-xs text-muted-foreground hover:text-foreground">
+            Footer
           </Link>
           <button onClick={handleLogout} className="text-xs text-muted-foreground hover:text-foreground">
             Logout

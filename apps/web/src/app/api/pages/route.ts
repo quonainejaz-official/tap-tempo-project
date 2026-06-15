@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { ObjectId } from "mongodb"
 import { getCollection } from "@/lib/mongodb"
 import { revalidatePath } from "next/cache"
 
@@ -47,11 +48,39 @@ export async function POST(req: Request) {
       metaTitle: body.metaTitle || "",
       metaDescription: body.metaDescription || "",
       published: body.published ?? true,
+      allowHtml: body.allowHtml ?? false,
+      display: body.display || {},
       createdAt: now,
       updatedAt: now,
     }
 
     const result = await pages.insertOne(page)
+
+    if (body.display?.inNav) {
+      const nav = await getCollection("navigation")
+      await nav.insertOne({
+        label: body.display.navLabel || body.title,
+        href: `/${body.slug}`,
+        parentId: body.display.navParent || null,
+        order: body.display.navOrder ?? 0,
+        section: body.display.navSection || "",
+        createdAt: now,
+        updatedAt: now,
+      })
+    }
+
+    if (body.display?.inFooter) {
+      const fl = await getCollection("footer_links")
+      await fl.insertOne({
+        label: body.display.footerLabel || body.title,
+        href: `/${body.slug}`,
+        section: body.display.footerSection || "More",
+        order: body.display.footerOrder ?? 0,
+        createdAt: now,
+        updatedAt: now,
+      })
+    }
+
     revalidatePath(`/${body.slug}`)
     revalidatePath("/")
 

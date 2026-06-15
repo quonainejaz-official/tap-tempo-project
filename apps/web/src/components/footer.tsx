@@ -1,6 +1,60 @@
+"use client"
+
 import Link from "next/link"
+import { useEffect, useState } from "react"
+
+const defaultSections: Record<string, { href: string; label: string }[]> = {
+  Tools: [
+    { href: "/tap-tempo", label: "Tap Tempo" },
+    { href: "/metronome", label: "Metronome" },
+    { href: "/bpm-calculator", label: "BPM Calculator" },
+  ],
+  Reference: [
+    { href: "/bpm-to-ms", label: "BPM to ms" },
+    { href: "/delay-time-calculator", label: "Delay Time" },
+    { href: "/tempo-markings", label: "Tempo Markings" },
+    { href: "/beats-per-bar-calculator", label: "Beats Per Bar" },
+  ],
+  More: [
+    { href: "/blog", label: "Blog" },
+  ],
+}
 
 export function Footer() {
+  const [sections, setSections] = useState<Record<string, { href: string; label: string }[]>>(defaultSections)
+
+  useEffect(() => {
+    fetch("/api/footer-links")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.items?.length) {
+          const grouped: Record<string, { href: string; label: string }[]> = {}
+          for (const item of data.items.sort((a: any, b: any) => a.order - b.order)) {
+            const sec = item.section || "More"
+            if (!grouped[sec]) grouped[sec] = []
+            grouped[sec].push({ href: item.href, label: item.label })
+          }
+          // Merge with defaults: keep default links, add dynamic ones
+          const merged: Record<string, { href: string; label: string }[]> = {}
+          for (const key of Object.keys(defaultSections)) {
+            merged[key] = defaultSections[key]
+          }
+          for (const [key, links] of Object.entries(grouped)) {
+            if (!merged[key]) merged[key] = []
+            for (const link of links) {
+              if (!merged[key].some((l) => l.href === link.href)) {
+                merged[key].push(link)
+              }
+            }
+          }
+          setSections(merged)
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  const sectionKeys = Object.keys(sections)
+
   return (
     <footer className="border-t bg-black dark:bg-black text-white py-12">
       <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-start gap-8">
@@ -14,28 +68,30 @@ export function Footer() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          {sectionKeys.map((section) => (
+            <div key={section} className="flex flex-col space-y-2">
+              <span className="font-bold text-sm text-white/90 mb-2">{section}</span>
+              {sections[section].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-white/60 hover:text-white transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          ))}
           <div className="flex flex-col space-y-2">
-            <span className="font-bold text-sm text-white/90 mb-2">Tools</span>
-            <Link href="/tap-tempo" className="text-sm text-white/60 hover:text-white transition-colors">Tap Tempo</Link>
-            <Link href="/metronome" className="text-sm text-white/60 hover:text-white transition-colors">Metronome</Link>
-            <Link href="/bpm-calculator" className="text-sm text-white/60 hover:text-white transition-colors">BPM Calculator</Link>
-          </div>
-          <div className="flex flex-col space-y-2">
-            <span className="font-bold text-sm text-white/90 mb-2">Reference</span>
-            <Link href="/bpm-to-ms" className="text-sm text-white/60 hover:text-white transition-colors">BPM to ms</Link>
-            <Link href="/delay-time-calculator" className="text-sm text-white/60 hover:text-white transition-colors">Delay Time</Link>
-            <Link href="/tempo-markings" className="text-sm text-white/60 hover:text-white transition-colors">Tempo Markings</Link>
-            <Link href="/beats-per-bar-calculator" className="text-sm text-white/60 hover:text-white transition-colors">Beats Per Bar</Link>
-          </div>
-          <div className="flex flex-col space-y-2">
-            <span className="font-bold text-sm text-white/90 mb-2">More</span>
-            <Link href="/blog" className="text-sm text-white/60 hover:text-white transition-colors">Blog</Link>
-            <a href="mailto:taptempous@gmail.com" className="text-sm text-white/60 hover:text-white transition-colors">Contact</a>
+            <span className="font-bold text-sm text-white/90 mb-2">Contact</span>
+            <a href="mailto:taptempous@gmail.com" className="text-sm text-white/60 hover:text-white transition-colors">
+              Email Us
+            </a>
           </div>
         </div>
       </div>
       <div className="container mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-white/40">
-        <p>© {new Date().getFullYear()} TheTapTempo. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} TheTapTempo. All rights reserved.</p>
         <p>Built with precision.</p>
       </div>
     </footer>

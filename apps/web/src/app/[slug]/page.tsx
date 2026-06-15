@@ -61,10 +61,14 @@ export default async function DynamicPage({ params }: Props) {
         {page.title}
       </h1>
 
-      <div
-        className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary"
-        dangerouslySetInnerHTML={{ __html: page.content }}
-      />
+      {page.allowHtml ? (
+        <div dangerouslySetInnerHTML={{ __html: page.content }} />
+      ) : (
+        <div
+          className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary"
+          dangerouslySetInnerHTML={{ __html: page.content }}
+        />
+      )}
     </div>
   )
 }

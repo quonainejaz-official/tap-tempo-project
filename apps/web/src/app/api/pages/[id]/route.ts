@@ -24,18 +24,51 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const { id } = await params
     const body = await req.json()
     const pages = await getCollection("pages")
+    const now = new Date()
 
-    const update = {
+    const update: Record<string, any> = {
       title: body.title,
       slug: body.slug,
       content: body.content || "",
       metaTitle: body.metaTitle || "",
       metaDescription: body.metaDescription || "",
       published: body.published ?? true,
-      updatedAt: new Date(),
+      updatedAt: now,
     }
 
+    if (body.allowHtml !== undefined) update.allowHtml = body.allowHtml
+    if (body.display !== undefined) update.display = body.display
+
     await pages.updateOne({ _id: new ObjectId(id) }, { $set: update })
+
+    const nav = await getCollection("navigation")
+    const footer = await getCollection("footer_links")
+
+    await nav.deleteMany({ href: `/${body.slug}` })
+    await footer.deleteMany({ href: `/${body.slug}` })
+
+    if (body.display?.inNav) {
+      await nav.insertOne({
+        label: body.display.navLabel || body.title,
+        href: `/${body.slug}`,
+        parentId: body.display.navParent || null,
+        order: body.display.navOrder ?? 0,
+        section: body.display.navSection || "",
+        createdAt: now,
+        updatedAt: now,
+      })
+    }
+
+    if (body.display?.inFooter) {
+      await footer.insertOne({
+        label: body.display.footerLabel || body.title,
+        href: `/${body.slug}`,
+        section: body.display.footerSection || "More",
+        order: body.display.footerOrder ?? 0,
+        createdAt: now,
+        updatedAt: now,
+      })
+    }
 
     revalidatePath(`/${body.slug}`)
     revalidatePath("/")
@@ -57,6 +90,11 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     }
 
     await pages.deleteOne({ _id: new ObjectId(id) })
+
+    const nav = await getCollection("navigation")
+    const footer = await getCollection("footer_links")
+    await nav.deleteMany({ href: `/${page.slug}` })
+    await footer.deleteMany({ href: `/${page.slug}` })
 
     revalidatePath(`/${page.slug}`)
     revalidatePath("/")

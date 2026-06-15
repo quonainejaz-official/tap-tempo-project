@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { RichEditor } from "@/components/rich-editor"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function EditPagePage() {
   const { id } = useParams<{ id: string }>()
@@ -18,7 +20,18 @@ export default function EditPagePage() {
   const [content, setContent] = useState("")
   const [metaTitle, setMetaTitle] = useState("")
   const [metaDescription, setMetaDescription] = useState("")
+  const [allowHtml, setAllowHtml] = useState(false)
   const [saving, setSaving] = useState(false)
+
+  const [inNav, setInNav] = useState(false)
+  const [navLabel, setNavLabel] = useState("")
+  const [navParent, setNavParent] = useState("")
+  const [navItems, setNavItems] = useState<any[]>([])
+  const [footerSections, setFooterSections] = useState<string[]>(["Tools", "Reference", "More"])
+
+  const [inFooter, setInFooter] = useState(false)
+  const [footerLabel, setFooterLabel] = useState("")
+  const [footerSection, setFooterSection] = useState("More")
 
   useEffect(() => {
     fetch(`/api/pages/${id}`)
@@ -32,11 +45,24 @@ export default function EditPagePage() {
         setContent(data.content || "")
         setMetaTitle(data.metaTitle || "")
         setMetaDescription(data.metaDescription || "")
+        setAllowHtml(data.allowHtml ?? false)
+        setInNav(data.display?.inNav ?? false)
+        setNavLabel(data.display?.navLabel || "")
+        setNavParent(data.display?.navParent || "")
+        setInFooter(data.display?.inFooter ?? false)
+        setFooterLabel(data.display?.footerLabel || "")
+        setFooterSection(data.display?.footerSection || "More")
         setLoading(false)
       })
       .catch(() => {
         router.push("/admin/pages")
       })
+
+    fetch("/api/navigation").then((r) => r.json()).then((d) => setNavItems(d.items || [])).catch(() => {})
+    fetch("/api/footer-links").then((r) => r.json()).then((d) => {
+      const sections = [...new Set((d.items || []).map((i: any) => i.section as string))] as string[]
+      if (sections.length) setFooterSections(sections)
+    }).catch(() => {})
   }, [id, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,10 +79,20 @@ export default function EditPagePage() {
         metaTitle: metaTitle || title,
         metaDescription,
         published: true,
+        allowHtml,
+        display: {
+          inNav,
+          navLabel: navLabel || undefined,
+          navParent: navParent || undefined,
+          inFooter,
+          footerLabel: footerLabel || undefined,
+          footerSection: inFooter ? footerSection : undefined,
+        },
       }),
     })
 
     if (res.ok) {
+      toast.success("Page updated")
       router.push("/admin/pages")
     } else {
       toast.error("Failed to update page")
@@ -88,10 +124,84 @@ export default function EditPagePage() {
           </div>
         </div>
 
+        <div className="flex items-center gap-2">
+          <Checkbox id="allowHtml" checked={allowHtml} onCheckedChange={(v) => setAllowHtml(!!v)} />
+          <Label htmlFor="allowHtml">Allow raw HTML in content (renders as-is)</Label>
+        </div>
+
         <div>
           <Label>Content</Label>
           <RichEditor content={content} onChange={setContent} />
+          {allowHtml && (
+            <div className="mt-2">
+              <Label>Raw HTML (appended after editor content)</Label>
+              <textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="mt-1 w-full rounded-xl border bg-background p-3 font-mono text-sm min-h-[120px]"
+                placeholder="<div>Your custom HTML here...</div>"
+              />
+            </div>
+          )}
         </div>
+
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <h3 className="font-semibold">Display Options</h3>
+            <p className="text-sm text-muted-foreground">Choose where this page appears on the site.</p>
+
+            <div className="flex items-center gap-2">
+              <Checkbox id="inNav" checked={inNav} onCheckedChange={(v) => setInNav(!!v)} />
+              <Label htmlFor="inNav">Show in navigation menu</Label>
+            </div>
+
+            {inNav && (
+              <div className="ml-6 grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label>Nav Label (optional)</Label>
+                  <Input value={navLabel} onChange={(e) => setNavLabel(e.target.value)} placeholder="Defaults to page title" />
+                </div>
+                <div>
+                  <Label>Parent Item (optional)</Label>
+                  <Select value={navParent} onValueChange={setNavParent}>
+                    <SelectTrigger><SelectValue placeholder="Top-level" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value=" ">Top-level</SelectItem>
+                      {navItems.filter((i) => !i.parentId).map((i) => (
+                        <SelectItem key={i._id} value={i._id}>{i.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2 pt-2">
+              <Checkbox id="inFooter" checked={inFooter} onCheckedChange={(v) => setInFooter(!!v)} />
+              <Label htmlFor="inFooter">Show in footer</Label>
+            </div>
+
+            {inFooter && (
+              <div className="ml-6 grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label>Footer Label (optional)</Label>
+                  <Input value={footerLabel} onChange={(e) => setFooterLabel(e.target.value)} placeholder="Defaults to page title" />
+                </div>
+                <div>
+                  <Label>Footer Section</Label>
+                  <Select value={footerSection} onValueChange={setFooterSection}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {footerSections.map((s) => (
+                        <SelectItem key={s} value={s}>{s}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         <Card>
           <CardContent className="pt-6 space-y-4">
