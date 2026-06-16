@@ -260,7 +260,16 @@ export default function TapTempoPage() {
   }, [sleepState, tap])
 
   const handleTap = (method: "touch"|"keyboard"|"space") => {
-    if (sleepState === 'sleeping') return
+    // On touch, always process — no hover to wake up
+    if (method !== "touch" && sleepState === 'sleeping') {
+      wake()
+      return
+    }
+
+    if (sleepState === 'sleeping') {
+      wake()
+      return
+    }
 
     tap()
     setLastMethod(method)
@@ -450,9 +459,9 @@ export default function TapTempoPage() {
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden"
               >
-                <div className="border rounded-xl p-4 bg-card" style={{ height: 220 }}>
+                <div className="border rounded-xl p-4 bg-card min-h-[200px]">
                   <div className="text-sm font-medium mb-2">BPM per Tap</div>
-                  <div className="h-[168px] flex flex-col">
+                  <div className="h-[140px] sm:h-[168px] flex flex-col">
                     <TapGraph taps={taps} />
                   </div>
                 </div>

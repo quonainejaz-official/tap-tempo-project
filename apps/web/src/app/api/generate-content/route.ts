@@ -27,7 +27,33 @@ export async function POST(req: Request) {
 
   const text = response.choices?.[0]?.message?.content || ""
 
-  return Response.json({ content: text })
+  // Try to extract JSON from the response
+  try {
+    // Find JSON object in the response (in case there's extra text)
+    const jsonMatch = text.match(/\{[\s\S]*\}/)
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0])
+      return Response.json({
+        title: parsed.title || "",
+        slug: parsed.slug || "",
+        excerpt: parsed.excerpt || "",
+        metaTitle: parsed.metaTitle || "",
+        metaDescription: parsed.metaDescription || "",
+        content: parsed.content || "",
+      })
+    }
+  } catch {
+    // If JSON parsing fails, return the raw text as content
+  }
+
+  return Response.json({
+    title: "",
+    slug: "",
+    excerpt: "",
+    metaTitle: "",
+    metaDescription: "",
+    content: text,
+  })
 }
 
 function buildSystemPrompt(type: string, includeImages: boolean): string {
@@ -35,7 +61,7 @@ function buildSystemPrompt(type: string, includeImages: boolean): string {
     ? `INCLUDE IMAGES: Add relevant <img> tags with src="https://placehold.co/800x400/1a1a2e/ffffff?text=Descriptive+Alt+Text" and descriptive alt attributes. Use placehold.co URLs with relevant text.`
     : `NO IMAGES: Do NOT include any <img> tags. Focus purely on text content with headings, lists, and paragraphs.`
 
-  return `You are a content writer for TheTapTempo website — a BPM toolkit for musicians, producers & DJs.
+  const common = `You are a content writer for TheTapTempo website — a BPM toolkit for musicians, producers & DJs.
 
 ## WEBSITE THEME & STYLING
 - Font: Instrument Serif for headings (font-serif), DM Sans for body (font-sans), JetBrains Mono for code/data (font-mono)
@@ -45,41 +71,59 @@ function buildSystemPrompt(type: string, includeImages: boolean): string {
 
 ${imageInstruction}
 
-## CONTENT TYPE: ${type === "page" ? "PAGE" : "BLOG POST"}
+## SITE CONTEXT
+The website provides these tools: Tap Tempo (tap-based BPM calculation), Metronome (Web Audio), BPM Calculator, BPM to ms converter, Delay Time Calculator, Tempo Markings reference, Beats Per Bar visualizer.
+
+Any generated content should naturally fit alongside these tools — educate visitors on tempo, rhythm, and music production concepts while maintaining the site's authoritative but approachable voice.
+
+## OUTPUT FORMAT
+You MUST respond with a valid JSON object only (no markdown, no code fences, no extra text). Use this exact structure:
+
+${type === "page" ? JSON.stringify({
+  title: "Generated Page Title",
+  slug: "generated-page-slug",
+  metaTitle: "SEO Meta Title for the page",
+  metaDescription: "A brief SEO meta description for the page",
+  content: "<h1>Page Heading</h1><p>HTML content here...</p>"
+}, null, 2) : JSON.stringify({
+  title: "Generated Blog Post Title",
+  slug: "generated-blog-post-slug",
+  excerpt: "A brief excerpt/summary of the blog post (under 160 chars for SEO)",
+  metaTitle: "SEO Meta Title for the blog post",
+  metaDescription: "SEO Meta description for the blog post",
+  content: "<h1>Blog Post Heading</h1><p>HTML content here...</p>"
+}, null, 2)}
+
+## CONTENT RULES
 
 ${type === "page"
-  ? `Generate a complete page with:
+  ? `Generate page content with:
   - A main heading (h1) describing the topic
   - Well-structured sections with h2/h3 subheadings
   - Paragraphs, lists (ul/ol) where appropriate
   - A clean conclusion section
-  - Keep tone informative and professional
-  - Output pure HTML that would work inside a TipTap rich editor (use <h1>, <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <pre><code>, <strong>, <em>, <hr> tags)
-  - Do NOT use html, head, body, or doctype tags
-  - Do NOT wrap in markdown code blocks — output raw HTML only`
-  : `Generate a complete blog post with:
+  - Keep tone informative and professional`
+  : `Generate blog post content with:
   - A compelling introductory paragraph setting up the topic
   - Multiple sections with h2/h3 subheadings exploring the topic in depth
   - Bullet or numbered lists where listing concepts or steps
   - A concluding section wrapping up key takeaways
   - SEO-optimized: use natural keyword placement related to BPM/tempo/music production
   - Keep tone educational but accessible to musicians of all levels
-  - Output pure HTML that would work inside a TipTap rich editor (use <h1>, <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <pre><code>, <strong>, <em>, <hr> tags)
-  - Do NOT use html, head, body, or doctype tags
-  - Do NOT wrap in markdown code blocks — output raw HTML only
   - Aim for 800-1500 words of substantive content`
 }
 
-## SITE CONTEXT
-The website provides these tools: Tap Tempo (tap-based BPM calculation), Metronome (Web Audio), BPM Calculator, BPM to ms converter, Delay Time Calculator, Tempo Markings reference, Beats Per Bar visualizer.
-
-Any generated content should naturally fit alongside these tools — educate visitors on tempo, rhythm, and music production concepts while maintaining the site's authoritative but approachable voice.
-
-## FORMAT RULES
-- Output ONLY the HTML content — no explanations, no markdown wrappers, no code fences
-- First line should be an <h1> or <h2> heading
+## HTML FORMAT RULES
+- Use only: <h1>, <h2>, <h3>, <p>, <ul>, <ol>, <li>, <blockquote>, <pre><code>, <strong>, <em>, <hr>, <img> tags
+- Do NOT use html, head, body, or doctype tags
 - Use consistent heading hierarchy (don't skip levels)
-- Keep paragraphs reasonably sized (3-5 sentences max)
+- Keep paragraphs 3-5 sentences max
 - Use <strong> for emphasis, <em> for italic, never use inline styles
-- Lists should have meaningful content in each item`
+- Lists should have meaningful content in each item
+- For slug: derive from title — lowercase, replace spaces/special chars with hyphens, remove leading/trailing hyphens
+- For excerpt: write a compelling 1-2 sentence summary under 160 characters
+- For metaTitle: keep under 60 characters, include relevant keywords
+- For metaDescription: keep under 160 characters, summarize what the content covers`
+
+  return common
 }

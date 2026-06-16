@@ -4,12 +4,22 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { Loader2, Sparkles, RotateCcw, Eye, PencilLine, ImageOff, Image } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+interface AiContentResult {
+  title: string
+  slug: string
+  excerpt: string
+  metaTitle: string
+  metaDescription: string
+  content: string
+}
+
 interface AiContentGeneratorProps {
   type: "blog" | "page"
-  onContentGenerated: (content: string) => void
+  onContentGenerated: (result: AiContentResult) => void
   onBack: () => void
 }
 
@@ -17,13 +27,13 @@ export function AiContentGenerator({ type, onContentGenerated, onBack }: AiConte
   const [prompt, setPrompt] = useState("")
   const [includeImages, setIncludeImages] = useState(false)
   const [generating, setGenerating] = useState(false)
-  const [generatedContent, setGeneratedContent] = useState("")
+  const [result, setResult] = useState<AiContentResult | null>(null)
   const [previewTab, setPreviewTab] = useState<"preview" | "raw">("preview")
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return
     setGenerating(true)
-    setGeneratedContent("")
+    setResult(null)
     try {
       const res = await fetch("/api/generate-content", {
         method: "POST",
@@ -31,20 +41,30 @@ export function AiContentGenerator({ type, onContentGenerated, onBack }: AiConte
         body: JSON.stringify({ prompt, type, includeImages }),
       })
       const data = await res.json()
-      if (data.content) {
-        setGeneratedContent(data.content)
-      } else {
-        setGeneratedContent("<p>Failed to generate content. Please try again.</p>")
-      }
+      setResult({
+        title: data.title || "",
+        slug: data.slug || "",
+        excerpt: data.excerpt || "",
+        metaTitle: data.metaTitle || "",
+        metaDescription: data.metaDescription || "",
+        content: data.content || "<p>Failed to generate content. Please try again.</p>",
+      })
     } catch {
-      setGeneratedContent("<p>An error occurred. Please try again.</p>")
+      setResult({
+        title: "",
+        slug: "",
+        excerpt: "",
+        metaTitle: "",
+        metaDescription: "",
+        content: "<p>An error occurred. Please try again.</p>",
+      })
     } finally {
       setGenerating(false)
     }
   }
 
   const handleEditInEditor = () => {
-    onContentGenerated(generatedContent)
+    if (result) onContentGenerated(result)
   }
 
   return (
@@ -111,7 +131,7 @@ export function AiContentGenerator({ type, onContentGenerated, onBack }: AiConte
         </CardContent>
       </Card>
 
-      {generatedContent && (
+      {result && (
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -128,14 +148,25 @@ export function AiContentGenerator({ type, onContentGenerated, onBack }: AiConte
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Show generated metadata */}
+            {result.title && (
+              <div className="text-sm text-muted-foreground space-y-1 pb-3 border-b">
+                <div><span className="font-medium text-foreground">Title:</span> {result.title}</div>
+                <div><span className="font-medium text-foreground">Slug:</span> {result.slug}</div>
+                {result.excerpt && <div><span className="font-medium text-foreground">Excerpt:</span> {result.excerpt}</div>}
+                {result.metaTitle && <div><span className="font-medium text-foreground">Meta Title:</span> {result.metaTitle}</div>}
+                {result.metaDescription && <div><span className="font-medium text-foreground">Meta Description:</span> {result.metaDescription}</div>}
+              </div>
+            )}
+
             {previewTab === "preview" ? (
               <div
-                className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary border rounded-xl p-4 max-h-[500px] overflow-y-auto"
-                dangerouslySetInnerHTML={{ __html: generatedContent }}
+                className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary border rounded-xl p-4 max-h-[400px] overflow-y-auto"
+                dangerouslySetInnerHTML={{ __html: result.content }}
               />
             ) : (
-              <pre className="bg-muted rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto whitespace-pre-wrap">
-                {generatedContent}
+              <pre className="bg-muted rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap">
+                {result.content}
               </pre>
             )}
 

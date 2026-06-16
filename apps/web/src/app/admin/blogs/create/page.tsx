@@ -87,9 +87,15 @@ export default function CreateBlogPage() {
         <h1 className="text-3xl font-serif font-bold mb-6">Create Blog</h1>
         <AiContentGenerator
           type="blog"
-          onContentGenerated={(generatedContent) => {
-            setContent(generatedContent)
+          onContentGenerated={(result) => {
+            if (result.title) setTitle(result.title)
+            if (result.slug) setSlug(result.slug)
+            if (result.excerpt) setExcerpt(result.excerpt)
+            if (result.metaTitle) setMetaTitle(result.metaTitle)
+            if (result.metaDescription) setMetaDescription(result.metaDescription)
+            if (result.content) setContent(result.content)
             setMode("manual")
+            toast.success("AI content loaded — review and publish")
           }}
           onBack={() => setMode("select")}
         />
