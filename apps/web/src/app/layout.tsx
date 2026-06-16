@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { ThemeProvider } from "@/lib/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Layout } from "@/components/layout"
 import ChatAssistant from "@/components/chat-assistant"
+import { NProgressProvider } from "@/components/nprogress-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
@@ -52,6 +54,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <Suspense fallback={null}>
+          <NProgressProvider />
+        </Suspense>
         <ThemeProvider>
           <TooltipProvider>
             <Layout>{children}</Layout>
