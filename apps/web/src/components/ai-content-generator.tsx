@@ -41,22 +41,29 @@ export function AiContentGenerator({ type, onContentGenerated, onBack }: AiConte
         body: JSON.stringify({ prompt, type, includeImages }),
       })
       const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.error || `Server error ${res.status}`)
+      }
       setResult({
         title: data.title || "",
         slug: data.slug || "",
         excerpt: data.excerpt || "",
         metaTitle: data.metaTitle || "",
         metaDescription: data.metaDescription || "",
-        content: data.content || "<p>Failed to generate content. Please try again.</p>",
+        content: data.content || "",
       })
-    } catch {
+      if (!data.content) {
+        throw new Error("AI returned empty content")
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "An error occurred"
       setResult({
         title: "",
         slug: "",
         excerpt: "",
         metaTitle: "",
         metaDescription: "",
-        content: "<p>An error occurred. Please try again.</p>",
+        content: `<p class="text-destructive">Failed to generate: ${msg}</p>`,
       })
     } finally {
       setGenerating(false)
