@@ -67,7 +67,7 @@ function MistakeCard({ num, title, desc, fix }: { num: number; title: string; de
   )
 }
 
-function TipCard({ icon: Icon, title, desc }: { icon: React.ElementType; title: string; desc: string }) {
+function TipCard({ icon: Icon, title, desc }: { icon: React.ElementType; title: string; desc: string | React.ReactNode }) {
   return (
     <div className="p-4 rounded-xl border bg-card/50 space-y-2">
       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -127,8 +127,8 @@ export function SeoContent() {
         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
           <p>
             Ever heard a song and wondered exactly how fast the beat is? Finding its precise tempo is easier than you think.
-            Maybe you want to sample it, mix it into a DJ set, build a running playlist, or practice it with an <Link href="/metronome" className="text-primary hover:underline font-medium">online metronome</Link>.
-            But how do you find that number quickly and accurately? The answer is simpler than you think: <strong className="text-foreground">you tap</strong>.
+            Maybe you want to sample it, mix it into a DJ set, build a running playlist, or practice it with an <Link href="/metronome" className="text-primary hover:underline font-bold">online metronome</Link>.
+            But how do you find that number quickly and accurately? The answer is simpler than you think: you tap.
           </p>
           <p>
             A BPM tapper (also called a tap tempo tool, BPM counter, or beat counter) lets you extract the beats‑per‑minute
@@ -177,13 +177,12 @@ export function SeoContent() {
       {/* Core Concepts */}
       <Collapsible title="Core Concepts: BPM, Tempo, and How Tap Tempo Really Works" defaultOpen>
         <p>
-          Before you tap, it helps to understand what you&apos;re measuring. <strong className="text-foreground">Tempo</strong> is
-          simply the speed of a piece of music — how fast the underlying pulse moves. We measure it in <strong className="text-foreground">BPM
-          (beats per minute)</strong>. If a song has a tempo of 120 BPM, you&apos;ll hear 120 quarter‑note beats every minute. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-medium">BPM Calculator</Link> for advanced tempo conversions.
+          Before you tap, it helps to understand what you&apos;re measuring. Tempo is simply the speed of a piece of music, how fast the underlying pulse moves. We measure it in BPM
+          (beats per minute). If a song has a tempo of 120 BPM, you&apos;ll hear 120 quarter‑note beats every minute. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
         </p>
         <p>
-            It&apos;s vital not to confuse tempo with time signature. Check our <Link href="/beats-per-bar" className="text-primary hover:underline font-medium">Beats Per Bar Guide</Link> to understand how measures work. A song in 4/4 time has four quarter‑note beats per measure,
-          but a waltz in 3/4 time still has a measurable BPM — the speed of those three beats. A BPM tapper doesn&apos;t care
+            It&apos;s vital not to confuse tempo with time signature. Check our <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">Beats Per Bar Guide</Link> to understand how measures work. A song in 4/4 time has four quarter‑note beats per measure,
+                      but a waltz in 3/4 time still has a measurable BPM, the speed of those three beats. A BPM tapper doesn&apos;t care
           about the time signature; it only listens to the timing of your taps.
         </p>
         <p>
@@ -204,12 +203,12 @@ export function SeoContent() {
           Here&apos;s the exact workflow we recommend after years of testing with musicians, producers, and students.
         </p>
         <div className="space-y-3">
-          <StepCard num={1} title="Start your song" desc="Play the track from any source — Spotify, a DAW session, a YouTube video, or even a vinyl record. Place yourself in a quiet enough environment to focus on the percussion." />
+          <StepCard num={1} title="Start your song" desc="Play the track from any source, Spotify, a DAW session, a YouTube video, or even a vinyl record. Place yourself in a quiet enough environment to focus on the percussion." />
           <StepCard num={2} title="Tap the beat, not the melody" desc="Identify the core pulse. In most popular music, the kick drum and snare provide the strongest reference. For classical or ambient pieces without drums, listen for the rhythmic phrasing of the melody itself." />
           <StepCard num={3} title="Keep tapping until the number stabilizes" desc="BPM readings typically settle within ±1 BPM after 8–12 consistent taps on songs with a steady tempo, while live recordings often required additional taps for a stable average." />
           <StepCard num={4} title="Interpret your result" desc="The large number you see is your average BPM. If you tapped exactly on every quarter note, that&apos;s the song&apos;s tempo. Hit the reset button to clear the memory and start fresh." />
-          <StepCard num={5} title="Apply the BPM immediately" desc={<>Enter it into your metronome, set your DAW to that BPM, align the beat grid in DJ software, or use our <Link href="/bpm-to-ms" className="text-primary hover:underline font-medium">BPM to Milliseconds Calculator</Link> for exact delay timing.</>} />
-          <p className="text-xs text-muted-foreground">Try the <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">Delay Time Calculator</Link> for precise pedal and effect settings.</p>
+          <StepCard num={5} title="Apply the BPM immediately" desc={<>Enter it into your metronome, set your DAW to that BPM, align the beat grid in DJ software, or use our <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">BPM to Milliseconds Calculator</Link> for exact delay timing.</>} />
+          <p className="text-xs text-muted-foreground">Try the <Link href="/delay-time-calculator" className="text-primary hover:underline font-bold">Delay Time Calculator</Link> for precise pedal and effect settings.</p>
         </div>
       </section>
 
@@ -219,8 +218,8 @@ export function SeoContent() {
           Tools &amp; Resources to Level Up Your Tempo Game
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <TipCard icon={Disc3} title="Interactive Tool" desc="Works offline once loaded. No data is ever sent to a server — all timing calculations happen locally on your device." />
-          <Link href="/tempo-markings" className="block"><TipCard icon={BookOpen} title="BPM &amp; Genre Chart" desc="Download a printable PDF mapping common genres to their typical BPM ranges (Hip-Hop: 80–110, House: 120–130, D&amp;B: 160–180). Also includes a guide to classical tempo markings." /></Link>
+          <TipCard icon={Disc3} title="Interactive Tool" desc="Works offline once loaded. No data is ever sent to a server, all timing calculations happen locally on your device." />
+          <TipCard icon={BookOpen} title="BPM &amp; Genre Chart" desc={<>Download a printable PDF mapping common genres to their typical BPM ranges (Hip-Hop: 80–110, House: 120–130, D&amp;B: 160–180). Also includes a guide to classical tempo <Link href="/tempo-markings" className="text-primary hover:underline font-bold">Markings</Link>.</>} />
           <TipCard icon={Headphones} title="DAW Quick-Reference" desc="Shortcuts for setting project tempo in Ableton Live, FL Studio, Cubase, and Logic Pro." />
           <TipCard icon={Music} title="Metronome Apps" desc="A curated list of the best free metronome apps that accept manual BPM input." />
           <TipCard icon={Guitar} title="BPM-to-Milliseconds" desc="Enter your song&apos;s BPM and get the delay time for quarter-note, dotted-eighth, or triplet repeat." />
@@ -351,7 +350,7 @@ export function SeoContent() {
 
       {/* Editorial Note */}
       <p className="text-xs text-muted-foreground border-t pt-4">
-        <strong className="text-foreground">Editorial Note:</strong> This guide was reviewed by musicians, producers,
+        Editorial Note: This guide was reviewed by musicians, producers,
         and audio enthusiasts familiar with tempo detection, metronome practice, digital audio workstations, and
         rhythm‑based performance workflows. Our goal is to provide accurate, practical, and easy‑to‑understand
         guidance for musicians at every skill level.
