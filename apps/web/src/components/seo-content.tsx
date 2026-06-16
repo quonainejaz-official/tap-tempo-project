@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, CheckCircle2, AlertTriangle, Music, Headphones, Dumbbell, Gamepad2, Guitar, Disc3, BookOpen, ExternalLink } from "lucide-react"
+import { ChevronDown, CheckCircle2, AlertTriangle, Music, Headphones, Dumbbell, Gamepad2, Guitar, Disc3, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 function Collapsible({ title, children, defaultOpen = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
@@ -79,7 +79,7 @@ function TipCard({ icon: Icon, title, desc }: { icon: React.ElementType; title: 
   )
 }
 
-function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
+function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="border-b last:border-b-0">
@@ -127,17 +127,17 @@ export function SeoContent() {
         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
           <p>
             Ever heard a song and wondered exactly how fast the beat is? Finding its precise tempo is easier than you think.
-            Maybe you want to sample it, mix it into a DJ set, build a running playlist, or practice it with a <Link href="/metronome" className="text-primary hover:underline font-medium">metronome</Link>.
+            Maybe you want to sample it, mix it into a DJ set, build a running playlist, or practice it with an <Link href="/metronome" className="text-primary hover:underline font-medium">online metronome</Link>.
             But how do you find that number quickly and accurately? The answer is simpler than you think: <strong className="text-foreground">you tap</strong>.
           </p>
           <p>
-            A <Link href="/bpm-calculator" className="text-primary hover:underline font-medium">BPM tapper</Link> (also called a tap tempo tool, BPM counter, or beat counter) lets you extract the beats‑per‑minute
+            A BPM tapper (also called a tap tempo tool, BPM counter, or beat counter) lets you extract the beats‑per‑minute
             of any track just by clicking along with the rhythm. No expensive software, no audio analysis, just your ears and a finger.
           </p>
           <p>
             But here&apos;s the problem. Most tap tempo tools are painfully basic. They give you a number, and that&apos;s it.
             They don&apos;t tell you if it&apos;s accurate, how to apply it, why the number might jump around, or what to do
-            with a song that changes tempo. They ignore the needs of guitarists setting <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">delay pedals</Link>, classical musicians
+            with a song that changes tempo. They ignore the needs of guitarists setting delay pedals, classical musicians
             deciphering Andante, runners curating BPM‑matched playlists, and producers who need to map a live drummer&apos;s
             fluctuating groove. And almost none of them are backed by real musical expertise.
           </p>
@@ -159,7 +159,7 @@ export function SeoContent() {
         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
           <p>
             Without an accurate tempo reference, things fall apart fast. A DJ transition that should feel seamless
-            suddenly sounds like two songs fighting each other. A <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">guitar delay pedal</Link> set by ear clouds the mix instead
+            suddenly sounds like two songs fighting each other. A guitar delay pedal set by ear clouds the mix instead
             of thickening it. A DAW loop imported from a vinyl rip refuses to sync, no matter how many grid adjustments
             you make. And that workout playlist you spent hours building? It pushes you to sprint during what was supposed
             to be a warmup.
@@ -179,10 +179,10 @@ export function SeoContent() {
         <p>
           Before you tap, it helps to understand what you&apos;re measuring. <strong className="text-foreground">Tempo</strong> is
           simply the speed of a piece of music — how fast the underlying pulse moves. We measure it in <strong className="text-foreground">BPM
-          (beats per minute)</strong>. If a song has a tempo of 120 BPM, you&apos;ll hear 120 quarter‑note beats every minute.
+          (beats per minute)</strong>. If a song has a tempo of 120 BPM, you&apos;ll hear 120 quarter‑note beats every minute. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-medium">BPM Calculator</Link> for advanced tempo conversions.
         </p>
         <p>
-          It&apos;s vital not to confuse tempo with time signature. A song in 4/4 time has four quarter‑note beats per measure,
+            It&apos;s vital not to confuse tempo with time signature. Check our <Link href="/beats-per-bar" className="text-primary hover:underline font-medium">Beats Per Bar Guide</Link> to understand how measures work. A song in 4/4 time has four quarter‑note beats per measure,
           but a waltz in 3/4 time still has a measurable BPM — the speed of those three beats. A BPM tapper doesn&apos;t care
           about the time signature; it only listens to the timing of your taps.
         </p>
@@ -208,7 +208,8 @@ export function SeoContent() {
           <StepCard num={2} title="Tap the beat, not the melody" desc="Identify the core pulse. In most popular music, the kick drum and snare provide the strongest reference. For classical or ambient pieces without drums, listen for the rhythmic phrasing of the melody itself." />
           <StepCard num={3} title="Keep tapping until the number stabilizes" desc="BPM readings typically settle within ±1 BPM after 8–12 consistent taps on songs with a steady tempo, while live recordings often required additional taps for a stable average." />
           <StepCard num={4} title="Interpret your result" desc="The large number you see is your average BPM. If you tapped exactly on every quarter note, that&apos;s the song&apos;s tempo. Hit the reset button to clear the memory and start fresh." />
-          <StepCard num={5} title="Apply the BPM immediately" desc={<>Enter it into your metronome, set your DAW to that BPM, align the beat grid in DJ software, determine <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">delay time</Link> for a guitar pedal, or check which genre your song matches.</>} />
+          <StepCard num={5} title="Apply the BPM immediately" desc={<>Enter it into your metronome, set your DAW to that BPM, align the beat grid in DJ software, or use our <Link href="/bpm-to-ms" className="text-primary hover:underline font-medium">BPM to Milliseconds Calculator</Link> for exact delay timing.</>} />
+          <p className="text-xs text-muted-foreground">Try the <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">Delay Time Calculator</Link> for precise pedal and effect settings.</p>
         </div>
       </section>
 
@@ -219,10 +220,10 @@ export function SeoContent() {
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <TipCard icon={Disc3} title="Interactive Tool" desc="Works offline once loaded. No data is ever sent to a server — all timing calculations happen locally on your device." />
-          <TipCard icon={BookOpen} title="BPM &amp; Genre Chart" desc="Download a printable PDF mapping common genres to their typical BPM ranges (Hip-Hop: 80–110, House: 120–130, D&amp;B: 160–180)." />
+          <Link href="/tempo-markings" className="block"><TipCard icon={BookOpen} title="BPM &amp; Genre Chart" desc="Download a printable PDF mapping common genres to their typical BPM ranges (Hip-Hop: 80–110, House: 120–130, D&amp;B: 160–180). Also includes a guide to classical tempo markings." /></Link>
           <TipCard icon={Headphones} title="DAW Quick-Reference" desc="Shortcuts for setting project tempo in Ableton Live, FL Studio, Cubase, and Logic Pro." />
-          <Link href="/metronome" className="block"><TipCard icon={Music} title="Metronome Apps" desc="A curated list of the best free metronome apps that accept manual BPM input." /></Link>
-          <Link href="/bpm-to-ms" className="block"><TipCard icon={Guitar} title="BPM-to-Milliseconds" desc="Enter your song&apos;s BPM and get the delay time for quarter-note, dotted-eighth, or triplet repeat." /></Link>
+          <TipCard icon={Music} title="Metronome Apps" desc="A curated list of the best free metronome apps that accept manual BPM input." />
+          <TipCard icon={Guitar} title="BPM-to-Milliseconds" desc="Enter your song&apos;s BPM and get the delay time for quarter-note, dotted-eighth, or triplet repeat." />
         </div>
       </section>
 
@@ -256,7 +257,7 @@ export function SeoContent() {
           </div>
           <div className="space-y-2">
             <h4 className="font-semibold text-foreground text-sm">For Guitarists: Tap Tempo Delay Sync</h4>
-            <p>Find the song&apos;s BPM with our tapper, then <Link href="/bpm-to-ms" className="text-primary hover:underline font-medium">convert it to milliseconds</Link>. For a quarter‑note repeat at 120 BPM, set your delay to 500 ms. Dotted‑eighth? Multiply by 0.75. This technique instantly transforms your <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">delay effects</Link> from muddy to studio‑tight.</p>
+            <p>Find the song&apos;s BPM with our tapper, then convert it to milliseconds. For a quarter‑note repeat at 120 BPM, set your delay to 500 ms. Dotted‑eighth? Multiply by 0.75. This technique instantly transforms your delay effects from muddy to studio‑tight.</p>
           </div>
           <div className="space-y-2">
             <h4 className="font-semibold text-foreground text-sm">For Fitness: BPM-Powered Workouts</h4>
@@ -315,7 +316,7 @@ export function SeoContent() {
           </p>
           <p>
             Tap the button below right now with your favorite song. Watch the number lock in, note the BPM, and then
-            immediately put it to use. Set your metronome to that tempo and practice your <Link href="/scale-finder" className="text-primary hover:underline font-medium">scales</Link>. Drop the BPM into
+            immediately put it to use. Set your metronome to that tempo and practice your scales. Drop the BPM into
             your DAW and lay down a perfect loop. Build that long‑run playlist that feels like a personal trainer in
             your ears. Every time you use this tool, you&apos;re sharpening your internal clock and making music that simply works.
           </p>
@@ -339,12 +340,12 @@ export function SeoContent() {
         </h2>
         <div className="rounded-xl border divide-y">
           <FaqItem q="How does a BPM tapper work?" a="It measures the time in milliseconds between your taps, averages several recent intervals, and converts that to beats per minute using the formula BPM = 60,000 / average interval (ms)." />
-          <FaqItem q="Is an online tap tempo accurate enough for professional use?" a={<>Yes, absolutely. The accuracy depends on the consistency of your tapping, not the tool. Our tapper averages up to 16 taps and remains sample‑accurate. For tasks like setting a DAW tempo or a <Link href="/delay-time-calculator" className="text-primary hover:underline font-medium">guitar delay pedal</Link>, it&apos;s completely reliable.</>} />
+          <FaqItem q="Is an online tap tempo accurate enough for professional use?" a="Yes, absolutely. The accuracy depends on the consistency of your tapping, not the tool. Our tapper averages up to 16 taps and remains sample‑accurate. For tasks like setting a DAW tempo or a guitar delay pedal, it&apos;s completely reliable." />
           <FaqItem q="How many taps do I need to get a reliable BPM?" a="Eight to twelve taps will give you a stable average with less than ±1 BPM variance for most users. Fewer than five taps will produce unreliable, jumpy results." />
           <FaqItem q="Why does the BPM number jump around when I tap?" a="That's the tool reacting to your natural timing variance. No human taps like a machine. The display settles as the averaging window fills with consistent data. If it never settles, you're likely not locking onto the true beat." />
           <FaqItem q="What if the song changes tempo?" a="Tap the sections you're interested in separately, resetting in between. For a full tempo analysis of a variable‑tempo track, you'll need to use DAW‑based tempo mapping. Our tool can still give you the BPM of each distinct section." />
           <FaqItem q="Can I use the BPM tapper offline?" a="Yes. Once our page is loaded, the tool works entirely in your browser without an internet connection. You can use it on a plane, in a remote studio, or backstage before a performance." />
-          <FaqItem q="What&apos;s the difference between a BPM tapper and a metronome?" a={<>A tapper measures tempo from an external source, while a metronome produces a steady click at a set tempo. They are complementary: you use the tapper to find the BPM, then set your <Link href="/metronome" className="text-primary hover:underline font-medium">metronome</Link> to that number for practice.</>} />
+          <FaqItem q="What&apos;s the difference between a BPM tapper and a metronome?" a="A tapper measures tempo from an external source, while a metronome produces a steady click at a set tempo. They are complementary: you use the tapper to find the BPM, then set your metronome to that number for practice." />
         </div>
       </section>
 
