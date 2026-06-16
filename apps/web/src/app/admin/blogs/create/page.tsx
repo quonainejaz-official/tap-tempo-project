@@ -106,7 +106,10 @@ export default function CreateBlogPage() {
   if (mode === "select") {
     return (
       <div>
-        <h1 className="text-3xl font-serif font-bold mb-6">Create Blog</h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-serif font-bold">Create Blog</h1>
+          <Button variant="outline" onClick={() => router.push("/admin/blogs")}>Back</Button>
+        </div>
         <div className="grid md:grid-cols-2 gap-6 max-w-2xl">
           <Card className="cursor-pointer hover:border-primary transition-colors" onClick={() => setMode("manual")}>
             <CardContent className="pt-6 text-center space-y-3">
@@ -196,10 +199,15 @@ export default function CreateBlogPage() {
         </Card>
 
         <div className="flex gap-4">
-          <Button type="submit" disabled={saving}>
-            {saving ? "Publishing..." : "Publish Blog"}
-          </Button>
-          <Button type="button" variant="outline" onClick={() => router.push("/admin/blogs")}>
+          <div className="flex gap-2">
+            <Button type="submit" disabled={saving}>
+              {saving ? "Publishing..." : "Publish Blog"}
+            </Button>
+            <Button type="button" variant="outline" onClick={() => setMode("select")}>
+              Change Method
+            </Button>
+          </div>
+          <Button type="button" variant="ghost" onClick={() => router.push("/admin/blogs")}>
             Cancel
           </Button>
         </div>
