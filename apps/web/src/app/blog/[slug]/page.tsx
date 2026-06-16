@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <article className="min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 max-w-3xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 max-w-5xl">
         <Link
           href="/blog"
           className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-10 transition-colors"
