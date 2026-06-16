@@ -503,28 +503,6 @@ export default function TapTempoPage() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* How It Works */}
-      <section className="mt-12 rounded-xl border bg-muted/30 p-6">
-        <h3 className="font-serif font-bold text-xl mb-4">How it works</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          Our tap tempo algorithm uses a rolling weighted average of your last 8 taps. Recent taps are weighted more heavily, and severe outliers are automatically ignored to give you the most accurate BPM quickly.
-        </p>
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-muted-foreground">Shortcuts</span>
-            <span>Space / Enter</span>
-          </div>
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-muted-foreground">Min Taps</span>
-            <span>2</span>
-          </div>
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-muted-foreground">Auto-reset</span>
-            <span>3 seconds</span>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
