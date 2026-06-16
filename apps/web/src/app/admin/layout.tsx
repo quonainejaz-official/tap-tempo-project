@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
-import { FileText, Layout, LogOut, Pen, Newspaper, Menu as MenuIcon } from "lucide-react"
+import { FileText, Layout, LogOut, Pen, Newspaper, Menu as MenuIcon, BarChart2, Activity } from "lucide-react"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
@@ -85,6 +85,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <MenuIcon className="w-4 h-4" /> Footer Links
           </Link>
+          <Link
+            href="/admin/analytics"
+            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm hover:bg-accent transition-colors"
+          >
+            <BarChart2 className="w-4 h-4" /> Analytics
+          </Link>
+          <Link
+            href="/admin/logs"
+            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm hover:bg-accent transition-colors"
+          >
+            <Activity className="w-4 h-4" /> Logs
+          </Link>
         </nav>
         <div className="p-3 border-t">
           <button
@@ -119,6 +131,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Link>
           <Link href="/admin/footer-links" className="text-xs text-muted-foreground hover:text-foreground">
             Footer
+          </Link>
+          <Link href="/admin/analytics" className="text-xs text-muted-foreground hover:text-foreground">
+            Analytics
+          </Link>
+          <Link href="/admin/logs" className="text-xs text-muted-foreground hover:text-foreground">
+            Logs
           </Link>
           <button onClick={handleLogout} className="text-xs text-muted-foreground hover:text-foreground">
             Logout
