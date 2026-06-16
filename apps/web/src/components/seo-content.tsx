@@ -131,7 +131,7 @@ export function SeoContent() {
             But how do you find that number quickly and accurately? The answer is simpler than you think: <strong className="text-foreground">you tap</strong>.
           </p>
           <p>
-            A <Link href="/bpm-calculator" className="text-primary hover:underline font-medium">BPM tapper</Link> (also called a tap tempo tool, <Link href="/bpm-calculator" className="text-primary hover:underline font-medium">BPM counter</Link>, or beat counter) lets you extract the beats‑per‑minute
+            A <Link href="/bpm-calculator" className="text-primary hover:underline font-medium">BPM tapper</Link> (also called a tap tempo tool, BPM counter, or beat counter) lets you extract the beats‑per‑minute
             of any track just by clicking along with the rhythm. No expensive software, no audio analysis, just your ears and a finger.
           </p>
           <p>
@@ -219,7 +219,7 @@ export function SeoContent() {
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <TipCard icon={Disc3} title="Interactive Tool" desc="Works offline once loaded. No data is ever sent to a server — all timing calculations happen locally on your device." />
-          <Link href="/bpm-calculator" className="block"><TipCard icon={BookOpen} title="BPM &amp; Genre Chart" desc="Download a printable PDF mapping common genres to their typical BPM ranges (Hip-Hop: 80–110, House: 120–130, D&amp;B: 160–180)." /></Link>
+          <TipCard icon={BookOpen} title="BPM &amp; Genre Chart" desc="Download a printable PDF mapping common genres to their typical BPM ranges (Hip-Hop: 80–110, House: 120–130, D&amp;B: 160–180)." />
           <TipCard icon={Headphones} title="DAW Quick-Reference" desc="Shortcuts for setting project tempo in Ableton Live, FL Studio, Cubase, and Logic Pro." />
           <Link href="/metronome" className="block"><TipCard icon={Music} title="Metronome Apps" desc="A curated list of the best free metronome apps that accept manual BPM input." /></Link>
           <Link href="/bpm-to-ms" className="block"><TipCard icon={Guitar} title="BPM-to-Milliseconds" desc="Enter your song&apos;s BPM and get the delay time for quarter-note, dotted-eighth, or triplet repeat." /></Link>
@@ -248,7 +248,7 @@ export function SeoContent() {
         <div className="space-y-4">
           <div className="space-y-2">
             <h4 className="font-semibold text-foreground text-sm">For Producers: Manual Tempo Mapping</h4>
-            <p>You have a raw drum recording without a <Link href="/metronome" className="text-primary hover:underline font-medium">click track</Link>. You can use a tap tempo approach inside your DAW to create a fluctuating tempo map. In Reaper, for example, you can assign a key to tap while the song plays, and the software will automatically insert tempo changes that follow the drummer&apos;s natural push and pull.</p>
+            <p>You have a raw drum recording without a click track. You can use a tap tempo approach inside your DAW to create a fluctuating tempo map. In Reaper, for example, you can assign a key to tap while the song plays, and the software will automatically insert tempo changes that follow the drummer&apos;s natural push and pull.</p>
           </div>
           <div className="space-y-2">
             <h4 className="font-semibold text-foreground text-sm">For DJs: Pre-Cue Tempo Matching</h4>
@@ -315,7 +315,7 @@ export function SeoContent() {
           </p>
           <p>
             Tap the button below right now with your favorite song. Watch the number lock in, note the BPM, and then
-            immediately put it to use. Set your <Link href="/metronome" className="text-primary hover:underline font-medium">metronome</Link> to that tempo and practice your <Link href="/scale-finder" className="text-primary hover:underline font-medium">scales</Link>. Drop the BPM into
+            immediately put it to use. Set your metronome to that tempo and practice your <Link href="/scale-finder" className="text-primary hover:underline font-medium">scales</Link>. Drop the BPM into
             your DAW and lay down a perfect loop. Build that long‑run playlist that feels like a personal trainer in
             your ears. Every time you use this tool, you&apos;re sharpening your internal clock and making music that simply works.
           </p>
