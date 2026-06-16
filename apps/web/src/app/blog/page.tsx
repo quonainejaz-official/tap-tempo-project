@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { useState, useEffect, useMemo } from "react"
-import { ArrowUpDown, Calendar, Clock, TextQuote } from "lucide-react"
+import { ArrowUpDown, Calendar, Clock, TextQuote, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useBlogStore } from "@/stores/use-blog-store"
 import { BlogCardSkeleton } from "@/components/skeletons/blog-card-skeleton"
@@ -57,8 +57,6 @@ export default function BlogPage() {
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-5xl">
-      <PageNav backHref="/" onRefresh={handleRefresh} refreshing={refreshing} />
-
       <div className="mb-12 text-center">
         <h1 className="text-5xl font-serif font-bold tracking-tight mb-4">TheTapTempo Blog</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -66,7 +64,7 @@ export default function BlogPage() {
         </p>
       </div>
 
-      {/* Sort controls */}
+      {/* Sort controls + refresh */}
       <div className="flex flex-wrap items-center gap-2 mb-8 pb-6 border-b">
         <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider mr-2">Sort by</span>
         {(Object.keys(sortLabels) as SortField[]).map((field) => (
@@ -92,8 +90,11 @@ export default function BlogPage() {
             )}
           </Button>
         ))}
-        <span className="text-xs text-muted-foreground ml-auto">
+        <span className="text-xs text-muted-foreground ml-auto flex items-center gap-3">
           {articles.length} article{articles.length !== 1 ? "s" : ""}
+          <Button variant="ghost" size="sm" onClick={handleRefresh} disabled={refreshing} className="h-7 text-xs gap-1">
+            <RefreshCw className={`w-3 h-3 ${refreshing ? "animate-spin" : ""}`} />
+          </Button>
         </span>
       </div>
 
