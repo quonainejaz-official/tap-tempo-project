@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { Input } from "@/components/ui/input"
 import { Hand } from "lucide-react"
 
 const MAX_TAPS = 8
@@ -46,14 +45,12 @@ export default function MetronomePage() {
   const [signature, setSignature] = useState("4/4")
   const [beat, setBeat] = useState(-1)
 
-  // Tap state
   const [tapBpm, setTapBpm] = useState<number | null>(null)
   const [tapCount, setTapCount] = useState(0)
   const [tapPulse, setTapPulse] = useState(false)
   const tapTimestampsRef = useRef<number[]>([])
   const tapResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Scheduler refs
   const rafRef = useRef<number | null>(null)
   const nextNoteTimeRef = useRef(0)
   const currentBeatRef = useRef(0)
@@ -183,152 +180,136 @@ export default function MetronomePage() {
   }, [])
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <div className="mb-6 text-center">
-        <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">Metronome</h1>
-        <p className="text-muted-foreground">Precision audio engine metronome for practice.</p>
-      </div>
+    <div className="min-h-[calc(100dvh-3.5rem)] flex flex-col items-center justify-center px-4 py-6 bg-background">
+      <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
+      <p className="text-muted-foreground text-sm mb-5">Precision audio engine metronome for practice.</p>
 
-      <div className="rounded-3xl border bg-card text-card-foreground p-8 shadow-2xl">
+      {/* Dark Card */}
+      <div className="w-full max-w-lg rounded-3xl bg-[#1a1a1a] px-6 py-7 shadow-2xl">
 
-        {/* BPM Display + Tap Button */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex items-end gap-2">
-              <Input
-                type="number"
-                value={bpm}
-                onChange={e => handleBpmInput(parseInt(e.target.value) || 120)}
-                className="font-mono text-6xl h-24 w-40 text-center bg-transparent border-none focus-visible:ring-0"
-              />
-              <span className="text-xl font-medium text-muted-foreground mb-4">BPM</span>
-            </div>
-
-            {/* Inline Tap Button */}
-            <button
-              onPointerDown={e => { e.preventDefault(); fireTap() }}
-              className={`
-                relative flex flex-col items-center justify-center
-                w-20 h-20 rounded-2xl border-2 select-none cursor-pointer
-                transition-all duration-100 active:scale-95
-                ${tapPulse
-                  ? "border-primary bg-primary/20 scale-95 shadow-[0_0_20px_rgba(0,102,255,0.4)]"
-                  : "border-border bg-muted hover:border-primary/40 hover:bg-muted/80"
-                }
-              `}
-            >
-              <Hand size={20} className={`mb-1 transition-colors ${tapPulse ? "text-primary" : "text-muted-foreground"}`} />
-              <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${tapPulse ? "text-primary" : "text-muted-foreground"}`}>
-                TAP
-              </span>
-              {tapPulse && (
-                <span className="absolute inset-0 rounded-2xl border-2 border-primary animate-ping opacity-60" />
-              )}
-            </button>
+        {/* BPM + Tap Button Row */}
+        <div className="flex items-center justify-center gap-4 mb-1">
+          <div className="flex items-baseline gap-2">
+            <span className="font-mono text-5xl md:text-6xl font-bold text-white tracking-tight leading-none">
+              {bpm}
+            </span>
+            <span className="text-base font-medium text-white/40">BPM</span>
           </div>
 
-          {/* Tap feedback row */}
-          <div className="h-6 flex items-center gap-3 mb-3">
-            {tapCount >= 2 && tapBpm !== null && (
-              <span className="text-xs text-primary font-mono font-medium animate-in fade-in slide-in-from-bottom-1 duration-200">
-                Tapped {tapBpm} BPM
-              </span>
+          <button
+            onPointerDown={e => { e.preventDefault(); fireTap() }}
+            className={`
+              relative flex flex-col items-center justify-center
+              w-14 h-14 rounded-xl border-2 select-none cursor-pointer
+              transition-all duration-100 active:scale-95 shrink-0
+              ${tapPulse
+                ? "border-[#0066FF] bg-[#0066FF]/20 shadow-[0_0_20px_rgba(0,102,255,0.5)]"
+                : "border-white/15 bg-white/5 hover:border-white/30 hover:bg-white/10"
+              }
+            `}
+          >
+            <Hand size={18} className={`mb-0.5 transition-colors ${tapPulse ? "text-[#0066FF]" : "text-white/50"}`} />
+            <span className={`text-[8px] font-bold uppercase tracking-[0.15em] transition-colors ${tapPulse ? "text-[#0066FF]" : "text-white/35"}`}>
+              TAP
+            </span>
+            {tapPulse && (
+              <span className="absolute inset-0 rounded-xl border-2 border-[#0066FF] animate-ping opacity-50" />
             )}
-            {tapCount > 0 && (
-              <span className="text-xs text-muted-foreground font-mono">
-                {tapCount} tap{tapCount !== 1 ? "s" : ""}
-                {tapCount < 2 ? " — tap again" : ""}
-              </span>
-            )}
-            {tapCount === 0 && (
-              <span className="text-xs text-muted-foreground/60 font-mono">
-                Tap the button or press <kbd className="px-1 py-0.5 rounded bg-muted text-xs">T</kbd> to set BPM
-              </span>
-            )}
-          </div>
+          </button>
+        </div>
 
+        {/* Helper text */}
+        <div className="h-4 flex items-center justify-center mb-4">
+          <span className="text-[11px] text-white/25 font-mono">
+            Tap the button or press <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/40 text-[9px] font-sans">T</kbd> to set BPM
+          </span>
+        </div>
+
+        {/* BPM Slider */}
+        <div className="mb-5">
           <Slider
             value={[bpm]}
             min={20}
             max={300}
             onValueChange={v => handleBpmInput(v[0])}
-            className="w-full max-w-md"
+            className="w-full [&_[role=slider]]:bg-white [&_[role=slider]]:border-white [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-md [&_.relative]:bg-white/20 [&_.absolute]:bg-[#0066FF]"
           />
         </div>
 
-        {/* Beat Grid */}
-        <div className="flex justify-center gap-3 mb-8">
+        {/* Beat Dots */}
+        <div className="flex justify-center gap-3 mb-5">
           {Array.from({ length: numBeats }).map((_, i) => (
             <div
               key={i}
-              className={`w-6 h-6 rounded-full transition-all duration-75 ${
+              className={`w-4 h-4 rounded-full transition-all duration-75 ${
                 i === beat
-                  ? "bg-primary scale-125 shadow-[0_0_15px_rgba(0,102,255,0.8)]"
-                  : "bg-muted"
+                  ? "bg-white scale-125 shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+                  : "bg-white/25"
               }`}
             />
           ))}
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col items-center gap-8">
-          <Button
-            size="lg"
-            className={`w-48 h-16 rounded-full text-xl font-bold tracking-widest transition-all ${
-              playing
-                ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                : "bg-primary text-primary-foreground hover:bg-primary/90"
-            }`}
+        {/* START/STOP Button */}
+        <div className="flex justify-center mb-5">
+          <button
             onClick={() => setPlaying(p => !p)}
+            className={`
+              w-44 h-12 rounded-full text-sm font-bold tracking-wider uppercase
+              transition-all duration-150 active:scale-95
+              ${playing
+                ? "bg-[#FF3B30] text-white hover:bg-[#FF3B30]/90 shadow-[0_0_16px_rgba(255,59,48,0.4)]"
+                : "bg-[#0066FF] text-white hover:bg-[#0052CC] shadow-[0_0_16px_rgba(0,102,255,0.3)]"
+              }
+            `}
           >
             {playing ? "STOP" : "START"}
-          </Button>
+          </button>
+        </div>
 
-          {/* Time Signatures */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8"].map(sig => (
-              <Button
-                key={sig}
-                variant={signature === sig ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => setSignature(sig)}
-              >
-                {sig}
-              </Button>
-            ))}
-          </div>
+        {/* Time Signatures */}
+        <div className="flex justify-center gap-1.5 mb-5">
+          {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8"].map(sig => (
+            <button
+              key={sig}
+              onClick={() => setSignature(sig)}
+              className={`
+                px-3 py-1 rounded-full text-xs font-medium transition-all
+                ${signature === sig
+                  ? "bg-white text-black"
+                  : "bg-transparent text-white/50 hover:text-white/80 hover:bg-white/10"
+                }
+              `}
+            >
+              {sig}
+            </button>
+          ))}
+        </div>
 
-          {/* Tempo Presets */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {presets.map(p => (
-              <Button
-                key={p.label}
-                variant="outline"
-                size="sm"
-                onClick={() => handleBpmInput(p.val)}
-              >
-                {p.label} <span className="opacity-50 ml-1">{p.val}</span>
-              </Button>
-            ))}
-          </div>
+        {/* Tempo Presets */}
+        <div className="flex justify-center gap-1.5 mb-5 flex-wrap">
+          {presets.map(p => (
+            <button
+              key={p.label}
+              onClick={() => handleBpmInput(p.val)}
+              className="px-3 py-1 rounded-full text-xs border border-white/15 text-white/60 hover:text-white hover:border-white/30 transition-all"
+            >
+              {p.label} <span className="opacity-50 ml-0.5">{p.val}</span>
+            </button>
+          ))}
+        </div>
 
-          {/* Volume */}
-          <div className="w-full max-w-sm flex items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">VOL</span>
-            <Slider
-              value={[Math.round(volume * 100)]}
-              onValueChange={v => setVolume(v[0] / 100)}
-              max={100}
-            />
-          </div>
+        {/* Volume */}
+        <div className="w-full max-w-[200px] mx-auto flex items-center gap-3">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 shrink-0">VOL</span>
+          <Slider
+            value={[Math.round(volume * 100)]}
+            onValueChange={v => setVolume(v[0] / 100)}
+            max={100}
+            className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-white [&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_.relative]:bg-white/15 [&_.absolute]:bg-white/50"
+          />
         </div>
       </div>
-
-      {/* Keyboard hint */}
-      <p className="text-center text-xs text-muted-foreground mt-4">
-        <kbd className="px-1.5 py-0.5 rounded bg-muted text-xs">Space</kbd> start / stop &nbsp;·&nbsp;
-        <kbd className="px-1.5 py-0.5 rounded bg-muted text-xs">T</kbd> tap tempo
-      </p>
     </div>
   )
 }

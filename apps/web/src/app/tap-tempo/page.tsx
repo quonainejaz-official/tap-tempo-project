@@ -88,15 +88,15 @@ function TapGraph({ taps }: { taps: TapData[] }) {
 
   if (points.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
+      <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
         Tap to draw graph
       </div>
     )
   }
 
-  return (
-    <div className="flex-1 flex flex-col gap-2 overflow-hidden">
-      {/* Quality badge */}
+    return (
+      <div className="h-full flex flex-col gap-2 overflow-hidden">
+        {/* Quality badge */}
       <div className="flex items-center justify-between text-xs px-1">
         <span className="text-muted-foreground">
           {points.length} point{points.length !== 1 ? "s" : ""}
@@ -110,7 +110,7 @@ function TapGraph({ taps }: { taps: TapData[] }) {
       </div>
 
       {/* SVG */}
-      <div className="relative flex-1">
+      <div className="relative flex-1 min-h-0">
         <svg
           ref={svgRef}
           className="w-full h-full overflow-visible"
@@ -226,7 +226,7 @@ export default function TapTempoPage() {
   const { init, playKick, playClap, playHiHat, playCowbell } = useAudioEngine()
 
   const [showGraph, setShowGraph] = useState(false)
-  const [showMusic, setShowMusic] = useState(false)
+  const [showMusic, setShowMusic] = useState(true)
   const [sound, setSound] = useState<"kick"|"clap"|"hihat"|"cowbell">("kick")
   const [volume, setVolume] = useState(1)
   const [rings, setRings] = useState<{id: number, time: number}[]>([])
@@ -318,19 +318,17 @@ export default function TapTempoPage() {
         <p className="text-muted-foreground">The most accurate tap tempo algorithm. Tap any rhythm to find the BPM instantly.</p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 space-y-6">
-
-          {/* Main Tap Zone */}
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Left: Tap Zone */}
+        <div className="lg:col-span-2 flex flex-col">
           <motion.div
-            className={`relative flex flex-col items-center justify-center rounded-2xl border bg-card p-12 min-h-[360px] cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
+            className={`relative flex flex-col items-center justify-center rounded-2xl border bg-card p-12 min-h-[360px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
             onPointerDown={(e) => { e.preventDefault(); handleTap("touch") }}
             onMouseEnter={wake}
             onMouseLeave={setSleeping}
             whileTap={sleepState === 'active' ? { scale: 0.98 } : {}}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
-            {/* Background Rings */}
             <AnimatePresence>
               {rings.map(ring => (
                 <motion.div
@@ -389,149 +387,144 @@ export default function TapTempoPage() {
               </div>
             )}
 
-            {/* Input Badges */}
             <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 pointer-events-none opacity-60">
               <Badge variant={lastMethod === 'touch' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Touch</Badge>
               <Badge variant={lastMethod === 'keyboard' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Key</Badge>
               <Badge variant={lastMethod === 'space' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Space</Badge>
             </div>
           </motion.div>
-
-          {/* Controls */}
-          <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border bg-card/50">
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={handleReset} disabled={!bpm}>Reset</Button>
-              <Button variant="outline" size="sm" onClick={copyBpm} disabled={!bpm}>
-                <Copy className="w-4 h-4 mr-2" /> Copy
-              </Button>
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <Button variant="outline" size="sm" disabled={!bpm}>
-                    <History className="w-4 h-4 mr-2" /> History
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerHeader>
-                    <DrawerTitle>Recent Sessions</DrawerTitle>
-                  </DrawerHeader>
-                  <div className="p-4 flex flex-col gap-2 max-w-sm mx-auto w-full">
-                    {bpm ? (
-                      <div className="flex justify-between items-center p-3 rounded bg-muted">
-                        <span className="font-mono font-bold text-xl">{bpm} BPM</span>
-                        <span className="text-sm text-muted-foreground">Just now</span>
-                      </div>
-                    ) : (
-                      <p className="text-center text-muted-foreground py-8">No recent sessions.</p>
-                    )}
-                  </div>
-                </DrawerContent>
-              </Drawer>
-            </div>
-
-            <div className="flex gap-2">
-              <Button
-                variant={showGraph ? "default" : "outline"}
-                size="sm"
-                onClick={(e) => { e.stopPropagation(); setShowGraph(!showGraph) }}
-              >
-                <Activity className="w-4 h-4 mr-2" /> Graph
-              </Button>
-              <Button
-                variant={showMusic ? "default" : "outline"}
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setShowMusic(!showMusic)
-                  if (!showMusic) init()
-                }}
-              >
-                <Music2 className="w-4 h-4 mr-2" /> Audio
-              </Button>
-            </div>
-          </div>
-
-          {/* Graph Panel */}
-          <AnimatePresence>
-            {showGraph && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="border rounded-xl p-4 bg-card min-h-[200px]">
-                  <div className="text-sm font-medium mb-2">BPM per Tap</div>
-                  <div className="h-[140px] sm:h-[168px] flex flex-col">
-                    <TapGraph taps={taps} />
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Music Panel */}
-          <AnimatePresence>
-            {showMusic && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="border rounded-xl p-4 bg-card flex flex-col gap-4">
-                  <div className="flex flex-wrap gap-2">
-                    {(["kick", "clap", "hihat", "cowbell"] as const).map(s => (
-                      <Button
-                        key={s}
-                        variant={sound === s ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setSound(s)}
-                        className="capitalize"
-                      >
-                        {s}
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-muted-foreground w-12">Vol</span>
-                    <Slider
-                      value={[volume * 100]}
-                      onValueChange={(v) => setVolume(v[0] / 100)}
-                      max={100}
-                      className="flex-1"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
         </div>
 
-        {/* Right Sidebar */}
-        <div className="space-y-6">
-          <div className="rounded-xl border bg-muted/30 p-6">
-            <h3 className="font-serif font-bold text-xl mb-4">How it works</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Our tap tempo algorithm uses a rolling weighted average of your last 8 taps. Recent taps are weighted more heavily, and severe outliers are automatically ignored to give you the most accurate BPM quickly.
-            </p>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-muted-foreground">Shortcuts</span>
-                <span>Space / Enter</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-muted-foreground">Min Taps</span>
-                <span>2</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="text-muted-foreground">Auto-reset</span>
-                <span>3 seconds</span>
-              </div>
-            </div>
+        {/* Right: Controls + Audio (same height as tap zone) */}
+        <div className="flex flex-col gap-4 h-full">
+          <div className="flex flex-wrap gap-2 p-4 rounded-xl border bg-card">
+            <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={handleReset} disabled={!bpm}>Reset</Button>
+            <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
+              <Copy className="w-4 h-4 mr-2" /> Copy
+            </Button>
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" disabled={!bpm}>
+                  <History className="w-4 h-4 mr-2" /> History
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Recent Sessions</DrawerTitle>
+                </DrawerHeader>
+                <div className="p-4 flex flex-col gap-2 max-w-sm mx-auto w-full">
+                  {bpm ? (
+                    <div className="flex justify-between items-center p-3 rounded bg-muted">
+                      <span className="font-mono font-bold text-xl">{bpm} BPM</span>
+                      <span className="text-sm text-muted-foreground">Just now</span>
+                    </div>
+                  ) : (
+                    <p className="text-center text-muted-foreground py-8">No recent sessions.</p>
+                  )}
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </div>
+
+          <div className="flex-1 p-4 rounded-xl border bg-card flex flex-col gap-3">
+            <Button
+              variant={showGraph ? "default" : "outline"}
+              size="sm"
+              className="w-full"
+              onClick={(e) => { e.stopPropagation(); setShowGraph(!showGraph) }}
+            >
+              <Activity className="w-4 h-4 mr-2" /> {showGraph ? "Hide" : "Show"} Graph
+            </Button>
+            <Button
+              variant={showMusic ? "default" : "outline"}
+              size="sm"
+              className="w-full"
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowMusic(!showMusic)
+                if (!showMusic) init()
+              }}
+            >
+              <Music2 className="w-4 h-4 mr-2" /> {showMusic ? "Hide" : "Show"} Audio
+            </Button>
+            <AnimatePresence>
+              {showMusic && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="overflow-hidden"
+                >
+                  <div className="flex flex-col gap-4 pt-2 border-t">
+                    <div className="flex flex-wrap gap-2">
+                      {(["kick", "clap", "hihat", "cowbell"] as const).map(s => (
+                        <Button
+                          key={s}
+                          variant={sound === s ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSound(s)}
+                          className="capitalize flex-1 min-w-[70px]"
+                        >
+                          {s}
+                        </Button>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm text-muted-foreground w-12">Vol</span>
+                      <Slider
+                        value={[volume * 100]}
+                        onValueChange={(v) => setVolume(v[0] / 100)}
+                        max={100}
+                        className="flex-1"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
+
+      {/* Graph Content - below grid */}
+      <AnimatePresence>
+        {showGraph && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden mt-6"
+          >
+            <div className="rounded-xl border bg-card p-4">
+              <div className="h-[180px] w-full">
+                <TapGraph taps={taps} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* How It Works */}
+      <section className="mt-12 rounded-xl border bg-muted/30 p-6">
+        <h3 className="font-serif font-bold text-xl mb-4">How it works</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Our tap tempo algorithm uses a rolling weighted average of your last 8 taps. Recent taps are weighted more heavily, and severe outliers are automatically ignored to give you the most accurate BPM quickly.
+        </p>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-muted-foreground">Shortcuts</span>
+            <span>Space / Enter</span>
+          </div>
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-muted-foreground">Min Taps</span>
+            <span>2</span>
+          </div>
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-muted-foreground">Auto-reset</span>
+            <span>3 seconds</span>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
