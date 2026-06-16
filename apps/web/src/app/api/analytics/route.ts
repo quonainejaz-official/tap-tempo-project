@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
 
     // Referrer breakdown
     const referrerBreakdown = await logs.aggregate([
-      { $match: { type: "page_view", timestamp: { $gte: startDate }, referrer: { $ne: null, $ne: "" } } },
+      { $match: { type: "page_view", timestamp: { $gte: startDate }, referrer: { $nin: [null, ""] } } },
       { $group: { _id: "$referrer", count: { $sum: 1 } } },
       { $sort: { count: -1 } },
       { $limit: 10 },
