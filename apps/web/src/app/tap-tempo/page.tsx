@@ -17,6 +17,7 @@ import {
 import { Slider } from "@/components/ui/slider"
 import { Copy, History, Activity, Music2, Moon } from "lucide-react"
 import { toast } from "sonner"
+import { SeoContent } from "@/components/seo-content"
 
 // ─── Tap Graph ───────────────────────────────────────────────────────────────
 
@@ -503,6 +504,8 @@ export default function TapTempoPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SeoContent />
     </div>
   )
 }
