@@ -1,23 +1,31 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Plus, Edit, Trash2, ExternalLink } from "lucide-react"
+import { PageNav } from "@/components/page-nav"
 
 export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<any[]>([])
+  const [refreshing, setRefreshing] = useState(false)
 
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     const res = await fetch("/api/blogs")
     const data = await res.json()
     setBlogs(data.blogs || [])
-  }
+  }, [])
 
   useEffect(() => {
     fetchBlogs()
-  }, [])
+  }, [fetchBlogs])
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await fetchBlogs()
+    setRefreshing(false)
+  }
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this blog post?")) return
@@ -27,6 +35,7 @@ export default function AdminBlogsPage() {
 
   return (
     <div>
+      <PageNav backHref="/admin" onRefresh={handleRefresh} refreshing={refreshing} />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-serif font-bold">Blogs</h1>
         <Link href="/admin/blogs/create">

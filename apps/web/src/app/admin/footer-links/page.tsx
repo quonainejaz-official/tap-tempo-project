@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Pencil, Trash2, GripVertical } from "lucide-react"
+import { PageNav } from "@/components/page-nav"
 
 interface FooterLink {
   _id: string
@@ -112,6 +113,7 @@ export default function FooterLinksManagerPage() {
 
   return (
     <div>
+      <PageNav backHref="/admin" onRefresh={fetchItems} />
       <h1 className="text-3xl font-serif font-bold mb-6">Footer Links Manager</h1>
 
       <Card className="mb-8">

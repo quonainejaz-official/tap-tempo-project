@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -10,11 +10,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { RichEditor } from "@/components/rich-editor"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { PageNav } from "@/components/page-nav"
 
 export default function EditPagePage() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const [title, setTitle] = useState("")
   const [slug, setSlug] = useState("")
   const [content, setContent] = useState("")
@@ -33,37 +35,47 @@ export default function EditPagePage() {
   const [footerLabel, setFooterLabel] = useState("")
   const [footerSection, setFooterSection] = useState("More")
 
-  useEffect(() => {
-    fetch(`/api/pages/${id}`)
-      .then((r) => {
-        if (!r.ok) throw new Error("Not found")
-        return r.json()
-      })
-      .then((data) => {
-        setTitle(data.title)
-        setSlug(data.slug)
-        setContent(data.content || "")
-        setMetaTitle(data.metaTitle || "")
-        setMetaDescription(data.metaDescription || "")
-        setAllowHtml(data.allowHtml ?? false)
-        setInNav(data.display?.inNav ?? false)
-        setNavLabel(data.display?.navLabel || "")
-        setNavParent(data.display?.navParent || "")
-        setInFooter(data.display?.inFooter ?? false)
-        setFooterLabel(data.display?.footerLabel || "")
-        setFooterSection(data.display?.footerSection || "More")
-        setLoading(false)
-      })
-      .catch(() => {
-        router.push("/admin/pages")
-      })
+  const loadPage = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/pages/${id}`)
+      if (!res.ok) throw new Error("Not found")
+      const data = await res.json()
+      setTitle(data.title)
+      setSlug(data.slug)
+      setContent(data.content || "")
+      setMetaTitle(data.metaTitle || "")
+      setMetaDescription(data.metaDescription || "")
+      setAllowHtml(data.allowHtml ?? false)
+      setInNav(data.display?.inNav ?? false)
+      setNavLabel(data.display?.navLabel || "")
+      setNavParent(data.display?.navParent || "")
+      setInFooter(data.display?.inFooter ?? false)
+      setFooterLabel(data.display?.footerLabel || "")
+      setFooterSection(data.display?.footerSection || "More")
+    } catch {
+      router.push("/admin/pages")
+    } finally {
+      setLoading(false)
+    }
+  }, [id, router])
 
+  useEffect(() => {
+    loadPage()
+  }, [loadPage])
+
+  useEffect(() => {
     fetch("/api/navigation").then((r) => r.json()).then((d) => setNavItems(d.items || [])).catch(() => {})
     fetch("/api/footer-links").then((r) => r.json()).then((d) => {
       const sections = [...new Set((d.items || []).map((i: any) => i.section as string))] as string[]
       if (sections.length) setFooterSections(sections)
     }).catch(() => {})
-  }, [id, router])
+  }, [])
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await loadPage()
+    setRefreshing(false)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -110,6 +122,7 @@ export default function EditPagePage() {
 
   return (
     <div>
+      <PageNav backHref="/admin/pages" onRefresh={handleRefresh} refreshing={refreshing} />
       <h1 className="text-3xl font-serif font-bold mb-6">Edit Page</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">

@@ -1,28 +1,40 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Newspaper, FileText, Plus } from "lucide-react"
+import { PageNav } from "@/components/page-nav"
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ blogs: 0, pages: 0 })
+  const [refreshing, setRefreshing] = useState(false)
 
-  useEffect(() => {
-    Promise.all([
+  const fetchStats = useCallback(async () => {
+    const [blogsData, pagesData] = await Promise.all([
       fetch("/api/blogs").then((r) => r.json()),
       fetch("/api/pages?all=true").then((r) => r.json()),
-    ]).then(([blogsData, pagesData]) => {
-      setStats({
-        blogs: blogsData.blogs?.length || 0,
-        pages: pagesData.pages?.length || 0,
-      })
+    ])
+    setStats({
+      blogs: blogsData.blogs?.length || 0,
+      pages: pagesData.pages?.length || 0,
     })
   }, [])
 
+  useEffect(() => {
+    fetchStats()
+  }, [fetchStats])
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await fetchStats()
+    setRefreshing(false)
+  }
+
   return (
     <div>
+      <PageNav backHref="/" onRefresh={handleRefresh} refreshing={refreshing} />
       <h1 className="text-3xl font-serif font-bold mb-8">Dashboard</h1>
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">

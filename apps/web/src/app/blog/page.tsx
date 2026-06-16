@@ -5,6 +5,9 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { useState, useEffect, useMemo } from "react"
 import { ArrowUpDown, Calendar, Clock, TextQuote } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useBlogStore } from "@/stores/use-blog-store"
+import { BlogCardSkeleton } from "@/components/skeletons/blog-card-skeleton"
+import { PageNav } from "@/components/page-nav"
 
 type SortField = "createdAt" | "title" | "readTime"
 type SortDir = "asc" | "desc"
@@ -16,16 +19,20 @@ const sortLabels: Record<SortField, string> = {
 }
 
 export default function BlogPage() {
-  const [articles, setArticles] = useState<any[]>([])
+  const { items: articles, loading, fetch, refresh } = useBlogStore()
   const [sortField, setSortField] = useState<SortField>("createdAt")
   const [sortDir, setSortDir] = useState<SortDir>("desc")
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
-    fetch("/api/blogs")
-      .then((r) => r.json())
-      .then((data) => setArticles(data.blogs || data || []))
-      .catch(() => {})
-  }, [])
+    fetch()
+  }, [fetch])
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await refresh()
+    setRefreshing(false)
+  }
 
   const sorted = useMemo(() => {
     const items = [...articles]
@@ -38,7 +45,7 @@ export default function BlogPage() {
       } else if (sortField === "title") {
         cmp = (a.title || "").localeCompare(b.title || "")
       } else if (sortField === "readTime") {
-        const getMin = (rt: string) => parseInt(rt) || 0
+        const getMin = (rt: string | undefined) => parseInt(rt || "") || 0
         cmp = getMin(a.readTime) - getMin(b.readTime)
       }
       return sortDir === "asc" ? cmp : -cmp
@@ -49,7 +56,9 @@ export default function BlogPage() {
   const toggleDir = () => setSortDir((d) => (d === "asc" ? "desc" : "asc"))
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="container mx-auto px-4 py-12 max-w-5xl">
+      <PageNav backHref="/" onRefresh={handleRefresh} refreshing={refreshing} />
+
       <div className="mb-12 text-center">
         <h1 className="text-5xl font-serif font-bold tracking-tight mb-4">TheTapTempo Blog</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -88,70 +97,76 @@ export default function BlogPage() {
         </span>
       </div>
 
-      <div className="grid gap-8">
-        {sorted.length > 0 ? (
-          sorted.map((article: any) => (
-            <Link key={article._id || article.slug} href={`/blog/${article.slug}`}>
-              <Card className="hover:border-primary/50 transition-all cursor-pointer group hover:shadow-md">
-                {article.coverImage && (
-                  <div className="rounded-t-xl overflow-hidden">
-                    <img
-                      src={article.coverImage}
-                      alt={article.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <CardHeader className="p-6">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground mb-3 font-mono">
-                    <span>
-                      {article.createdAt
-                        ? new Date(article.createdAt).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })
-                        : ""}
-                    </span>
-                    {article.createdAt && (
-                      <span className="text-xs">
-                        {new Date(article.createdAt).toLocaleTimeString("en-US", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </span>
-                    )}
-                    {article.readTime && (
-                      <>
-                        <span>&middot;</span>
-                        <span>{article.readTime}</span>
-                      </>
-                    )}
-                    {article.author && (
-                      <>
-                        <span>&middot;</span>
-                        <span>By {article.author}</span>
-                      </>
-                    )}
-                  </div>
-                  <CardTitle className="text-2xl md:text-3xl font-serif group-hover:text-primary transition-colors leading-tight">
-                    {article.title}
-                  </CardTitle>
-                  {(article.excerpt || article.metaDescription) && (
-                    <CardDescription className="text-base mt-3 text-foreground/60 leading-relaxed line-clamp-3">
-                      {article.excerpt || article.metaDescription}
-                    </CardDescription>
+      {loading ? (
+        <div className="grid gap-8">
+          {[1, 2, 3].map((i) => <BlogCardSkeleton key={i} />)}
+        </div>
+      ) : (
+        <div className="grid gap-8">
+          {sorted.length > 0 ? (
+            sorted.map((article: any) => (
+              <Link key={article._id || article.slug} href={`/blog/${article.slug}`}>
+                <Card className="hover:border-primary/50 transition-all cursor-pointer group hover:shadow-md">
+                  {article.coverImage && (
+                    <div className="rounded-t-xl overflow-hidden">
+                      <img
+                        src={article.coverImage}
+                        alt={article.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                   )}
-                </CardHeader>
-              </Card>
-            </Link>
-          ))
-        ) : (
-          <p className="text-center text-muted-foreground py-12">
-            No articles published yet. Check back soon!
-          </p>
-        )}
-      </div>
+                  <CardHeader className="p-6">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground mb-3 font-mono">
+                      <span>
+                        {article.createdAt
+                          ? new Date(article.createdAt).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })
+                          : ""}
+                      </span>
+                      {article.createdAt && (
+                        <span className="text-xs">
+                          {new Date(article.createdAt).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </span>
+                      )}
+                      {article.readTime && (
+                        <>
+                          <span>&middot;</span>
+                          <span>{article.readTime}</span>
+                        </>
+                      )}
+                      {article.author && (
+                        <>
+                          <span>&middot;</span>
+                          <span>By {article.author}</span>
+                        </>
+                      )}
+                    </div>
+                    <CardTitle className="text-2xl md:text-3xl font-serif group-hover:text-primary transition-colors leading-tight">
+                      {article.title}
+                    </CardTitle>
+                    {(article.excerpt || article.metaDescription) && (
+                      <CardDescription className="text-base mt-3 text-foreground/60 leading-relaxed line-clamp-3">
+                        {article.excerpt || article.metaDescription}
+                      </CardDescription>
+                    )}
+                  </CardHeader>
+                </Card>
+              </Link>
+            ))
+          ) : (
+            <p className="text-center text-muted-foreground py-12">
+              No articles published yet. Check back soon!
+            </p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

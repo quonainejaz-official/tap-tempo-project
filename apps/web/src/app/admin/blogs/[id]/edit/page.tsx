@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -8,11 +8,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { RichEditor } from "@/components/rich-editor"
+import { PageNav } from "@/components/page-nav"
 
 export default function EditBlogPage() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const [title, setTitle] = useState("")
   const [slug, setSlug] = useState("")
   const [content, setContent] = useState("")
@@ -26,27 +28,38 @@ export default function EditBlogPage() {
   const [oldCoverImage, setOldCoverImage] = useState("")
   const [saving, setSaving] = useState(false)
 
-  useEffect(() => {
-    fetch(`/api/blogs/${id}`)
-      .then((r) => r.json())
-      .then((data) => {
-        setTitle(data.title)
-        setSlug(data.slug)
-        setContent(data.content || "")
-        setExcerpt(data.excerpt || "")
-        setMetaTitle(data.metaTitle || "")
-        setMetaDescription(data.metaDescription || "")
-        setAuthor(data.author || "Admin")
-        setCoverImage(data.coverImage || "")
-        setCoverImagePublicId(data.coverImagePublicId || "")
-        setCoverPreview(data.coverImage || "")
-        setOldCoverImage(data.coverImage || "")
-        setLoading(false)
-      })
-      .catch(() => {
-        router.push("/admin/blogs")
-      })
+  const loadBlog = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/blogs/${id}`)
+      const data = await res.json()
+      setTitle(data.title)
+      setSlug(data.slug)
+      setContent(data.content || "")
+      setExcerpt(data.excerpt || "")
+      setMetaTitle(data.metaTitle || "")
+      setMetaDescription(data.metaDescription || "")
+      setAuthor(data.author || "Admin")
+      setCoverImage(data.coverImage || "")
+      setCoverImagePublicId(data.coverImagePublicId || "")
+      setCoverPreview(data.coverImage || "")
+      setOldCoverImage(data.coverImage || "")
+    } catch {
+      router.push("/admin/blogs")
+    } finally {
+      setLoading(false)
+    }
   }, [id, router])
+
+  useEffect(() => {
+    loadBlog()
+  }, [loadBlog])
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await loadBlog()
+    setRefreshing(false)
+  }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -109,6 +122,7 @@ export default function EditBlogPage() {
 
   return (
     <div>
+      <PageNav backHref="/admin/blogs" onRefresh={handleRefresh} refreshing={refreshing} />
       <h1 className="text-3xl font-serif font-bold mb-6">Edit Blog</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
