@@ -310,13 +310,8 @@ export default function TapTempoPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-6">
-        <div className="flex items-center text-sm text-muted-foreground mb-2">
-          <span className="hover:text-foreground cursor-pointer">Tools</span>
-          <span className="mx-2">/</span>
-          <span className="text-foreground">Tap Tempo</span>
-        </div>
         <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">Tap Tempo</h1>
-        <p className="text-muted-foreground">The most accurate tap tempo algorithm. Tap any rhythm to find the BPM instantly.</p>
+        <p className="text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
