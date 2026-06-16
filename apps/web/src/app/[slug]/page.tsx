@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation"
-import Link from "next/link"
-import { ChevronLeft } from "lucide-react"
 import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
 
@@ -49,33 +47,35 @@ export default async function DynamicPage({ params }: Props) {
   if (!page) notFound()
 
   if (page.allowHtml) {
+    // Inject script to intercept links — they load in the iframe, not new tab/window
+    const linkScript = `<script>
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if (a && a.href) {
+    e.preventDefault();
+    if (a.target === '_blank' || a.target === '_top' || a.target === '_parent') {
+      window.location.href = a.href;
+    } else {
+      window.location.href = a.href;
+    }
+  }
+});
+<\/script>`
+    const content = page.content + linkScript
+
     return (
-      <>
-        <div className="fixed top-0 left-0 z-50 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-br-lg border-r border-b text-xs flex items-center gap-2">
-          <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-            <ChevronLeft className="w-3 h-3" /> Home
-          </Link>
-        </div>
-        <iframe
-          srcDoc={page.content}
-          className="w-full border-0"
-          style={{ height: "100dvh" }}
-          title={page.title}
-          sandbox="allow-scripts"
-        />
-      </>
+      <iframe
+        srcDoc={content}
+        className="w-full border-0"
+        style={{ height: "100dvh" }}
+        title={page.title}
+        sandbox="allow-scripts"
+      />
     )
   }
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
-      <Link
-        href="/"
-        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-      >
-        <ChevronLeft className="w-4 h-4 mr-1" /> Back to home
-      </Link>
-
       <h1 className="text-5xl font-serif font-bold tracking-tight mb-8">
         {page.title}
       </h1>
