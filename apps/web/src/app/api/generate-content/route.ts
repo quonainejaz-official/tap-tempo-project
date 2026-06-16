@@ -22,17 +22,31 @@ export async function POST(req: Request) {
         { role: "system", content: systemPrompt },
         { role: "user", content: prompt },
       ],
-      max_tokens: 2048,
+      max_tokens: 4096,
     })
 
-    const text = response.choices?.[0]?.message?.content
+    const choice = response.choices?.[0]
+    const message = choice?.message
+    const finishReason = choice?.finish_reason
+    const content = message?.content
+    const refusal = (message as any)?.refusal
 
-    if (!text) {
-      return Response.json({ error: "AI returned empty response" }, { status: 500 })
+    // Debug info returned to client so we can diagnose
+    const debug = { model, finishReason, hasContent: !!content, hasRefusal: !!refusal }
+
+    if (refusal) {
+      return Response.json({ error: `AI refused: ${refusal}`, debug }, { status: 500 })
+    }
+
+    if (!content) {
+      return Response.json({
+        error: `AI returned empty (finish_reason: ${finishReason || "unknown"})`,
+        debug,
+      }, { status: 500 })
     }
 
     // Try to extract JSON from the response
-    const jsonMatch = text.match(/\{[\s\S]*\}/)
+    const jsonMatch = content.match(/\{[\s\S]*\}/m)
     if (jsonMatch) {
       try {
         const parsed = JSON.parse(jsonMatch[0])
@@ -43,6 +57,7 @@ export async function POST(req: Request) {
           metaTitle: parsed.metaTitle || "",
           metaDescription: parsed.metaDescription || "",
           content: parsed.content || "",
+          debug,
         })
       } catch {
         // JSON parse failed — return raw text as content
@@ -55,7 +70,8 @@ export async function POST(req: Request) {
       excerpt: "",
       metaTitle: "",
       metaDescription: "",
-      content: text,
+      content,
+      debug,
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error"
