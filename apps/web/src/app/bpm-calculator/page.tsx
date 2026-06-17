@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Copy } from "lucide-react"
 import { toast } from "sonner"
+import { BpmCalculatorSeoContent } from "@/components/bpm-calculator-seo-content"
 
 export default function BpmCalculatorPage() {
   const [beats, setBeats] = useState("16")
@@ -45,7 +46,7 @@ export default function BpmCalculatorPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-2xl">
+    <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="mb-8">
         <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">BPM Calculator</h1>
         <p className="text-muted-foreground">Calculate BPM from duration, or duration from BPM.</p>
@@ -128,6 +129,8 @@ export default function BpmCalculatorPage() {
           </div>
         </TabsContent>
       </Tabs>
+
+      <BpmCalculatorSeoContent />
     </div>
   )
 }
