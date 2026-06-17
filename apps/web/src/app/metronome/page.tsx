@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Button } from "@/components/ui/button"
+import { MetronomeSeoContent } from "@/components/metronome-seo-content"
 import { Slider } from "@/components/ui/slider"
 import { Hand } from "lucide-react"
 
@@ -182,10 +183,10 @@ export default function MetronomePage() {
   return (
     <div className="min-h-[calc(100dvh-3.5rem)] flex flex-col items-center justify-center px-4 py-6 bg-background">
       <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
-      <p className="text-muted-foreground text-sm mb-5">Precision audio engine metronome for practice.</p>
+      <p className="text-muted-foreground text-sm mb-5">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
       {/* Dark Card */}
-      <div className="w-full max-w-lg rounded-3xl bg-[#1a1a1a] px-6 py-7 shadow-2xl">
+      <div className="w-full max-w-3xl rounded-3xl bg-[#1a1a1a] px-6 py-7 shadow-2xl">
 
         {/* BPM + Tap Button Row */}
         <div className="flex items-center justify-center gap-4 mb-1">
@@ -310,6 +311,8 @@ export default function MetronomePage() {
           />
         </div>
       </div>
+
+      <MetronomeSeoContent />
     </div>
   )
 }
