@@ -27,7 +27,13 @@ export default function BpmToMsPage() {
   const calculateMs = (noteFraction: number) => {
     const b = Number(bpm)
     if (b <= 0) return 0
-    return (60000 / b) * (noteFraction / 0.25)
+    return (60000 / b) * noteFraction
+  }
+
+  const calculateHz = (noteFraction: number) => {
+    const ms = calculateMs(noteFraction)
+    if (ms <= 0) return 0
+    return 1000 / ms
   }
 
   const copy = (val: string) => {
@@ -42,7 +48,7 @@ export default function BpmToMsPage() {
         Convert tempo to exact millisecond values for all note divisions.
       </p>
 
-      <div className="max-w-xs mx-auto mb-10">
+      <div className="max-w-xs mx-auto mb-6">
         <Input
           type="number"
           value={bpm}
@@ -52,11 +58,27 @@ export default function BpmToMsPage() {
         />
       </div>
 
+      <div className="grid grid-cols-3 gap-4 mb-10 max-w-md mx-auto">
+        <div className="p-4 rounded-xl border bg-card text-center">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Quarter</div>
+          <div className="text-lg font-mono font-bold text-primary">{calculateMs(1).toFixed(1)} ms</div>
+        </div>
+        <div className="p-4 rounded-xl border bg-card text-center">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Eighth</div>
+          <div className="text-lg font-mono font-bold text-primary">{calculateMs(0.5).toFixed(1)} ms</div>
+        </div>
+        <div className="p-4 rounded-xl border bg-card text-center">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Dotted Quarter</div>
+          <div className="text-lg font-mono font-bold text-primary">{calculateMs(1.5).toFixed(1)} ms</div>
+        </div>
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Note Division</TableHead>
             <TableHead className="text-right">Milliseconds</TableHead>
+            <TableHead className="text-right">Frequency (Hz)</TableHead>
             <TableHead className="w-10"></TableHead>
           </TableRow>
         </TableHeader>
@@ -66,6 +88,9 @@ export default function BpmToMsPage() {
               <TableCell className="font-medium">{nd.label}</TableCell>
               <TableCell className="text-right font-mono">
                 {calculateMs(nd.fraction).toFixed(2)} ms
+              </TableCell>
+              <TableCell className="text-right font-mono text-muted-foreground">
+                {calculateHz(nd.fraction).toFixed(2)} Hz
               </TableCell>
               <TableCell>
                 <Button
