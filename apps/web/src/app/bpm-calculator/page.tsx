@@ -49,7 +49,7 @@ export default function BpmCalculatorPage() {
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="mb-8">
         <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">BPM Calculator</h1>
-        <p className="text-muted-foreground">Calculate BPM from duration, or duration from BPM.</p>
+        <p className="text-muted-foreground">Calculate BPM from beats and time, find total beats from tempo, or estimate song duration with this free BPM Calculator.</p>
       </div>
 
       <Tabs defaultValue="find-bpm" className="w-full">
