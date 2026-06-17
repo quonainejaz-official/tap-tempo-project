@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Copy } from "lucide-react"
 import { toast } from "sonner"
+import { BpmToMsSeoContent } from "@/components/bpm-to-ms-seo-content"
 
 const noteDivisions = [
   { label: "Whole Note", fraction: 4 },
@@ -105,6 +106,8 @@ export default function BpmToMsPage() {
           ))}
         </TableBody>
       </Table>
+
+      <BpmToMsSeoContent />
     </div>
   )
 }
