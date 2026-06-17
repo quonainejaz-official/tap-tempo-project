@@ -10,7 +10,7 @@ import { useEffect, useState } from "react"
 const defaultLinks = [
   { href: "/tap-tempo", label: "Tap Tempo" },
   { href: "/metronome", label: "Metronome" },
-  { href: "/bpm-calculator", label: "Calculator" },
+  { href: "/bpm-calculator", label: "BPM Calculator" },
   { href: "/bpm-to-ms", label: "BPM to ms" },
   { href: "/delay-time-calculator", label: "Delay Time" },
   { href: "/tempo-markings", label: "Markings" },
