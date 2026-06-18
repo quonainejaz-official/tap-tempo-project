@@ -130,7 +130,7 @@ export function BpmCalculatorSeoContent() {
         </div>
         <div className="p-4 rounded-xl border bg-card/50">
           <h4 className="font-semibold text-sm mb-1">Real‑world use</h4>
-          <p className="text-sm text-muted-foreground">DJs use this to know how many beats remain until a mix point. Producers use it to set <Link href="/delay-time-calculator" className="text-primary hover:underline font-bold">loop lengths</Link> that exactly match a number of bars.</p>
+          <p className="text-sm text-muted-foreground">DJs use this to know how many beats remain until a mix point. Producers use it to set <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">loop lengths</Link> that exactly match a number of bars.</p>
         </div>
       </section>
 

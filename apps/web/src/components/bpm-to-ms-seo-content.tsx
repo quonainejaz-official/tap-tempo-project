@@ -203,7 +203,7 @@ export function BpmToMsSeoContent() {
         <div>
           <h3 className="font-semibold text-sm">Enter the Exact Millisecond Value</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            In your <Link href="/delay-time-calculator" className="text-primary hover:underline font-bold">delay</Link>, reverb, or compressor plugin, type the precise millisecond number from the chart or your calculation. If the device offers tempo sync, engaging it will now keep the effect locked through tempo changes. If you&apos;re working with unsynced hardware or automating a DAW parameter manually, this step is non-negotiable.
+            In your <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">delay</Link>, reverb, or compressor plugin, type the precise millisecond number from the chart or your calculation. If the device offers tempo sync, engaging it will now keep the effect locked through tempo changes. If you&apos;re working with unsynced hardware or automating a DAW parameter manually, this step is non-negotiable.
           </p>
         </div>
 
@@ -301,7 +301,7 @@ export function BpmToMsSeoContent() {
           </table>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Now when you automate <Link href="/delay-time-calculator" className="text-primary hover:underline font-bold">delay times</Link> or pre-delays across sections, you can switch to the correct value instantly without recalculating.
+          Now when you automate <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">delay times</Link> or pre-delays across sections, you can switch to the correct value instantly without recalculating.
         </p>
       </section>
 

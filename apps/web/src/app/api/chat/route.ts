@@ -72,7 +72,7 @@ TOOLS:
 2. Metronome (/metronome) — Web Audio metronome, BPM 20-280, time sigs 2/4-7/8, visual beat, tap-to-set, presets
 3. BPM Calculator (/bpm-calculator) — BPM from duration or duration from BPM
 4. BPM to ms (/bpm-to-ms) — Convert BPM to note ms values
-5. Delay Time (/delay-time-calculator) — Delay ms synced to tempo + note-to-ms
+5. Delay & Reverb Time (/delay-reverb-time-calculator) — Delay ms synced to tempo + note-to-ms
 6. Tempo Markings (/tempo-markings) — Italian tempo terms with BPM ranges
 7. Beats Per Bar (/beats-per-bar-calculator) — Time signature visualizer
 

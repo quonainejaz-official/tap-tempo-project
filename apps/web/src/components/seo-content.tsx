@@ -208,7 +208,7 @@ export function SeoContent() {
           <StepCard num={3} title="Keep tapping until the number stabilizes" desc="BPM readings typically settle within ±1 BPM after 8–12 consistent taps on songs with a steady tempo, while live recordings often required additional taps for a stable average." />
           <StepCard num={4} title="Interpret your result" desc="The large number you see is your average BPM. If you tapped exactly on every quarter note, that&apos;s the song&apos;s tempo. Hit the reset button to clear the memory and start fresh." />
           <StepCard num={5} title="Apply the BPM immediately" desc={<>Enter it into your metronome, set your DAW to that BPM, align the beat grid in DJ software, or use our <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">BPM to Milliseconds Calculator</Link> for exact delay timing.</>} />
-          <p className="text-xs text-muted-foreground">Try the <Link href="/delay-time-calculator" className="text-primary hover:underline font-bold">Delay Time Calculator</Link> for precise pedal and effect settings.</p>
+          <p className="text-xs text-muted-foreground">Try the <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">Delay & Reverb Time Calculator</Link> for precise pedal and effect settings.</p>
         </div>
       </section>
 

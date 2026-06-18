@@ -32,7 +32,7 @@ const tools = [
   { icon: Clock, title: "Metronome", desc: "Precision audio engine metronome for practice.", href: "/metronome" },
   { icon: Calculator, title: "BPM Calculator", desc: "Calculate BPM from duration, or duration from BPM.", href: "/bpm-calculator" },
   { icon: Table2, title: "BPM to ms", desc: "Convert tempo to exact millisecond values.", href: "/bpm-to-ms" },
-  { icon: Sliders, title: "Delay Time", desc: "Calculate precise millisecond values for delay.", href: "/delay-time-calculator" },
+  { icon: Sliders, title: "Delay & Reverb Time", desc: "Calculate precise millisecond values for delay and reverb.", href: "/delay-reverb-time-calculator" },
   { icon: Music, title: "Tempo Markings", desc: "Classical music tempo dictionary.", href: "/tempo-markings" },
   { icon: ListOrdered, title: "Beats Per Bar", desc: "Interactive time signature tool.", href: "/beats-per-bar-calculator" },
 ]

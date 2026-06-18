@@ -12,7 +12,7 @@ const defaultLinks = [
   { href: "/metronome", label: "Metronome" },
   { href: "/bpm-calculator", label: "BPM Calculator" },
   { href: "/bpm-to-ms", label: "BPM to ms" },
-  { href: "/delay-time-calculator", label: "Delay Time" },
+  { href: "/delay-reverb-time-calculator", label: "Delay & Reverb Time" },
   { href: "/tempo-markings", label: "Markings" },
   { href: "/beats-per-bar-calculator", label: "Beats/Bar" },
   { href: "/blog", label: "Blog" },

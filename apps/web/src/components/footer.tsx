@@ -11,7 +11,7 @@ const defaultSections: Record<string, { href: string; label: string }[]> = {
   ],
   Reference: [
     { href: "/bpm-to-ms", label: "BPM to ms" },
-    { href: "/delay-time-calculator", label: "Delay Time" },
+    { href: "/delay-reverb-time-calculator", label: "Delay & Reverb Time" },
     { href: "/tempo-markings", label: "Tempo Markings" },
     { href: "/beats-per-bar-calculator", label: "Beats Per Bar" },
   ],
