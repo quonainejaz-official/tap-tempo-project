@@ -16,7 +16,7 @@ const defaultLinks = [
   { href: "/tempo-markings", label: "Markings" },
   { href: "/beats-per-bar-calculator", label: "Beats/Bar" },
   { href: "/blog", label: "Blog" },
-  { href: "/ai-tempo", label: "AI Tempo" },
+  { href: "/ai-tempo", label: "TapTempo-AI" },
 ]
 
 export function Header() {

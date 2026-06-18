@@ -17,7 +17,7 @@ const defaultSections: Record<string, { href: string; label: string }[]> = {
   ],
   More: [
     { href: "/blog", label: "Blog" },
-    { href: "/ai-tempo", label: "AI Tempo" },
+    { href: "/ai-tempo", label: "TapTempo-AI" },
   ],
 }
 
