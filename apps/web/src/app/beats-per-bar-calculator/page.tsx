@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { timeSignatures } from "@/lib/content/timeSignatures"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useAudioEngine } from "@/hooks/use-audio-engine"
+import { AudioEngine } from "@/lib/audio-engine"
 import { Play, Square } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -22,7 +22,10 @@ export default function BeatsPerBarCalculatorPage() {
   const [accents, setAccents] = useState<number[]>([0])
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentBeat, setCurrentBeat] = useState<number | null>(null)
-  const { playMetronomeClick, init } = useAudioEngine()
+
+  const isPlayingRef = useRef(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const beatTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
 
   const msPerBeat = Number(bpm) > 0 ? (60000 / Number(bpm)) * (4 / Number(den)) : 500
 
@@ -32,31 +35,78 @@ export default function BeatsPerBarCalculatorPage() {
     )
   }
 
+  const clearAllTimeouts = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+    beatTimeoutsRef.current.forEach(clearTimeout)
+    beatTimeoutsRef.current = []
+  }
+
+  const stopPlayback = () => {
+    isPlayingRef.current = false
+    setIsPlaying(false)
+    setCurrentBeat(null)
+    clearAllTimeouts()
+  }
+
   const play = () => {
-    if (isPlaying) {
-      setIsPlaying(false)
-      setCurrentBeat(null)
+    if (isPlayingRef.current) {
+      stopPlayback()
       return
     }
-    init()
-    setIsPlaying(true)
-    const n = Number(num)
-    let beat = 0
 
-    const tick = () => {
-      if (!isPlaying) return
-      setCurrentBeat(beat)
-      playMetronomeClick(accents.includes(beat), 0.3)
-      beat = (beat + 1) % n
-      setTimeout(tick, msPerBeat)
+    const engine = AudioEngine.getInstance()
+    engine.init()
+    if (!engine.ctx) return
+
+    isPlayingRef.current = true
+    setIsPlaying(true)
+
+    const n = Number(num)
+    const beatDuration = msPerBeat
+    const snapshots = { accents }
+    let beatIndex = 0
+    const startTime = engine.ctx.currentTime
+
+    const scheduler = () => {
+      if (!isPlayingRef.current) return
+
+      const lookahead = 0.1
+      while (true) {
+        const elapsed = engine.ctx!.currentTime - startTime
+        const nextBeatTime = beatIndex * (beatDuration / 1000)
+        if (nextBeatTime - elapsed > lookahead) break
+
+        const delay = Math.max(0, (nextBeatTime - elapsed) * 1000)
+        const currentBeatIndex = beatIndex % n
+
+        const audioTid = setTimeout(() => {
+          engine.playMetronomeClick(snapshots.accents.includes(currentBeatIndex), 0.3)
+        }, delay)
+        beatTimeoutsRef.current.push(audioTid)
+
+        const visualTid = setTimeout(() => {
+          setCurrentBeat(currentBeatIndex)
+        }, delay)
+        beatTimeoutsRef.current.push(visualTid)
+
+        beatIndex++
+      }
+
+      timeoutRef.current = setTimeout(scheduler, 25)
     }
-    tick()
+
+    scheduler()
   }
 
   useEffect(() => {
-    if (!isPlaying) return
-    return () => setIsPlaying(false)
-  }, [isPlaying])
+    return () => {
+      isPlayingRef.current = false
+      clearAllTimeouts()
+    }
+  }, [])
 
   const matchedSig = timeSignatures.find((ts) => ts.signature === `${num}/${den}`)
 
@@ -114,7 +164,7 @@ export default function BeatsPerBarCalculatorPage() {
             onClick={() => toggleAccent(i)}
             className={`rounded-lg border-2 transition-colors ${
               accents.includes(i) ? "border-primary bg-primary/10" : "border-border"
-            } ${currentBeat === i ? "border-primary bg-primary/20" : ""}`}
+            } ${currentBeat === i ? "border-primary bg-primary/20 shadow-md" : ""}`}
             style={{ width: 48, height: accents.includes(i) ? 80 : 64 }}
             layout
           >
@@ -136,7 +186,7 @@ export default function BeatsPerBarCalculatorPage() {
         </p>
       </div>
 
-      {currentBeat !== null && (
+      {currentBeat !== null && isPlaying && (
         <div className="text-center mb-4">
           <span className="text-2xl font-mono font-bold">Beat {currentBeat + 1}</span>
         </div>
