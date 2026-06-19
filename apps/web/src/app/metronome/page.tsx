@@ -45,6 +45,7 @@ export default function MetronomePage() {
   const [volume, setVolume] = useState(0.8)
   const [signature, setSignature] = useState("4/4")
   const [beat, setBeat] = useState(-1)
+  const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">("click")
 
   const [tapBpm, setTapBpm] = useState<number | null>(null)
   const [tapCount, setTapCount] = useState(0)
@@ -59,10 +60,12 @@ export default function MetronomePage() {
   const bpmRef = useRef(bpm)
   const volumeRef = useRef(volume)
   const numBeatsRef = useRef(parseInt(signature.split("/")[0]))
+  const soundStyleRef = useRef<"click" | "beep" | "woodblock">("click")
 
   useEffect(() => { bpmRef.current = bpm }, [bpm])
   useEffect(() => { volumeRef.current = volume }, [volume])
   useEffect(() => { numBeatsRef.current = parseInt(signature.split("/")[0]) }, [signature])
+  useEffect(() => { soundStyleRef.current = soundStyle }, [soundStyle])
 
   const numBeats = parseInt(signature.split("/")[0])
 
@@ -87,7 +90,7 @@ export default function MetronomePage() {
     if (!ctx) return
     while (nextNoteTimeRef.current < ctx.currentTime + 0.1) {
       const isAccent = currentBeatRef.current === 0
-      engine.playMetronomeClick(isAccent, volumeRef.current)
+      engine.playMetronomeClick(isAccent, volumeRef.current, soundStyleRef.current)
       setBeat(currentBeatRef.current)
       const secondsPerBeat = 60.0 / bpmRef.current
       nextNoteTimeRef.current += secondsPerBeat
@@ -283,6 +286,25 @@ export default function MetronomePage() {
               `}
             >
               {sig}
+            </button>
+          ))}
+        </div>
+
+        {/* Sound Style */}
+        <div className="flex justify-center gap-1.5 mb-5">
+          {(["click", "beep", "woodblock"] as const).map((s) => (
+            <button
+              key={s}
+              onClick={() => setSoundStyle(s)}
+              className={`
+                px-3 py-1 rounded-full text-xs font-medium transition-all capitalize
+                ${soundStyle === s
+                  ? "bg-[#1565FF] text-white"
+                  : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                }
+              `}
+            >
+              {s}
             </button>
           ))}
         </div>
