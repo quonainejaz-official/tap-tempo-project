@@ -14,6 +14,7 @@ import {
 import { AudioEngine } from "@/lib/audio-engine"
 import { Play, Square } from "lucide-react"
 import { motion } from "framer-motion"
+import { BeatsPerBarSeoContent } from "@/components/beats-per-bar-seo-content"
 
 export default function BeatsPerBarCalculatorPage() {
   const [num, setNum] = useState("4")
@@ -111,7 +112,7 @@ export default function BeatsPerBarCalculatorPage() {
   const matchedSig = timeSignatures.find((ts) => ts.signature === `${num}/${den}`)
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-2xl">
+    <div className="container mx-auto px-4 py-12 max-w-3xl">
       <h1 className="text-4xl font-serif font-bold mb-2 text-center">Beats Per Bar Calculator</h1>
       <p className="text-muted-foreground text-center mb-8">
         Interactive time signature tool with customizable accents.
@@ -204,6 +205,8 @@ export default function BeatsPerBarCalculatorPage() {
           </p>
         </div>
       )}
+
+      <BeatsPerBarSeoContent />
     </div>
   )
 }
