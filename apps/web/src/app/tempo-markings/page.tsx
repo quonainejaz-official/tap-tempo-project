@@ -5,6 +5,7 @@ import { tempoMarkings } from "@/lib/content/tempoMarkings"
 import { Slider } from "@/components/ui/slider"
 import { useAudioEngine } from "@/hooks/use-audio-engine"
 import { Play, Pause } from "lucide-react"
+import { TempoMarkingsSeoContent } from "@/components/tempo-markings-seo-content"
 
 export default function TempoMarkingsPage() {
   const [bpm, setBpm] = useState(120)
@@ -122,6 +123,7 @@ export default function TempoMarkingsPage() {
           )
         })}
       </div>
+      <TempoMarkingsSeoContent />
       </div>
     </div>
   )

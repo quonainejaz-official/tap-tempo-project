@@ -4,23 +4,23 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com
 const pageUrl = `${siteUrl}/tempo-markings`
 
 export const metadata: Metadata = {
-  title: "Tempo Markings – Italian Terms & BPM Ranges for Musicians",
+  title: "Tempo Markings in Music: Complete BPM Chart, Italian Terms & Practice",
   description:
-    "Browse classical Italian tempo markings from Larghissimo to Prestissimo. Interactive BPM range explorer with audio previews for every tempo term.",
+    "Tempo markings with BPM ranges, Italian meanings, examples, and practical metronome tips for musicians and beginners.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Tempo Markings – Italian Terms & BPM Ranges for Musicians",
+    title: "Tempo Markings in Music: Complete BPM Chart, Italian Terms & Practice",
     description:
-      "Browse classical Italian tempo markings from Larghissimo to Prestissimo. Interactive BPM range explorer with audio previews for every tempo term.",
+      "Tempo markings with BPM ranges, Italian meanings, examples, and practical metronome tips for musicians and beginners.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tempo Markings – Italian Terms & BPM Ranges for Musicians",
+    title: "Tempo Markings in Music: Complete BPM Chart, Italian Terms & Practice",
     description:
-      "Browse classical Italian tempo markings from Larghissimo to Prestissimo. Interactive BPM range explorer with audio previews for every tempo term.",
+      "Tempo markings with BPM ranges, Italian meanings, examples, and practical metronome tips for musicians and beginners.",
   },
   robots: { index: true, follow: true },
 }
@@ -35,7 +35,7 @@ const jsonLd = {
       applicationCategory: "Multimedia",
       operatingSystem: "Web",
       description:
-        "Interactive tempo markings reference tool. Browse Italian tempo terms, explore BPM ranges, and hear audio click previews at each tempo.",
+        "Interactive tempo markings reference tool with complete BPM chart, Italian musical terms, audio previews, and practice guide for musicians.",
       offers: {
         "@type": "Offer",
         price: "0",
@@ -47,42 +47,50 @@ const jsonLd = {
       mainEntity: [
         {
           "@type": "Question",
-          name: "What is the slowest tempo marking?",
+          name: "What are tempo markings in music?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Larghissimo is the slowest standard tempo marking, ranging from 10 to 24 BPM. It creates a funereal, meditative feel with immense space between beats.",
+            text: "Tempo markings are instructions that tell musicians how fast or slow music should be played.",
           },
         },
         {
           "@type": "Question",
-          name: "What BPM is Andante?",
+          name: "Why are tempo markings written in Italian?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Andante is typically between 76 and 108 BPM. It means 'at a walking pace' and feels natural, unhurried, and steady.",
+            text: "Italian terminology became widely used during the development of classical music and eventually became a standard in music notation.",
           },
         },
         {
           "@type": "Question",
-          name: "What is the difference between Allegro and Vivace?",
+          name: "What BPM is Allegro?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Allegro is fast (120–168 BPM) and bright, while Vivace is faster (168–176 BPM) and more lively. Vivace suggests a spirited, sparkling character beyond just speed.",
+            text: "Allegro commonly falls around 120–156 BPM, although exact ranges can vary.",
           },
         },
         {
           "@type": "Question",
-          name: "What tempo marking is 120 BPM?",
+          name: "Where are tempo markings written?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "120 BPM is the boundary where Moderato (108–120), Allegretto (112–120), and Allegro (120–168) converge. At exactly 120 BPM, multiple markings apply depending on the desired musical character.",
+            text: "Tempo markings usually appear above the first measure of sheet music.",
           },
         },
         {
           "@type": "Question",
-          name: "How do I use tempo markings in my music?",
+          name: "Is tempo the same as rhythm?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Use tempo markings as a guide for the character of a piece, not just the speed. Adagio suggests an expressive, breathing feel while Presto implies excitement and drive. Pair the marking with a metronome to match the intended mood.",
+            text: "No. Tempo controls speed, while rhythm controls beat patterns.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How does a metronome help?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A metronome provides consistent beats that help musicians maintain timing and improve accuracy.",
           },
         },
       ],
