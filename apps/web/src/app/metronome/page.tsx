@@ -187,8 +187,11 @@ export default function MetronomePage() {
       <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
       <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
+      {/* Shared width container */}
+      <div className="w-full max-w-3xl">
+
       {/* Light Card */}
-      <div className="w-full max-w-full md:max-w-3xl rounded-2xl bg-white border shadow-sm p-5 sm:p-6">
+      <div className="rounded-2xl bg-white border shadow-sm p-5 sm:p-6">
 
         {/* BPM + Tap Button Row */}
         <div className="flex items-center justify-center gap-2.5 sm:gap-4 mb-1 flex-wrap">
@@ -334,6 +337,7 @@ export default function MetronomePage() {
       </div>
 
       <MetronomeSeoContent />
+      </div>
     </div>
   )
 }
