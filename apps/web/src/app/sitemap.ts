@@ -1,7 +1,7 @@
 import { getCollection } from "@/lib/mongodb"
 import type { MetadataRoute } from "next"
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tap-tempo.vercel.app"
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [

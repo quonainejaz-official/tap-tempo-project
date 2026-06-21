@@ -14,9 +14,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  alternates: {
-    canonical: "/",
-  },
   title: {
     default: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
     template: "%s | TheTapTempo",
