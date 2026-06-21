@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 
 const defaultSections: Record<string, { href: string; label: string }[]> = {
@@ -60,8 +61,14 @@ export function Footer() {
     <footer className="border-t bg-black dark:bg-black text-white py-12">
       <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-start gap-8">
         <div>
-          <Link href="/" className="font-serif text-2xl font-bold italic tracking-tight mb-4 inline-block text-white">
-            TheTapTempo
+          <Link href="/" className="mb-4 inline-block">
+            <Image
+              src="/logo.svg"
+              alt="TheTapTempo Logo"
+              width={200}
+              height={50}
+              className="h-10 w-auto"
+            />
           </Link>
           <p className="text-white/60 text-sm max-w-xs">
             A world-class, Apple-caliber music tempo toolkit for musicians, producers, DJs, drummers, and audio engineers.

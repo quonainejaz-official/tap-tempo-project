@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ThemeToggle } from "./theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
@@ -52,8 +53,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 items-center px-4 md:px-8">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-serif text-2xl font-bold italic tracking-tight">TheTapTempo</span>
+        <Link href="/" className="mr-6 flex items-center">
+          <Image
+            src="/logo.svg"
+            alt="TheTapTempo Logo"
+            width={200}
+            height={50}
+            className="h-10 w-auto"
+            priority
+          />
         </Link>
 
         <div className="hidden md:flex flex-1 items-center justify-between space-x-2">

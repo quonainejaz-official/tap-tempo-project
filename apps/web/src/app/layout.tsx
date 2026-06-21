@@ -31,21 +31,65 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "TheTapTempo",
     url: "/",
+    images: [
+      {
+        url: "/logo.svg",
+        width: 480,
+        height: 120,
+        alt: "TheTapTempo Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
     description:
       "Professional music tools for musicians, producers, and DJs. Tap any rhythm, calculate BPM instantly.",
+    images: ["/logo.svg"],
   },
   robots: { index: true, follow: true },
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: "TheTapTempo",
+      url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo.svg`,
+        width: 480,
+        height: 120,
+      },
+    },
+    {
+      "@type": "WebSite",
+      name: "TheTapTempo",
+      url: siteUrl,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${siteUrl}/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
