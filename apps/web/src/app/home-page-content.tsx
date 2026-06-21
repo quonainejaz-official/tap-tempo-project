@@ -75,13 +75,13 @@ export function HomePageContent() {
   return (
     <div className="min-h-screen">
       <section className="relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-4"
+              className="mb-3"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
                 <Sparkles className="w-3.5 h-3.5" />
@@ -93,7 +93,7 @@ export function HomePageContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold tracking-tight mb-6"
+              className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold tracking-tight mb-4"
             >
               Tempo Tools for
               <br />
@@ -104,7 +104,7 @@ export function HomePageContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
+              className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6"
             >
               A world-class, Apple-caliber music tempo toolkit. Tap tempo, metronome, BPM calculator, tempo markings, delay time calculator, and more. Free, no ads, works offline.
             </motion.p>
@@ -113,7 +113,7 @@ export function HomePageContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center justify-center gap-4 mb-12"
+              className="flex items-center justify-center gap-4 mb-6"
             >
               <Button size="lg" asChild>
                 <Link href="/tap-tempo">
@@ -139,12 +139,12 @@ export function HomePageContent() {
                 <div className="text-3xl font-bold font-mono text-foreground">{display}</div>
                 <div className="text-xs mt-1">Live BPM Demo</div>
               </div>
-              <div className="h-12 w-px bg-border" />
+              <div className="h-10 w-px bg-border" />
               <div className="text-left text-sm leading-relaxed">
                 <div className="font-medium text-foreground">7 Free Tools</div>
                 <div>No registration required</div>
               </div>
-              <div className="h-12 w-px bg-border" />
+              <div className="h-10 w-px bg-border" />
               <div className="text-left text-sm leading-relaxed">
                 <div className="font-medium text-foreground">Works Offline</div>
                 <div>Zero server dependency</div>
@@ -154,8 +154,8 @@ export function HomePageContent() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="text-center mb-12">
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">All Tempo Tools</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Everything you need to work with tempo, timing, and rhythm.
@@ -185,10 +185,10 @@ export function HomePageContent() {
       </section>
 
       <section className="border-t">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground mb-8">Common questions about using tempo tools and BPM calculations.</p>
+            <p className="text-muted-foreground mb-6">Common questions about using tempo tools and BPM calculations.</p>
             <Accordion type="multiple">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
@@ -202,9 +202,9 @@ export function HomePageContent() {
       </section>
 
       <section className="border-t bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Zap className="w-8 h-8 text-primary" />
             </div>
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Built for Precision</h2>
