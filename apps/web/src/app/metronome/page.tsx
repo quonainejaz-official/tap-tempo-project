@@ -183,18 +183,15 @@ export default function MetronomePage() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center px-4 py-4 bg-background overflow-x-hidden">
+    <div className="flex flex-col items-center px-4 py-4 bg-background">
       <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
       <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
-      {/* Shared width container */}
-      <div className="w-full max-w-3xl">
-
       {/* Light Card */}
-      <div className="rounded-2xl bg-white border shadow-sm p-5 sm:p-6">
+      <div className="w-full max-w-3xl rounded-2xl bg-white border shadow-sm px-6 py-6">
 
         {/* BPM + Tap Button Row */}
-        <div className="flex items-center justify-center gap-2.5 sm:gap-4 mb-1 flex-wrap">
+        <div className="flex items-center justify-center gap-4 mb-1">
           <div className="flex items-baseline gap-2">
             <span className="font-mono text-5xl md:text-6xl font-bold text-[#444] tracking-tight leading-none">
               {bpm}
@@ -232,7 +229,7 @@ export default function MetronomePage() {
         </div>
 
         {/* BPM Slider */}
-        <div className="mb-3 sm:mb-5">
+        <div className="mb-5">
           <Slider
             value={[bpm]}
             min={20}
@@ -243,7 +240,7 @@ export default function MetronomePage() {
         </div>
 
         {/* Beat Dots */}
-        <div className="flex justify-center gap-2 sm:gap-3 mb-3 sm:mb-5">
+        <div className="flex justify-center gap-3 mb-5">
           {Array.from({ length: numBeats }).map((_, i) => (
             <div
               key={i}
@@ -257,11 +254,11 @@ export default function MetronomePage() {
         </div>
 
         {/* START/STOP Button */}
-        <div className="flex justify-center mb-3 sm:mb-5">
+        <div className="flex justify-center mb-5">
           <button
             onClick={() => setPlaying(p => !p)}
             className={`
-              w-full max-w-[260px] sm:w-44 h-12 rounded-full text-sm font-bold tracking-wider uppercase
+              w-44 h-12 rounded-full text-sm font-bold tracking-wider uppercase
               transition-all duration-150 active:scale-95
               ${playing
                 ? "bg-[#FF3B30] text-white hover:bg-[#FF3B30]/90"
@@ -274,7 +271,7 @@ export default function MetronomePage() {
         </div>
 
         {/* Time Signatures */}
-        <div className="flex justify-center gap-2 sm:gap-1.5 mb-3 sm:mb-5 flex-wrap">
+        <div className="flex justify-center gap-1.5 mb-5">
           {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8"].map(sig => (
             <button
               key={sig}
@@ -293,7 +290,7 @@ export default function MetronomePage() {
         </div>
 
         {/* Sound Style */}
-        <div className="flex justify-center gap-2 sm:gap-1.5 mb-3 sm:mb-5 flex-wrap">
+        <div className="flex justify-center gap-1.5 mb-5">
           {(["click", "beep", "woodblock"] as const).map((s) => (
             <button
               key={s}
@@ -312,7 +309,7 @@ export default function MetronomePage() {
         </div>
 
         {/* Tempo Presets */}
-        <div className="flex justify-center gap-2 sm:gap-1.5 mb-3 sm:mb-5 flex-wrap">
+        <div className="flex justify-center gap-1.5 mb-5 flex-wrap">
           {presets.map(p => (
             <button
               key={p.label}
@@ -325,7 +322,7 @@ export default function MetronomePage() {
         </div>
 
         {/* Volume */}
-        <div className="w-full mx-auto flex items-center gap-3 sm:max-w-[200px]">
+        <div className="w-full max-w-[200px] mx-auto flex items-center gap-3">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground shrink-0">VOL</span>
           <Slider
             value={[Math.round(volume * 100)]}
@@ -337,7 +334,6 @@ export default function MetronomePage() {
       </div>
 
       <MetronomeSeoContent />
-      </div>
     </div>
   )
 }
