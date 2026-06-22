@@ -183,12 +183,12 @@ export default function MetronomePage() {
   }, [])
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-2 text-foreground">Metronome</h1>
-      <p className="text-muted-foreground text-sm mb-6">Free metronome tool for rhythm practice, tempo control, and timing</p>
+    <div className="flex flex-col items-center px-4 py-4 bg-background">
+      <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
+      <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
       {/* Light Card */}
-      <div className="rounded-2xl bg-white border shadow-sm px-6 py-6">
+      <div className="w-full max-w-3xl rounded-2xl bg-white border shadow-sm px-6 py-6">
 
         {/* BPM + Tap Button Row */}
         <div className="flex items-center justify-center gap-4 mb-1">
@@ -333,7 +333,9 @@ export default function MetronomePage() {
         </div>
       </div>
 
-      <MetronomeSeoContent />
+      <div className="w-full max-w-3xl">
+        <MetronomeSeoContent />
+      </div>
     </div>
   )
 }
