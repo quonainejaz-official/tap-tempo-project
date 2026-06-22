@@ -64,7 +64,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export function MetronomeSeoContent() {
   return (
-    <section className="w-full max-w-3xl mx-auto mt-16 space-y-10 pb-16 px-6">
+    <section className="mt-16 space-y-10 pb-16 px-6">
       {/* Key Takeaways */}
       <div className="p-4 rounded-xl border bg-muted/30 space-y-2">
         <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Key Takeaways</h2>

@@ -333,7 +333,9 @@ export default function MetronomePage() {
         </div>
       </div>
 
-      <MetronomeSeoContent />
+      <div className="w-full max-w-3xl">
+        <MetronomeSeoContent />
+      </div>
     </div>
   )
 }
