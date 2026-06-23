@@ -65,7 +65,7 @@ export function Header() {
         </Link>
 
         <div className="hidden md:flex flex-1 items-center justify-between space-x-2">
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+          <nav aria-label="Main navigation" className="flex items-center space-x-6 text-sm font-medium">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -89,7 +89,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="flex flex-col space-y-4 mt-6">
+              <nav aria-label="Mobile navigation" className="flex flex-col space-y-4 mt-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}

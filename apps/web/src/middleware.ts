@@ -8,8 +8,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const target = "https://www.thetaptempo.com"
-
   if (host.endsWith("vercel.app")) {
     const url = request.nextUrl.clone()
     url.host = "www.thetaptempo.com"

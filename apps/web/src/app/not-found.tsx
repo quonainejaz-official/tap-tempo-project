@@ -3,6 +3,13 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { AlertCircle } from "lucide-react"
 
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">

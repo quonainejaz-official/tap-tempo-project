@@ -1,6 +1,6 @@
 export default function AiTempoPage() {
   return (
-    <main className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 py-12 md:py-20">
+    <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 py-12 md:py-20">
       <style>{`
         .glow-on-hover {
           transition: all 0.3s ease-in-out;
@@ -195,6 +195,6 @@ useCallback(fn, deps); // prevent recreation`}</code></pre>
           <p className="text-xs text-muted-foreground mt-6">direct link to TapTempoAI platform • instant access • free to ask anything</p>
         </div>
       </div>
-    </main>
+    </div>
   )
 }
