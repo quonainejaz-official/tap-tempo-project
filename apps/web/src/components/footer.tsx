@@ -18,7 +18,7 @@ const defaultSections: Record<string, { href: string; label: string }[]> = {
   ],
   Legal: [
     { href: "/privacy-policy", label: "Privacy Policy" },
-    { href: "/terms-conditions", label: "Terms & Conditions" },
+    { href: "/terms", label: "Terms & Conditions" },
     { href: "/about", label: "About Us" },
     { href: "/contact", label: "Contact" },
   ],
