@@ -16,6 +16,12 @@ const defaultSections: Record<string, { href: string; label: string }[]> = {
     { href: "/tempo-markings", label: "Tempo Markings" },
     { href: "/beats-per-bar-calculator", label: "Beats Per Bar" },
   ],
+  Legal: [
+    { href: "/privacy-policy", label: "Privacy Policy" },
+    { href: "/terms-conditions", label: "Terms & Conditions" },
+    { href: "/about", label: "About Us" },
+    { href: "/contact", label: "Contact" },
+  ],
   More: [
     { href: "/blog", label: "Blog" },
     { href: "/ai-tempo", label: "TapTempo-AI" },
