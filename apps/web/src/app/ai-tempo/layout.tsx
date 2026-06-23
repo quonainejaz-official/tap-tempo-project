@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
-const pageUrl = `${siteUrl}/ai-tempo`
+const pageUrl = `${BASE_URL}/ai-tempo`
 
 export const metadata: Metadata = {
   title: "TapTempoAI — Your Intelligent Coding Companion & AI Assistant",

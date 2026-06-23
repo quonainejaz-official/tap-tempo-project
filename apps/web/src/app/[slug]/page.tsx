@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation"
 import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
 interface Props {
   params: Promise<{ slug: string }>
 }
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
 
 const reservedSlugs = [
   "tap-tempo", "metronome", "bpm-calculator", "bpm-to-ms",
@@ -23,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!page) return { title: "Page Not Found" }
 
-  const canonical = `${siteUrl}/${slug}`
+  const canonical = `${BASE_URL}/${slug}`
 
   return {
     title: page.metaTitle || `${page.title} | TheTapTempo`,

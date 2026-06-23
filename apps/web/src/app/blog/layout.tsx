@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
-const pageUrl = `${siteUrl}/blog`
+const pageUrl = `${BASE_URL}/blog`
 
 export const metadata: Metadata = {
   title: "Blog",

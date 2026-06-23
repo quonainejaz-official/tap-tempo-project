@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
-const pageUrl = `${siteUrl}/delay-reverb-time-calculator`
+const pageUrl = `${BASE_URL}/delay-reverb-time-calculator`
 
 export const metadata: Metadata = {
   title: "Delay Time & Reverb Pre-Delay Calculator",

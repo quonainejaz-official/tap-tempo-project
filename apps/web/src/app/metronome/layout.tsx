@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
-const pageUrl = `${siteUrl}/metronome`
+const pageUrl = `${BASE_URL}/metronome`
 
 export const metadata: Metadata = {
   title: "Online Metronome Tool & Rhythm Guide for Musicians",

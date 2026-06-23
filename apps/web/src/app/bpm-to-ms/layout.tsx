@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
-const pageUrl = `${siteUrl}/bpm-to-ms`
+const pageUrl = `${BASE_URL}/bpm-to-ms`
 
 export const metadata: Metadata = {
   title: "BPM to MS Conversion: Pro Guide with Calculator, Chart & DAW Workflows",

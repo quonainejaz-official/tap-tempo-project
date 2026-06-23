@@ -8,12 +8,13 @@ import ChatAssistant from "@/components/chat-assistant"
 import { NProgressProvider } from "@/components/nprogress-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
+import { BASE_URL } from "@/lib/constants"
 import "./globals.css"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
+const metadataBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || BASE_URL
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(metadataBaseUrl),
   title: {
     default: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
     template: "%s | TheTapTempo",
@@ -53,10 +54,10 @@ const jsonLd = {
     {
       "@type": "Organization",
       name: "TheTapTempo",
-      url: siteUrl,
+      url: BASE_URL,
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo.svg`,
+        url: `${BASE_URL}/logo.svg`,
         width: 480,
         height: 120,
       },
@@ -64,10 +65,10 @@ const jsonLd = {
     {
       "@type": "WebSite",
       name: "TheTapTempo",
-      url: siteUrl,
+      url: BASE_URL,
       potentialAction: {
         "@type": "SearchAction",
-        target: `${siteUrl}/search?q={search_term_string}`,
+        target: `${BASE_URL}/search?q={search_term_string}`,
         "query-input": "required name=search_term_string",
       },
     },

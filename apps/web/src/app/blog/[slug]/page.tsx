@@ -3,12 +3,11 @@ import Link from "next/link"
 import { ChevronLeft } from "lucide-react"
 import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
 interface Props {
   params: Promise<{ slug: string }>
 }
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
@@ -17,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!blog) return { title: "Blog Not Found" }
 
-  const canonical = `${siteUrl}/blog/${slug}`
+  const canonical = `${BASE_URL}/blog/${slug}`
 
   return {
     title: blog.metaTitle || `${blog.title} | TheTapTempo`,

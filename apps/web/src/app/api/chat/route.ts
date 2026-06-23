@@ -65,7 +65,7 @@ function checkAdmin(req: Request): boolean {
 
 function buildPrompt(isAdmin: boolean): string {
   const common = `
-PROJECT: TheTapTempo (tap-tempo.vercel.app) — BPM toolkit for musicians, producers & DJs. Built with Next.js 15, MongoDB Atlas, Cloudinary.
+PROJECT: TheTapTempo (www.thetaptempo.com) — BPM toolkit for musicians, producers & DJs. Built with Next.js 15, MongoDB Atlas, Cloudinary.
 
 TOOLS:
 1. Tap Tempo (/tap-tempo) — Tap rhythm, weighted avg BPM, outlier rejection, live graph, audio feedback, session history

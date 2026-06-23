@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+import { BASE_URL } from "@/lib/constants"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
-const pageUrl = `${siteUrl}/bpm-calculator`
+const pageUrl = `${BASE_URL}/bpm-calculator`
 
 export const metadata: Metadata = {
   title: "BPM Calculator – Calculate Tempo, Beats & Song Duration Online",

@@ -1,10 +1,9 @@
 import type { Metadata } from "next"
 import { HomePageContent } from "./home-page-content"
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetaptempo.com"
+import { BASE_URL } from "@/lib/constants"
 
 export const metadata: Metadata = {
-  alternates: { canonical: siteUrl },
+  alternates: { canonical: BASE_URL },
 }
 
 export default function HomePage() {
