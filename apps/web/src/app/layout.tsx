@@ -9,6 +9,7 @@ import ChatAssistantDynamic from "@/components/chat-assistant-dynamic"
 import { NProgressProvider } from "@/components/nprogress-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
+import GoogleAnalytics from "@/components/google-analytics"
 import { BASE_URL } from "@/lib/constants"
 import "./globals.css"
 
@@ -120,6 +121,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Toaster />
           </TooltipProvider>
         </ThemeProvider>
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
         <SpeedInsights />
         <Analytics />
       </body>
