@@ -25,6 +25,49 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      name: "Blog | TheTapTempo",
+      description:
+        "Read articles on BPM, tap tempo, music production, metronome practice, delay and reverb techniques, and music theory for musicians, producers, and DJs.",
+      url: pageUrl,
+      isPartOf: {
+        "@type": "WebSite",
+        name: "TheTapTempo",
+        url: BASE_URL,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: pageUrl,
+        },
+      ],
+    },
+  ],
+}
+
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {children}
+    </>
+  )
 }

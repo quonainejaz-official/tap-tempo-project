@@ -27,16 +27,37 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Privacy Policy | The Tap Tempo",
-  description:
-    "Read the Privacy Policy for The Tap Tempo to understand how we collect, use and protect information while you use our music tools and website.",
-  url: pageUrl,
-  isPartOf: {
-    "@type": "WebSite",
-    name: "TheTapTempo",
-    url: BASE_URL,
-  },
+  "@graph": [
+    {
+      "@type": "WebPage",
+      name: "Privacy Policy | The Tap Tempo",
+      description:
+        "Read the Privacy Policy for The Tap Tempo to understand how we collect, use and protect information while you use our music tools and website.",
+      url: pageUrl,
+      isPartOf: {
+        "@type": "WebSite",
+        name: "TheTapTempo",
+        url: BASE_URL,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Privacy Policy",
+          item: pageUrl,
+        },
+      ],
+    },
+  ],
 }
 
 export default function PrivacyPolicyLayout({ children }: { children: React.ReactNode }) {

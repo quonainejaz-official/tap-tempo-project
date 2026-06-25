@@ -8,9 +8,12 @@ interface Props {
 }
 
 const reservedSlugs = [
+  "about", "contact", "privacy-policy", "terms",
   "tap-tempo", "metronome", "bpm-calculator", "bpm-to-ms",
-  "delay-time-calculator", "tempo-markings", "beats-per-bar-calculator",
-  "blog", "admin", "api", "favicon.svg", "robots.txt",
+  "delay-time-calculator", "delay-reverb-time-calculator",
+  "tempo-markings", "beats-per-bar-calculator", "ai-tempo",
+  "blog", "admin", "api", "not-found",
+  "sitemap.xml", "robots.txt", "favicon.ico", "favicon.svg", "manifest.json",
 ]
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
