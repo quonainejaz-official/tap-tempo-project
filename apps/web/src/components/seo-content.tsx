@@ -181,7 +181,7 @@ export function SeoContent() {
           (beats per minute). If a song has a tempo of 120 BPM, you&apos;ll hear 120 quarter‑note beats every minute. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
         </p>
         <p>
-            It&apos;s vital not to confuse tempo with time signature. Check our <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">Beats Per Bar Guide</Link> to understand how measures work. A song in 4/4 time has four quarter‑note beats per measure,
+            It&apos;s vital not to confuse tempo with time signature. Check our <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">Beats Per Bar Guide</Link> to understand how measures work. A song in 4/4 time has four quarter‑note beats per measure,
                       but a waltz in 3/4 time still has a measurable BPM, the speed of those three beats. A BPM tapper doesn&apos;t care
           about the time signature; it only listens to the timing of your taps.
         </p>
