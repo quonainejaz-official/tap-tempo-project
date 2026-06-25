@@ -1,15 +1,35 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
+import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/lib/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Layout } from "@/components/layout"
-import ChatAssistant from "@/components/chat-assistant"
+import ChatAssistantDynamic from "@/components/chat-assistant-dynamic"
 import { NProgressProvider } from "@/components/nprogress-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { BASE_URL } from "@/lib/constants"
 import "./globals.css"
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--app-font-sans",
+  display: "swap",
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--app-font-serif",
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--app-font-mono",
+  display: "swap",
+})
 
 const metadataBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || BASE_URL
 
@@ -77,7 +97,11 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
@@ -89,12 +113,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>
         <Suspense fallback={null}>
@@ -103,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <TooltipProvider>
             <Layout>{children}</Layout>
-            <ChatAssistant />
+            <ChatAssistantDynamic />
             <Toaster />
           </TooltipProvider>
         </ThemeProvider>
