@@ -116,8 +116,6 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Visit `/admin/login` and sign in with:
 
-- **Email:** `Taptempous@gmail.com`
-- **Password:** `Ppuyyu@77`
 
 From the dashboard you can:
 - Create/edit/delete blog posts with TipTap rich editor
