@@ -69,12 +69,12 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   icons: {
     icon: [
-      { url: "/favicon.svg" },
+      { url: "/favicon.ico" },
       { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
-    shortcut: "/favicon.svg",
+    shortcut: "/favicon.ico",
   },
 }
 
