@@ -13,4 +13,5 @@ export interface Blog {
   published: boolean
   createdAt: Date
   updatedAt: Date
+  faqs?: { q: string; a: string }[]
 }

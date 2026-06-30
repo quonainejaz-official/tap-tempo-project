@@ -4,6 +4,7 @@ import { ChevronLeft } from "lucide-react"
 import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
 import { BASE_URL } from "@/lib/constants"
+import { BlogFaq } from "@/components/blog-faq"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -46,6 +47,21 @@ export default async function BlogPostPage({ params }: Props) {
 
   const canonical = `${BASE_URL}/blog/${slug}`
 
+  const faqJsonLd = blog.faqs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: blog.faqs.map((faq: { q: string; a: string }) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.a,
+          },
+        })),
+      }
+    : null
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -78,6 +94,12 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
       <article className="min-h-screen">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 max-w-5xl">
           <Link
@@ -139,6 +161,12 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="blog-content">
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
           </div>
+
+          {blog.faqs && blog.faqs.length > 0 && (
+            <div className="mt-12 border-t pt-12">
+              <BlogFaq faqs={blog.faqs} />
+            </div>
+          )}
         </div>
       </article>
     </>
