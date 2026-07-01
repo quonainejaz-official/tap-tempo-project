@@ -5,6 +5,7 @@ import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
 import { BASE_URL } from "@/lib/constants"
 import { BlogFaq } from "@/components/blog-faq"
+import { AuthorBio } from "@/components/author-bio"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -161,6 +162,8 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="blog-content">
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
           </div>
+
+          <AuthorBio />
 
           {blog.faqs && blog.faqs.length > 0 && (
             <div className="mt-12 border-t pt-12">
