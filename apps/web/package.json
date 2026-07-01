@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3000",
-    "build": "next build",
+    "build": "npm run seo:check && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "seo:check": "node scripts/seo-deploy-check.js",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
