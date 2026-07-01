@@ -11,6 +11,20 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+export const revalidate = 0
+export const dynamic = "force-dynamic"
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  try {
+    const blogs = await getCollection("blogs")
+    const all = await blogs.find({ published: true }, { projection: { slug: 1 } }).toArray()
+    return all.map((b) => ({ slug: b.slug }))
+  } catch {
+    return []
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const blogs = await getCollection("blogs")
@@ -41,8 +55,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const blogs = await getCollection("blogs")
-  const blog = await blogs.findOne({ slug, published: true })
+
+  let blog
+  try {
+    const blogs = await getCollection("blogs")
+    blog = await blogs.findOne({ slug, published: true })
+  } catch {
+    console.error(`[blog/${slug}] MongoDB error — falling through to notFound()`)
+    notFound()
+  }
 
   if (!blog) notFound()
 

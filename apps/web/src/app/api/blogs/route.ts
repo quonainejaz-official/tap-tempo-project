@@ -53,6 +53,7 @@ export async function POST(req: Request) {
     const result = await blogs.insertOne(blog)
     revalidatePath("/blog")
     revalidatePath("/")
+    revalidatePath(`/blog/${blog.slug}`)
 
     return NextResponse.json(
       { ...blog, _id: result.insertedId.toString() },

@@ -78,10 +78,12 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
       if (publicId) await deleteImage(publicId)
     }
 
+    const deletedSlug = blog.slug
     await blogs.deleteOne({ _id: new ObjectId(id) })
 
     revalidatePath("/blog")
     revalidatePath("/")
+    if (deletedSlug) revalidatePath(`/blog/${deletedSlug}`)
 
     return NextResponse.json({ success: true })
   } catch {
