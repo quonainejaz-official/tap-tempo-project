@@ -87,6 +87,9 @@ export default function EditorialTeamPage() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             Our editorial mission is to bridge the gap between academic music knowledge and practical music-making. We distill complex concepts into clear, actionable content without oversimplifying or misrepresenting the underlying theory.
           </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            For a detailed breakdown of how we create, review, and update our content, see our <Link href="/editorial-policy" className="text-primary hover:underline font-medium">Editorial Policy</Link>.
+          </p>
         </div>
       </section>
 

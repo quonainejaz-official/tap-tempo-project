@@ -8,7 +8,7 @@ interface Props {
 }
 
 const reservedSlugs = [
-  "about", "contact", "privacy-policy", "terms", "editorial-team",
+  "about", "contact", "privacy-policy", "terms", "editorial-team", "editorial-policy",
   "tap-tempo", "metronome", "bpm-calculator", "bpm-to-ms",
   "delay-time-calculator", "delay-reverb-time-calculator",
   "tempo-markings", "beats-per-bar-calculator", "ai-tempo",
