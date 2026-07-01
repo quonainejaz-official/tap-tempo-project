@@ -1,11 +1,15 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { ChevronLeft } from "lucide-react"
 import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
 import { BASE_URL } from "@/lib/constants"
 import { BlogFaq } from "@/components/blog-faq"
 import { AuthorBio } from "@/components/author-bio"
+import { TableOfContents } from "@/components/table-of-contents"
+import { EditorialReview } from "@/components/editorial-review"
+import { processBlogContent } from "@/lib/blog-utils"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -55,7 +59,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  // Normalize: strip leading/trailing slashes from URL slug as defense-in-depth
   const rawSlug = (await params).slug
   const slug = rawSlug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
 
@@ -64,13 +67,15 @@ export default async function BlogPostPage({ params }: Props) {
     const blogs = await getCollection("blogs")
     blog = await blogs.findOne({ slug, published: true })
   } catch {
-    console.error(`[blog/${slug}] MongoDB error — falling through to notFound()`)
+    console.error(`[blog/${slug}] MongoDB error`)
     notFound()
   }
 
   if (!blog) notFound()
 
   const canonical = `${BASE_URL}/blog/${slug}`
+
+  const { processedHtml, headings } = processBlogContent(blog.content || "")
 
   const faqJsonLd = blog.faqs
     ? {
@@ -113,8 +118,22 @@ export default async function BlogPostPage({ params }: Props) {
     },
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: blog.title, item: canonical },
+    ],
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -134,12 +153,12 @@ export default async function BlogPostPage({ params }: Props) {
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to blog
           </Link>
 
-          <header className="mb-12">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight mb-8 leading-[1.15]">
+          <header className="mb-8">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight mb-6 leading-[1.15]">
               {blog.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-3 text-muted-foreground font-mono text-sm border-b border-border pb-8">
-              <span>By {blog.author || "TheTapTempo Team"}</span>
+            <div className="flex flex-wrap items-center gap-3 text-muted-foreground font-mono text-sm pb-6">
+              <span>By {blog.author || "TheTapTempo Editorial Team"}</span>
               <span className="text-border">&middot;</span>
               <span>
                 {blog.createdAt
@@ -165,35 +184,40 @@ export default async function BlogPostPage({ params }: Props) {
                 </>
               )}
             </div>
-
             {(blog.excerpt || blog.metaDescription) && (
-              <p className="text-lg text-muted-foreground leading-relaxed mt-6">
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 {blog.excerpt || blog.metaDescription}
               </p>
             )}
           </header>
 
           {blog.coverImage && (
-            <div className="mb-12 rounded-xl overflow-hidden">
-              <img
+            <div className="mb-10 rounded-xl overflow-hidden bg-muted relative aspect-[16/9]">
+              <Image
                 src={blog.coverImage}
                 alt={blog.title}
-                className="w-full h-auto object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1024px"
+                priority
               />
             </div>
           )}
 
-          <div className="blog-content">
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-          </div>
+          {headings.length > 0 && <TableOfContents headings={headings} />}
 
-          <AuthorBio />
+          <div className="blog-content">
+            <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
+          </div>
 
           {blog.faqs && blog.faqs.length > 0 && (
             <div className="mt-12 border-t pt-12">
               <BlogFaq faqs={blog.faqs} />
             </div>
           )}
+
+          <AuthorBio />
+          <EditorialReview />
         </div>
       </article>
     </>

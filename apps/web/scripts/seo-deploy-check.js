@@ -17,6 +17,9 @@ const COMP_DIR = path.resolve(__dirname, "..", "src", "components")
 const ROOT = path.resolve(__dirname, "..")
 
 const SEP = path.sep // handle both \\ and /
+const BLOG_DIR = path.resolve(APP_DIR, "blog", "[slug]")
+const UTILS_DIR = path.resolve(__dirname, "..", "src", "lib")
+
 const REQUIRED_FOOTER_LINKS = [
   "/blog", "/editorial-team", "/editorial-policy",
   "/privacy-policy", "/terms", "/contact",
@@ -415,7 +418,88 @@ function checkAuthorSystem() {
   else warn("Author name may not match expected brand")
 }
 
-// ── 13. Report ─────────────────────────────────────────────────────
+// ── 13. Blog Post Layout & Processing ─────────────────────────────
+function checkBlogPost() {
+  heading("Blog Post Layout")
+
+  const blogPage = readFile(path.join(BLOG_DIR, "page.tsx"))
+  if (!blogPage) { fail("Blog [slug]/page.tsx not found"); return }
+  pass("Blog template exists")
+
+  if (blogPage.includes("TableOfContents")) pass("TableOfContents component imported")
+  else fail("TableOfContents not imported")
+
+  if (blogPage.includes("<TableOfContents")) pass("TableOfContents rendered in blog template")
+  else fail("TableOfContents not rendered")
+
+  if (blogPage.includes("EditorialReview")) pass("EditorialReview component imported")
+  else fail("EditorialReview not imported")
+
+  if (blogPage.includes("<EditorialReview")) pass("EditorialReview rendered after AuthorBio")
+  else fail("EditorialReview not rendered")
+
+  if (blogPage.includes("processBlogContent")) pass("processBlogContent imported and used")
+  else fail("processBlogContent not used for content processing")
+
+  if (blogPage.includes("from \"next/image\"") || blogPage.includes("from 'next/image'")) {
+    pass("Next.js Image component used for featured image")
+  } else {
+    fail("Featured image not using Next.js Image component")
+  }
+
+  if (blogPage.includes("breadcrumbJsonLd")) pass("BreadcrumbList JSON-LD included")
+  else fail("BreadcrumbList JSON-LD missing")
+
+  if (blogPage.includes("from \"@/lib/blog-utils\"") || blogPage.includes("from '@/lib/blog-utils'")) {
+    pass("blog-utils library imported")
+  } else {
+    fail("blog-utils library not imported")
+  }
+}
+
+// ── 14. External Links Processing ──────────────────────────────────
+function checkExternalLinks() {
+  heading("External Links")
+
+  const blogUtils = readFile(path.join(UTILS_DIR, "blog-utils.ts"))
+  if (!blogUtils) { fail("blog-utils.ts not found"); return }
+  pass("blog-utils.ts exists")
+
+  if (blogUtils.includes("processExternalLinks")) pass("processExternalLinks function exists")
+  else fail("processExternalLinks missing")
+
+  if (blogUtils.includes("target=\"_blank\"")) pass("External links get target=_blank")
+  else fail("External links missing target=_blank in processing")
+
+  if (blogUtils.includes("rel=\"noopener noreferrer\"")) pass("External links get rel=noopener noreferrer")
+  else fail("External links missing rel=noopener noreferrer in processing")
+
+  if (blogUtils.includes("extractHeadings")) pass("extractHeadings function exists for TOC generation")
+  else fail("extractHeadings for TOC missing")
+
+  if (blogUtils.includes("addHeadingIds")) pass("addHeadingIds function exists for heading anchors")
+  else fail("addHeadingIds for heading anchors missing")
+}
+
+// ── 15. Editorial Review Component ─────────────────────────────────
+function checkEditorialReview() {
+  heading("Editorial Review")
+
+  const editorialReview = readFile(path.join(COMP_DIR, "editorial-review.tsx"))
+  if (!editorialReview) { fail("editorial-review.tsx not found"); return }
+  pass("editorial-review.tsx exists")
+
+  if (editorialReview.includes('/editorial-team')) pass("Editorial Review links to /editorial-team")
+  else fail("Editorial Review missing /editorial-team link")
+
+  if (editorialReview.includes('/editorial-policy')) pass("Editorial Review links to /editorial-policy")
+  else fail("Editorial Review missing /editorial-policy link")
+
+  if (editorialReview.includes("Editorial Review")) pass("Editorial Review section heading present")
+  else warn("Editorial Review section heading may differ")
+}
+
+// ── 16. Report ─────────────────────────────────────────────────────
 function printReport() {
   const total = RESULTS.pass.length + RESULTS.warn.length + RESULTS.fail.length
   heading("SEO Deployment Report")
@@ -436,6 +520,9 @@ function printReport() {
     ["Author Information Valid", RESULTS.pass.some((r) => r.includes("AuthorBio"))],
     ["Accessibility Passed", RESULTS.pass.some((r) => r.includes("Heading hierarchy"))],
     ["TypeScript Passed", RESULTS.pass.some((r) => r.includes("TypeScript check passed"))],
+    ["Blog Post Layout Valid", RESULTS.pass.some((r) => r.includes("Blog template exists"))],
+    ["External Links Processed", RESULTS.pass.some((r) => r.includes("processExternalLinks"))],
+    ["Editorial Review Passed", RESULTS.pass.some((r) => r.includes("editorial-review.tsx exists"))],
   ]
 
   for (const [name, ok] of checks) {
@@ -463,6 +550,9 @@ async function main() {
   checkHomepage()
   checkFooter()
   checkAuthorSystem()
+  checkBlogPost()
+  checkExternalLinks()
+  checkEditorialReview()
 
   // Build and TS - comment these out for quick checks, uncomment for full deploy
   checkTypeScript()
