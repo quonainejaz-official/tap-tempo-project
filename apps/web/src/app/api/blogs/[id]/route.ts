@@ -20,6 +20,10 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   }
 }
 
+function sanitizeSlug(slug: string): string {
+  return slug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
+}
+
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
@@ -34,7 +38,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
     const update: any = {
       title: body.title,
-      slug: body.slug,
+      slug: sanitizeSlug(body.slug || ""),
       content: body.content || "",
       excerpt: body.excerpt || "",
       coverImage: body.coverImage || "",

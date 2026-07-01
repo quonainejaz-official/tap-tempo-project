@@ -27,6 +27,10 @@ export async function GET(req: Request) {
   }
 }
 
+function sanitizeSlug(slug: string): string {
+  return slug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -35,7 +39,7 @@ export async function POST(req: Request) {
     const now = new Date()
     const blog = {
       title: body.title,
-      slug: body.slug,
+      slug: sanitizeSlug(body.slug || ""),
       content: body.content || "",
       excerpt: body.excerpt || "",
       coverImage: body.coverImage || "",

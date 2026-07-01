@@ -28,13 +28,17 @@ export default function EditBlogPage() {
   const [oldCoverImage, setOldCoverImage] = useState("")
   const [saving, setSaving] = useState(false)
 
+  const sanitizeSlug = (val: string) => {
+    return val.trim().replace(/^\/+|\/+$/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+  }
+
   const loadBlog = useCallback(async () => {
     setLoading(true)
     try {
       const res = await fetch(`/api/blogs/${id}`)
       const data = await res.json()
       setTitle(data.title)
-      setSlug(data.slug)
+      setSlug(sanitizeSlug(data.slug || ""))
       setContent(data.content || "")
       setExcerpt(data.excerpt || "")
       setMetaTitle(data.metaTitle || "")
@@ -133,7 +137,7 @@ export default function EditBlogPage() {
           </div>
           <div>
             <Label>Slug</Label>
-            <Input value={slug} onChange={(e) => setSlug(e.target.value)} required />
+            <Input value={slug} onChange={(e) => setSlug(sanitizeSlug(e.target.value))} required />
           </div>
         </div>
 

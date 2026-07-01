@@ -19,14 +19,15 @@ export async function generateStaticParams() {
   try {
     const blogs = await getCollection("blogs")
     const all = await blogs.find({ published: true }, { projection: { slug: 1 } }).toArray()
-    return all.map((b) => ({ slug: b.slug }))
+    return all.map((b) => ({ slug: b.slug.replace(/^\/+|\/+$/g, "").toLowerCase() }))
   } catch {
     return []
   }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
+  const rawSlug = (await params).slug
+  const slug = rawSlug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
   const blogs = await getCollection("blogs")
   const blog = await blogs.findOne({ slug, published: true })
 
@@ -54,7 +55,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params
+  // Normalize: strip leading/trailing slashes from URL slug as defense-in-depth
+  const rawSlug = (await params).slug
+  const slug = rawSlug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
 
   let blog
   try {

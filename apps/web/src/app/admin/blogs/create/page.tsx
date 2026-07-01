@@ -26,9 +26,11 @@ export default function CreateBlogPage() {
   const [coverPreview, setCoverPreview] = useState("")
   const [saving, setSaving] = useState(false)
 
+  const sanitizeSlug = (val: string) => {
+    return val.trim().replace(/^\/+|\/+$/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+  }
   const generateSlug = (val: string) => {
-    const s = val.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
-    setSlug(s)
+    setSlug(sanitizeSlug(val))
   }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,7 +153,7 @@ export default function CreateBlogPage() {
           </div>
           <div>
             <Label>Slug</Label>
-            <Input value={slug} onChange={(e) => setSlug(e.target.value)} required />
+            <Input value={slug} onChange={(e) => setSlug(sanitizeSlug(e.target.value))} required />
           </div>
         </div>
 
