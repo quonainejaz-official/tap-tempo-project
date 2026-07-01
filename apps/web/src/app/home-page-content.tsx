@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -31,7 +32,23 @@ import {
   Github,
   Twitter,
   Mail,
+  BookOpen,
+  CheckCircle2,
+  Search,
+  Users,
 } from "lucide-react"
+
+interface BlogItem {
+  _id: string
+  title: string
+  slug: string
+  excerpt?: string
+  coverImage?: string
+  author?: string
+  createdAt?: string
+  readTime?: string
+  tags?: string[]
+}
 
 const tools = [
   { icon: Activity, title: "Tap Tempo", desc: "Most accurate tap algorithm with outlier rejection.", href: "/tap-tempo" },
@@ -64,12 +81,24 @@ const faqs = [
 
 export function HomePageContent() {
   const [display, setDisplay] = useState(120)
+  const [latestPosts, setLatestPosts] = useState<BlogItem[]>([])
+  const [postsLoading, setPostsLoading] = useState(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setDisplay(Math.round(Math.random() * 40 + 60))
     }, 600)
     return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    fetch("/api/blogs?limit=3")
+      .then((r) => r.json())
+      .then((data) => {
+        setLatestPosts(data.blogs || [])
+        setPostsLoading(false)
+      })
+      .catch(() => setPostsLoading(false))
   }, [])
 
   return (
@@ -161,12 +190,12 @@ export function HomePageContent() {
             Everything you need to work with tempo, timing, and rhythm.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {tools.map((tool) => {
             const Icon = tool.icon
             return (
               <Link key={tool.href} href={tool.href} className="group">
-                <Card className="h-full transition-all duration-200 hover:shadow-md hover:border-primary/30">
+                <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-primary/30">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
@@ -181,6 +210,146 @@ export function HomePageContent() {
               </Link>
             )
           })}
+        </div>
+      </section>
+
+      {/* Latest Guides */}
+      <section className="border-t">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Latest Guides</h2>
+                <p className="text-muted-foreground max-w-xl">
+                  Learn rhythm, tempo, and music practice through expert-written educational guides.
+                </p>
+              </div>
+              <Link
+                href="/blog"
+                className="hidden sm:flex items-center gap-1 text-sm text-primary hover:underline font-medium flex-shrink-0"
+              >
+                View All Guides
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            {postsLoading ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="rounded-xl border bg-card animate-pulse">
+                    <div className="aspect-[16/9] bg-muted rounded-t-xl" />
+                    <div className="p-6 space-y-3">
+                      <div className="h-3 w-20 bg-muted rounded" />
+                      <div className="h-5 w-full bg-muted rounded" />
+                      <div className="h-4 w-3/4 bg-muted rounded" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : latestPosts.length > 0 ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {latestPosts.map((post) => (
+                  <Link
+                    key={post._id}
+                    href={`/blog/${post.slug}`}
+                    className="group"
+                  >
+                    <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-primary/30 overflow-hidden">
+                      {post.coverImage && (
+                        <div className="aspect-[16/9] relative overflow-hidden bg-muted">
+                          <Image
+                            src={post.coverImage}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                      <CardHeader className="p-5">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                          {post.tags && post.tags.length > 0 && (
+                            <>
+                              <span className="text-primary font-medium">{post.tags[0]}</span>
+                              <span>&middot;</span>
+                            </>
+                          )}
+                          {post.readTime && <span>{post.readTime}</span>}
+                        </div>
+                        <CardTitle className="text-base font-serif group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                          {post.title}
+                        </CardTitle>
+                        {post.excerpt && (
+                          <CardDescription className="text-sm mt-1.5 line-clamp-2">
+                            {post.excerpt}
+                          </CardDescription>
+                        )}
+                        <div className="mt-3 flex items-center justify-between">
+                          <span className="text-xs text-muted-foreground">
+                            {post.createdAt
+                              ? new Date(post.createdAt).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })
+                              : ""}
+                          </span>
+                          <span className="text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            Read Guide &rarr;
+                          </span>
+                        </div>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+            <Link
+              href="/blog"
+              className="sm:hidden flex items-center justify-center gap-1 text-sm text-primary hover:underline font-medium mt-6"
+            >
+              View All Guides
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Trust TheTapTempo */}
+      <section className="border-t bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-center">Why Trust TheTapTempo?</h2>
+            <div className="grid sm:grid-cols-3 gap-5">
+              <div className="rounded-xl border bg-card p-5">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <BookOpen className="w-4 h-4 text-primary" />
+                </div>
+                <h3 className="font-semibold text-sm mb-1.5">Research-Based Guides</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Every article is created using trusted music education resources and practical workflows.
+                </p>
+              </div>
+              <div className="rounded-xl border bg-card p-5">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <Users className="w-4 h-4 text-primary" />
+                </div>
+                <h3 className="font-semibold text-sm mb-1.5">Built for Musicians</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Designed for beginners, teachers, producers, DJs, and performers.
+                </p>
+              </div>
+              <div className="rounded-xl border bg-card p-5">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <Zap className="w-4 h-4 text-primary" />
+                </div>
+                <h3 className="font-semibold text-sm mb-1.5">Free Professional Tools</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Simple, accurate, and accessible tools for everyday music practice.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

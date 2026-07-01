@@ -16,6 +16,9 @@ const defaultSections: Record<string, { href: string; label: string }[]> = {
     { href: "/tempo-markings", label: "Tempo Markings" },
     { href: "/beats-per-bar-calculator", label: "Beats Per Bar" },
   ],
+  "Popular Guides": [
+    { href: "/blog", label: "How to Find the BPM of Any Song" },
+  ],
   Legal: [
     { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/terms", label: "Terms & Conditions" },
@@ -58,6 +61,22 @@ export function Footer() {
             }
           }
           setSections(merged)
+        }
+      })
+      .catch(() => {})
+
+    fetch("/api/blogs?limit=4")
+      .then((r) => r.json())
+      .then((data) => {
+        const blogs = data.blogs || []
+        if (blogs.length) {
+          setSections((prev) => ({
+            ...prev,
+            "Popular Guides": blogs.map((b: any) => ({
+              href: `/blog/${b.slug}`,
+              label: b.title,
+            })),
+          }))
         }
       })
       .catch(() => {})
