@@ -283,6 +283,39 @@ html {
   color: hsl(36 100% 62%);
 }
 
+/* Comparison tables generated from content sections */
+.blog-content .comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+}
+.blog-content .comparison-table th {
+  background: hsl(var(--muted));
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+  font-family: var(--app-font-sans);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--muted-foreground));
+}
+.blog-content .comparison-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+  vertical-align: top;
+}
+.blog-content .comparison-table tr:last-child td {
+  border-bottom: none;
+}
+.blog-content .comparison-table tr:nth-child(even) td {
+  background: hsl(var(--muted) / 0.3);
+}
+
 /* Figure / figcaption for images */
 .blog-content figure {
   margin: 1.5rem 0;

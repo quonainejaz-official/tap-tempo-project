@@ -9,6 +9,7 @@ import { BlogFaq } from "@/components/blog-faq"
 import { AuthorBio } from "@/components/author-bio"
 import { TableOfContents } from "@/components/table-of-contents"
 import { EditorialReview } from "@/components/editorial-review"
+import { QuickAnswer } from "@/components/quick-answer"
 import { processBlogContent } from "@/lib/blog-utils"
 
 interface Props {
@@ -75,7 +76,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   const canonical = `${BASE_URL}/blog/${slug}`
 
-  const { processedHtml, headings } = processBlogContent(blog.content || "")
+  const { processedHtml, headings, quickAnswer } = processBlogContent(blog.content || "")
 
   const faqJsonLd = blog.faqs
     ? {
@@ -205,6 +206,8 @@ export default async function BlogPostPage({ params }: Props) {
           )}
 
           {headings.length > 0 && <TableOfContents headings={headings} />}
+
+          {quickAnswer && <QuickAnswer html={quickAnswer} />}
 
           <div className="blog-content">
             <div dangerouslySetInnerHTML={{ __html: processedHtml }} />

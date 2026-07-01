@@ -142,10 +142,15 @@ export default function BlogPage() {
                           <span>{article.readTime}</span>
                         </>
                       )}
-                      {article.author && (
+                      {article.author ? (
                         <>
                           <span>&middot;</span>
                           <span>By {article.author}</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>&middot;</span>
+                          <span>By TheTapTempo Editorial Team</span>
                         </>
                       )}
                     </div>

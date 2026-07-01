@@ -438,6 +438,12 @@ function checkBlogPost() {
   if (blogPage.includes("<EditorialReview")) pass("EditorialReview rendered after AuthorBio")
   else fail("EditorialReview not rendered")
 
+  if (blogPage.includes("QuickAnswer")) pass("QuickAnswer component imported")
+  else fail("QuickAnswer not imported")
+
+  if (blogPage.includes("<QuickAnswer")) pass("QuickAnswer rendered between TOC and content")
+  else fail("QuickAnswer not rendered")
+
   if (blogPage.includes("processBlogContent")) pass("processBlogContent imported and used")
   else fail("processBlogContent not used for content processing")
 
@@ -455,11 +461,17 @@ function checkBlogPost() {
   } else {
     fail("blog-utils library not imported")
   }
+
+  if (!blogPage.includes("\"Admin\"") && !blogPage.includes("'Admin'")) {
+    pass("No 'Admin' string literal in blog template")
+  } else {
+    fail("'Admin' still found in blog template — must use 'TheTapTempo Editorial Team'")
+  }
 }
 
-// ── 14. External Links Processing ──────────────────────────────────
-function checkExternalLinks() {
-  heading("External Links")
+// ── 14. Blog Content Processing (blog-utils.ts) ────────────────────
+function checkBlogContentProcessing() {
+  heading("Blog Content Processing")
 
   const blogUtils = readFile(path.join(UTILS_DIR, "blog-utils.ts"))
   if (!blogUtils) { fail("blog-utils.ts not found"); return }
@@ -479,6 +491,25 @@ function checkExternalLinks() {
 
   if (blogUtils.includes("addHeadingIds")) pass("addHeadingIds function exists for heading anchors")
   else fail("addHeadingIds for heading anchors missing")
+
+  if (blogUtils.includes("extractQuickAnswer")) pass("extractQuickAnswer function exists")
+  else fail("extractQuickAnswer missing — Quick Answer will render as normal text")
+
+  if (blogUtils.includes("processComparisonTables")) pass("processComparisonTables function exists")
+  else fail("processComparisonTables missing — comparison content rendered as paragraphs")
+
+  if (blogUtils.includes("comparison-table")) pass("comparison-table class used for generated tables")
+  else fail("comparison-table class missing")
+
+  // Verify H2-only TOC: extractHeadings function body should only match <h2
+  const ehStart = blogUtils.indexOf("export function extractHeadings")
+  const ehEnd = blogUtils.indexOf("export function addHeadingIds", ehStart)
+  const ehBody = ehStart >= 0 ? blogUtils.slice(ehStart, ehEnd > ehStart ? ehEnd : blogUtils.length) : ""
+  if (ehBody.includes("<h2") && !ehBody.includes("h([23])") && !ehBody.includes("h3")) {
+    pass("extractHeadings only extracts H2 (not H3)")
+  } else {
+    warn("extractHeadings may include H3 — verify pattern")
+  }
 }
 
 // ── 15. Editorial Review Component ─────────────────────────────────
@@ -521,8 +552,12 @@ function printReport() {
     ["Accessibility Passed", RESULTS.pass.some((r) => r.includes("Heading hierarchy"))],
     ["TypeScript Passed", RESULTS.pass.some((r) => r.includes("TypeScript check passed"))],
     ["Blog Post Layout Valid", RESULTS.pass.some((r) => r.includes("Blog template exists"))],
-    ["External Links Processed", RESULTS.pass.some((r) => r.includes("processExternalLinks"))],
+    ["Blog Content Processing Valid", RESULTS.pass.some((r) => r.includes("processComparisonTables"))],
+    ["Quick Answer Component Active", RESULTS.pass.some((r) => r.includes("QuickAnswer component"))],
+    ["Comparison Tables Generated", RESULTS.pass.some((r) => r.includes("comparison-table class"))],
+    ["TOC Uses H2 Only", RESULTS.pass.some((r) => r.includes("only extracts H2"))],
     ["Editorial Review Passed", RESULTS.pass.some((r) => r.includes("editorial-review.tsx exists"))],
+    ["No 'Admin' In Blog Template", RESULTS.pass.some((r) => r.includes("No 'Admin' string"))],
   ]
 
   for (const [name, ok] of checks) {
@@ -551,7 +586,7 @@ async function main() {
   checkFooter()
   checkAuthorSystem()
   checkBlogPost()
-  checkExternalLinks()
+  checkBlogContentProcessing()
   checkEditorialReview()
 
   // Build and TS - comment these out for quick checks, uncomment for full deploy
