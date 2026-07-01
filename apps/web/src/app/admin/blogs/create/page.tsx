@@ -20,7 +20,7 @@ export default function CreateBlogPage() {
   const [excerpt, setExcerpt] = useState("")
   const [metaTitle, setMetaTitle] = useState("")
   const [metaDescription, setMetaDescription] = useState("")
-  const [author, setAuthor] = useState("Admin")
+  const [author, setAuthor] = useState("TheTapTempo Editorial Team")
   const [coverImage, setCoverImage] = useState("")
   const [coverImagePublicId, setCoverImagePublicId] = useState("")
   const [coverPreview, setCoverPreview] = useState("")

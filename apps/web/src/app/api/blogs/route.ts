@@ -46,7 +46,7 @@ export async function POST(req: Request) {
       coverImagePublicId: body.coverImagePublicId || "",
       metaTitle: body.metaTitle || "",
       metaDescription: body.metaDescription || "",
-      author: body.author || "Admin",
+      author: body.author || "TheTapTempo Editorial Team",
       tags: body.tags || [],
       published: body.published ?? true,
       readTime: body.readTime || "",
