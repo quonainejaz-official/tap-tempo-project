@@ -1,27 +1,34 @@
 import { NextResponse } from "next/server"
 import { getCollection } from "@/lib/mongodb"
 import { revalidatePath } from "next/cache"
+import { hardcodedBlogs } from "@/data/blogs/registry"
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const limit = Math.min(Number(searchParams.get("limit")) || 100, 100)
 
-    const blogs = await getCollection("blogs")
-    const data = await blogs
-      .find({ published: true })
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .toArray()
+    const blogs = hardcodedBlogs
+      .map((b) => ({
+        _id: `hardcoded-${b.slug}`,
+        title: b.title,
+        slug: b.slug,
+        excerpt: b.excerpt,
+        metaTitle: b.metaTitle,
+        metaDescription: b.metaDescription,
+        coverImage: b.coverImage,
+        coverImagePublicId: b.coverImagePublicId,
+        author: b.author,
+        tags: b.tags,
+        published: true,
+        readTime: b.readTime,
+        createdAt: new Date(b.createdAt || Date.now()).toISOString(),
+        updatedAt: new Date(b.updatedAt || b.createdAt || Date.now()).toISOString(),
+        faqs: b.faqs,
+      }))
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
-    const serialized = data.map((b) => ({
-      ...b,
-      _id: b._id.toString(),
-      createdAt: b.createdAt?.toISOString(),
-      updatedAt: b.updatedAt?.toISOString(),
-    }))
-
-    return NextResponse.json({ blogs: serialized })
+    return NextResponse.json({ blogs: blogs.slice(0, limit) })
   } catch {
     return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 })
   }

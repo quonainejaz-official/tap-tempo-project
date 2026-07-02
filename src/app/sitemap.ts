@@ -1,6 +1,7 @@
 import { getCollection } from "@/lib/mongodb"
 import type { MetadataRoute } from "next"
 import { BASE_URL } from "@/lib/constants"
+import { hardcodedBlogs } from "@/data/blogs/registry"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
@@ -23,12 +24,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   try {
-    const blogs = await getCollection("blogs")
-    const allBlogs = await blogs.find({ published: true }).toArray()
-
-    const blogPages = allBlogs.map((blog) => ({
+    const blogPages = hardcodedBlogs.map((blog) => ({
       url: `${BASE_URL}/blog/${blog.slug}`,
-      lastModified: blog.updatedAt || blog.createdAt || new Date(),
+      lastModified: new Date(blog.updatedAt || blog.createdAt || Date.now()),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     }))
