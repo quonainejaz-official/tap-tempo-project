@@ -1,4 +1,4 @@
-// Generated file — do not edit directly
+﻿// Generated file — do not edit directly
 // Add new hardcoded blogs here
 
 export interface HardcodedBlogMeta {
@@ -79,8 +79,8 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
     "music production",
     "guide"
   ],
-  "createdAt": "2026-07-01T00:00:00.000Z",
-  "updatedAt": "2026-07-01T00:00:00.000Z",
+  "createdAt": "2026-07-04T00:00:00.000Z",
+  "updatedAt": "2026-07-04T00:00:00.000Z",
   "faqs": [
     {
       "q": "Is Tap Tempo accurate enough for professional musicians?",
