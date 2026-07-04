@@ -2942,6 +2942,17 @@ Avoid excessive linking.
 
 Every link must improve navigation. 
 
+## **23.1 Internal Link Styling**
+
+Every internal link (anchor text) within blog articles must always be displayed in bold.
+
+- The anchor text should be wrapped in a bold element.
+- The anchor text must remain natural and contextually relevant.
+- Do not force keywords into anchor text.
+- Do not change the wording solely for SEO.
+- Only the clickable anchor text should be bold; surrounding text must remain normal weight.
+- This rule applies consistently to all future blog articles unless explicitly instructed otherwise.
+
 ## **24. External Links** 
 
 External links should be used only when they genuinely improve user understanding. 

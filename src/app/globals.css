@@ -208,6 +208,8 @@
   text-underline-offset: 2px;
 }
 .blog-content a:hover { opacity: 0.8; }
+.blog-content a[href^="/"] { font-weight: 700; }
+.blog-content a[href*="thetaptempo.com"] { font-weight: 700; }
 .blog-content hr {
   border: none;
   border-top: 1px solid hsl(var(--border));
