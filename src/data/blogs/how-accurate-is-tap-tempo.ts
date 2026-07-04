@@ -181,15 +181,15 @@ export const content = `<h2>Quick Answer</h2>
 <h2>Continue Learning</h2>
 <p>Continue exploring rhythm, tempo, and BPM with these guides:</p>
 
-<p><a href="https://www.thetaptempo.com/blog/why-songs-dont-always-have-one-fixed-bpm">Why Don't Songs Always Have One Fixed BPM?</a></p>
+<p>Why Don't Songs Always Have One Fixed BPM?</p>
 
-<p><a href="https://www.thetaptempo.com/blog/tempo-drift-explained">Tempo Drift Explained</a></p>
+<p>Tempo Drift Explained</p>
 
-<p><a href="https://www.thetaptempo.com/blog/how-to-find-bpm-without-software">How to Find BPM Without Software</a></p>
+<p>How to Find BPM Without Software</p>
 
-<p><a href="https://www.thetaptempo.com/blog/why-genres-affect-tap-tempo-accuracy">Why Genres Affect Tap Tempo Accuracy</a></p>
+<p>Why Genres Affect Tap Tempo Accuracy</p>
 
-<p><a href="https://www.thetaptempo.com/blog/human-rhythm-perception-explained">Human Rhythm Perception Explained</a></p>
+<p>Human Rhythm Perception Explained</p>
 
 <h2>Ready to Test Your Own Accuracy?</h2>
 <p>The best way to understand Tap Tempo accuracy is to try it yourself. Open our <a href="https://www.thetaptempo.com/tap-tempo">Tap Tempo tool</a>, measure the same song several times, and compare your results. You'll quickly see how consistent tapping produces stable BPM readings and how small improvements in timing can increase accuracy even further.</p>
