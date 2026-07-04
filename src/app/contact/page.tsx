@@ -394,7 +394,7 @@ export default function ContactPage() {
           Your feedback helps improve tools and create a better experience for musicians and creators.
         </p>
         <Button size="lg" asChild>
-          <Link href="/tap-tempo">
+          <Link href="/#tools">
             <ArrowRight className="w-5 h-5 mr-2" />
             Explore Music Tools
           </Link>
