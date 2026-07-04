@@ -70,12 +70,17 @@ export default async function BlogPostPage({ params }: Props) {
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: meta.title,
     description: meta.excerpt || meta.metaDescription || "",
     ...(meta.coverImage ? { image: meta.coverImage } : {}),
     author: { "@type": "Organization", name: "TheTapTempo", url: BASE_URL },
-    publisher: { "@type": "Organization", name: "TheTapTempo", url: BASE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: "TheTapTempo",
+      url: BASE_URL,
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/logo.svg` },
+    },
     datePublished: new Date(meta.createdAt || Date.now()).toISOString(),
     dateModified: new Date(meta.updatedAt || meta.createdAt || Date.now()).toISOString(),
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
