@@ -26,7 +26,9 @@ export function BlogFaq({ faqs }: BlogFaqProps) {
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
               <AccordionTrigger>{faq.q}</AccordionTrigger>
-              <AccordionContent>{faq.a}</AccordionContent>
+              <AccordionContent>
+                <span dangerouslySetInnerHTML={{ __html: faq.a }} />
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
