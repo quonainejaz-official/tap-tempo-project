@@ -37,16 +37,16 @@ const metadataBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || BASE_URL
 export const metadata: Metadata = {
   metadataBase: new URL(metadataBaseUrl),
   title: {
-    default: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
+    default: "TheTapTempo – Free Online Music Tools for Musicians, Producers & DJs",
     template: "%s | TheTapTempo",
   },
   description:
-    "Professional music tools for musicians, producers, and DJs. Tap any rhythm, calculate BPM instantly with the most accurate tap tempo algorithm.",
+    "Free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. Explore Tap Tempo, Metronome, BPM Calculator, Tempo Markings, and other professional rhythm and practice tools.",
   keywords: ["tap tempo", "bpm calculator", "metronome", "delay time calculator", "music tools"],
   openGraph: {
-    title: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
+    title: "TheTapTempo – Free Online Music Tools for Musicians, Producers & DJs",
     description:
-      "Professional music tools for musicians, producers, and DJs. Tap any rhythm, calculate BPM instantly.",
+      "Free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. Explore Tap Tempo, Metronome, BPM Calculator, Tempo Markings, and other professional rhythm and practice tools.",
     type: "website",
     siteName: "TheTapTempo",
     url: "/",
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TheTapTempo — Accurate BPM & Tap Tempo Tools",
+    title: "TheTapTempo – Free Online Music Tools for Musicians, Producers & DJs",
     description:
-      "Professional music tools for musicians, producers, and DJs. Tap any rhythm, calculate BPM instantly.",
+      "Free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. Explore Tap Tempo, Metronome, BPM Calculator, Tempo Markings, and other professional rhythm and practice tools.",
     images: ["/logo.svg"],
   },
   robots: { index: true, follow: true },

@@ -135,7 +135,7 @@ export function HomePageContent() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6"
             >
-              A world-class, Apple-caliber music tempo toolkit. Tap tempo, metronome, BPM calculator, tempo markings, delay time calculator, and more. Free, no ads, works offline.
+              Professional browser-based music tools designed for musicians, producers, DJs, drummers, educators, and creators. Explore accurate tempo, rhythm, and practice tools to improve performance, music production, and learning—all in one place.
             </motion.p>
 
             <motion.div
@@ -147,7 +147,7 @@ export function HomePageContent() {
               <Button size="lg" asChild>
                 <Link href="/tap-tempo">
                   <Activity className="w-5 h-5 mr-2" />
-                  Try Tap Tempo
+                  Explore Music Tools
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
