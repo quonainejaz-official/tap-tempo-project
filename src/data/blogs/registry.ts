@@ -9,6 +9,7 @@ export interface HardcodedBlogMeta {
   metaDescription: string
   coverImage: string
   coverImagePublicId: string
+  coverImageAlt?: string
   author: string
   readTime: string
   tags: string[]
@@ -67,8 +68,9 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
   "excerpt": "Discover how accurate Tap Tempo really is. Compare manual tapping with software BPM detection, learn what affects accuracy, and find out when you can trust the results.",
   "metaTitle": "How Accurate Is Tap Tempo? Human vs Software BPM Detection",
   "metaDescription": "Discover how accurate Tap Tempo really is. Compare manual tapping with software BPM detection, learn what affects accuracy, and find out when you can trust the results.",
-  "coverImage": "",
-  "coverImagePublicId": "",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1783236823/taptempo/sgb20agzwvsmydodaa4w.jpg",
+  "coverImagePublicId": "taptempo/sgb20agzwvsmydodaa4w",
+  "coverImageAlt": "Comparison of manual Tap Tempo and software BPM detection in a modern music production workspace",
   "author": "TheTapTempo Editorial Team",
   "readTime": "14 min read",
   "tags": [

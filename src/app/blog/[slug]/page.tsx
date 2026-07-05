@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="mb-12 rounded-xl overflow-hidden bg-muted relative aspect-[16/9]">
               <Image
                 src={meta.coverImage}
-                alt={meta.title}
+                alt={meta.coverImageAlt || meta.title}
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1024px"
