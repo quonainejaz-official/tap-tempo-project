@@ -207,6 +207,15 @@ export default function BeatsPerBarCalculatorPage() {
       )}
 
       <BeatsPerBarSeoContent />
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Have questions about time signatures?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

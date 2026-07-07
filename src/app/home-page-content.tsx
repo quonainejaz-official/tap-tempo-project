@@ -400,6 +400,12 @@ export function HomePageContent() {
                 </a>
               </Button>
             </div>
+            <p className="text-sm text-muted-foreground mt-6">
+              Need answers about tempo, BPM, or music theory?{" "}
+              <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+                Ask TapTempoAI
+              </a>
+            </p>
           </div>
         </div>
       </section>

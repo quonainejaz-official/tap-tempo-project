@@ -108,6 +108,15 @@ export default function BpmToMsPage() {
       </Table>
 
       <BpmToMsSeoContent />
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Need help converting delay times?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

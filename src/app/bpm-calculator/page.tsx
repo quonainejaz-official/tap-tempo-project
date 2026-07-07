@@ -131,6 +131,15 @@ export default function BpmCalculatorPage() {
       </Tabs>
 
       <BpmCalculatorSeoContent />
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Not sure which BPM fits your track?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

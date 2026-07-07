@@ -501,6 +501,15 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       <SeoContent />
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Need help identifying a tempo?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

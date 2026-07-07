@@ -103,6 +103,7 @@ export default function BlogPage() {
           {[1, 2, 3].map((i) => <BlogCardSkeleton key={i} />)}
         </div>
       ) : (
+        <>
         <div className="grid gap-8">
           {sorted.length > 0 ? (
             sorted.map((article: any) => (
@@ -172,6 +173,16 @@ export default function BlogPage() {
             </p>
           )}
         </div>
+
+        <div className="mt-12 border-t pt-8 text-center">
+          <p className="text-sm text-muted-foreground">
+            Have questions about tempo, BPM, or music theory?{" "}
+            <Link href="/ai-tempo" className="text-primary font-medium hover:underline">
+              Get answers with TapTempoAI
+            </Link>
+          </p>
+        </div>
+        </>
       )}
     </div>
   )

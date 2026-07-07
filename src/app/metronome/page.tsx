@@ -336,6 +336,15 @@ export default function MetronomePage() {
       <div className="w-full max-w-3xl">
         <MetronomeSeoContent />
       </div>
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Stuck on a tricky rhythm?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

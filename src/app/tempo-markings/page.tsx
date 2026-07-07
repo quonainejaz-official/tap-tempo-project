@@ -125,6 +125,15 @@ export default function TempoMarkingsPage() {
       </div>
       <TempoMarkingsSeoContent />
       </div>
+
+      <div className="text-center mt-6">
+        <p className="text-sm text-muted-foreground">
+          Confused about a tempo marking?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

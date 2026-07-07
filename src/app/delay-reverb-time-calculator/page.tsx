@@ -212,6 +212,15 @@ export default function DelayTimeCalculatorPage() {
       </div>
 
       <DelayReverbSeoContent />
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Need help dialing in reverb or delay?{" "}
+          <a href="/ai-tempo" className="text-primary font-medium hover:underline">
+            Ask TapTempoAI
+          </a>
+        </p>
+      </div>
     </div>
   )
 }

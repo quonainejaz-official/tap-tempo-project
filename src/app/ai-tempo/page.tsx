@@ -22,12 +22,12 @@ export default function AiTempoPage() {
       <div className="flex justify-between items-center mb-12 md:mb-20 flex-wrap gap-4">
         <div className="flex items-center gap-2 group cursor-default">
           <div className="w-8 h-8 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-            <span className="text-primary-foreground font-bold text-lg">&lt;/&gt;</span>
+            <span className="text-primary-foreground font-bold text-lg">♪</span>
           </div>
           <span className="font-semibold text-xl tracking-tight text-foreground">TapTempo<span className="text-primary">AI</span></span>
         </div>
         <div className="text-sm font-medium px-4 py-1.5 rounded-full bg-secondary border border-border text-primary shadow-sm">
-          Beta v1.0 — intelligent dev companion
+          Beta v1.0 — music &amp; tempo Q&amp;A
         </div>
       </div>
 
@@ -44,13 +44,12 @@ export default function AiTempoPage() {
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
-              <span className="text-foreground">Your personal</span><br />
-              <span className="text-primary">coding co-pilot</span>
+              <span className="text-foreground">Get Instant Answers</span><br />
+              <span className="text-primary">About Tempo, BPM &amp; Timing</span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
-              Meet <span className="font-semibold text-foreground">TapTempoAI</span> — a next-generation assistant that writes, debugs, and explains code with human-like intelligence.
-              From algorithms to full-stack apps, get instant answers, best practices, and creative solutions.
+              Ask <span className="font-semibold text-foreground">TapTempoAI</span> any question about BPM, tempo conversions, time signatures, practice techniques, or music terminology and get an instant answer — built for musicians, producers, and DJs.
             </p>
 
             <div className="flex flex-wrap items-center gap-6 pt-2">
@@ -60,7 +59,7 @@ export default function AiTempoPage() {
                 rel="noopener noreferrer"
                 className="glow-on-hover group relative inline-flex items-center gap-3 bg-primary text-primary-foreground font-semibold py-4 px-8 rounded-full transition-all duration-300 shadow-lg shadow-primary/30 border border-primary/20 text-lg hover:bg-primary/90"
               >
-                <span>Launch TapTempoAI</span>
+                <span>Ask TapTempoAI</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
@@ -72,10 +71,10 @@ export default function AiTempoPage() {
             </div>
 
             <div className="flex flex-wrap gap-5 pt-6 text-xs text-muted-foreground">
-              <div className="flex items-center gap-1">Smart completion</div>
+              <div className="flex items-center gap-1">Instant answers</div>
               <div className="flex items-center gap-1">Secure &amp; private</div>
               <div className="flex items-center gap-1">Context-aware</div>
-              <div className="flex items-center gap-1">Multi-language</div>
+              <div className="flex items-center gap-1">Multi-genre</div>
             </div>
           </div>
 
@@ -87,14 +86,13 @@ export default function AiTempoPage() {
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
                 </div>
-                <span className="text-xs text-primary font-mono">terminal · TapTempo active</span>
+                <span className="text-xs text-primary font-mono">tempo · TapTempo active</span>
               </div>
               <div className="space-y-3 font-mono text-sm">
-                <p className="text-muted-foreground"><span className="text-primary">&gt;&gt;</span> <span className="text-foreground">TapTempoAI, how to optimize React re-renders?</span></p>
-                <p className="text-muted-foreground flex flex-wrap gap-1 items-start"><span className="text-primary">AI:</span> <span className="text-foreground">Use useMemo, React.memo, and virtualize lists. Need code example?</span></p>
+                <p className="text-muted-foreground"><span className="text-primary">&gt;&gt;</span> <span className="text-foreground">What BPM is drum and bass usually?</span></p>
+                <p className="text-muted-foreground flex flex-wrap gap-1 items-start"><span className="text-primary">AI:</span> <span className="text-foreground">Drum and bass typically ranges from 160 to 180 BPM. The most common tempo is around 170-175 BPM, characterized by fast breakbeats and heavy basslines.</span></p>
                 <div className="bg-background rounded-xl p-3 border border-border mt-2">
-                  <pre className="text-[0.7rem] text-primary whitespace-pre-wrap"><code>{`const MemoComponent = React.memo(MyComp);
-useCallback(fn, deps); // prevent recreation`}</code></pre>
+                  <p className="text-[0.7rem] text-primary whitespace-pre-wrap">{`Want to find the BPM of a track? Use our Tap Tempo tool to tap along and get instant results.`}</p>
                 </div>
                 <div className="flex gap-2 pt-2 text-xs text-muted-foreground">
                   <span>explained in 0.2s</span>
@@ -109,90 +107,156 @@ useCallback(fn, deps); // prevent recreation`}</code></pre>
         </div>
       </div>
 
-      {/* Features */}
+      {/* Example Queries */}
       <div className="py-24 border-b border-border bg-card">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-primary uppercase tracking-wider text-sm font-semibold bg-secondary px-4 py-1 rounded-full">Why choose TapTempo?</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 text-foreground">Intelligence that<br />empowers developers</h2>
-            <p className="text-muted-foreground mt-4">Beyond simple answers — real-time reasoning, code generation, and deep tech understanding.</p>
+            <span className="text-primary uppercase tracking-wider text-sm font-semibold bg-secondary px-4 py-1 rounded-full">Example questions</span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 text-foreground">Ask anything about<br />tempo, BPM &amp; rhythm</h2>
+            <p className="text-muted-foreground mt-4">TapTempoAI answers music and tempo questions instantly — no signup needed.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="group relative bg-muted/30 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">⚡</div>
-              <h3 className="text-xl font-semibold text-foreground">Real-time code assistant</h3>
-              <p className="text-muted-foreground mt-2 leading-relaxed">Ask anything: debug, refactor, or generate whole functions. TapTempoAI gives you instant, correct answers with detailed comments.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              What BPM is drum and bass usually?
             </div>
-            <div className="group relative bg-muted/30 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🧠</div>
-              <h3 className="text-xl font-semibold text-foreground">Contextual awareness</h3>
-              <p className="text-muted-foreground mt-2 leading-relaxed">Understands your tech stack, project structure, and previous queries — like a senior dev sitting next to you.</p>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              How do I convert 120 BPM to a delay time in milliseconds?
             </div>
-            <div className="group relative bg-muted/30 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🌍</div>
-              <h3 className="text-xl font-semibold text-foreground">Multi-language expert</h3>
-              <p className="text-muted-foreground mt-2 leading-relaxed">Python, JS, Go, Rust, Java, C++ — TapTempoAI is fluent in 40+ languages. It adapts to any syntax or framework.</p>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              Is 140 BPM too fast to practice as a beginner?
             </div>
-            <div className="group relative bg-muted/30 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">📘</div>
-              <h3 className="text-xl font-semibold text-foreground">Explain like I'm 5</h3>
-              <p className="text-muted-foreground mt-2 leading-relaxed">Break down complex algorithms, design patterns, or system design into simple, intuitive explanations.</p>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              What&apos;s the difference between Andante and Allegro?
             </div>
-            <div className="group relative bg-muted/30 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🔧</div>
-              <h3 className="text-xl font-semibold text-foreground">Unit tests &amp; docs</h3>
-              <p className="text-muted-foreground mt-2 leading-relaxed">Generate test suites, docstrings, JSDoc, or markdown docs instantly. Speed up your development cycle.</p>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              How many beats per bar is 6/8 time?
             </div>
-            <div className="group relative bg-muted/30 border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🔄</div>
-              <h3 className="text-xl font-semibold text-foreground">24/7 pair programming</h3>
-              <p className="text-muted-foreground mt-2 leading-relaxed">Always online, ready to brainstorm, review PRs, and solve tricky bugs — your coding soulmate.</p>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              What tempo should I set my metronome to for a waltz?
+            </div>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              What&apos;s the typical BPM range for hip-hop?
+            </div>
+            <div className="bg-muted/30 border border-border/50 rounded-2xl p-5 text-center text-sm text-foreground font-medium hover:border-primary/50 transition-colors cursor-default">
+              How do I calculate BPM from milliseconds?
             </div>
           </div>
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Features */}
       <div className="py-24 border-b border-border bg-muted/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-primary uppercase tracking-wider text-sm font-semibold bg-secondary px-4 py-1 rounded-full">Why TapTempoAI?</span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 text-foreground">Your music &amp; tempo<br />knowledge assistant</h2>
+            <p className="text-muted-foreground mt-4">Beyond simple answers — real-time music theory, BPM expertise, and deep rhythmic understanding.</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="group relative bg-card border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">⚡</div>
+              <h3 className="text-xl font-semibold text-foreground">Real-time BPM expert</h3>
+              <p className="text-muted-foreground mt-2 leading-relaxed">Ask anything about tempo, BPM, or rhythm and get instant, accurate answers with detailed explanations for any music style.</p>
+            </div>
+            <div className="group relative bg-card border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🧠</div>
+              <h3 className="text-xl font-semibold text-foreground">Tempo &amp; theory knowledge</h3>
+              <p className="text-muted-foreground mt-2 leading-relaxed">Understands time signatures, tempo markings, BPM conversions, and music terminology — like a music theory teacher.</p>
+            </div>
+            <div className="group relative bg-card border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🌍</div>
+              <h3 className="text-xl font-semibold text-foreground">Multi-genre knowledge</h3>
+              <p className="text-muted-foreground mt-2 leading-relaxed">Electronic, classical, jazz, pop, rock — TapTempoAI knows typical BPM ranges, time signatures, and rhythmic patterns across all genres.</p>
+            </div>
+            <div className="group relative bg-card border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">📘</div>
+              <h3 className="text-xl font-semibold text-foreground">Explain music concepts</h3>
+              <p className="text-muted-foreground mt-2 leading-relaxed">Break down complex music theory, tempo markings, or rhythm patterns into simple, intuitive explanations.</p>
+            </div>
+            <div className="group relative bg-card border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🔧</div>
+              <h3 className="text-xl font-semibold text-foreground">Practice &amp; production tips</h3>
+              <p className="text-muted-foreground mt-2 leading-relaxed">Get personalized practice routines, metronome settings, delay and reverb timing advice, and production tips.</p>
+            </div>
+            <div className="group relative bg-card border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">🔄</div>
+              <h3 className="text-xl font-semibold text-foreground">24/7 music assistant</h3>
+              <p className="text-muted-foreground mt-2 leading-relaxed">Always online, ready to answer your tempo questions, suggest practice techniques, and help you improve your musicianship.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Built for Musicians */}
+      <div className="py-24 border-b border-border bg-card">
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-block mb-8">
-            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium tracking-wide uppercase">real usage stats</span>
+            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium tracking-wide uppercase">built for musicians</span>
           </div>
-          <p className="text-4xl font-bold mt-4 text-foreground leading-tight">Join 5,000+ developers who ship faster with TapTempoAI</p>
+          <p className="text-4xl font-bold mt-4 text-foreground leading-tight">Built for musicians, producers, DJs, and creators</p>
           <div className="flex items-center justify-center gap-12 mt-10 flex-wrap">
             <div><span className="text-4xl font-black text-primary">98%</span><span className="text-muted-foreground ml-1">satisfaction</span></div>
             <div><span className="text-4xl font-black text-primary">~0.4s</span><span className="text-muted-foreground ml-1">avg response</span></div>
             <div><span className="text-4xl font-black text-primary">30k+</span><span className="text-muted-foreground ml-1">daily requests</span></div>
           </div>
-          <div className="mt-12 max-w-lg mx-auto bg-card rounded-2xl p-6 border border-border/50">
-            <div className="flex gap-3 items-center mb-3">
-              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">JD</div>
-              <div className="text-left"><p className="text-sm font-medium text-foreground">Jessica Daley</p><p className="text-xs text-muted-foreground">Senior Fullstack Engineer</p></div>
-            </div>
-            <p className="text-foreground text-sm italic text-left">&ldquo;TapTempoAI is like having a brilliant colleague always on call. It boosted my productivity by 3x. The code suggestions are shockingly accurate!&rdquo;</p>
-            <div className="flex mt-3 text-primary text-xs">★★★★★</div>
-          </div>
         </div>
       </div>
 
       {/* CTA */}
-      <div className="py-24 bg-card">
+      <div className="py-24 bg-muted/10">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-5 text-foreground">Start coding with AI magic</h2>
-          <p className="text-muted-foreground text-lg mb-8">No signup friction — just pure intelligence. Click the button and experience the future of development.</p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-5 text-foreground">Ask anything about tempo &amp; music</h2>
+          <p className="text-muted-foreground text-lg mb-8">No signup required — just ask. Click the button and get instant answers about BPM, rhythm, and music practice.</p>
           <a
             href="https://ai.thetaptempo.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="glow-on-hover inline-flex items-center gap-3 bg-primary text-primary-foreground text-lg font-bold py-4 px-10 rounded-full transition-all duration-200 border border-primary/30 shadow-lg shadow-primary/40 hover:bg-primary/90"
           >
-            <span>Try TapTempoAI now</span>
+            <span>Ask TapTempoAI now</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
             </svg>
           </a>
           <p className="text-xs text-muted-foreground mt-6">direct link to TapTempoAI platform • instant access • free to ask anything</p>
+        </div>
+      </div>
+
+      {/* Related Tools */}
+      <div className="border-t bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center">Related Tools</h2>
+            <p className="text-muted-foreground text-center mb-8">Try these free music tools from TheTapTempo.</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <a href="/tap-tempo" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Tap Tempo</h3>
+                <p className="text-sm text-muted-foreground">Find BPM by tapping</p>
+              </a>
+              <a href="/metronome" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Metronome</h3>
+                <p className="text-sm text-muted-foreground">Practice with accurate beats</p>
+              </a>
+              <a href="/bpm-calculator" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">BPM Calculator</h3>
+                <p className="text-sm text-muted-foreground">Calculate BPM from time</p>
+              </a>
+              <a href="/bpm-to-ms" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">BPM to MS</h3>
+                <p className="text-sm text-muted-foreground">Convert BPM to milliseconds</p>
+              </a>
+              <a href="/delay-reverb-time-calculator" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Delay & Reverb Time Calculator</h3>
+                <p className="text-sm text-muted-foreground">Calculate delay and reverb times</p>
+              </a>
+              <a href="/tempo-markings" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Tempo Markings</h3>
+                <p className="text-sm text-muted-foreground">Italian tempo terms guide</p>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
