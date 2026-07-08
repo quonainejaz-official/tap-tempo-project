@@ -1,0 +1,23 @@
+# TheTapTempo
+
+TheTapTempo provides free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. All tools work offline with no registration required.
+
+## Tools
+
+- Tap Tempo: Find the BPM of any song by tapping along.
+- Metronome: Practice with adjustable BPM, time signatures, and subdivisions.
+- BPM Calculator: Calculate beats per minute from time and measure duration.
+- BPM to MS: Convert BPM to millisecond values for note divisions.
+- Delay & Reverb Time Calculator: Calculate delay and reverb times from BPM.
+- Tempo Markings: Italian tempo terms with BPM ranges.
+- Beats Per Bar Calculator: Identify time signatures.
+
+## AI Assistant
+
+- TapTempoAI: AI-powered Q&A about tempo, BPM, rhythm, and music practice.
+
+## More Information
+
+- Blog: Educational guides about rhythm, tempo, and music practice.
+- Editorial Policy: Standards for content accuracy and corrections.
+- Privacy Policy: Data handling and privacy practices.

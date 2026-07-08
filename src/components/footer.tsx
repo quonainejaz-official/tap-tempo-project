@@ -4,7 +4,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-const defaultSections: Record<string, { href: string; label: string }[]> = {
+interface FooterLink { href: string; label: string; ariaLabel?: string }
+const defaultSections: Record<string, FooterLink[]> = {
   Tools: [
     { href: "/tap-tempo", label: "Tap Tempo" },
     { href: "/metronome", label: "Metronome" },
@@ -25,7 +26,7 @@ const defaultSections: Record<string, { href: string; label: string }[]> = {
     { href: "/editorial-policy", label: "Editorial Policy" },
     { href: "/editorial-team", label: "Editorial Team" },
     { href: "/about", label: "About Us" },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact", label: "Contact", ariaLabel: "Contact page" },
   ],
   More: [
     { href: "/blog", label: "Blog" },
@@ -106,11 +107,12 @@ export function Footer() {
           {sectionKeys.map((section) => (
             <div key={section} className="flex flex-col space-y-2">
               <span className="font-bold text-sm text-white/90 mb-2">{section}</span>
-              {sections[section].map((link) => (
+              {sections[section].map((link: FooterLink) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className="text-sm text-white/60 hover:text-white transition-colors"
+                  {...(link.ariaLabel ? { "aria-label": link.ariaLabel } : {})}
                 >
                   {link.label}
                 </Link>

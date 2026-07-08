@@ -121,7 +121,7 @@ export function HomePageContent() {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0 }}
               className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold tracking-tight mb-4"
             >
               Tempo Tools for
@@ -382,7 +382,7 @@ export function HomePageContent() {
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
                 </a>
@@ -394,7 +394,7 @@ export function HomePageContent() {
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:taptempous@gmail.com">
+                <a href="mailto:taptempous@gmail.com" aria-label="Contact via email">
                   <Mail className="w-4 h-4 mr-2" />
                   Contact
                 </a>
