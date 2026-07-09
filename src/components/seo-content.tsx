@@ -106,15 +106,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   )
 }
 
-const classicalTempos = [
-  { marking: "Largo", range: "40–60 BPM", character: "Very slow, broad" },
-  { marking: "Adagio", range: "66–76 BPM", character: "Slow and stately" },
-  { marking: "Andante", range: "76–108 BPM", character: "Walking pace" },
-  { marking: "Moderato", range: "108–120 BPM", character: "Moderate speed" },
-  { marking: "Allegro", range: "120–156 BPM", character: "Fast, bright" },
-  { marking: "Presto", range: "168–200 BPM", character: "Very fast" },
-  { marking: "Prestissimo", range: "200+ BPM", character: "Extremely fast" },
-]
+
 
 export function SeoContent() {
   return (
@@ -267,27 +259,7 @@ export function SeoContent() {
 
       {/* Classical Tempo Markings */}
       <Collapsible title="Classical Tempo Markings Decoded">
-        <p>Classical sheet music rarely uses BPM numbers. Instead, you&apos;ll see Italian terms. Use our tapper on a recording, then cross‑reference with this mapping:</p>
-        <div className="overflow-x-auto -mx-4 px-4">
-          <table className="w-full text-xs border-collapse">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left py-2 font-semibold text-foreground">Marking</th>
-                <th className="text-left py-2 font-semibold text-foreground">BPM Range</th>
-                <th className="text-left py-2 font-semibold text-foreground">Character</th>
-              </tr>
-            </thead>
-            <tbody>
-              {classicalTempos.map(t => (
-                <tr key={t.marking} className="border-b last:border-b-0">
-                  <td className="py-2 font-medium">{t.marking}</td>
-                  <td className="py-2 font-mono">{t.range}</td>
-                  <td className="py-2">{t.character}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <p>Classical sheet music rarely uses BPM numbers. Instead, you&apos;ll see Italian terms like Andante, Allegro, or Prestissimo. Our tapper bridges this world: tap the tempo of a recording, then check our complete <a href="https://www.thetaptempo.com/tempo-markings" className="text-primary font-bold">Tempo Markings guide</a> to see which classical term matches your result. If you tapped 88 BPM, you&apos;re likely in Andante territory.</p>
       </Collapsible>
 
       {/* Niche Applications */}
