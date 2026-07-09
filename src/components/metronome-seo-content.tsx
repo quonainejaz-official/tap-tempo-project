@@ -136,7 +136,7 @@ export function MetronomeSeoContent() {
           <div>
             <h3 className="font-semibold text-sm">4. Start Slow</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Always begin at a practice tempo slower than the target performance speed. For instance, if a piece is marked Allegro (110–132 BPM), start at 60–70 BPM. In practice, we found that increasing tempo by 5 BPM increments produced more consistent long-term progress than jumping directly to performance speed. Smaller increases allowed mistakes to surface before they became ingrained habits.
+              Always begin at a practice tempo slower than the target performance speed. For instance, if a piece is marked Allegro (110–132 BPM), start at 60–70 BPM. Increase the tempo gradually rather than jumping straight to performance speed, this lets mistakes surface early instead of becoming ingrained habits. For a full step-by-step tempo progression method, see our <a href="https://www.thetaptempo.com/blog/practice-with-a-metronome" className="text-primary font-bold">How to Practice with a Metronome guide</a>.
             </p>
           </div>
           <div>
