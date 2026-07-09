@@ -276,36 +276,7 @@ export function MetronomeSeoContent() {
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Music Tempo Terms: Understanding Italian Markings</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          You&apos;ll often see words like Adagio or Allegro on sheet music. These tempo markings have been used for centuries. Here&apos;s a complete list from slowest to fastest, with approximate BPM ranges. Visit our <Link href="/tempo-markings" className="text-primary hover:underline font-bold">Tempo Markings Guide</Link> for a deeper reference.
-        </p>
-        <div className="overflow-x-auto rounded-xl border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-muted/50">
-                <th className="px-3 py-2 text-left font-semibold">Tempo Marking</th>
-                <th className="px-3 py-2 text-left font-semibold">BPM Range</th>
-                <th className="px-3 py-2 text-left font-semibold">Feel</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y text-muted-foreground">
-              <tr><td className="px-3 py-2 font-medium">Larghissimo</td><td className="px-3 py-2">up to 20</td><td className="px-3 py-2">Very, very slow</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Grave</td><td className="px-3 py-2">21–40</td><td className="px-3 py-2">Slow, solemn</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Lento</td><td className="px-3 py-2">41–45</td><td className="px-3 py-2">Slow</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Largo</td><td className="px-3 py-2">46–50</td><td className="px-3 py-2">Broad, slow</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Adagio</td><td className="px-3 py-2">51–60</td><td className="px-3 py-2">Slow and stately</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Adagietto</td><td className="px-3 py-2">61–70</td><td className="px-3 py-2">Slightly faster than Adagio</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Andante</td><td className="px-3 py-2">71–85</td><td className="px-3 py-2">Walking pace</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Moderato</td><td className="px-3 py-2">86–97</td><td className="px-3 py-2">Moderate</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Allegretto</td><td className="px-3 py-2">98–109</td><td className="px-3 py-2">Moderately fast</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Allegro</td><td className="px-3 py-2">110–132</td><td className="px-3 py-2">Fast, bright</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Vivace</td><td className="px-3 py-2">133–140</td><td className="px-3 py-2">Lively, fast</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Presto</td><td className="px-3 py-2">141–177</td><td className="px-3 py-2">Very fast</td></tr>
-              <tr><td className="px-3 py-2 font-medium">Prestissimo</td><td className="px-3 py-2">178–240</td><td className="px-3 py-2">Extremely fast</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          These terms are not exact speeds, they describe character. A metronome gives you the precise BPM, but your musicality decides the final feel.
+          You&apos;ll often see words like Adagio or Allegro on sheet music. These tempo markings have been used for centuries to describe both speed and character. For the complete list of tempo markings from Larghissimo to Prestissimo with BPM ranges.
         </p>
       </section>
 
