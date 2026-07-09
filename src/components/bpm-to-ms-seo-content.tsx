@@ -313,29 +313,6 @@ export function BpmToMsSeoContent() {
         </p>
 
         <div>
-          <h3 className="font-semibold text-sm">Reverb Pre-Delay by Genre</h3>
-          <div className="overflow-x-auto rounded-xl border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-muted/50">
-                  <th className="px-3 py-2 text-left font-semibold">Genre</th>
-                  <th className="px-3 py-2 text-left font-semibold">Typical BPM</th>
-                  <th className="px-3 py-2 text-left font-semibold">Suggested Pre-Delay</th>
-                  <th className="px-3 py-2 text-left font-semibold">Millisecond Value</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y text-muted-foreground">
-                <tr><td className="px-3 py-2 font-medium">Rock ballad</td><td className="px-3 py-2">70</td><td className="px-3 py-2">1/16 note</td><td className="px-3 py-2">214 ms</td></tr>
-                <tr><td className="px-3 py-2 font-medium">House</td><td className="px-3 py-2">126</td><td className="px-3 py-2">1/32 note</td><td className="px-3 py-2">74 ms</td></tr>
-                <tr><td className="px-3 py-2 font-medium">Pop vocal</td><td className="px-3 py-2">120</td><td className="px-3 py-2">1/32 note</td><td className="px-3 py-2">31 ms</td></tr>
-                <tr><td className="px-3 py-2 font-medium">Orchestral</td><td className="px-3 py-2">90</td><td className="px-3 py-2">1/8 note (hall depth)</td><td className="px-3 py-2">333 ms</td></tr>
-                <tr><td className="px-3 py-2 font-medium">Drum &amp; Bass</td><td className="px-3 py-2">174</td><td className="px-3 py-2">1/16 note</td><td className="px-3 py-2">86 ms</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div>
           <h3 className="font-semibold text-sm">Compressor Release by Genre</h3>
           <div className="overflow-x-auto rounded-xl border">
             <table className="w-full text-sm">
