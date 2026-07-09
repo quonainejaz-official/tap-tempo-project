@@ -25,7 +25,7 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
   "excerpt": "Learn how professional DJs calculate and verify BPM before mixing songs. Discover beatmatching workflows, playlist preparation, BPM differences, and software tips.",
   "metaTitle": "How DJs Calculate BPM Before Mixing Songs | TheTapTempo",
   "metaDescription": "Learn how professional DJs calculate and verify BPM before mixing songs. Discover beatmatching workflows, playlist preparation, BPM differences, and software tips.",
-  "coverImage": "",
+  "coverImage": "/images/blog/how-djs-calculate-bpm-before-mixing.jpg",
   "coverImagePublicId": "",
   "coverImageAlt": "Professional DJ preparing a playlist by checking BPM values before mixing songs.",
   "author": "TheTapTempo Editorial Team",
