@@ -255,8 +255,7 @@ export function BpmCalculatorSeoContent() {
         <div className="divide-y rounded-xl border">
           <FaqItem
             q="What's the difference between this BPM calculator and a tap tempo tool?"
-            a={<>A tap tempo tool finds BPM by you tapping a button in real time, fastest for a song playing now. A BPM calculator works from a counted number of beats over a known time, more accurate for live performances or when you don&apos;t have a device to tap. Try our <Link href="/tap-tempo" className="text-primary hover:underline font-bold">tap tempo tool</Link> for real-time BPM detection.</>}
-          />
+            a="A tap tempo tool finds BPM by tapping a button in real time, fastest for a song playing right now. A BPM calculator works from a manually counted number of beats over a known time, making it more accurate for live performances or when you don't have a device to tap along with." />
           <FaqItem
             q="What time signatures does this work for?"
             a={<>All of them. BPM always measures quarter‑note beats in standard time. For 6/8, the &ldquo;beat&rdquo; is usually a dotted quarter, but the math still works if you count the <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">main pulse</Link>.</>}
