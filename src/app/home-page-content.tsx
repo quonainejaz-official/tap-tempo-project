@@ -29,9 +29,11 @@ import {
   Sparkles,
   ArrowRight,
   ExternalLink,
-  Github,
-  Twitter,
-  Mail,
+  X,
+  Facebook,
+  Instagram,
+  User,
+  Globe,
   BookOpen,
   CheckCircle2,
   Search,
@@ -382,21 +384,27 @@ export function HomePageContent() {
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
+                <a href="https://x.com/taptempous" target="_blank" rel="noopener noreferrer">
+                  <X className="w-4 h-4 mr-2" />
+                  X
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                  <Twitter className="w-4 h-4 mr-2" />
-                  Twitter
+                <a href="https://www.facebook.com/profile.php?id=61591940093409" target="_blank" rel="noopener noreferrer">
+                  <Facebook className="w-4 h-4 mr-2" />
+                  Facebook
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:taptempous@gmail.com" aria-label="Contact via email">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Contact
+                <a href="https://www.instagram.com/taptempous/" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="w-4 h-4 mr-2" />
+                  Instagram
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://about.me/thetaptempo" target="_blank" rel="noopener noreferrer">
+                  <Globe className="w-4 h-4 mr-2" />
+                  About.me
                 </a>
               </Button>
             </div>
