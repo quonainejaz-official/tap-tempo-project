@@ -7,7 +7,16 @@ export const content = `<p>Learning to practice with a metronome is one of the f
 <p>Many musicians expect a metronome to make practice easier, but the opposite usually happens during the first few sessions. That's because the metronome removes the flexibility your brain naturally gives itself when playing without external timing.</p>
 <p>Without a steady reference, it's surprisingly easy to speed up during exciting passages, slow down during difficult sections, or unconsciously change tempo whenever your technique becomes uncomfortable. Since your ears adapt to these gradual changes, you often don't notice them.</p>
 <p>A metronome doesn't create mistakes; it exposes them.</p>
-<p>Another reason metronome practice feels challenging is that playing in perfect time requires several skills working together at once. You must maintain a steady pulse, control your technique, anticipate upcoming notes, and listen carefully to every click. When one of these skills weakens, your timing immediately begins to drift.</p>
+<p>Another reason metronome practice feels challenging is that playing in perfect time requires several skills working together at once:</p>
+
+<ul class="list-disc pl-6 space-y-1 my-4">
+<li>Maintain a steady pulse</li>
+<li>Control your technique</li>
+<li>Anticipate upcoming notes</li>
+<li>Listen carefully to every click</li>
+</ul>
+
+<p>When one of these skills weakens, your timing immediately begins to drift.</p>
 <p>Professional musicians experience this process too. The difference is that they use the metronome as feedback instead of treating it as criticism. Rather than trying to fight the click, they learn to cooperate with it.</p>
 <p>Once you understand the most common practice mistakes, metronome sessions become less frustrating and far more rewarding.</p>
 
@@ -279,7 +288,7 @@ export const content = `<p>Learning to practice with a metronome is one of the f
 
 <h2>A Simple Correction Strategy</h2>
 <p>If you're unsure where to begin, keep your metronome practice as simple as possible.</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Choose a tempo you can play comfortably.</li>
 <li>Focus on staying exactly with the click.</li>
 <li>Maintain relaxed technique.</li>
@@ -330,7 +339,7 @@ export const content = `<p>Learning to practice with a metronome is one of the f
 
 <h3>Before Every Session</h3>
 <p>Use this quick checklist before you begin:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Start slower than you think you need to.</li>
 <li>Listen carefully to every click.</li>
 <li>Count subdivisions when necessary.</li>

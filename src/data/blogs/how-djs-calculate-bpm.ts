@@ -89,7 +89,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>A typical workflow often looks like this:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Import new tracks into the DJ library.</li>
 <li>Verify each song's BPM rather than assuming automatic analysis is always correct.</li>
 <li>Organize tracks into playlists or crates with similar energy levels.</li>
@@ -134,7 +134,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>They also consider:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Musical energy.</li>
 <li>Track compatibility.</li>
 <li>Key (where relevant).</li>
@@ -169,7 +169,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>Genres like:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>House</li>
 <li>Tech House</li>
 <li>Techno</li>
@@ -219,7 +219,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>This is especially common when preparing:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Opening tracks.</li>
 <li>Closing tracks.</li>
 <li>Festival anthems.</li>
@@ -302,7 +302,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>Instead of forcing incompatible songs together, they may:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Use longer blends.</li>
 <li>Transition during breakdowns.</li>
 <li>Introduce effects.</li>
@@ -378,7 +378,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>Unofficial edits often contain:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Tempo changes</li>
 <li>Edited intros</li>
 <li>Custom drum patterns</li>
@@ -400,7 +400,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>A typical verification process looks like this:</p>
 
-<ol>
+<ol class="list-decimal pl-6 space-y-1 my-4">
 <li>Load the track into DJ software.</li>
 <li>Play the intro while watching the beat grid.</li>
 <li>Confirm that kick drums remain aligned over several phrases.</li>
@@ -429,7 +429,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>New tracks are imported, categorized, and organized into playlists or crates based on factors such as:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Genre</li>
 <li>Energy level</li>
 <li>BPM</li>
@@ -445,7 +445,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>They confirm:</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>BPM values</li>
 <li>Beat grid alignment</li>
 <li>Cue points</li>
@@ -527,7 +527,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 
 <p>Building smooth transitions involves much more than knowing the tempo of your tracks. Continue exploring these related guides to strengthen every stage of your DJ workflow.</p>
 
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li><a href="https://www.thetaptempo.com/blog/how-to-find-bpm-of-any-song"><strong>How to Find the BPM of Any Song: 7 Methods</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/common-metronome-mistakes"><strong>Common Metronome Mistakes That Slow Down Your Progress</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-accurate-is-tap-tempo"><strong>How Accurate Is Tap Tempo? Human vs Software BPM Detection</strong></a></li>

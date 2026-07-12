@@ -3,7 +3,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>The most effective way to <a href="https://www.thetaptempo.com/metronome"><strong>practice with a metronome</strong></a> is to start slowly, focus on accuracy before speed, and gradually increase the tempo as you become more consistent. Short, structured practice sessions of 20 to 30 minutes are usually more productive than long sessions spent repeating the same exercise. A metronome isn't there to rush your progress. It's there to help you develop reliable timing, stronger rhythm, and better control over your playing.</p>
 
 <h2>In This Guide</h2>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Why Practice with a Metronome?</li>
 <li>Beginner Practice Routine</li>
 <li>Intermediate Practice Routine</li>
@@ -25,7 +25,7 @@ export const content = `<h2>Quick Answer</h2>
 
 <h3>Who Is This Guide For?</h3>
 <p>This guide is designed for musicians who want to improve their timing through structured practice rather than random repetition. It's especially useful for:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Guitarists developing cleaner rhythm playing.</li>
 <li>Pianists building hand coordination.</li>
 <li>Drummers improving timing consistency.</li>
@@ -40,7 +40,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>A metronome doesn't improve your playing by itself. It helps you recognise timing mistakes that often go unnoticed.</p>
 <p>Without a steady reference, it's easy to speed up during simple passages and slow down when something feels challenging. Practising with a consistent click helps you develop steady timing and better control over your playing.</p>
 <p>Regular metronome practice can help you:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Develop stronger internal timing.</li>
 <li>Improve accuracy before increasing speed.</li>
 <li>Build confidence when playing with others.</li>
@@ -89,7 +89,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>Once basic timing feels comfortable, the goal shifts from simply following the click to developing stronger rhythmic control.</p>
 <p>Instead of playing every note directly on each beat, begin experimenting with different note values and subdivisions while keeping the metronome at the same tempo. This forces you to maintain an internal sense of timing rather than depending entirely on the click.</p>
 <p>A productive intermediate practice session might include:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Playing scales using quarter notes, eighth notes, and triplets.</li>
 <li>Practising chord progressions with different rhythmic patterns.</li>
 <li>Starting exercises on different beats of the bar.</li>
@@ -127,7 +127,7 @@ export const content = `<h2>Quick Answer</h2>
 <h3>2. Practise Dynamic Control</h3>
 <p>Don't play every note at the same volume. Keep your timing steady while changing the dynamics of your performance.</p>
 <p>For example:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Play one phrase softly.</li>
 <li>Repeat it loudly.</li>
 <li>Add natural accents without changing the tempo.</li>
@@ -137,7 +137,7 @@ export const content = `<h2>Quick Answer</h2>
 <h3>3. Challenge Your Coordination</h3>
 <p>If your instrument allows it, practise different rhythmic patterns simultaneously.</p>
 <p>Examples include:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Guitarists combining rhythm and melody.</li>
 <li>Pianists playing contrasting rhythms between both hands.</li>
 <li>Drummers using different sticking patterns.</li>

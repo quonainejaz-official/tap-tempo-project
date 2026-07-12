@@ -4,7 +4,7 @@ export const content = `<h2>Quick Answer</h2>
 
 <div class="callout-takeaway">
 <p><strong>Key Takeaways</strong></p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Consistent tapping over 8–12 beats can achieve 1–2 BPM accuracy.</li>
 <li>Human consistency matters more than device speed or software algorithms.</li>
 <li>EDM, Pop, and Hip-Hop are easiest for Tap Tempo; Classical and Jazz are hardest.</li>
@@ -13,7 +13,7 @@ export const content = `<h2>Quick Answer</h2>
 </div>
 
 <h2>In This Guide</h2>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Does Tap Tempo Give Correct BPM?</li>
 <li>Human Accuracy vs Software Detection</li>
 <li>Factors That Affect Accuracy</li>
@@ -34,7 +34,7 @@ export const content = `<h2>Quick Answer</h2>
 
 <h2>Who Is This Guide For?</h2>
 <p>This guide is useful if you regularly work with tempo and want to understand how much you can trust manual BPM detection. It is especially relevant for:</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>DJs preparing playlists and live performances.</li>
 <li>Music producers working inside a DAW.</li>
 <li>Drummers and instrumentalists practising with consistent timing.</li>
@@ -51,7 +51,17 @@ export const content = `<h2>Quick Answer</h2>
 <p>For songs with a clear, consistent beat, Tap Tempo can produce results that are surprisingly close to professional BPM analysis software. Many musicians, DJs, and producers use it every day because it provides a fast and practical way to estimate tempo without importing audio into specialised software.</p>
 <p>The biggest factor isn't the tool itself. It's the person using it. If your taps follow the song's pulse consistently, the calculated BPM will usually stabilise after several beats. On the other hand, tapping too early, too late, or changing rhythm halfway through the measurement can quickly introduce small variations. This is why two people tapping to the same song may see slightly different BPM readings, even when using the same tool.</p>
 <p>It's also important to understand that not every recording has a perfectly fixed tempo. Studio-produced electronic music often maintains an extremely stable BPM, making it ideal for Tap Tempo. Live performances, orchestral recordings, and songs played by human drummers may naturally speed up or slow down during different sections. In these cases, small BPM differences are often caused by the music itself rather than the tapping method.</p>
-<p>For everyday use, Tap Tempo provides more than enough accuracy for practising, rehearsing, creating playlists, checking tempos, or quickly identifying the approximate BPM of a song. When projects demand frame-perfect precision across hundreds of tracks, automatic analysis software still has the advantage. For most individual songs, however, consistent manual tapping delivers results that are far more reliable than many people expect.</p>
+<p>For everyday use, Tap Tempo provides more than enough accuracy for:</p>
+
+<ul class="list-disc pl-6 space-y-1 my-4">
+<li>Practising</li>
+<li>Rehearsing</li>
+<li>Creating playlists</li>
+<li>Checking tempos</li>
+<li>Quickly identifying the approximate BPM of a song</li>
+</ul>
+
+<p>When projects demand frame-perfect precision across hundreds of tracks, automatic analysis software still has the advantage. For most individual songs, however, consistent manual tapping delivers results that are far more reliable than many people expect.</p>
 
 <hr>
 
@@ -142,7 +152,7 @@ export const content = `<h2>Quick Answer</h2>
 
 <h2>Professional Tips</h2>
 <p>Small improvements in technique can make a surprisingly large difference to your results. Musicians who use Tap Tempo regularly often follow a few simple habits to maximise consistency.</p>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Wait until the main groove is clearly established before you begin tapping. Starting too early during an intro can produce unnecessary variation.</li>
 <li>Follow the song's primary pulse instead of individual drum fills, guitar riffs, or vocal phrases.</li>
 <li>Complete at least 8 to 12 consistent taps before judging the displayed BPM.</li>
@@ -196,7 +206,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>Whether you're practising an instrument, preparing a DJ set, producing music, or simply satisfying your curiosity, regular use will help you develop a stronger sense of rhythm while giving you dependable tempo estimates in just a few seconds.</p>
 
 <h2>Why You Can Trust This Guide</h2>
-<ul>
+<ul class="list-disc pl-6 space-y-1 my-4">
 <li>Independently researched using trusted music production resources.</li>
 <li>Reviewed under the TheTapTempo Editorial Constitution.</li>
 <li>Written to help musicians, DJs, producers, and learners make informed decisions.</li>

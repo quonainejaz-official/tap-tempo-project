@@ -196,7 +196,13 @@ export const content = `<p>Every recording session begins with hundreds of creat
 
 <h3>The Song Suddenly Feels Rushed</h3>
 
-<p>One of the clearest warning signs is when performers begin to feel as though they&#39;re constantly trying to catch up with the music. A vocalist may struggle to finish phrases comfortably before the next line begins. Guitarists may feel they have less time to articulate important parts, while drummers often notice that fills become unnecessarily busy or difficult to execute cleanly.</p>
+<p>One of the clearest warning signs is when performers begin to feel as though they&#39;re constantly trying to catch up with the music:</p>
+
+<ul class="list-disc pl-6 space-y-1 my-4">
+<li>A vocalist may struggle to finish phrases comfortably before the next line begins.</li>
+<li>Guitarists may feel they have less time to articulate important parts.</li>
+<li>Drummers often notice that fills become unnecessarily busy or difficult to execute cleanly.</li>
+</ul>
 
 <p>Nothing is technically &ldquo;wrong&rdquo; with the performance, yet everyone in the room senses that the song isn&#39;t breathing naturally.</p>
 
@@ -204,9 +210,15 @@ export const content = `<p>Every recording session begins with hundreds of creat
 
 <h3>The Song Starts Losing Energy</h3>
 
-<p>The opposite problem is equally common. Sometimes a production feels slow, not because the BPM itself is objectively low, but because the chosen tempo doesn&#39;t support the arrangement.</p>
+<p>The opposite problem is equally common. Sometimes a production feels slow, not because the BPM itself is objectively low, but because the chosen tempo doesn&#39;t support the arrangement. Watch for these warning signs:</p>
 
-<p>Verses may begin to drag, transitions lose momentum, and choruses fail to deliver the lift that the songwriter originally imagined. In these situations, adding more instruments or increasing volume rarely solves the issue. Often, the song simply needs a slightly different pace to maintain its natural flow.</p>
+<ul class="list-disc pl-6 space-y-1 my-4">
+<li>Verses may begin to drag.</li>
+<li>Transitions lose momentum.</li>
+<li>Choruses fail to deliver the lift that the songwriter originally imagined.</li>
+</ul>
+
+<p>In these situations, adding more instruments or increasing volume rarely solves the issue. Often, the song simply needs a slightly different pace to maintain its natural flow.</p>
 
 <h3>Vocal Comfort Is One of the Best Indicators</h3>
 
@@ -224,7 +236,13 @@ export const content = `<p>Every recording session begins with hundreds of creat
 
 <h3>Don&#39;t Ignore What the Band Is Telling You</h3>
 
-<p>Tempo decisions become even more important when several musicians are recording together. If the drummer feels the groove is being rushed, the bassist struggles to lock in consistently, and the guitarist keeps naturally pulling behind the click, those aren&#39;t always performance mistakes. Sometimes they&#39;re signs that the chosen BPM isn&#39;t serving the musicians.</p>
+<p>Tempo decisions become even more important when several musicians are recording together. If multiple performers react to the tempo in similar ways, those aren&#39;t always performance mistakes. Sometimes they&#39;re signs that the chosen BPM isn&#39;t serving the musicians:</p>
+
+<ul class="list-disc pl-6 space-y-1 my-4">
+<li>The drummer feels the groove is being rushed.</li>
+<li>The bassist struggles to lock in consistently.</li>
+<li>The guitarist keeps naturally pulling behind the click.</li>
+</ul>
 
 <p>Experienced producers pay attention to these patterns instead of treating every issue as a playing problem. When multiple performers independently react to the tempo in similar ways, it&#39;s worth pausing the session and testing another BPM before continuing.</p>
 
