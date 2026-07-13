@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/tap-tempo`
 
 export const metadata: Metadata = {
-  title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper | TheTapTempo",
+  title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper",
   description:
     "Use the free online Tap Tempo tool to find the BPM of any song by tapping along with the beat. Perfect for musicians, producers, DJs, drummers, and creators. Fast, accurate, browser-based, and free to use.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper | TheTapTempo",
+    title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper",
     description:
       "Use the free online Tap Tempo tool to find the BPM of any song by tapping along with the beat. Perfect for musicians, producers, DJs, drummers, and creators. Fast, accurate, browser-based, and free to use.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper | TheTapTempo",
+    title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper",
     description:
       "Use the free online Tap Tempo tool to find the BPM of any song by tapping along with the beat. Perfect for musicians, producers, DJs, drummers, and creators. Fast, accurate, browser-based, and free to use.",
   },
