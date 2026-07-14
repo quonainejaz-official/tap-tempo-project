@@ -4,23 +4,23 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/beats-per-bar-calculator`
 
 export const metadata: Metadata = {
-  title: "Calculate Beats Per Bar for Any Time Signature",
+  title: "Beats Per Bar Calculator: Any Time Signature",
   description:
-    "Never misalign a loop again. Understand beats per bar for 4/4, 3/4, 6/8, and get the formulas to convert bars to real time\u2014fast.",
+    "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Calculate Beats Per Bar for Any Time Signature",
+    title: "Beats Per Bar Calculator: Any Time Signature | TheTapTempo",
     description:
-      "Never misalign a loop again. Understand beats per bar for 4/4, 3/4, 6/8, and get the formulas to convert bars to real time\u2014fast.",
+      "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Calculate Beats Per Bar for Any Time Signature",
+    title: "Beats Per Bar Calculator: Any Time Signature | TheTapTempo",
     description:
-      "Never misalign a loop again. Understand beats per bar for 4/4, 3/4, 6/8, and get the formulas to convert bars to real time\u2014fast.",
+      "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",
   },
   robots: { index: true, follow: true },
 }

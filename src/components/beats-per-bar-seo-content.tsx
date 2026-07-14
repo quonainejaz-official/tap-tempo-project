@@ -49,6 +49,9 @@ export function BeatsPerBarSeoContent() {
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold">If You&apos;ve Ever Misaligned a Loop, This Is Why</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+          A Beats Per Bar Calculator solves this by showing you exactly how beat grouping affects bar length and timing.
+        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed mt-3">
           If you&apos;ve ever set a loop in your DAW only to have it cut off early, you&apos;ve <Link href="/tap-tempo" className="text-primary hover:underline font-bold">felt the cost of misunderstanding beats per bar</Link>. It isn&apos;t music theory for its own sake; it&apos;s the grid your entire arrangement snaps to.
         </p>
       </section>
@@ -68,7 +71,7 @@ export function BeatsPerBarSeoContent() {
           6/8 → 6 eighth‑note beats per bar, but felt as 2 main pulses (blues shuffles)
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          That last one is the trap beginners fall into. A calculator won&apos;t save you if you don&apos;t know whether you&apos;re counting 6 individual ticks or <Link href="/metronome" className="text-primary hover:underline font-bold">2 swung beats</Link>. Compound time changes how you feel the bar, even though the math stays the same.
+          That last one is the trap beginners fall into. A Beats Per Bar Calculator won&apos;t save you if you don&apos;t know whether you&apos;re counting 6 individual ticks or <Link href="/metronome" className="text-primary hover:underline font-bold">2 swung beats</Link>. Compound time changes how you feel the bar, even though the math stays the same.
         </p>
       </section>
 
@@ -134,7 +137,7 @@ export function BeatsPerBarSeoContent() {
       </section>
 
       <section>
-        <h2 className="text-xl md:text-2xl font-serif font-bold">How a Calculator Actually Helps</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">How a Beats Per Bar Calculator Actually Helps</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">
           A beats‑per‑bar calculator is useful for three specific tasks:
         </p>
