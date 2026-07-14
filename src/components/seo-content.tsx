@@ -42,7 +42,7 @@ function StepCard({ num, title, desc }: { num: number; title: string; desc: Reac
         {num}
       </div>
       <div>
-        <h4 className="font-semibold text-sm mb-1">{title}</h4>
+        <h3 className="font-semibold text-sm mb-1">{title}</h3>
         <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
       </div>
     </div>
@@ -55,7 +55,7 @@ function MistakeCard({ num, title, desc, fix }: { num: number; title: string; de
       <div className="flex items-start gap-2">
         <AlertTriangle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
         <div>
-          <h4 className="font-semibold text-sm">Mistake {num}: {title}</h4>
+          <h3 className="font-semibold text-sm">Mistake {num}: {title}</h3>
           <p className="text-xs text-muted-foreground mt-1">{desc}</p>
         </div>
       </div>
@@ -73,7 +73,7 @@ function TipCard({ icon: Icon, title, desc }: { icon: React.ElementType; title: 
       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
         <Icon className="w-4 h-4 text-primary" />
       </div>
-      <h4 className="font-semibold text-sm">{title}</h4>
+      <h3 className="font-semibold text-sm">{title}</h3>
       <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
     </div>
   )

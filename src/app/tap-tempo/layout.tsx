@@ -4,23 +4,23 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/tap-tempo`
 
 export const metadata: Metadata = {
-  title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper",
+  title: "Tap Tempo - BPM Tapper & Online Tempo Finder",
   description:
-    "Use the free online Tap Tempo tool to find the BPM of any song by tapping along with the beat. Perfect for musicians, producers, DJs, drummers, and creators. Fast, accurate, browser-based, and free to use.",
+    "Use our free Tap Tempo tool (BPM Tapper) to find any song's BPM by tapping along with the beat. Fast, accurate, and perfect for musicians, DJs, and producers.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper",
+    title: "Tap Tempo - BPM Tapper & Online Tempo Finder",
     description:
-      "Use the free online Tap Tempo tool to find the BPM of any song by tapping along with the beat. Perfect for musicians, producers, DJs, drummers, and creators. Fast, accurate, browser-based, and free to use.",
+      "Use our free Tap Tempo tool (BPM Tapper) to find any song's BPM by tapping along with the beat. Fast, accurate, and perfect for musicians, DJs, and producers.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tap Tempo – Free Online Tempo Finder & BPM Tapper",
+    title: "Tap Tempo - BPM Tapper & Online Tempo Finder",
     description:
-      "Use the free online Tap Tempo tool to find the BPM of any song by tapping along with the beat. Perfect for musicians, producers, DJs, drummers, and creators. Fast, accurate, browser-based, and free to use.",
+      "Use our free Tap Tempo tool (BPM Tapper) to find any song's BPM by tapping along with the beat. Fast, accurate, and perfect for musicians, DJs, and producers.",
   },
   robots: { index: true, follow: true },
 }
