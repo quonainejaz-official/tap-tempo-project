@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/metronome`
 
 export const metadata: Metadata = {
-  title: "Online Metronome Tool & Rhythm Guide for Musicians",
+  title: "Online Metronome Tool & Rhythm Guide",
   description:
     "Use our free metronome tool to improve rhythm and timing. Explore BPM, tempo, time signatures, polyrhythms, and practice techniques for every skill level.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Online Metronome Tool & Rhythm Guide for Musicians",
+    title: "Online Metronome Tool & Rhythm Guide | TheTapTempo",
     description:
       "Use our free metronome tool to improve rhythm and timing. Explore BPM, tempo, time signatures, polyrhythms, and practice techniques for every skill level.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Metronome Tool & Rhythm Guide for Musicians",
+    title: "Online Metronome Tool & Rhythm Guide | TheTapTempo",
     description:
       "Use our free metronome tool to improve rhythm and timing. Explore BPM, tempo, time signatures, polyrhythms, and practice techniques for every skill level.",
   },

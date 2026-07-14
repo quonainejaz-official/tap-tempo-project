@@ -84,10 +84,10 @@ export function MetronomeSeoContent() {
       <section className="space-y-4">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Introduction</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Most musicians remember the first time they practiced with a metronome and realized, sometimes uncomfortably, that their sense of time wasn&apos;t as solid as they thought. During our own testing and practice sessions across guitar, piano, and percussion exercises, this moment appeared repeatedly: players often felt confident until the click exposed small timing inconsistencies they couldn&apos;t hear on their own.
+          Most musicians remember the first time they practiced with a metronome and realized, sometimes uncomfortably, that their sense of time wasn&apos;t as solid as they thought.           During our own testing and practice sessions across guitar, piano, and percussion exercises, this moment appeared repeatedly. Players often felt confident until the click exposed small timing inconsistencies they couldn&apos;t hear on their own.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          In this guide, I&apos;ll walk you through everything you need to know about metronomes: what they are, how they work, the different types available, how to use them effectively for rhythm guitar, piano, and drums, and advanced techniques like subdivisions and polyrhythms. By the end, you&apos;ll have a complete, actionable understanding of how to use a metronome to transform your playing.
+          In this guide, I&apos;ll walk you through everything you need to know about metronomes: what they are, how they work, and the different types available. You&apos;ll also learn how to use them effectively for rhythm guitar, piano, and drums, plus advanced techniques like subdivisions and polyrhythms. By the end, you&apos;ll have a complete, actionable understanding of how to use a metronome to transform your playing.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Let&apos;s start with the basics.
@@ -101,7 +101,7 @@ export function MetronomeSeoContent() {
           A metronome is a device that produces a regular, audible pulse, a click or tick, at a speed you can set. This pulse helps musicians play in time. The speed is measured in BPM (beats per minute). For example, a tempo of 60 BPM equals one beat per second; 120 BPM equals two beats per second. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Think of the metronome as your personal timekeeper. It doesn&apos;t judge; it simply gives you a steady rhythmic reference. Whether you&apos;re practicing scales, learning a new piece, or recording in a studio, the metronome ensures you stay locked into the tempo.
+          Think of the metronome as your personal timekeeper. It doesn&apos;t judge; it simply gives you a steady rhythmic reference. Whether you&apos;re practicing scales, learning a new piece, or recording in a studio, it keeps you locked into the tempo.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Why this matters: Without a consistent pulse, music feels chaotic. The metronome builds your internal timing and regularity, which are the foundations of professional playing.
@@ -216,7 +216,7 @@ export function MetronomeSeoContent() {
           Rhythm guitar is all about feel and precision. A metronome for rhythm guitar helps you develop tight strumming patterns, chord changes, and syncopation.
         </p>
         <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h4 className="font-semibold text-sm">Practical Exercise:</h4>
+          <h3 className="font-semibold text-sm">Practical Exercise:</h3>
           <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
             <li>Set the metronome to 80 BPM in 4/4.</li>
             <li>Strum downbeats only (beats 1, 2, 3, 4).</li>
@@ -226,7 +226,7 @@ export function MetronomeSeoContent() {
           </ul>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Insight: While reviewing practice recordings, rushed chord transitions were one of the most common timing issues we encountered among developing rhythm guitar players. The metronome consistently revealed timing errors that often went unnoticed during normal practice. Record yourself playing with the metronome; you&apos;ll likely hear the rush. Slow down until the chord change lands exactly on the click.
+          Insight: While reviewing practice recordings, rushed chord transitions were one of the most common timing issues we encountered among developing rhythm guitar players. It consistently revealed timing errors that often went unnoticed during normal practice. Record yourself playing along; you&apos;ll likely hear the rush. Slow down until the chord change lands exactly on the click.
         </p>
       </section>
 
@@ -237,7 +237,7 @@ export function MetronomeSeoContent() {
           For pianists, the metronome is invaluable for scales, arpeggios, and maintaining even tone across both hands.
         </p>
         <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h4 className="font-semibold text-sm">How to practice with a piano metronome:</h4>
+          <h3 className="font-semibold text-sm">How to practice with a piano metronome:</h3>
           <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
             <li>Play a C major scale, one note per click at 60 BPM.</li>
             <li>Increase to two notes per click (eighth notes).</li>
@@ -246,7 +246,7 @@ export function MetronomeSeoContent() {
           </ul>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Common mistake: During scale and arpeggio practice, descending passages frequently showed greater tempo instability than ascending patterns. Using a metronome made these inconsistencies immediately measurable and easier to correct. The metronome reveals this immediately. Fix it by practicing the troublesome passage at half speed until it feels natural, then gradually increase.
+          Common mistake: During scale and arpeggio practice, descending passages frequently showed greater tempo instability than ascending patterns. Using a metronome made these inconsistencies immediately measurable and easier to correct. This becomes obvious right away. Fix it by practicing the troublesome passage at half speed until it feels natural, then gradually increase.
         </p>
       </section>
 
@@ -254,10 +254,10 @@ export function MetronomeSeoContent() {
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Drum Metronome: The Drummer&apos;s Best Friend</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Drummers often use a drum metronome (or click track) in rehearsals, live shows, and recording. The bass drum and snare drum must lock with the click.
+          Drummers often use a drum metronome (or click track) in rehearsals, live shows, and recording. The bass drum and snare drum must lock with it.
         </p>
         <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h4 className="font-semibold text-sm">Workflow for drummers:</h4>
+          <h3 className="font-semibold text-sm">Workflow for drummers:</h3>
           <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
             <li>Start with the click sounding through headphones or in-ear monitors.</li>
             <li>Play a simple rock beat: kick on 1 and 3, snare on 2 and 4.</li>
@@ -265,7 +265,7 @@ export function MetronomeSeoContent() {
           </ul>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          In our testing, random silence exercises exposed timing drift much faster than continuous click practice because players could no longer rely on the metronome to correct small errors in real time.
+          In our testing, random silence exercises exposed timing drift much faster than continuous click practice because players could no longer rely on it to correct small errors in real time.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Pro tip: In a band setting, only the drummer hears the click. The rest of the group locks into the drummer&apos;s bass drum and snare. This is how professional bands stay tight without everyone wearing headphones.
@@ -307,10 +307,10 @@ export function MetronomeSeoContent() {
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Metronome with Subdivision: Unlocking Complex Rhythms</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          In our experience, subdivision practice is one of the fastest ways to improve rhythmic accuracy because it trains musicians to hear and control the space between beats rather than focusing only on the main pulse.
+          In our experience, subdivision practice is one of the fastest ways to improve rhythmic accuracy. It trains musicians to hear and control the space between beats rather than focusing only on the main pulse.
         </p>
         <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h4 className="font-semibold text-sm">Common subdivisions:</h4>
+          <h3 className="font-semibold text-sm">Common subdivisions:</h3>
           <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
             <li>Eighth notes: &ldquo;1-and-2-and-3-and-4-and&rdquo;</li>
             <li>Sixteenth notes: &ldquo;1-e-and-a, 2-e-and-a&rdquo;</li>
@@ -319,7 +319,7 @@ export function MetronomeSeoContent() {
           </ul>
         </div>
         <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h4 className="font-semibold text-sm">How to practice:</h4>
+          <h3 className="font-semibold text-sm">How to practice:</h3>
           <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
             <li>Choose a subdivision on your metronome.</li>
             <li>Play a simple pattern (e.g., a single note per subdivision).</li>
@@ -383,7 +383,7 @@ export function MetronomeSeoContent() {
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Metronome Mechanics: How Mechanical Metronomes Work</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          While evaluating different metronome types, we found that many students benefited from the visual movement of a mechanical metronome because it reinforced timing through both hearing and sight. A traditional mechanical metronome uses a wind-up spring, a pendulum with a sliding weight, and an escapement mechanism (similar to a clock). Moving the weight up the pendulum slows the tempo; moving it down increases speed. The tick sound comes from a gear striking a metal rod.
+          While evaluating different metronome types, we found that many students benefited from the visual movement of a mechanical metronome because it reinforced timing through both hearing and sight. This traditional design uses a wind-up spring, a pendulum with a sliding weight, and an escapement mechanism (similar to a clock). Moving the weight up the pendulum slows the tempo; moving it down increases speed. The tick sound comes from a gear striking a metal rod.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           This design is durable, requires no batteries, and offers a visual cue, the swinging arm. However, it cannot produce subdivisions or polyrhythms. That&apos;s why many musicians keep a mechanical metronome for practice at home and a digital one for advanced work.
