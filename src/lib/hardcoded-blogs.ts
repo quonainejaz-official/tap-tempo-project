@@ -4,6 +4,7 @@ import { content as c2 } from "@/data/blogs/practice-with-a-metronome"
 import { content as c3 } from "@/data/blogs/common-metronome-mistakes"
 import { content as c4 } from "@/data/blogs/how-djs-calculate-bpm"
 import { content as c5 } from "@/data/blogs/how-to-choose-song-bpm"
+import { content as c6 } from "@/data/blogs/what-are-milliseconds-in-music"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -14,6 +15,7 @@ const blogContentMap: Record<string, string> = {
   "common-metronome-mistakes": c3,
   "how-djs-calculate-bpm": c4,
   "how-to-choose-song-bpm": c5,
+  "what-are-milliseconds-in-music": c6,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
