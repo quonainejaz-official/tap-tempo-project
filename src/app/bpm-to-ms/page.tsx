@@ -44,7 +44,7 @@ export default function BpmToMsPage() {
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
-      <h1 className="text-4xl font-serif font-bold mb-2 text-center">BPM to Milliseconds</h1>
+      <h1 className="text-4xl font-serif font-bold mb-2 text-center">BPM to ms (Milliseconds) Converter</h1>
       <p className="text-muted-foreground text-center mb-8">
         Convert tempo to exact millisecond values for all note divisions.
       </p>

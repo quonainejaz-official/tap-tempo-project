@@ -4,23 +4,23 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/bpm-to-ms`
 
 export const metadata: Metadata = {
-  title: "BPM to MS Conversion: Pro Guide with Calculator, Chart & DAW Workflows",
+  title: "BPM to ms / Milliseconds Converter",
   description:
-    "Convert BPM to ms for delays, reverb pre-delay & compression. Free calculator, tempo chart, dotted eighth & triplet formulas for perfect rhythmic effects.",
+    "Free BPM to ms calculator with exact formulas, a millisecond chart, and workflows for reverb pre-delay, compressor release, delay, and LFO sync timing.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "BPM to MS Conversion: Pro Guide with Calculator, Chart & DAW Workflows",
+    title: "BPM to ms / Milliseconds Converter | TheTapTempo",
     description:
-      "Convert BPM to ms for delays, reverb pre-delay & compression. Free calculator, tempo chart, dotted eighth & triplet formulas for perfect rhythmic effects.",
+      "Free BPM to ms calculator with exact formulas, a millisecond chart, and workflows for reverb pre-delay, compressor release, delay, and LFO sync timing.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BPM to MS Conversion: Pro Guide with Calculator, Chart & DAW Workflows",
+    title: "BPM to ms / Milliseconds Converter | TheTapTempo",
     description:
-      "Convert BPM to ms for delays, reverb pre-delay & compression. Free calculator, tempo chart, dotted eighth & triplet formulas for perfect rhythmic effects.",
+      "Free BPM to ms calculator with exact formulas, a millisecond chart, and workflows for reverb pre-delay, compressor release, delay, and LFO sync timing.",
   },
   robots: { index: true, follow: true },
 }

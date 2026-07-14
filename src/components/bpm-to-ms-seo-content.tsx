@@ -59,13 +59,13 @@ export function BpmToMsSeoContent() {
           The problem isn&apos;t your ears. It&apos;s the missing bridge between musical time and real time. Your DAW operates in milliseconds. Your song operates in beats per minute. When you understand how to convert BPM to milliseconds, and, just as critically, which millisecond value to use for which effect, every time-based processor locks into the tempo. Your mix gains clarity, groove, and intention.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          In this guide you&apos;ll learn the universal formula, find a quick-reference tempo-to-millisecond chart, and master step-by-step workflows for reverb pre-delay, compressor release, delay rhythms, and LFO sync. You&apos;ll also get dotted-note and triplet calculations, <Link href="/tempo-markings" className="text-primary hover:underline font-bold">genre-specific presets</Link>, and troubleshooting techniques. Whether you need a fast bpm to ms calculator or a deep understanding of bpm in milliseconds, this is your complete resource.
+          In this BPM to Milliseconds guide, you&apos;ll learn the universal formula and find a quick-reference tempo-to-millisecond chart. You&apos;ll also master step-by-step workflows for reverb pre-delay, compressor release, delay rhythms, and LFO sync. You&apos;ll also get dotted-note and triplet calculations, <Link href="/tempo-markings" className="text-primary hover:underline font-bold">genre-specific presets</Link>, and troubleshooting techniques. Whether you need a fast bpm to ms calculator or a deep understanding of bpm in milliseconds, this is your complete resource.
         </p>
       </section>
 
       {/* The Core Formula */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">The Core Formula: Why 60,000 ÷ BPM Works</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">The Core Formula: How BPM to ms Conversion Works (60,000 ÷ BPM)</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           The relationship between tempo and time rests on a single number: 60,000. There are 60 seconds in a minute and 1,000 milliseconds in a second, so exactly 60,000 milliseconds exist in one minute. Since BPM counts the number of beats (quarter notes, in standard time) per minute, the duration of one beat is always:
         </p>
@@ -73,7 +73,7 @@ export function BpmToMsSeoContent() {
           Quarter note (ms) = 60,000 ÷ BPM
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          We routinely use this calculation as a starting point when setting delay times, compressor release values, and reverb pre-delay settings before making any creative adjustments by ear. It provides a reliable baseline that dramatically speeds up workflow decisions. From this foundation, every other note duration, eighth notes, sixteenth notes, half notes, whole notes, dotted values, and triplets, follows through simple multiplication or division.
+          We routinely use this BPM to ms calculation as a starting point when setting delay times, compressor release values, and reverb pre-delay settings before making any creative adjustments by ear. It provides a reliable baseline that dramatically speeds up workflow decisions. From this foundation, every other note duration, eighth notes, sixteenth notes, half notes, whole notes, dotted values, and triplets, follows through simple multiplication or division.
         </p>
       </section>
 
@@ -145,7 +145,7 @@ export function BpmToMsSeoContent() {
 
       {/* Converting Milliseconds Back to BPM */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Converting Milliseconds Back to BPM</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Converting Milliseconds Back to BPM (ms to BPM to Milliseconds)</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           The reverse conversion is equally useful. If you&apos;ve dialed in a 300 ms delay that sits perfectly in the groove, you can identify the implied tempo:
         </p>
@@ -371,7 +371,7 @@ export function BpmToMsSeoContent() {
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Editorial Methodology</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          To verify the formulas and timing relationships presented in this guide, we cross-checked BPM-to-millisecond calculations against standard music production references and tested practical applications across delay processors, reverb plugins, compressors, and tempo-synced modulation effects. The examples and workflows are intended to provide reliable starting points for real-world mixing, production, and sound-design scenarios.
+          To verify the formulas and timing relationships presented in this BPM to Milliseconds guide, we cross-checked BPM to ms calculations against standard music production references. We then tested practical applications across delay processors, reverb plugins, compressors, and tempo-synced modulation effects. The examples and workflows are intended to provide reliable starting points for real-world mixing, production, and sound-design scenarios.
         </p>
       </section>
 
