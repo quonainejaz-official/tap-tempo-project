@@ -54,7 +54,7 @@ export function TempoMarkingsSeoContent() {
           Ever wondered why one song feels calm and emotional while another feels energetic and exciting?
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Many musicians run into the same problem: they memorize Italian words like Allegro, Andante, and Presto, but struggle to understand what those terms actually mean during real performance. Knowing the word is one thing. Feeling and applying the tempo correctly is something else entirely.
+          Many musicians run into the same problem. They memorize Italian words like Allegro, Andante, and Presto, but struggle to understand what those terms actually mean during real performance. Knowing the word is one thing. Feeling and applying the tempo correctly is something else entirely.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Tempo markings do much more than tell musicians how fast to play. They shape emotion, control energy, and influence how listeners experience a piece of music.

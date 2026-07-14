@@ -4,23 +4,23 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/tempo-markings`
 
 export const metadata: Metadata = {
-  title: "Tempo Markings in Music: Complete BPM Chart, Italian Terms & Practice",
+  title: "Tempo Markings Chart: BPM & Italian Terms",
   description:
-    "Tempo markings with BPM ranges, Italian meanings, examples, and practical metronome tips for musicians and beginners.",
+    "Tempo markings chart with BPM ranges, Italian terms (Adagio to Presto), and practical metronome tips for musicians, students, and beginners.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Tempo Markings in Music: Complete BPM Chart, Italian Terms & Practice",
+    title: "Tempo Markings Chart: BPM & Italian Terms | TheTapTempo",
     description:
-      "Tempo markings with BPM ranges, Italian meanings, examples, and practical metronome tips for musicians and beginners.",
+      "Tempo markings chart with BPM ranges, Italian terms (Adagio to Presto), and practical metronome tips for musicians, students, and beginners.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tempo Markings in Music: Complete BPM Chart, Italian Terms & Practice",
+    title: "Tempo Markings Chart: BPM & Italian Terms | TheTapTempo",
     description:
-      "Tempo markings with BPM ranges, Italian meanings, examples, and practical metronome tips for musicians and beginners.",
+      "Tempo markings chart with BPM ranges, Italian terms (Adagio to Presto), and practical metronome tips for musicians, students, and beginners.",
   },
   robots: { index: true, follow: true },
 }
