@@ -48,7 +48,7 @@ export function BpmCalculatorSeoContent() {
         <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-5">
           <li><strong>Calculate BPM from beats and time</strong>, Find the tempo when you know how many beats occurred during a specific duration.</li>
           <li><strong>Calculate beats from BPM and duration</strong>, Determine how many beats occur within a given time period at a known tempo.</li>
-          <li><strong>Calculate song duration from BPM and total beats</strong>, Estimate the length of a track, section, loop, or arrangement in seconds and minutes.</li>
+          <li>Use the BPM Calculator to find song duration from BPM and total beats, estimating the length of a track, section, loop, or arrangement in seconds and minutes.</li>
         </ul>
         <p className="text-sm text-muted-foreground leading-relaxed">
           All calculations are based on the standard BPM formula:
@@ -106,7 +106,7 @@ export function BpmCalculatorSeoContent() {
         </div>
         <div className="p-4 rounded-xl border border-primary/20 bg-primary/5">
           <h4 className="font-semibold text-sm mb-1">Pro tip for accuracy</h4>
-          <p className="text-sm text-muted-foreground">For the most accurate BPM calculation, use longer timing samples and verify your beat count before entering values into the calculator. Small counting errors can noticeably affect the final BPM result.</p>
+          <p className="text-sm text-muted-foreground">For the most accurate BPM Calculator results, use longer timing samples and verify your beat count before entering values. Small counting errors can noticeably affect the final BPM result.</p>
         </div>
       </section>
 

@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/bpm-calculator`
 
 export const metadata: Metadata = {
-  title: "BPM Calculator – Calculate Tempo, Beats & Song Duration Online",
+  title: "BPM Calculator - Tempo, Beats & Song Duration",
   description:
     "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "BPM Calculator – Calculate Tempo, Beats & Song Duration Online",
+    title: "BPM Calculator - Tempo, Beats & Song Duration | TheTapTempo",
     description:
       "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BPM Calculator – Calculate Tempo, Beats & Song Duration Online",
+    title: "BPM Calculator - Tempo, Beats & Song Duration | TheTapTempo",
     description:
       "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",
   },
