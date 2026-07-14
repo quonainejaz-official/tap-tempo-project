@@ -1,8 +1,4 @@
 export const content = `
-<figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784054285/taptempo/ymg54c3mwinpytynhrpd.png" alt="Beginner's guide explaining milliseconds (ms) in music production and digital audio timing." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
-</figure>
-
 <h2>Quick Answer</h2>
 <p>A millisecond (ms) is one-thousandth of a second and the standard unit of time used throughout music production because audio events like a drum hit, a compressor attack, or recording latency happen far too quickly to measure accurately in whole seconds. You'll encounter milliseconds constantly in DAWs and plugins, from monitoring recording latency and making precise editing adjustments to setting compressor and gate timing and keeping audio, MIDI, and video synchronized. Milliseconds aren't the same as BPM, which measures beats per minute, while milliseconds measure raw time, but the two work together. Once you know a song's BPM, you can convert it into millisecond values for delays, reverbs, and other tempo-synced effects using a <a href="https://www.thetaptempo.com/bpm-to-ms"><strong>BPM to Milliseconds Calculator</strong></a>.</p>
 
