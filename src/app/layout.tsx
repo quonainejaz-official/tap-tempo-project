@@ -37,16 +37,16 @@ const metadataBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || BASE_URL
 export const metadata: Metadata = {
   metadataBase: new URL(metadataBaseUrl),
   title: {
-    default: "TheTapTempo – Free Online Music Tools for Musicians, Producers & DJs",
+    default: "TheTapTempo - Music Tools for Musicians & DJs",
     template: "%s | TheTapTempo",
   },
   description:
-    "Free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. Explore Tap Tempo, Metronome, BPM Calculator, Tempo Markings, and other professional rhythm and practice tools.",
+    "Free browser-based tools for musicians, producers, and DJs. Includes Tap Tempo, Metronome, BPM Calculator, and Tempo Markings guides.",
   keywords: ["tap tempo", "bpm calculator", "metronome", "delay time calculator", "music tools"],
   openGraph: {
-    title: "TheTapTempo – Free Online Music Tools for Musicians, Producers & DJs",
+    title: "TheTapTempo - Music Tools for Musicians & DJs",
     description:
-      "Free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. Explore Tap Tempo, Metronome, BPM Calculator, Tempo Markings, and other professional rhythm and practice tools.",
+      "Free browser-based tools for musicians, producers, and DJs. Includes Tap Tempo, Metronome, BPM Calculator, and Tempo Markings guides.",
     type: "website",
     siteName: "TheTapTempo",
     url: "/",
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TheTapTempo – Free Online Music Tools for Musicians, Producers & DJs",
+    title: "TheTapTempo - Music Tools for Musicians & DJs",
     description:
-      "Free browser-based music tools for musicians, producers, DJs, drummers, educators, and creators. Explore Tap Tempo, Metronome, BPM Calculator, Tempo Markings, and other professional rhythm and practice tools.",
+      "Free browser-based tools for musicians, producers, and DJs. Includes Tap Tempo, Metronome, BPM Calculator, and Tempo Markings guides.",
     images: ["/logo.svg"],
   },
   robots: { index: true, follow: true },
