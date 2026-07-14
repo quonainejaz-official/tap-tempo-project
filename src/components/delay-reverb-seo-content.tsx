@@ -39,7 +39,7 @@ export function DelayReverbSeoContent() {
       <section className="rounded-xl border bg-card p-6 space-y-2">
         <h2 className="text-lg font-bold">Key Takeaways</h2>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1.5">
-          <li>Delay time and reverb pre-delay can be accurately calculated from BPM using tempo-synced note divisions.</li>
+          <li>With a Delay & Reverb Time Calculator, delay time and reverb pre-delay can be accurately calculated from BPM using tempo-synced note divisions.</li>
           <li>A quarter note delay is calculated with the formula: 60,000 ÷ BPM.</li>
           <li>Dotted note delays create rhythmic movement, while triplet delays add a swung feel.</li>
           <li>Short delays (30–80 ms) are ideal for slapback effects and vocal thickening.</li>
@@ -53,9 +53,9 @@ export function DelayReverbSeoContent() {
       </section>
 
       <section>
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Delay Time & Reverb Pre-Delay Calculator, Instant Tempo‑Synced Effects</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Delay & Reverb Time Calculator: Instant Tempo‑Synced Effects</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-          Stop guessing delay and reverb settings. Enter your song&apos;s BPM below, choose a note value, and get the exact millisecond value to enter into your delay pedal, reverb plugin, or DAW.
+          This Delay & Reverb Time Calculator lets you enter your song&apos;s BPM, choose a note value, and get the exact millisecond value to enter into your delay pedal, reverb plugin, or DAW.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Delay calculator: Quarter note, dotted eighth, triplet, slapback, ping‑pong.
@@ -246,7 +246,7 @@ export function DelayReverbSeoContent() {
       </section>
 
       <section>
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Reverb Pre‑Delay, When to Short vs Long</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Reverb Pre‑Delay Calculator Settings: When to Go Short vs Long</h2>
         <div className="overflow-x-auto rounded-xl border">
           <table className="w-full text-sm">
             <thead>

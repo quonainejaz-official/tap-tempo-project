@@ -4,23 +4,23 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/delay-reverb-time-calculator`
 
 export const metadata: Metadata = {
-  title: "Delay Time & Reverb Pre-Delay Calculator",
+  title: "Delay & Reverb Time Calculator",
   description:
-    "Calculate delay time and reverb pre-delay from BPM. Get accurate milliseconds for pedals, plugins, DAWs, dotted notes, triplets, slapback, and vocals.",
+    "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Delay Time & Reverb Pre-Delay Calculator",
+    title: "Delay & Reverb Time Calculator | TheTapTempo",
     description:
-      "Calculate delay time and reverb pre-delay from BPM. Get accurate milliseconds for pedals, plugins, DAWs, dotted notes, triplets, slapback, and vocals.",
+      "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Delay Time & Reverb Pre-Delay Calculator",
+    title: "Delay & Reverb Time Calculator | TheTapTempo",
     description:
-      "Calculate delay time and reverb pre-delay from BPM. Get accurate milliseconds for pedals, plugins, DAWs, dotted notes, triplets, slapback, and vocals.",
+      "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",
   },
   robots: { index: true, follow: true },
 }
