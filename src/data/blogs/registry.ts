@@ -335,6 +335,55 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
       "a": "Yes, but only at a basic level. You don't need to memorize formulas or perform calculations manually. Simply understanding what milliseconds represent and where they're used will make DAWs, plugins, and production tutorials much easier to follow as your skills develop."
     }
   ]
+},
+{
+  "slug": "understanding-note-values",
+  "title": "Understanding Note Values: Why Quarter, Eighth, and Triplet Delays Sound Different",
+  "excerpt": "Learn how quarter, eighth, dotted, and triplet note values shape rhythm in music production and why audio plugins use them for precise timing.",
+  "metaTitle": "Understanding Note Values: Quarter, Eighth & Triplets | TheTapTempo",
+  "metaDescription": "Learn how quarter, eighth, dotted, and triplet note values shape rhythm in music production and why audio plugins use them for precise timing.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1784219922/taptempo/ephiucdbcin4nss834vp.webp",
+  "coverImagePublicId": "taptempo/ephiucdbcin4nss834vp",
+  "coverImageAlt": "Musical note values including quarter notes, eighth notes, dotted notes, and triplets used in music production and delay timing.",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "14 min read",
+  "tags": [
+    "note values",
+    "music production",
+    "rhythm",
+    "delay",
+    "triplets",
+    "dotted notes",
+    "beat subdivisions"
+  ],
+  "createdAt": "2026-07-16T00:00:00.000Z",
+  "updatedAt": "2026-07-16T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "What is a quarter-note delay?",
+      "a": "A quarter-note delay repeats once every beat of the song, creating a balanced and easy-to-follow rhythmic pattern. It's commonly used when producers want the delay to reinforce the main pulse without adding excessive movement."
+    },
+    {
+      "q": "Why do dotted-eighth delays sound different?",
+      "a": "A dotted-eighth delay lasts longer than a standard eighth note, causing the repeats to fall between the main beats. This creates a more rhythmic and flowing pattern that often feels more dynamic than straight subdivisions."
+    },
+    {
+      "q": "What are triplet delays?",
+      "a": "Triplet delays divide each beat into three equal parts instead of the usual two or four. The result is a smoother, rolling rhythm that's widely used in blues, jazz, gospel, and many modern productions."
+    },
+    {
+      "q": "Which note value should I choose?",
+      "a": "There's no universal answer. Quarter notes provide stability, eighth notes increase movement, sixteenth notes add energy, while dotted notes and triplets create unique rhythmic textures. The best choice depends on the feel you want your music to have."
+    },
+    {
+      "q": "Why do plugins use note values instead of milliseconds?",
+      "a": "Note values keep effects synchronized with the song's tempo. If the BPM changes, the plugin automatically adjusts the timing, helping delays and other time-based effects remain perfectly in sync."
+    },
+    {
+      "q": "How do note values affect rhythm?",
+      "a": "Note values determine how often musical events occur within each beat. Even when the tempo stays the same, changing the subdivision can make a rhythm feel slower, busier, smoother, or more energetic."
+    }
+  ]
 }
 ]
 
