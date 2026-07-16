@@ -32,7 +32,7 @@ export const content = `
 
 <p>Once you understand what note values are, the next step is learning how they divide the beat. This idea, known as beat subdivision, explains why two performances at the same tempo can produce completely different rhythmic feels.</p>
 
-<p>Imagine tapping your foot to a <a href="https://www.thetaptempo.com/metronome"><strong>steady beat</strong></a>. If you clap only when your foot hits the ground, you're following the main pulse. Now clap halfway between every tap. Suddenly, the rhythm feels more active, even though the tempo hasn't changed. Add even more claps between each beat, and the music becomes tighter and more energetic without making the song any faster. <a href="https://www.thetaptempo.com/metronome"><strong>Our metronome tool</strong></a> can help you internalize this feel by locking in that steady pulse before you explore subdivisions.</p>
+<p>Imagine tapping your foot to a <a href="https://www.thetaptempo.com/metronome"><strong>steady beat</strong></a>. If you clap only when your foot hits the ground, you're following the main pulse. Now clap halfway between every tap. Suddenly, the rhythm feels more active, even though the tempo hasn't changed. Add even more claps between each beat, and the music becomes tighter and more energetic without making the song any faster.</p>
 
 <p>This is exactly what beat subdivisions do. They change how the beat is divided, not the speed of the song itself.</p>
 
@@ -131,7 +131,7 @@ export const content = `
 
 <p>There isn't a universally "correct" subdivision. The best choice depends on what you want listeners to feel.</p>
 
-<p>A slower, emotional arrangement may benefit from the openness of quarter notes, while a dance track often gains momentum from eighth-note rhythms. Sixteenth notes, on the other hand, are typically chosen when a production needs extra drive, detail, or rhythmic excitement. Before locking in your project tempo, test a few options with <a href="https://www.thetaptempo.com/tap-tempo"><strong>Tap Tempo</strong></a> to confirm the BPM so every note value lines up with the song's actual <a href="https://www.thetaptempo.com/tap-tempo">song's tempo</a>.</p>
+<p>A slower, emotional arrangement may benefit from the openness of quarter notes, while a dance track often gains momentum from eighth-note rhythms. Sixteenth notes, on the other hand, are typically chosen when a production needs extra drive, detail, or rhythmic excitement.</p>
 
 <p>The important thing to remember is that changing the subdivision changes the character of the rhythm, not the song's tempo. That's why producers experiment with different note values even when the BPM stays exactly the same.</p>
 
@@ -212,7 +212,7 @@ export const content = `
 
 <p>Once you've decided which rhythmic subdivision best suits your music and you know the song's BPM, there's no reason to calculate the timing manually.</p>
 
-<p>Our <a href="https://www.thetaptempo.com/bpm-to-ms"><strong>BPM to Milliseconds Calculator</strong></a> instantly converts quarter notes, eighth notes, dotted notes, triplets, and other common subdivisions into precise millisecond values based on your project's tempo. That allows you to focus on creative decisions while ensuring your timing remains accurate across your entire production.</p>
+<p>Our <strong>BPM to Milliseconds Calculator</strong> instantly converts quarter notes, eighth notes, dotted notes, triplets, and other common subdivisions into precise millisecond values based on your project's tempo. That allows you to focus on creative decisions while ensuring your timing remains accurate across your entire production.</p>
 
 <h2>Continue Learning</h2>
 
