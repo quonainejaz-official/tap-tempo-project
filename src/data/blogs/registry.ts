@@ -385,6 +385,57 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
     }
   ]
 }
+,
+{
+  "slug": "how-to-set-delay-for-electric-guitar",
+  "title": "How to Set Delay Time for Electric Guitar Without Guesswork",
+  "excerpt": "Learn how to set delay for electric guitar with confidence. Discover the best delay styles for rhythm, lead, worship, rock, and blues, then dial in the perfect timing.",
+  "metaTitle": "How to Set Delay for Electric Guitar Without Guesswork | TheTapTempo",
+  "metaDescription": "Learn how to set delay for electric guitar with confidence. Discover the best delay styles for rhythm, lead, worship, rock, and blues, then dial in the perfect timing.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1784382190/taptempo/ss96tcpxhdegtq09ykzs.webp",
+  "coverImagePublicId": "taptempo/ss96tcpxhdegtq09ykzs",
+  "coverImageAlt": "Electric guitar delay pedal settings showing time, feedback, and mix controls for dialing in the perfect delay tone.",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "14 min read",
+  "tags": [
+    "electric guitar",
+    "delay",
+    "guitar effects",
+    "delay settings",
+    "slapback",
+    "dotted eighth delay",
+    "worship guitar",
+    "blues guitar"
+  ],
+  "createdAt": "2026-07-18T00:00:00.000Z",
+  "updatedAt": "2026-07-18T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "How much delay should I use for an electric guitar?",
+      "a": "Start with a subtle setting that supports your playing rather than dominates it. You can always increase the effect if the song calls for a more spacious sound."
+    },
+    {
+      "q": "Which delay works best for guitar solos?",
+      "a": "Quarter-note delay is a popular choice because it adds sustain and depth while keeping individual notes clear. Many players also use dotted-eighth delays for more rhythmic lead parts."
+    },
+    {
+      "q": "What's the best delay for rhythm guitar?",
+      "a": "Short delays or slapback effects are often the easiest to control for rhythm playing because they add space without making chord progressions sound muddy."
+    },
+    {
+      "q": "Should the delay follow the song's tempo?",
+      "a": "Yes. Matching the delay to the song's tempo helps the repeats blend naturally with the rhythm and makes the overall performance sound more cohesive."
+    },
+    {
+      "q": "What's the difference between slapback and dotted-eighth delay?",
+      "a": "Slapback creates a single, quick repeat that thickens your guitar tone, while dotted-eighth delay produces rhythmic repeats that fall between the main beats, creating a more flowing pattern."
+    },
+    {
+      "q": "Why does my delay sound messy?",
+      "a": "Common causes include using too many repeats, setting the delay level too high, or choosing a delay timing that doesn't suit the song."
+    }
+  ]
+}
 ]
 
 export function getHardcodedBlogMeta(slug: string): HardcodedBlogMeta | undefined {

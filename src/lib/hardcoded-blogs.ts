@@ -6,6 +6,7 @@ import { content as c4 } from "@/data/blogs/how-djs-calculate-bpm"
 import { content as c5 } from "@/data/blogs/how-to-choose-song-bpm"
 import { content as c6 } from "@/data/blogs/what-are-milliseconds-in-music"
 import { content as c7 } from "@/data/blogs/understanding-note-values"
+import { content as c8 } from "@/data/blogs/how-to-set-delay-for-electric-guitar"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -18,6 +19,7 @@ const blogContentMap: Record<string, string> = {
   "how-to-choose-song-bpm": c5,
   "what-are-milliseconds-in-music": c6,
   "understanding-note-values": c7,
+  "how-to-set-delay-for-electric-guitar": c8,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
