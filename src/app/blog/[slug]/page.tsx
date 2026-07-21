@@ -8,6 +8,8 @@ import { BlogFaq } from "@/components/blog-faq"
 import { AuthorBio } from "@/components/author-bio"
 import { getHardcodedBlogMeta, getHardcodedBlogContent } from "@/lib/hardcoded-blogs"
 import { hardcodedBlogs } from "@/data/blogs/registry"
+import { BlogToc } from "@/components/blog-toc"
+import { extractH2Headings, injectHeadingIds } from "@/lib/blog-toc-utils"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -52,9 +54,12 @@ export default async function BlogPostPage({ params }: Props) {
   const canonical = `${BASE_URL}/blog/${slug}`
 
   const meta = getHardcodedBlogMeta(slug)
-  const content = getHardcodedBlogContent(slug)
+  const rawContent = getHardcodedBlogContent(slug)
 
-  if (!meta || !content) notFound()
+  if (!meta || !rawContent) notFound()
+
+  const headings = extractH2Headings(rawContent)
+  const content = injectHeadingIds(rawContent)
 
   const faqJsonLd = meta.faqs && meta.faqs.length > 0
     ? {
@@ -160,9 +165,27 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           )}
 
-          <div className="blog-content">
-            <div dangerouslySetInnerHTML={{ __html: content }} />
-          </div>
+          {headings.length > 0 ? (
+            <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-8">
+              <aside className="hidden lg:block">
+                <div className="sticky top-24">
+                  <BlogToc headings={headings} variant="sidebar" />
+                </div>
+              </aside>
+              <div>
+                <div className="lg:hidden mb-6">
+                  <BlogToc headings={headings} variant="inline" />
+                </div>
+                <div className="blog-content">
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="blog-content">
+              <div dangerouslySetInnerHTML={{ __html: content }} />
+            </div>
+          )}
 
           <AuthorBio />
 

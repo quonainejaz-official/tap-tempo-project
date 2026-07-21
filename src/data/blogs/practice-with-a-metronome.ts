@@ -2,18 +2,6 @@
 export const content = `<h2>Quick Answer</h2>
 <p>The most effective way to <a href="https://www.thetaptempo.com/metronome"><strong>practice with a metronome</strong></a> is to start slowly, focus on accuracy before speed, and gradually increase the tempo as you become more consistent. Short, structured practice sessions of 20 to 30 minutes are usually more productive than long sessions spent repeating the same exercise. A metronome isn't there to rush your progress. It's there to help you develop reliable timing, stronger rhythm, and better control over your playing.</p>
 
-<h2>In This Guide</h2>
-<ul class="list-disc pl-6 space-y-1 my-4">
-<li>Why Practice with a Metronome?</li>
-<li>Beginner Practice Routine</li>
-<li>Intermediate Practice Routine</li>
-<li>Advanced Metronome Exercises</li>
-<li>Common Practice Mistakes</li>
-<li>How to Track Your Progress</li>
-<li>Frequently Asked Questions</li>
-<li>Continue Learning</li>
-</ul>
-
 <hr>
 
 <h2>Introduction</h2>

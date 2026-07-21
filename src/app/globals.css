@@ -392,3 +392,15 @@
 .rich-editor-content .ProseMirror .resize-cursor {
   cursor: col-resize;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.blog-toc-list a {
+  scroll-margin-top: 6rem;
+}
+
+h2[id] {
+  scroll-margin-top: 6rem;
+}

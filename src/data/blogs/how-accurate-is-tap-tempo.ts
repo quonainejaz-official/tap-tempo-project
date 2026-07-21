@@ -12,18 +12,6 @@ export const content = `<h2>Quick Answer</h2>
 </ul>
 </div>
 
-<h2>In This Guide</h2>
-<ul class="list-disc pl-6 space-y-1 my-4">
-<li>Does Tap Tempo Give Correct BPM?</li>
-<li>Human Accuracy vs Software Detection</li>
-<li>Factors That Affect Accuracy</li>
-<li>Testing Different Music Genres</li>
-<li>Live Music vs Studio Recordings</li>
-<li>Professional Tips</li>
-<li>Common Misconceptions</li>
-<li>Final Verdict</li>
-</ul>
-
 <hr>
 
 <h2>Introduction</h2>
