@@ -435,6 +435,56 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
       "a": "Common causes include using too many repeats, setting the delay level too high, or choosing a delay timing that doesn't suit the song."
     }
   ]
+},
+{
+  "slug": "delay-vs-reverb",
+  "title": "Delay vs Reverb: Which Effect Should You Use and When?",
+  "excerpt": "Confused about delay vs reverb? Learn what each effect actually does, when to use one over the other, and how to combine them for a polished mix.",
+  "metaTitle": "Delay vs Reverb: Which Effect Should You Use and When? | TheTapTempo",
+  "metaDescription": "Confused about delay vs reverb? Learn what each effect actually does, when to use one over the other, and how to combine them for a polished mix.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1784648641/taptempo/xkmr0djhheyix3qryzr7.webp",
+  "coverImagePublicId": "taptempo/xkmr0djhheyix3qryzr7",
+  "coverImageAlt": "Side-by-side illustration comparing delay's distinct repeating echoes with reverb's continuous blended sound wash.",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "16 min read",
+  "tags": [
+    "delay",
+    "reverb",
+    "mixing",
+    "audio effects",
+    "music production",
+    "delay vs reverb",
+    "signal processing",
+    "studio techniques"
+  ],
+  "createdAt": "2026-07-20T00:00:00.000Z",
+  "updatedAt": "2026-07-20T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "What's the difference between delay and reverb?",
+      "a": "Delay repeats a sound as distinct, separate echoes. Reverb blends thousands of rapid reflections into a single continuous decaying tail. Delay adds rhythm and repetition; reverb adds space and depth."
+    },
+    {
+      "q": "Should vocals use delay or reverb?",
+      "a": "Most lead vocals benefit from a light combination of both: a short, low-feedback delay for interest and width, paired with a shorter reverb with pre-delay around 30\u201340ms for cohesion without losing clarity. Backing vocals can typically handle more reverb since they're meant to sit further back in the mix."
+    },
+    {
+      "q": "Can I use both together?",
+      "a": "Yes, and in professional mixing, it's standard practice. Delay is usually placed before reverb in the signal chain so the echoes decay naturally into the reverb tail, though reversing the order creates a denser, more textured effect used in some experimental productions. Most engineers route both through auxiliary sends rather than inserting them directly on the track."
+    },
+    {
+      "q": "Which effect sounds more natural?",
+      "a": "Neither is inherently more natural; they simulate different real-world phenomena. Reverb tends to sound more like a physical space, while delay tends to sound more like an intentional, rhythmic effect. The most natural-sounding results usually come from matching the effect to the instrument and the room or performance context being recreated."
+    },
+    {
+      "q": "Which effect is better for guitar?",
+      "a": "It depends on the style. Electric guitar in ambient, pop-rock, or post-rock styles often leans heavily on rhythmic delay, while acoustic guitar usually benefits more from a subtle room reverb for natural warmth."
+    },
+    {
+      "q": "Should delay come before reverb?",
+      "a": "In most cases, yes. Placing delay before reverb lets each echo decay smoothly into the reverb tail, producing a cohesive result. Placing reverb before delay creates a denser, more chaotic texture, which some engineers use deliberately for experimental or atmospheric effects."
+    }
+  ]
 }
 ]
 
