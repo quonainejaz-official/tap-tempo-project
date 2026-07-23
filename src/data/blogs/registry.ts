@@ -485,6 +485,55 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
       "a": "In most cases, yes. Placing delay before reverb lets each echo decay smoothly into the reverb tail, producing a cohesive result. Placing reverb before delay creates a denser, more chaotic texture, which some engineers use deliberately for experimental or atmospheric effects."
     }
   ]
+},
+{
+  "slug": "why-composers-use-tempo-markings-instead-of-bpm",
+  "title": "Why Composers Use Tempo Markings Instead of BPM Numbers",
+  "excerpt": "Why do composers write \"Allegro\" instead of a BPM number? Discover how tempo markings preserve musical expression, interpretation, and artistic intent.",
+  "metaTitle": "Why Composers Use Tempo Markings Instead of BPM Numbers | TheTapTempo",
+  "metaDescription": "Why do composers write \"Allegro\" instead of a BPM number? Discover how tempo markings preserve musical expression, interpretation, and artistic intent.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1784818521/taptempo/pohi0f1hfgnkq735sg2m.webp",
+  "coverImagePublicId": "taptempo/pohi0f1hfgnkq735sg2m",
+  "coverImageAlt": "Sheet music score with the word Allegro written above the notation, symbolizing tempo markings over numeric BPM",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "16 min read",
+  "tags": [
+    "tempo markings",
+    "BPM",
+    "music theory",
+    "classical music",
+    "composers",
+    "musical expression",
+    "guide"
+  ],
+  "createdAt": "2026-07-23T00:00:00.000Z",
+  "updatedAt": "2026-07-23T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "Why don't composers just write BPM instead of tempo markings?",
+      "a": "Because a BPM number only communicates speed, while a tempo marking communicates speed and character together. A word like Andante tells a performer how the music should feel, not just how fast the beats should fall, which gives them the context needed to interpret the piece rather than simply execute it mechanically."
+    },
+    {
+      "q": "Why are tempo markings written in Italian?",
+      "a": "Italian composers dominated European musical life during the 17th and 18th centuries, the period when tempo indications became standardized. Because so much influential music and musical training came from Italy during this era, Italian became the accepted international vocabulary for tempo, and composers from other countries continued using it even centuries later."
+    },
+    {
+      "q": "Is Allegro the same as a specific BPM number, like 120?",
+      "a": "No. Allegro describes a range and a character rather than one fixed speed. Different pieces, performers, and performance traditions interpret Allegro at different tempos within a broadly similar range, and the exact number can shift depending on the instrument, era, and musical context."
+    },
+    {
+      "q": "Can two performances of the same piece use different tempos and both be correct?",
+      "a": "Yes. Because tempo markings define a character rather than a single mandatory speed, skilled performers are expected to use musical judgment within that character. Multiple legitimate interpretations of the same marking can sound noticeably different while still being faithful to the score."
+    },
+    {
+      "q": "Do tempo markings allow performers to interpret the music, or are they strict instructions?",
+      "a": "They are intentionally flexible. Composers chose tempo markings specifically because they leave room for interpretation, phrasing decisions, and expressive tempo changes like rubato, which a fixed numeric instruction would not easily accommodate."
+    },
+    {
+      "q": "Why do orchestras and conductors still follow tempo markings closely if there's room for interpretation?",
+      "a": "Following a tempo marking closely means honoring its character and general range, not locking every performer to an identical speed. Conductors use the marking as a foundation for interpretation, and the flexibility built into tempo markings is exactly what allows an orchestra's performance to feel expressive rather than mechanical."
+    }
+  ]
 }
 ]
 
