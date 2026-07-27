@@ -211,22 +211,12 @@ export function MetronomeSeoContent() {
 
       {/* Metronome for Rhythm Guitar */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Metronome for Rhythm Guitar: Locking Into the Groove</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Metronome for Rhythm Guitar</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Rhythm guitar is all about feel and precision. A metronome for rhythm guitar helps you develop tight strumming patterns, chord changes, and syncopation.
+          Rhythm guitar practice benefits from structured strumming patterns and chord-change drills using the metronome. Explore our complete guide with tempo benchmarks, chord-change drills, and picking exercises.
         </p>
-        <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h3 className="font-semibold text-sm">Practical Exercise:</h3>
-          <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
-            <li>Set the metronome to 80 BPM in 4/4.</li>
-            <li>Strum downbeats only (beats 1, 2, 3, 4).</li>
-            <li>Then strum only upbeats (the &ldquo;and&rdquo; between beats).</li>
-            <li>Next, try a basic rock pattern: down on 1 and 3, up on 2 and 4.</li>
-            <li>Finally, use eighth-note subdivision to practice steady alternate strumming.</li>
-          </ul>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Insight: While reviewing practice recordings, rushed chord transitions were one of the most common timing issues we encountered among developing rhythm guitar players. It consistently revealed timing errors that often went unnoticed during normal practice. Record yourself playing along; you&apos;ll likely hear the rush. Slow down until the chord change lands exactly on the click.
+        <p className="text-sm">
+          <Link href="/metronome-for-guitar-practice" className="text-primary hover:underline font-bold">Metronome for Guitar Practice &rarr;</Link>
         </p>
       </section>
 
@@ -252,23 +242,12 @@ export function MetronomeSeoContent() {
 
       {/* Drum Metronome */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Drum Metronome: The Drummer&apos;s Best Friend</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Drum Metronome</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Drummers often use a drum metronome (or click track) in rehearsals, live shows, and recording. The bass drum and snare drum must lock with it.
+          Drummers use the metronome to build clean rudiments, limb independence, and consistent groove timing. Explore our complete guide with rudiment drills, tempo benchmarks, and limb-independence exercises.
         </p>
-        <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h3 className="font-semibold text-sm">Workflow for drummers:</h3>
-          <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
-            <li>Start with the click sounding through headphones or in-ear monitors.</li>
-            <li>Play a simple rock beat: kick on 1 and 3, snare on 2 and 4.</li>
-            <li>Once locked, try offbeats or shuffle patterns.</li>
-          </ul>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          In our testing, random silence exercises exposed timing drift much faster than continuous click practice because players could no longer rely on it to correct small errors in real time.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Pro tip: In a band setting, only the drummer hears the click. The rest of the group locks into the drummer&apos;s bass drum and snare. This is how professional bands stay tight without everyone wearing headphones.
+        <p className="text-sm">
+          <Link href="/metronome-for-drummers" className="text-primary hover:underline font-bold">Metronome for Drummers &rarr;</Link>
         </p>
       </section>
 
@@ -305,29 +284,12 @@ export function MetronomeSeoContent() {
 
       {/* Metronome with Subdivision */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Metronome with Subdivision: Unlocking Complex Rhythms</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Metronome with Subdivisions</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          In our experience, subdivision practice is one of the fastest ways to improve rhythmic accuracy. It trains musicians to hear and control the space between beats rather than focusing only on the main pulse.
+          Subdivision practice is one of the fastest ways to improve rhythmic accuracy, training you to hear and control the space between beats. Explore our complete guide with a full subdivision reference chart and structured practice drills.
         </p>
-        <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h3 className="font-semibold text-sm">Common subdivisions:</h3>
-          <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
-            <li>Eighth notes: &ldquo;1-and-2-and-3-and-4-and&rdquo;</li>
-            <li>Sixteenth notes: &ldquo;1-e-and-a, 2-e-and-a&rdquo;</li>
-            <li>Triplets: &ldquo;1-trip-let, 2-trip-let&rdquo;</li>
-            <li>Dotted rhythms: For example, a dotted eighth followed by a sixteenth (the &ldquo;Scotch snap&rdquo;).</li>
-          </ul>
-        </div>
-        <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h3 className="font-semibold text-sm">How to practice:</h3>
-          <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
-            <li>Choose a subdivision on your metronome.</li>
-            <li>Play a simple pattern (e.g., a single note per subdivision).</li>
-            <li>Then play the same pattern but accent every third subdivision to practice odd groupings.</li>
-          </ul>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Advanced feature &ndash; Polyrhythm Mode: Some metronomes can play two rhythms simultaneously, like 3:2 (three beats against two). This is invaluable for mastering complex feels in progressive rock, African drumming, and contemporary classical music.
+        <p className="text-sm">
+          <Link href="/metronome-with-subdivisions" className="text-primary hover:underline font-bold">Metronome with Subdivisions &rarr;</Link>
         </p>
       </section>
 
