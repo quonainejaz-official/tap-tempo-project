@@ -14,38 +14,38 @@ export default function MetronomePage() {
 
       {/* Practice CTAs */}
       <div className="w-full max-w-3xl mt-6 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border bg-card p-5">
-          <h2 className="font-semibold text-sm mb-1">Subdivision Practice</h2>
-          <p className="text-sm text-muted-foreground mb-3">
+        <div className="rounded-xl border bg-card p-5 flex flex-col">
+          <h2 className="font-semibold text-sm mb-1 min-h-[20px]">Subdivision Practice</h2>
+          <p className="text-sm text-muted-foreground mb-3 flex-1">
             Master eighth notes, triplets, and sixteenth-note timing precision.
           </p>
           <Link
             href="/metronome-with-subdivisions"
-            className="text-sm text-primary hover:underline font-bold"
+            className="text-sm text-primary hover:underline font-bold mt-auto"
           >
             Subdivision Practice &rarr;
           </Link>
         </div>
-        <div className="rounded-xl border bg-card p-5">
-          <h2 className="font-semibold text-sm mb-1">Guitar Practice</h2>
-          <p className="text-sm text-muted-foreground mb-3">
+        <div className="rounded-xl border bg-card p-5 flex flex-col">
+          <h2 className="font-semibold text-sm mb-1 min-h-[20px]">Guitar Practice</h2>
+          <p className="text-sm text-muted-foreground mb-3 flex-1">
             Chord changes, strumming patterns, and picking technique drills.
           </p>
           <Link
             href="/metronome-for-guitar-practice"
-            className="text-sm text-primary hover:underline font-bold"
+            className="text-sm text-primary hover:underline font-bold mt-auto"
           >
             Guitar Practice &rarr;
           </Link>
         </div>
-        <div className="rounded-xl border bg-card p-5">
-          <h2 className="font-semibold text-sm mb-1">Drummers</h2>
-          <p className="text-sm text-muted-foreground mb-3">
+        <div className="rounded-xl border bg-card p-5 flex flex-col">
+          <h2 className="font-semibold text-sm mb-1 min-h-[20px]">Drummers</h2>
+          <p className="text-sm text-muted-foreground mb-3 flex-1">
             Rudiments, limb independence, and groove consistency drills.
           </p>
           <Link
             href="/metronome-for-drummers"
-            className="text-sm text-primary hover:underline font-bold"
+            className="text-sm text-primary hover:underline font-bold mt-auto"
           >
             Drummers &rarr;
           </Link>
