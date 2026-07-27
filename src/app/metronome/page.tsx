@@ -13,7 +13,7 @@ export default function MetronomePage() {
       <MetronomeWidget showSubdivisions={false} />
 
       {/* Practice CTAs */}
-      <div className="w-full max-w-3xl mt-6 grid gap-3 sm:grid-cols-2">
+      <div className="w-full max-w-3xl mt-6 grid gap-3 sm:grid-cols-3">
         <div className="rounded-xl border bg-card p-5">
           <h2 className="font-semibold text-sm mb-1">Subdivision Practice</h2>
           <p className="text-sm text-muted-foreground mb-3">
@@ -36,6 +36,18 @@ export default function MetronomePage() {
             className="text-sm text-primary hover:underline font-bold"
           >
             Guitar Practice &rarr;
+          </Link>
+        </div>
+        <div className="rounded-xl border bg-card p-5">
+          <h2 className="font-semibold text-sm mb-1">Drummers</h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Rudiments, limb independence, and groove consistency drills.
+          </p>
+          <Link
+            href="/metronome-for-drummers"
+            className="text-sm text-primary hover:underline font-bold"
+          >
+            Drummers &rarr;
           </Link>
         </div>
       </div>
