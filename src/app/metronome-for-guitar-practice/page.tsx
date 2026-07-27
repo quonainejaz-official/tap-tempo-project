@@ -201,9 +201,9 @@ export default function MetronomeGuitarPracticePage() {
               <h3 className="text-sm font-semibold mb-1">Metronome with Subdivisions</h3>
               <p className="text-xs text-muted-foreground">Add eighth notes, triplets, and sixteenth-note clicks to your practice.</p>
             </Link>
-            <Link href="/blog/common-metronome-mistakes" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Common Metronome Mistakes</h3>
-              <p className="text-xs text-muted-foreground">Avoid the habits that silently sabotage your rhythm practice.</p>
+            <Link href="/metronome" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+              <h3 className="text-sm font-semibold mb-1">Metronome</h3>
+              <p className="text-xs text-muted-foreground">Use our free online metronome to practice timing, rhythm, and tempo with adjustable BPM and time signatures.</p>
             </Link>
           </div>
         </section>
@@ -212,7 +212,7 @@ export default function MetronomeGuitarPracticePage() {
         <section className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-2">
           <h2 className="font-semibold text-sm">Ready to Practice?</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Set a comfortable tempo above and start with the chord change or strumming drill that matches your current skill level. Increase speed only once your timing feels completely steady.
+            Set a comfortable tempo above and start with the chord change or strumming drill that matches your current skill level. Increase speed only once your timing feels completely steady. Use a <Link href="/metronome" className="text-primary hover:underline font-bold">metronome</Link> consistently to track your progress.
           </p>
         </section>
 
