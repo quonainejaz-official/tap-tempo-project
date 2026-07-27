@@ -52,14 +52,39 @@ interface BlogItem {
   tags?: string[]
 }
 
-const tools = [
-  { icon: Activity, title: "Tap Tempo", desc: "Most accurate tap algorithm with outlier rejection.", href: "/tap-tempo" },
-  { icon: Clock, title: "Metronome", desc: "Precision audio engine metronome for practice.", href: "/metronome" },
-  { icon: Calculator, title: "BPM Calculator", desc: "Calculate BPM from duration, or duration from BPM.", href: "/bpm-calculator" },
-  { icon: Table2, title: "BPM to ms", desc: "Convert tempo to exact millisecond values.", href: "/bpm-to-ms" },
-  { icon: Sliders, title: "Delay & Reverb Time", desc: "Calculate precise millisecond values for delay and reverb.", href: "/delay-reverb-time-calculator" },
-  { icon: Music, title: "Tempo Markings", desc: "Classical music tempo dictionary.", href: "/tempo-markings" },
-  { icon: ListOrdered, title: "Beats Per Bar", desc: "Interactive time signature tool.", href: "/beats-per-bar-calculator" },
+const toolCategories = [
+  {
+    title: "Tempo Tools",
+    desc: "Discover, measure, and understand tempo.",
+    tools: [
+      { icon: Activity, title: "Tap Tempo", desc: "Find the BPM of any song by tapping along.", href: "/tap-tempo" },
+      { icon: Calculator, title: "BPM Calculator", desc: "Calculate BPM from duration, or duration from BPM.", href: "/bpm-calculator" },
+      { icon: Music, title: "Tempo Markings", desc: "Classical tempo dictionary with BPM ranges.", href: "/tempo-markings" },
+    ],
+  },
+  {
+    title: "Practice Tools",
+    desc: "Train rhythm, timing, and musical precision.",
+    tools: [
+      { icon: Clock, title: "Metronome", desc: "Precision audio engine for focused practice.", href: "/metronome" },
+      { icon: ListOrdered, title: "Beats Per Bar", desc: "Interactive time signature tool.", href: "/beats-per-bar-calculator" },
+    ],
+  },
+  {
+    title: "Music Production Tools",
+    desc: "Convert and calculate precise timing values.",
+    tools: [
+      { icon: Table2, title: "BPM to ms", desc: "Convert tempo to exact millisecond values.", href: "/bpm-to-ms" },
+      { icon: Sliders, title: "Delay & Reverb Time", desc: "Calculate delay and reverb timing from BPM.", href: "/delay-reverb-time-calculator" },
+    ],
+  },
+  {
+    title: "AI Tools",
+    desc: "Intelligent tempo analysis powered by AI.",
+    tools: [
+      { icon: Sparkles, title: "AI Tempo", desc: "Analyse audio and detect tempo automatically.", href: "/ai-tempo" },
+    ],
+  },
 ]
 
 const faqs = [
@@ -116,7 +141,7 @@ export function HomePageContent() {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
                 <Sparkles className="w-3.5 h-3.5" />
-                Music Production Toolkit
+                A Tempo &amp; Rhythm Ecosystem
               </div>
             </motion.div>
 
@@ -126,9 +151,9 @@ export function HomePageContent() {
               transition={{ duration: 0.5, delay: 0 }}
               className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold tracking-tight mb-4"
             >
-              Tempo Tools for
+              Tempo &amp; Rhythm
               <br />
-              <span className="text-primary">Musicians</span>
+              <span className="text-primary">for Musicians</span>
             </motion.h1>
 
             <motion.p
@@ -137,7 +162,7 @@ export function HomePageContent() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6"
             >
-              Professional browser-based music tools designed for musicians, producers, DJs, drummers, educators, and creators. Explore accurate tempo, rhythm, and practice tools to improve performance, music production, and learning—all in one place.
+              A complete tempo and rhythm ecosystem for musicians, producers, composers, and music learners. From tap tempo and metronome practice to delay calculations and AI-powered analysis, everything you need to master rhythm is here.
             </motion.p>
 
             <motion.div
@@ -186,32 +211,42 @@ export function HomePageContent() {
       </section>
 
       <section id="tools" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">All Tempo Tools</h2>
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Explore the Ecosystem</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Everything you need to work with tempo, timing, and rhythm.
+            Tempo, practice, production, and AI tools designed to work together.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {tools.map((tool) => {
-            const Icon = tool.icon
-            return (
-              <Link key={tool.href} href={tool.href} className="group">
-                <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-primary/30">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                        <Icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                    <CardTitle className="text-lg">{tool.title}</CardTitle>
-                    <CardDescription>{tool.desc}</CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            )
-          })}
+        <div className="max-w-5xl mx-auto space-y-10">
+          {toolCategories.map((category) => (
+            <div key={category.title}>
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-foreground">{category.title}</h3>
+                <p className="text-sm text-muted-foreground">{category.desc}</p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {category.tools.map((tool) => {
+                  const Icon = tool.icon
+                  return (
+                    <Link key={tool.href} href={tool.href} className="group">
+                      <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-primary/30">
+                        <CardHeader>
+                          <div className="flex items-start justify-between">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                              <Icon className="w-5 h-5 text-primary" />
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
+                          <CardTitle className="text-lg">{tool.title}</CardTitle>
+                          <CardDescription>{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -223,7 +258,7 @@ export function HomePageContent() {
               <div>
                 <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Latest Guides</h2>
                 <p className="text-muted-foreground max-w-xl">
-                  Learn rhythm, tempo, and music practice through expert-written educational guides.
+                  Deep dives into tempo, rhythm, production, and music theory — written by musicians, for musicians.
                 </p>
               </div>
               <Link
@@ -321,33 +356,33 @@ export function HomePageContent() {
       <section className="border-t bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-center">Why Trust TheTapTempo?</h2>
+            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-center">Why TheTapTempo?</h2>
             <div className="grid sm:grid-cols-3 gap-5">
               <div className="rounded-xl border bg-card p-5">
                 <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <BookOpen className="w-4 h-4 text-primary" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1.5">Research-Based Guides</h3>
+                <h3 className="font-semibold text-sm mb-1.5">Complete Tempo Ecosystem</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Every article is created using trusted music education resources and practical workflows.
+                  From discovering a song's BPM to applying it in production, every tool connects naturally.
                 </p>
               </div>
               <div className="rounded-xl border bg-card p-5">
                 <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <Users className="w-4 h-4 text-primary" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1.5">Built for Musicians</h3>
+                <h3 className="font-semibold text-sm mb-1.5">Built for Every Musician</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Designed for beginners, teachers, producers, DJs, and performers.
+                  Whether you're practising scales, mixing a track, or composing orchestral music, these tools serve your workflow.
                 </p>
               </div>
               <div className="rounded-xl border bg-card p-5">
                 <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <Zap className="w-4 h-4 text-primary" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1.5">Free Professional Tools</h3>
+                <h3 className="font-semibold text-sm mb-1.5">Precision Without Compromise</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Simple, accurate, and accessible tools for everyday music practice.
+                  Every tool is engineered for accuracy. No ads, no tracking, no bloat. Just professional tempo tools.
                 </p>
               </div>
             </div>
@@ -359,7 +394,7 @@ export function HomePageContent() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground mb-6">Common questions about using tempo tools and BPM calculations.</p>
+            <p className="text-muted-foreground mb-6">Common questions about tempo, BPM, and how TheTapTempo tools work together.</p>
             <Accordion type="multiple">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
@@ -378,9 +413,9 @@ export function HomePageContent() {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Zap className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Built for Precision</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">One Ecosystem, Every Workflow</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Every tool is engineered for accuracy. No ads, no tracking, no bloat. Just the best tempo tools on the web.
+              Whether you're tapping a tempo, practising with a metronome, or dialing in delay times, every tool in TheTapTempo ecosystem is designed to work together seamlessly.
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button variant="outline" size="sm" asChild>
