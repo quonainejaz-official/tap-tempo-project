@@ -19,14 +19,14 @@ const sortLabels: Record<SortField, string> = {
 }
 
 export default function BlogPage() {
-  const { items: articles, loading, fetch, refresh } = useBlogStore()
+  const { items: articles, loading, fetchBlogs, refresh } = useBlogStore()
   const [sortField, setSortField] = useState<SortField>("createdAt")
   const [sortDir, setSortDir] = useState<SortDir>("desc")
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
-    fetch()
-  }, [fetch])
+    fetchBlogs()
+  }, [fetchBlogs])
 
   const handleRefresh = async () => {
     setRefreshing(true)

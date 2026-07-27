@@ -20,7 +20,7 @@ interface BlogStore {
   loading: boolean
   error: string | null
   fetched: boolean
-  fetch: () => Promise<void>
+  fetchBlogs: () => Promise<void>
   refresh: () => Promise<void>
 }
 
@@ -30,7 +30,7 @@ export const useBlogStore = create<BlogStore>((set, get) => ({
   error: null,
   fetched: false,
 
-  fetch: async () => {
+  fetchBlogs: async () => {
     if (get().fetched) return
     set({ loading: true, error: null })
     try {

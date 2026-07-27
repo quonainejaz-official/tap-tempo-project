@@ -18,7 +18,7 @@ const defaultSections: Record<string, FooterLink[]> = {
     { href: "/beats-per-bar-calculator", label: "Beats Per Bar" },
   ],
   "Popular Guides": [
-    { href: "/blog", label: "How to Find the BPM of Any Song" },
+    { href: "/blog/how-to-find-bpm-of-any-song", label: "How to Find the BPM of Any Song" },
   ],
   Legal: [
     { href: "/privacy-policy", label: "Privacy Policy" },
