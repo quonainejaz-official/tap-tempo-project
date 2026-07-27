@@ -201,17 +201,17 @@ export default function MetronomeDrummersPage() {
         <section className="space-y-3">
           <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
           <div className="grid gap-3 sm:grid-cols-3">
-            <Link href="/blog/practice-with-a-metronome" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Practice With a Metronome</h3>
-              <p className="text-xs text-muted-foreground">Step-by-step guide to building solid timing with a metronome.</p>
+            <Link href="/metronome" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+              <h3 className="text-sm font-semibold mb-1">Metronome</h3>
+              <p className="text-xs text-muted-foreground">Use our free online metronome to practice timing, rhythm, tempo, and groove with adjustable BPM and time signatures.</p>
+            </Link>
+            <Link href="/metronome-for-guitar-practice" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+              <h3 className="text-sm font-semibold mb-1">Metronome for Guitar Practice</h3>
+              <p className="text-xs text-muted-foreground">Practice chord changes, strumming patterns, and picking accuracy with metronome exercises designed for guitarists.</p>
             </Link>
             <Link href="/metronome-with-subdivisions" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
               <h3 className="text-sm font-semibold mb-1">Metronome with Subdivisions</h3>
               <p className="text-xs text-muted-foreground">Add eighth notes, triplets, and sixteenth-note clicks to your practice.</p>
-            </Link>
-            <Link href="/blog/common-metronome-mistakes" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Common Metronome Mistakes</h3>
-              <p className="text-xs text-muted-foreground">Avoid the habits that silently sabotage your rhythm practice.</p>
             </Link>
           </div>
         </section>
