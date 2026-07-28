@@ -10,6 +10,7 @@ import { content as c8 } from "@/data/blogs/how-to-set-delay-for-electric-guitar
 import { content as c9 } from "@/data/blogs/delay-vs-reverb"
 import { content as c10 } from "@/data/blogs/why-composers-use-tempo-markings-instead-of-bpm"
 import { content as c11 } from "@/data/blogs/why-the-same-tempo-marking-sounds-different"
+import { content as c12 } from "@/data/blogs/why-music-is-divided-into-bars"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -26,6 +27,7 @@ const blogContentMap: Record<string, string> = {
   "delay-vs-reverb": c9,
   "why-composers-use-tempo-markings-instead-of-bpm": c10,
   "why-the-same-tempo-marking-sounds-different": c11,
+  "why-music-is-divided-into-bars": c12,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
