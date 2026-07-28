@@ -1,4 +1,17 @@
 export const content = `
+<h2>Quick Answer</h2>
+<p>Music is divided into bars and measures because organizing continuous rhythm into equal, repeatable units makes it possible for multiple musicians to read, rehearse, and perform together reliably. Before bar lines existed, rhythm relied on memorized tradition and note shapes, which worked for solo singers but broke down when composers wrote independent parts for ensembles. Bar lines standardized during the Baroque period solved this by giving every performer a shared visual reference for staying aligned.</p>
+
+<div class="callout-takeaway">
+<p><strong>Key Takeaways</strong></p>
+<ul class="list-disc pl-6 space-y-1 my-4">
+<li>Bars break continuous rhythm into small, equal, repeatable units that musicians can process quickly.</li>
+<li>Bar lines evolved from inconsistent Renaissance markings to a standardized system tied to time signatures in the Baroque era.</li>
+<li>Ensembles depend on bars to stay synchronized, communicate during rehearsals, and align independent parts on the page.</li>
+<li>The same bar-based logic appears in songwriting, studio session charts, and modern music production software.</li>
+</ul>
+</div>
+
 <p>Open almost any piece of sheet music, and one thing stands out before you even read a single note. Vertical lines run down through the staff, slicing the music into small, even segments. Those segments are bars, also called measures.</p>
 
 <p>They're so common today that it's easy to forget they weren't always there. For most of music's early history, rhythm existed without them. So why did bars become standard, and why does nearly every piece of written music still depend on them?</p>
@@ -140,43 +153,11 @@ export const content = `
 
 <p>Once you understand why bars exist, the next natural question is what actually happens inside one. Every bar contains a specific number of beats, and that number is determined by a piece's time signature. This is where the concept of a bar moves from structural theory into practical counting.</p>
 
-<p>Different meters organize beats within a bar in different ways, which affects how a piece feels rhythmically and how a musician counts along while playing or conducting. Tempo markings work alongside time signatures by indicating how fast a piece should be performed, giving musicians additional context beyond the number of beats contained in each bar.</p>
+<p>Different meters organize beats within a bar in different ways, which affects how a piece feels rhythmically and how a musician counts along while playing or conducting. <a href="https://www.thetaptempo.com/tempo-markings"><strong>Tempo markings</strong></a> work alongside time signatures by indicating how fast a piece should be performed, giving musicians additional context beyond the number of beats contained in each bar.</p>
 
 <p>Understanding this next layer is essential for actually performing music accurately, not just recognizing why bars exist in the first place.</p>
 
 <p>Once you're ready to explore how different time signatures organize beats within each measure, our <a href="https://www.thetaptempo.com/beats-per-bar-calculator"><strong>Beats Per Bar Calculator</strong></a> makes it easy to see exactly how many beats belong in a bar for any given meter, and how that structure translates into counting and performance.</p>
-
-<h2>Frequently Asked Questions</h2>
-
-<details>
-<summary><strong>Why do songs have bars?</strong></summary>
-<p>Bars break continuous rhythm into small, equal, repeatable units. This makes music easier to read, easier to rehearse, and much easier for multiple musicians to stay aligned with each other during a performance.</p>
-</details>
-
-<details>
-<summary><strong>Why isn't music written continuously?</strong></summary>
-<p>Continuous, unbroken notation would force performers to track rhythm without any fixed reference points. Bars give musicians regular checkpoints, which support accurate reading, memory, and group coordination.</p>
-</details>
-
-<details>
-<summary><strong>What is the purpose of measures?</strong></summary>
-<p>Measures organize rhythm into digestible sections, support phrase structure, and give conductors, teachers, and performers a shared reference system for identifying exact locations within a piece.</p>
-</details>
-
-<details>
-<summary><strong>How do bars help musicians?</strong></summary>
-<p>Bars make sight-reading easier, simplify rehearsal instructions, help ensembles stay synchronized, and give performers reliable memory anchors during performance.</p>
-</details>
-
-<details>
-<summary><strong>Why are bar lines important?</strong></summary>
-<p>Bar lines create the visual structure that allows written music to function as a shared, precise communication system between composers, conductors, and performers.</p>
-</details>
-
-<details>
-<summary><strong>Do all songs use bars?</strong></summary>
-<p>The overwhelming majority of written and recorded music uses some form of bar-based structure. Even genres that rely heavily on improvisation or non-traditional notation typically organize their sections around a bar-based framework.</p>
-</details>
 
 <h2>Continue Learning</h2>
 
