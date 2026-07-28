@@ -418,7 +418,7 @@ export function HomePageContent() {
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Whether you're tapping a tempo, practising with a metronome, or dialing in delay times, every tool in TheTapTempo ecosystem is designed to work together seamlessly.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 justify-items-center">
               <Button variant="outline" size="sm" asChild>
                 <a href="https://www.youtube.com/@TheTapTempo" target="_blank" rel="me noopener noreferrer">
                   <Youtube className="w-4 h-4 mr-2" />
