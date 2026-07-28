@@ -52,10 +52,10 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/logo.svg",
-        width: 480,
-        height: 120,
-        alt: "TheTapTempo Logo",
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools for Musicians, Producers & DJs",
       },
     ],
   },
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "TheTapTempo - Music Tools for Musicians & DJs",
     description:
       "Free browser-based tools for musicians, producers, and DJs. Includes Tap Tempo, Metronome, BPM Calculator, and Tempo Markings guides.",
-    images: ["/logo.svg"],
+    images: ["/opengraph.png"],
   },
   robots: { index: true, follow: true },
   icons: {
