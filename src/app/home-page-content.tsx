@@ -32,7 +32,8 @@ import {
   X,
   Facebook,
   Instagram,
-  User,
+  Youtube,
+  Linkedin,
   Globe,
   BookOpen,
   CheckCircle2,
@@ -417,29 +418,65 @@ export function HomePageContent() {
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Whether you're tapping a tempo, practising with a metronome, or dialing in delay times, every tool in TheTapTempo ecosystem is designed to work together seamlessly.
             </p>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://x.com/taptempous" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.youtube.com/@TheTapTempo" target="_blank" rel="me noopener noreferrer">
+                  <Youtube className="w-4 h-4 mr-2" />
+                  YouTube
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://www.linkedin.com/in/the-tap-tempo/" target="_blank" rel="me noopener noreferrer">
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://www.producthunt.com/@the_taptempo" target="_blank" rel="me noopener noreferrer">
+                  <Globe className="w-4 h-4 mr-2" />
+                  Product Hunt
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://x.com/taptempous" target="_blank" rel="me noopener noreferrer">
                   <X className="w-4 h-4 mr-2" />
                   X
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href="https://www.facebook.com/profile.php?id=61591940093409" target="_blank" rel="noopener noreferrer">
-                  <Facebook className="w-4 h-4 mr-2" />
-                  Facebook
-                </a>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <a href="https://www.instagram.com/taptempous/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/taptempous/" target="_blank" rel="me noopener noreferrer">
                   <Instagram className="w-4 h-4 mr-2" />
                   Instagram
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href="https://about.me/thetaptempo" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.crunchbase.com/organization/the-tap-tempo" target="_blank" rel="me noopener noreferrer">
                   <Globe className="w-4 h-4 mr-2" />
-                  About.me
+                  Crunchbase
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://medium.com/@taptempous" target="_blank" rel="me noopener noreferrer">
+                  <Globe className="w-4 h-4 mr-2" />
+                  Medium
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://www.facebook.com/profile.php?id=61591940093409" target="_blank" rel="me noopener noreferrer">
+                  <Facebook className="w-4 h-4 mr-2" />
+                  Facebook
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://www.trustpilot.com/review/thetaptempo.com" target="_blank" rel="me noopener noreferrer">
+                  <Globe className="w-4 h-4 mr-2" />
+                  Trustpilot
+                </a>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://soundcloud.com/the-taptempo" target="_blank" rel="me noopener noreferrer">
+                  <Globe className="w-4 h-4 mr-2" />
+                  SoundCloud
                 </a>
               </Button>
             </div>
