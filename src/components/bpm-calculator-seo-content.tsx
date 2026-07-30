@@ -222,7 +222,7 @@ export function BpmCalculatorSeoContent() {
             <li>Track A beats = (124 × 240) ÷ 60 = 496 beats</li>
             <li>Track B beats = (128 × 180) ÷ 60 = 384 beats</li>
           </ul>
-          <p className="text-sm text-muted-foreground leading-relaxed">Knowing this helps you plan where to start the mix so phrases align.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">Knowing this helps you plan where to start the mix so phrases align. Curious how professional DJs use this in a real set? See our full guide: <Link href="/blog/how-djs-calculate-bpm" className="text-primary hover:underline font-bold">How DJs Calculate BPM Before Mixing Songs</Link>.</p>
         </div>
 
         <div>
@@ -234,7 +234,7 @@ export function BpmCalculatorSeoContent() {
             Duration = (16 × 60) ÷ 140 = 960 ÷ 140 ≈ 6.86 seconds per loop.
           </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Set your DAW&apos;s loop region to exactly 6.86 seconds or set the project BPM first and use snap to grid.
+            Set your DAW&apos;s loop region to exactly 6.86 seconds or set the project BPM first and use snap to grid. Not sure what tempo to build around in the first place? Our guide on <Link href="/blog/how-to-choose-song-bpm" className="text-primary hover:underline font-bold">How to Choose Song BPM Before Recording</Link> walks through how producers test and settle on the right tempo before tracking begins.
           </p>
         </div>
 
@@ -246,6 +246,36 @@ export function BpmCalculatorSeoContent() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             If a song has 80 beats in 30 seconds → BPM = 160, too slow. Use the <Link href="/tap-tempo" className="text-primary hover:underline font-bold">tap tempo</Link> tool to filter your playlist.
           </p>
+        </div>
+      </section>
+
+      {/* Continue Learning */}
+      <section className="space-y-4">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>
+            Want to see how BPM calculations apply to real workflows? These guides go deeper into two of the most common use cases:
+          </p>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">How DJs Calculate BPM Before Mixing Songs</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                See the exact beatmatching, playlist-organizing, and verification workflow professional DJs use to prepare BPM values before a live set.
+              </p>
+              <Link href="/blog/how-djs-calculate-bpm" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">How to Choose Song BPM Before Recording</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Learn how producers test and compare different tempos before recording, and why the right BPM shapes how an entire song feels.
+              </p>
+              <Link href="/blog/how-to-choose-song-bpm" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
