@@ -86,6 +86,10 @@ export const content = `
 <img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785427790/taptempo/kacmf0tb1lgkthwboiku.webp" alt="Diagram showing beat hierarchy in a four-beat measure with beat one as the strongest downbeat" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
+<div class="callout-takeaway">
+<p><strong>Quick Answer:</strong> The downbeat is the strongest beat and usually starts a grouping, while the upbeat leads into it. Beat hierarchy is not random. It follows predictable patterns of strong, weak, and moderately strong positions.</p>
+</div>
+
 <p>This pattern is why a four-beat grouping is often felt as strong-weak-medium-weak rather than four identical pulses. A three-beat grouping, such as the pattern found in a waltz, follows a different hierarchy: strong-weak-weak, which is part of why waltzes have such a distinctive, circular feeling compared to marches.</p>
 
 <h3>Hierarchy Exists Even Without Emphasis</h3>
@@ -108,6 +112,10 @@ export const content = `
 
 <p>A useful way to understand this relationship is through a professional insight many arrangers apply instinctively: strong beats create stability, and weak beats create momentum. A phrase built entirely on strong beats can feel static after a while, which is why skilled composers intentionally route melodic motion through weak beats to keep the music feeling like it is moving somewhere. This is often the invisible difference between a phrase that feels alive and one that feels flat, even when the notes themselves are similar.</p>
 
+<div class="callout-takeaway">
+<p><strong>Quick Answer:</strong> Strong beats give phrases a sense of arrival and stability, while weak beats create forward motion and tension. Composers use this contrast deliberately to shape how a phrase feels, not just how it sounds.</p>
+</div>
+
 <h2>Why Performers and Conductors Pay Attention to Beat Emphasis</h2>
 
 <p>Performers and conductors treat beat emphasis as a practical tool rather than an abstract theory concept, because it directly affects how an ensemble stays together and how a performance communicates feeling to an audience.</p>
@@ -127,6 +135,10 @@ export const content = `
 <h3>Marches, Waltzes, and Backbeats in Practice</h3>
 
 <p>A practical example makes this clearer. In a military march, performers deliberately reinforce the natural strong beat with a firmer articulation, which is part of why marches feel so rhythmically confident and easy to walk to. In a slow waltz, performers often lean slightly into beat one while allowing beats two and three to feel lighter and more suspended, reinforcing the graceful, circular quality associated with the style. In many contemporary pop songs, producers and drummers sometimes shift emphasis toward beat two and beat four instead of beat one and beat three, creating the backbeat feel that defines much of modern popular music.</p>
+
+<div class="callout-takeaway">
+<p><strong>Quick Answer:</strong> Conductors and performers use beat emphasis to stay together, communicate phrasing, and shape the character of a piece, whether that means reinforcing the natural hierarchy or intentionally shifting it for stylistic effect.</p>
+</div>
 
 <h2>Listening for Strong and Weak Beats in Real Music</h2>
 
@@ -153,6 +165,10 @@ export const content = `
 <li><strong>Identify the anchor.</strong> Notice which tap feels like the point everything resolves toward.</li>
 <li><strong>Compare the surrounding beats.</strong> Notice how the other beats feel lighter or more transitional by comparison.</li>
 </ul>
+
+<div class="callout-takeaway">
+<p><strong>Quick Answer:</strong> To hear strong and weak beats, listen for the point where the music feels like it "lands," then compare how the surrounding beats feel lighter by contrast. Marches, waltzes, and pop songs each demonstrate this differently.</p>
+</div>
 
 <p>With consistent practice, most musicians find that this awareness becomes automatic, to the point where strong and weak beats are felt intuitively rather than consciously analyzed during performance or listening.</p>
 
