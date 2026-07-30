@@ -425,6 +425,36 @@ export function MetronomeSeoContent() {
         </p>
       </div>
 
+      {/* Continue Learning */}
+      <section className="space-y-4">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>
+            Want to build on what you just practiced? These guides go deeper into timing and metronome practice:
+          </p>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Common Metronome Mistakes That Slow Down Your Progress</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Discover the 10 most common metronome mistakes musicians make — and practical, step-by-step ways to fix each one for faster rhythm improvement.
+              </p>
+              <Link href="/blog/common-metronome-mistakes" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">How to Practice with a Metronome</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                A full step-by-step tempo progression method for building reliable timing, from your first slow practice tempo to performance speed.
+              </p>
+              <Link href="/blog/practice-with-a-metronome" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Frequently Asked Questions (FAQ)</h2>
