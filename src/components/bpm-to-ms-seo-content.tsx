@@ -397,6 +397,36 @@ export function BpmToMsSeoContent() {
         </p>
       </div>
 
+      {/* Continue Learning */}
+      <section className="space-y-4">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>
+            Want to understand the concepts behind these conversions more deeply? These guides go further into the fundamentals:
+          </p>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">What Are Milliseconds in Music?</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Learn why audio software measures timing in milliseconds instead of seconds, and where you&apos;ll encounter ms values across recording, editing, and plugin workflows.
+              </p>
+              <Link href="/blog/what-are-milliseconds-in-music" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Understanding Note Values: Quarter, Eighth &amp; Triplets</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                A deeper look at how quarter notes, eighth notes, dotted notes, and triplets shape rhythm and groove, the same subdivisions used throughout this converter&apos;s formulas and chart.
+              </p>
+              <Link href="/blog/understanding-note-values" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Frequently Asked Questions</h2>
