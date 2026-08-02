@@ -3,9 +3,8 @@ export const content = `
 
 <p>This article explains where those tempo changes come from, why some genres embrace them, and how musicians, DJs, and producers accurately work with songs that refuse to sit still.</p>
 
-<figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785682364/taptempo/v2hqpycqusbk0dbb8yf9.webp" alt="Infographic showing how a song can have multiple BPM values across the intro, verse, chorus, bridge, and final chorus, comparing constant tempo with variable tempo." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
-</figure>
+<h2>Quick Answer</h2>
+<p>Not every song holds one steady BPM because human performers naturally vary their timing, producers intentionally program tempo automation, and certain genres are meant to breathe. To work with these tracks, check each section&rsquo;s BPM separately using a Tap Tempo tool, build a tempo map for production, and fine-tune transitions by ear.</p>
 
 <h2>Constant Tempo vs Variable Tempo</h2>
 
@@ -85,7 +84,7 @@ export const content = `
 
 <h3>Finding a Starting BPM</h3>
 
-<p>Tapping along to the first few bars of a section with a <a href="https://www.thetaptempo.com/tap-tempo"><strong>Tap Tempo</strong></a> tool gives a fast, reliable starting point, which can then be refined and automated once the material is imported into the session.</p>
+<p>Tapping along to the first few bars of a section with a Tap Tempo tool gives a fast, reliable starting point, which can then be refined and automated once the material is imported into the session.</p>
 
 <h3>Calculating Tempo-Synced Effects</h3>
 
@@ -103,7 +102,7 @@ export const content = `
 
 <ul class="list-disc pl-6 space-y-1 my-4">
 <li>Identify the sections of the song that feel like they sit at different speeds (intro, verse, chorus, bridge, outro).</li>
-<li>Tap through each section individually using a <a href="https://www.thetaptempo.com/tap-tempo"><strong>Tap Tempo</strong></a> tool, focusing on a clear rhythmic element like the kick drum or snare.</li>
+<li>Tap through each section individually using a Tap Tempo tool, focusing on a clear rhythmic element like the kick drum or snare.</li>
 <li>Record each section&rsquo;s BPM separately rather than combining them into a single average.</li>
 <li>Compare the results against typical tempo ranges for the genre using a <a href="https://www.thetaptempo.com/tempo-markings/music-tempo-chart"><strong>Music Tempo Chart</strong></a> to check whether the variation looks expected for that style.</li>
 <li>For production work, use the section-by-section values as the basis for a tempo map rather than forcing the whole track onto one fixed BPM.</li>
@@ -127,21 +126,4 @@ export const content = `
 <li><a href="https://www.thetaptempo.com/blog/how-to-choose-song-bpm"><strong>How to Choose the Right BPM Before You Start Recording a Song</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/why-composers-use-tempo-markings-instead-of-bpm"><strong>Why Composers Use Tempo Markings Instead of BPM Numbers</strong></a></li>
 </ul>
-
-<h2>FAQ</h2>
-
-<p><strong>Why does BPM change within a single song?</strong></p>
-<p>BPM changes because human performers naturally vary their timing, because performers deliberately shift tempo for emotional effect, or because a producer intentionally programs tempo automation into the arrangement.</p>
-
-<p><strong>Can one song have multiple BPM values?</strong></p>
-<p>Yes. Many songs, especially live recordings, jazz performances, and classical pieces, move through several distinct tempos rather than holding one fixed BPM from start to finish.</p>
-
-<p><strong>Why do live songs drift in tempo?</strong></p>
-<p>Live tempo drift happens because musicians are responding to each other, the room, and the emotional arc of the performance in real time, which naturally introduces small, human timing variations that a click track would otherwise prevent.</p>
-
-<p><strong>Why does a tap tempo reading change depending on where I tap in the song?</strong></p>
-<p>If a song genuinely changes speed between sections, tapping at the intro versus tapping at the chorus will produce two different, equally accurate readings, because each section actually sits at a different tempo.</p>
-
-<p><strong>Which music genres change tempo the most?</strong></p>
-<p>Genres built around live, improvised, or emotionally expressive performance, such as jazz, classical, and unclicked live band recordings, tend to show the most tempo variation. Genres built on a click track or programmed grid, such as most electronic and pop production, tend to stay closest to one constant tempo.</p>
 `
