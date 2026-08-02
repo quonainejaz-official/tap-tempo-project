@@ -191,7 +191,7 @@ export default async function BlogPostPage({ params }: Props) {
           <AuthorBio />
 
           {meta.faqs && meta.faqs.length > 0 && (
-            <div className="mt-12 border-t border-border">
+            <div className="mt-12 border-t pt-12">
               <BlogFaq faqs={meta.faqs} />
             </div>
           )}
