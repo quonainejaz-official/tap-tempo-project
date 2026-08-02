@@ -187,10 +187,9 @@ export const content = `<h2>Quick Answer</h2>
 
 <h2>Continue Learning</h2>
 <p>Continue building your rhythm and practice skills with these guides:</p>
-<p>How to Increase Speed Without Losing Accuracy</p>
-<p>Common Metronome Mistakes</p>
-<p>Why Slow Practice Works</p>
-<p>Best BPM for Beginners</p>
+<p><a href="https://www.thetaptempo.com/blog/common-metronome-mistakes">Common Metronome Mistakes That Slow Down Your Progress</a></p>
+<p><a href="https://www.thetaptempo.com/blog/how-accurate-is-tap-tempo">How Accurate Is Tap Tempo?</a></p>
+<p><a href="https://www.thetaptempo.com/blog/how-djs-calculate-bpm">How DJs Calculate BPM Before Mixing Songs</a></p>
 
 <hr>
 
