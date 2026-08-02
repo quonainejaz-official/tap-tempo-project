@@ -12,6 +12,7 @@ import { content as c10 } from "@/data/blogs/why-composers-use-tempo-markings-in
 import { content as c11 } from "@/data/blogs/why-the-same-tempo-marking-sounds-different"
 import { content as c12 } from "@/data/blogs/why-music-is-divided-into-bars"
 import { content as c13 } from "@/data/blogs/strong-and-weak-beats-in-music"
+import { content as c14 } from "@/data/blogs/why-songs-dont-have-one-fixed-bpm"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -30,6 +31,7 @@ const blogContentMap: Record<string, string> = {
   "why-the-same-tempo-marking-sounds-different": c11,
   "why-music-is-divided-into-bars": c12,
   "strong-and-weak-beats-in-music": c13,
+  "why-songs-dont-have-one-fixed-bpm": c14,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {

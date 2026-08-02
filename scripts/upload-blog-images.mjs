@@ -9,12 +9,9 @@ cloudinary.config({
 })
 
 const files = [
-  "blog_pics/featured-image-common-metronome-mistakes.jpg",
-  "blog_pics/why-metronome-practice-feels-difficult-musician.jpg",
-  "blog_pics/metronome-mistakes-increasing-bpm-too-quickly.png",
-  "blog_pics/milliseconds-in-music-beginner-guide.png",
-  "blog_pics/milliseconds-vs-seconds-audio-timing.png",
-  "blog_pics/where-milliseconds-are-used-in-music-production.png",
+  "blog_pics/featured-multiple-bpm-song-infographic.webp.webp",
+  "blog_pics/why-songs-change-tempo-infographic.webp.webp",
+  "blog_pics/how-to-measure-variable-bpm-song-infographic.webp.webp",
 ]
 
 for (const file of files) {
