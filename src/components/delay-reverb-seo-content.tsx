@@ -361,6 +361,36 @@ export function DelayReverbSeoContent() {
         </p>
       </section>
 
+      {/* Continue Learning */}
+      <section className="space-y-4">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>
+            Want to go deeper into delay and reverb techniques? These guides build on the calculations above:
+          </p>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">How to Set Delay for Electric Guitar</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                A practical, genre-by-genre guide to dialing in slapback, dotted eighth, and ambient delay tones on your pedal or plugin, with real settings for feedback and mix.
+              </p>
+              <Link href="/blog/how-to-set-delay-for-electric-guitar" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Delay vs. Reverb: What&apos;s the Difference?</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Understand what each effect actually does to your sound, when to use one over the other, and how to combine them without muddying your mix.
+              </p>
+              <Link href="/blog/delay-vs-reverb" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold">Frequently Asked Questions</h2>
         <div className="mt-2">
