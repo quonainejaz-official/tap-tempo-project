@@ -227,6 +227,36 @@ export function BeatsPerBarSeoContent() {
         </div>
       </section>
 
+      {/* Continue Learning */}
+      <section>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed mt-3">
+          <p>
+            Want to understand bars and beat grouping on a deeper level? These guides go further into the fundamentals:
+          </p>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Why Music Is Divided Into Bars</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Learn why music is organized into bars in the first place, how bar length shapes phrasing and structure, and why this grouping matters beyond counting beats.
+              </p>
+              <Link href="/blog/why-music-is-divided-into-bars" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Strong and Weak Beats in Music</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Understand which beats in a bar naturally feel emphasized, why that matters for groove and accent placement, and how it changes across different time signatures.
+              </p>
+              <Link href="/blog/strong-and-weak-beats-in-music" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold">Common Mistakes With Beats Per Bar</h2>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1.5 mt-3">
