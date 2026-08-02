@@ -227,6 +227,16 @@ export function BeatsPerBarSeoContent() {
         </div>
       </section>
 
+      <section>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Common Mistakes With Beats Per Bar</h2>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1.5 mt-3">
+          <li>Treating 6/8 like 4/4 with extra beats. The count is 6, the feel is 2. Group it as two sets of three, not six individual taps.</li>
+          <li>Mixing up tempo changes with time signature changes. BPM controls speed. Beats per bar controls grouping. Changing one never changes the other.</li>
+          <li>Assuming odd meters are counted evenly. 5/4 is usually felt as 3+2 or 2+3, not five identical beats in a row. Listen for the natural accent before assuming an even count.</li>
+          <li>Using bar duration to set delay or reverb effects. Bar length tells you how long a full measure lasts. It is not the same as a single note-value delay time. For that, use the BPM to ms guide or the Delay &amp; Reverb Time calculator.</li>
+        </ul>
+      </section>
+
       {/* Continue Learning */}
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
@@ -255,16 +265,6 @@ export function BeatsPerBarSeoContent() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Common Mistakes With Beats Per Bar</h2>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1.5 mt-3">
-          <li>Treating 6/8 like 4/4 with extra beats. The count is 6, the feel is 2. Group it as two sets of three, not six individual taps.</li>
-          <li>Mixing up tempo changes with time signature changes. BPM controls speed. Beats per bar controls grouping. Changing one never changes the other.</li>
-          <li>Assuming odd meters are counted evenly. 5/4 is usually felt as 3+2 or 2+3, not five identical beats in a row. Listen for the natural accent before assuming an even count.</li>
-          <li>Using bar duration to set delay or reverb effects. Bar length tells you how long a full measure lasts. It is not the same as a single note-value delay time. For that, use the BPM to ms guide or the Delay &amp; Reverb Time calculator.</li>
-        </ul>
       </section>
 
       <section>
