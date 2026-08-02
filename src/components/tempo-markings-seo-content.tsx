@@ -451,6 +451,36 @@ export function TempoMarkingsSeoContent() {
         </ul>
       </section>
 
+      {/* Continue Learning */}
+      <section>
+        <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>
+            Want to understand tempo markings on a deeper level? These guides go further into the &ldquo;why&rdquo; behind the terms:
+          </p>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Why Composers Use Tempo Markings Instead of BPM Numbers</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Discover why Italian terms like Allegro and Adagio have survived for centuries instead of composers simply writing exact BPM numbers on the score.
+              </p>
+              <Link href="/blog/why-composers-use-tempo-markings-instead-of-bpm" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Why the Same Tempo Marking Sounds Different Across Performances</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Learn why two performances both marked &ldquo;Allegro&rdquo; can sound noticeably different in speed, and what actually determines the tempo a performer chooses.
+              </p>
+              <Link href="/blog/why-the-same-tempo-marking-sounds-different" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Frequently Asked Questions</h2>
         <div className="rounded-xl border divide-y">
