@@ -322,6 +322,15 @@ export function SeoContent() {
                 Read the full guide →
               </Link>
             </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Why Songs Don&apos;t Always Have One Fixed BPM</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Learn why your tapped BPM can shift depending on where in the song you tap, and how live performance, rubato, and tempo automation all affect the number you get.
+              </p>
+              <Link href="/blog/why-songs-dont-have-one-fixed-bpm" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
