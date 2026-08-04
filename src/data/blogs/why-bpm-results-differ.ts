@@ -83,7 +83,7 @@ export const content = `<h2>Quick Answer</h2>
 
 
 <p>Neither person in this scenario is wrong about what they heard. They've simply locked onto a different layer of the same rhythm.</p>
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857214/taptempo/nfpcj8yz7li5pmfye2fi.webp" alt="Infographic showing how tapping different beat layers of a song — half-time, main beat, snare backbeat, and eighth-note subdivision — produces different BPM readings of 60, 120, 120, and 240." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857214/taptempo/nfpcj8yz7li5pmfye2fi.webp" alt="Infographic showing how tapping different beat layers of a song â€” half-time, main beat, snare backbeat, and eighth-note subdivision â€” produces different BPM readings of 60, 120, 120, and 240." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <h3>Syncopation, Swing, and Accents</h3>
 <p>Syncopation, swing, and heavy accenting can make beat selection harder, because they pull your ear toward an off-beat sound instead of the underlying pulse. A funk or hip-hop groove with a strong syncopated snare can genuinely trick your hand into tapping ahead of or behind the actual beat, even if your instincts feel confident in the moment.</p>
