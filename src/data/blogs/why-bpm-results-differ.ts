@@ -105,8 +105,6 @@ export const content = `<h2>Quick Answer</h2>
 <h3>Tapping Habits That Improve Consistency</h3>
 <p>A few practical adjustments make a noticeable difference:</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857215/taptempo/b08s7sc8jigskp6o5cz5.webp" alt="Infographic listing five habits for a more accurate BPM reading: tap at least 8 times, follow one consistent beat layer, choose a steady section, match devices when comparing, and cross-check with math." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
-
 <ul class="list-disc pl-6 space-y-1 my-4">
 <li><strong>Tap more, not less.</strong> Aim for at least eight consistent taps before trusting the result, rather than stopping after two or three.</li>
 <li><strong>Pick one consistent layer of the beat and stick with it.</strong> If you normally follow the kick drum, keep following the kick drum across every attempt so your results stay comparable to each other.</li>
@@ -114,13 +112,15 @@ export const content = `<h2>Quick Answer</h2>
 <li><strong>Keep your device and setup consistent when comparing results with someone else.</strong> If you're troubleshooting a mismatch, try tapping on the same device to rule out latency differences.</li>
 </ul>
 
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857215/taptempo/b08s7sc8jigskp6o5cz5.webp" alt="Infographic listing five habits for a more accurate BPM reading: tap at least 8 times, follow one consistent beat layer, choose a steady section, match devices when comparing, and cross-check with math." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+
 <h3>Cross-Checking Your Result</h3>
 <p>If you already know the time between two beats, our <a href="https://www.thetaptempo.com/bpm-calculator">BPM Calculator</a> can confirm a tempo mathematically, which is useful for double-checking a tap-based reading that seems off.</p>
 <p>If your number still shifts by a small margin between attempts, that's expected. A tight, well-averaged tap sequence typically lands within a few BPM of the true tempo, and that small margin is a normal feature of human-based measurement rather than a sign that something is broken.</p>
 
 <h3>Reconciling Two Different Readings</h3>
 <p>When your result and someone else's don't match, work through the possibilities in order rather than assuming the tool is unreliable. First, check whether one number is roughly double or half the other, which usually points to a subdivision or half-time disagreement rather than an actual timing error. Second, confirm you were both tapping to the same section of the song, since a bridge or breakdown can genuinely sit at a different feel than the chorus.</p>
-<p>If those two checks don't explain the gap, retap together on the same device using each other's chosen beat layer. Opening <a href="https://www.thetaptempo.com/tap-tempo">Tap Tempo</a> side by side and each tapping the same sound, such as only the kick drum, will usually close most of the remaining gap and reveal whether the original mismatch came from beat selection or from ordinary human variability.</p>
+<p>If those two checks don't explain the gap, retap together on the same device using each other's chosen beat layer. Opening Tap Tempo side by side and each tapping the same sound, such as only the kick drum, will usually close most of the remaining gap and reveal whether the original mismatch came from beat selection or from ordinary human variability.</p>
 
 <hr>
 
@@ -132,24 +132,4 @@ export const content = `<h2>Quick Answer</h2>
 <li><a href="https://www.thetaptempo.com/blog/why-the-same-tempo-marking-sounds-different">Why the Same Tempo Marking Sounds Different</a></li>
 </ul>
 
-<hr>
-
-<h2>Frequently Asked Questions</h2>
-
-<h3>Why is my BPM different every time I tap?</h3>
-<p>Small variations in your reaction time between taps are normal, and a short tap sequence captures more of that noise than a longer one. Using more taps averages out the inconsistency and gives a steadier number.</p>
-
-<h3>Why does Tap Tempo change between attempts?</h3>
-<p>Because each attempt is a fresh sample of your hand's timing, tapping the same song twice will rarely produce identical intervals, even from the same person, which is why averaging several taps matters more than any single attempt.</p>
-
-<h3>Why do my friend and I get different BPM for the same song?</h3>
-<p>You may be tapping different layers of the rhythm, such as the main beat versus a subdivision, using different devices with different input delays, or simply carrying slightly different natural tapping variability.</p>
-
-<h3>Does tapping speed matter?</h3>
-<p>Not your typing speed, but consistency does. A steady, evenly spaced sequence of taps produces a far more reliable reading than a fast burst of uneven taps, regardless of how quickly you tap overall.</p>
-
-<h3>Is one BPM reading more "correct" than another?</h3>
-<p>Not necessarily. If two people are tapping different but real pulses in the music, like the beat versus a subdivision, both readings can be mathematically accurate descriptions of different layers of the same rhythm.</p>
-
-<h3>Why is my BPM exactly double or half of someone else's?</h3>
-<p>This usually means you're both tapping real pulses in the song, just at different rates, such as the main beat versus a subdivision or a felt half-time groove. Checking whether the two numbers are close to a 2:1 ratio is a fast way to confirm this before assuming either result is wrong.</p>`;
+`;
