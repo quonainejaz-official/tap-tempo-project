@@ -18,10 +18,10 @@ export const content = `<h2>Quick Answer</h2>
 <h3>Reaction Time and Tap-to-Tap Variability</h3>
 <p>Reaction time between taps commonly varies by roughly 20 to 50 milliseconds from one tap to the next, even for someone with strong rhythmic training. That might sound negligible, but at typical song tempos, a variation of just a few dozen milliseconds per tap interval is enough to swing a single-interval reading by several BPM.</p>
 <p>This is why tapping only two or three times rarely produces a stable number. You're capturing a small, noisy sample of your hand's timing rather than a settled average of it.</p>
-<p>For example, three taps landing at intervals of exactly 500 milliseconds apart would imply a perfectly steady <a href="https://www.thetaptempo.com/tap-tempo">120 BPM</a>. In practice, those intervals waver slightly from tap to tap, and a tool like <a href="https://www.thetaptempo.com/tap-tempo">Tap Tempo</a> is designed to average that wavering out rather than lock onto a single interval, which is part of why longer tap sequences settle into more trustworthy numbers.</p>
+<p>For example, three taps landing at intervals of exactly 500 milliseconds apart would imply a perfectly steady 120 BPM. In practice, those intervals waver slightly from tap to tap, and a tool like <a href="https://www.thetaptempo.com/tap-tempo">Tap Tempo</a> is designed to average that wavering out rather than lock onto a single interval, which is part of why longer tap sequences settle into more trustworthy numbers.</p>
 
 <h3>Why Averaging More Taps Helps</h3>
-<p><a href="https://www.thetaptempo.com/tap-tempo">Tap tempo</a> tools generally become accurate to within about 1 to 3 BPM once they're given a reasonable number of taps to work with. Using around eight taps is a commonly recommended threshold for smoothing out natural human noise.</p>
+<p>Tap tempo tools generally become accurate to within about 1 to 3 BPM once they're given a reasonable number of taps to work with. Using around eight taps is a commonly recommended threshold for smoothing out natural human noise.</p>
 <p>A short burst of two or three taps captures a single moment of your hand's timing. A longer, steady sequence captures the actual tempo underneath that noise.</p>
 
 <h3>Does Musical Experience Change Accuracy?</h3>
@@ -49,10 +49,41 @@ export const content = `<h2>Quick Answer</h2>
 <h3>Beat vs. Subdivision: Tapping a Different Layer</h3>
 <p>A kick drum, a snare hit, and a hi-hat subdivision can all sit at mathematically related but different tempos relative to each other. Tapping any one of them produces a technically correct but different BPM.</p>
 <p>Consider a song with a steady four-on-the-floor kick and a snare that lands on beats two and four. Someone tapping the kick and someone tapping the snare are following the same underlying pulse, so they should land close together. But someone who unconsciously taps a subdivision, like every eighth note instead of every beat, will produce a reading roughly double the actual tempo, while someone tapping every other beat will land at roughly half.</p>
+<table class="w-full text-left border-collapse my-6 text-sm">
+<thead>
+<tr class="border-b-2 border-gray-300">
+<th class="py-3 pr-4 font-bold">Pulse Followed</th>
+<th class="py-3 pr-4 font-bold">Example in a 120 BPM Song</th>
+<th class="py-3 font-bold text-right">Resulting Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-gray-200">
+<td class="py-3 pr-4">Main beat (quarter note)</td>
+<td class="py-3 pr-4">Kick drum on each beat</td>
+<td class="py-3 text-right">~120 BPM</td>
+</tr>
+<tr class="border-b border-gray-200">
+<td class="py-3 pr-4">Half-time feel</td>
+<td class="py-3 pr-4">Tapping every other beat</td>
+<td class="py-3 text-right">~60 BPM</td>
+</tr>
+<tr class="border-b border-gray-200">
+<td class="py-3 pr-4">Eighth-note subdivision</td>
+<td class="py-3 pr-4">Hi-hat pattern</td>
+<td class="py-3 text-right">~240 BPM</td>
+</tr>
+<tr>
+<td class="py-3 pr-4">Snare backbeat (2 and 4)</td>
+<td class="py-3 pr-4">Same as main beat</td>
+<td class="py-3 text-right">~120 BPM</td>
+</tr>
+</tbody>
+</table>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857214/taptempo/nfpcj8yz7li5pmfye2fi.webp" alt="Infographic showing how tapping different beat layers of a song â€” half-time, main beat, snare backbeat, and eighth-note subdivision â€” produces different BPM readings of 60, 120, 120, and 240." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <p>Neither person in this scenario is wrong about what they heard. They've simply locked onto a different layer of the same rhythm.</p>
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857214/taptempo/nfpcj8yz7li5pmfye2fi.webp" alt="Infographic showing how tapping different beat layers of a song — half-time, main beat, snare backbeat, and eighth-note subdivision — produces different BPM readings of 60, 120, 120, and 240." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <h3>Syncopation, Swing, and Accents</h3>
 <p>Syncopation, swing, and heavy accenting can make beat selection harder, because they pull your ear toward an off-beat sound instead of the underlying pulse. A funk or hip-hop groove with a strong syncopated snare can genuinely trick your hand into tapping ahead of or behind the actual beat, even if your instincts feel confident in the moment.</p>
