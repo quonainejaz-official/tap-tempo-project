@@ -331,6 +331,15 @@ export function SeoContent() {
                 Read the full guide →
               </Link>
             </div>
+            <div className="p-4 rounded-xl border bg-card/50">
+              <h3 className="font-semibold text-sm mb-1">Why BPM Results Differ Even When Measuring the Same Song</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Discover why two people tapping the same song can get different BPM numbers, and how human timing, beat choice, and device latency all play a role.
+              </p>
+              <Link href="/blog/why-bpm-results-differ" className="text-primary hover:underline font-bold text-xs">
+                Read the full guide →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
