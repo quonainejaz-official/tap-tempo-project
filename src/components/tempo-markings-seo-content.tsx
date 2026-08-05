@@ -35,10 +35,10 @@ function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
 
 export function TempoMarkingsSeoContent() {
   return (
-    <section className="mt-16 space-y-10">
+    <section className="mt-16 space-y-12 divide-y divide-border">
       <section className="rounded-xl border bg-card p-6 space-y-2">
         <h2 className="text-lg font-bold">Key Takeaways</h2>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1.5">
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-2.5">
           <li>Tempo markings tell musicians how fast or slow music should be played.</li>
           <li>Tempo is measured in BPM (Beats Per Minute).</li>
           <li>Common markings include Adagio, Andante, Moderato, Allegro, and Presto.</li>
@@ -167,109 +167,44 @@ export function TempoMarkingsSeoContent() {
       </section>
 
       <section>
-        <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Complete Tempo Markings Chart</h2>
-        <div className="overflow-x-auto rounded-xl border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-muted/50">
-                <th className="text-left px-4 py-2 font-medium">Tempo Marking</th>
-                <th className="text-left px-4 py-2 font-medium">Meaning</th>
-                <th className="text-left px-4 py-2 font-medium">BPM Range</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Grave</td>
-                <td className="px-4 py-2 text-muted-foreground">Very slow and serious</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">25&#x2013;45</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Largo</td>
-                <td className="px-4 py-2 text-muted-foreground">Broad and slow</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">40&#x2013;60</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Adagio</td>
-                <td className="px-4 py-2 text-muted-foreground">Slow and expressive</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">55&#x2013;76</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Andante</td>
-                <td className="px-4 py-2 text-muted-foreground">Walking pace</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">72&#x2013;108</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Moderato</td>
-                <td className="px-4 py-2 text-muted-foreground">Moderate speed</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">108&#x2013;120</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Allegro</td>
-                <td className="px-4 py-2 text-muted-foreground">Fast and lively</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">120&#x2013;156</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Vivace</td>
-                <td className="px-4 py-2 text-muted-foreground">Lively and bright</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">156&#x2013;176</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Presto</td>
-                <td className="px-4 py-2 text-muted-foreground">Very fast</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">168&#x2013;200</td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-2 font-serif italic font-medium">Prestissimo</td>
-                <td className="px-4 py-2 text-muted-foreground">Extremely fast</td>
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">200+</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed mt-3 italic">
-          Keep in mind that these ranges can vary slightly depending on the composer and musical style.
-        </p>
-      </section>
-
-      <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Tempo Markings Explained Individually</h2>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Slow Tempo Markings</h3>
+        <h3 id="tempo-guide-slow-heading" className="text-lg font-serif font-bold mt-8 mb-3">Slow Tempo Markings</h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-grave" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Grave</strong> — Grave creates a very slow, serious feeling. It often appears in dramatic openings or emotional orchestral sections.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-largo" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Largo</strong> — Largo has a broad and spacious feel. Musicians often describe it as powerful and grand.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-adagio" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Adagio</strong> — Adagio combines slower speed with expressive emotion. Many emotional piano pieces use Adagio sections.
         </p>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Moderate Tempo Markings</h3>
+        <h3 id="tempo-guide-moderate-heading" className="text-lg font-serif font-bold mt-8 mb-3">Moderate Tempo Markings</h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-andante" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Andante</strong> — Andante literally suggests a walking pace. Imagine walking naturally down a street without rushing.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-moderato" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Moderato</strong> — Moderato sits comfortably in the middle. It creates balance without feeling too relaxed or too energetic.
         </p>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Fast Tempo Markings</h3>
+        <h3 id="tempo-guide-fast-heading" className="text-lg font-serif font-bold mt-8 mb-3">Fast Tempo Markings</h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-allegro" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Allegro</strong> — Allegro is one of the most common tempo markings. It usually feels lively and energetic. Many classical and pop-inspired pieces use Allegro.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-vivace" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Vivace</strong> — Vivace moves faster and often feels bright and joyful.
         </p>
 
         <h3 className="text-lg font-serif font-bold mt-8 mb-3">Very Fast Tempo Markings</h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-presto" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Presto</strong> — Presto demands speed and precision. Fast instrumental passages often use this marking.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p id="tempo-guide-prestissimo" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Prestissimo</strong> — Prestissimo pushes speed to an extreme level and often requires advanced technique.
         </p>
       </section>
