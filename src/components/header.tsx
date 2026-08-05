@@ -14,7 +14,7 @@ const defaultLinks = [
   { href: "/bpm-calculator", label: "BPM Calculator" },
   { href: "/bpm-to-ms", label: "BPM to ms" },
   { href: "/delay-reverb-time-calculator", label: "Delay & Reverb Time" },
-  { href: "/tempo-markings", label: "Markings" },
+  { href: "/tempo-markings", label: "Tempo Markings" },
   { href: "/beats-per-bar-calculator", label: "Beats/Bar" },
   { href: "/blog", label: "Blog" },
   { href: "/ai-tempo", label: "TapTempo-AI" },
