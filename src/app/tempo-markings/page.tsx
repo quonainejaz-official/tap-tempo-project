@@ -124,21 +124,21 @@ export default function TempoMarkingsPage() {
             {[tempoMarkings.slice(0, Math.ceil(tempoMarkings.length / 2)), tempoMarkings.slice(Math.ceil(tempoMarkings.length / 2))].map((list, columnIndex) => (
               <div key={columnIndex} className="rounded-xl border bg-card p-4 flex flex-col gap-2">
                 {list.map((marking) => {
-                  const isSelected = marking.term === selectedMarking.term
+                  const isActive = bpm >= marking.bpmMin && bpm <= marking.bpmMax
                   return (
                     <button
                       key={marking.term}
                       onClick={() => setSelectedTerm(marking.term)}
-                      aria-pressed={isSelected}
+                      aria-pressed={isActive}
                       className={`flex items-center justify-between gap-3 w-full text-left px-3 py-2.5 rounded-lg border transition-all duration-200 ${
-                        isSelected
+                        isActive
                           ? "border-blue-500 bg-blue-500/10 shadow-sm"
                           : "border-transparent hover:border-gray-300 hover:bg-muted/40 hover:shadow-sm"
                       }`}
                     >
                       <span
                         className={`font-serif italic font-bold ${
-                          isSelected ? "text-blue-700 dark:text-blue-300" : ""
+                          isActive ? "text-blue-700 dark:text-blue-300" : ""
                         }`}
                       >
                         {marking.term}
