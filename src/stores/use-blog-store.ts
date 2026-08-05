@@ -1,17 +1,18 @@
 import { create } from "zustand"
 
-interface BlogItem {
+export interface BlogItem {
   _id: string
   title: string
   slug: string
   excerpt?: string
-  content: string
+  content?: string
   coverImage?: string
   author?: string
   createdAt?: string
   readTime?: string
   metaTitle?: string
   metaDescription?: string
+  tags?: string[]
   published?: boolean
 }
 

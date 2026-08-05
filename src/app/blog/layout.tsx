@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { BASE_URL } from "@/lib/constants"
+import { hardcodedBlogs } from "@/data/blogs/registry"
 
 const pageUrl = `${BASE_URL}/blog`
 
@@ -25,6 +26,16 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+const itemListElement = hardcodedBlogs
+  .slice()
+  .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+  .map((blog, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: blog.title,
+    url: `${BASE_URL}/blog/${blog.slug}`,
+  }))
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -38,6 +49,10 @@ const jsonLd = {
         "@type": "WebSite",
         name: "TheTapTempo",
         url: BASE_URL,
+      },
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement,
       },
     },
     {
