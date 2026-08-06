@@ -104,7 +104,7 @@ export const content = `
 <li>Identify the sections of the song that feel like they sit at different speeds (intro, verse, chorus, bridge, outro).</li>
 <li>Tap through each section individually using a Tap Tempo tool, focusing on a clear rhythmic element like the kick drum or snare.</li>
 <li>Record each section&rsquo;s BPM separately rather than combining them into a single average.</li>
-<li>Compare the results against typical tempo ranges for the genre using a <a href="https://www.thetaptempo.com/tempo-markings/music-tempo-chart"><strong>Music Tempo Chart</strong></a> to check whether the variation looks expected for that style.</li>
+<li>Compare the results against typical tempo ranges for the genre using a <a href="https://www.thetaptempo.com/tempo-markings"><strong>Music Tempo Chart</strong></a> to check whether the variation looks expected for that style.</li>
 <li>For production work, use the section-by-section values as the basis for a tempo map rather than forcing the whole track onto one fixed BPM.</li>
 </ul>
 
