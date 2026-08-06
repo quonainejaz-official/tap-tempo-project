@@ -14,6 +14,7 @@ import { content as c12 } from "@/data/blogs/why-music-is-divided-into-bars"
 import { content as c13 } from "@/data/blogs/strong-and-weak-beats-in-music"
 import { content as c14 } from "@/data/blogs/why-songs-dont-have-one-fixed-bpm"
 import { content as c15 } from "@/data/blogs/why-bpm-results-differ"
+import { content as c16 } from "@/data/blogs/why-slow-practice-makes-better-musician"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -34,6 +35,7 @@ const blogContentMap: Record<string, string> = {
   "strong-and-weak-beats-in-music": c13,
   "why-songs-dont-have-one-fixed-bpm": c14,
   "why-bpm-results-differ": c15,
+  "why-slow-practice-makes-better-musician": c16,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
