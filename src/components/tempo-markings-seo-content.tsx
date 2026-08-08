@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -393,26 +394,22 @@ export function TempoMarkingsSeoContent() {
           <p>
             Want to understand tempo markings on a deeper level? These guides go further into the &ldquo;why&rdquo; behind the terms:
           </p>
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Why Composers Use Tempo Markings Instead of BPM Numbers</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Discover why Italian terms like Allegro and Adagio have survived for centuries instead of composers simply writing exact BPM numbers on the score.
-              </p>
-              <Link href="/blog/why-composers-use-tempo-markings-instead-of-bpm" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Why the Same Tempo Marking Sounds Different Across Performances</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Learn why two performances both marked &ldquo;Allegro&rdquo; can sound noticeably different in speed, and what actually determines the tempo a performer chooses.
-              </p>
-              <Link href="/blog/why-the-same-tempo-marking-sounds-different" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-          </div>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "Why Composers Use Tempo Markings Instead of BPM Numbers",
+                description:
+                  "Discover why Italian terms like Allegro and Adagio have survived for centuries instead of composers simply writing exact BPM numbers on the score.",
+                href: "/blog/why-composers-use-tempo-markings-instead-of-bpm",
+              },
+              {
+                title: "Why the Same Tempo Marking Sounds Different Across Performances",
+                description:
+                  "Learn why two performances both marked \u201CAllegro\u201D can sound noticeably different in speed, and what actually determines the tempo a performer chooses.",
+                href: "/blog/why-the-same-tempo-marking-sounds-different",
+              },
+            ]}
+          />
         </div>
       </section>
 
