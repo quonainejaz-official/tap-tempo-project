@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, CheckCircle2, AlertTriangle, Music, Headphones, Dumbbell, Gamepad2, Guitar, Disc3, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function Collapsible({ title, children, defaultOpen = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen)
@@ -303,44 +304,34 @@ export function SeoContent() {
           <p>
             Want to go deeper into tempo detection? These guides build on what you just learned:
           </p>
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How Accurate Is Tap Tempo?</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                See exactly how manual tapping compares to automatic software BPM detection, tested across genres from EDM and Pop to Jazz and Classical, plus the specific factors that affect your accuracy.
-              </p>
-              <Link href="/blog/how-accurate-is-tap-tempo" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How to Find the BPM of Any Song (7 Proven Methods)</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Compare Tap Tempo with DJ software, DAWs, mobile apps, manual counting, and more — and find out which method actually fits your workflow.
-              </p>
-              <Link href="/blog/how-to-find-bpm-of-any-song" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Why Songs Don&apos;t Always Have One Fixed BPM</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Learn why your tapped BPM can shift depending on where in the song you tap, and how live performance, rubato, and tempo automation all affect the number you get.
-              </p>
-              <Link href="/blog/why-songs-dont-have-one-fixed-bpm" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Why BPM Results Differ Even When Measuring the Same Song</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Discover why two people tapping the same song can get different BPM numbers, and how human timing, beat choice, and device latency all play a role.
-              </p>
-              <Link href="/blog/why-bpm-results-differ" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-          </div>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "How Accurate Is Tap Tempo?",
+                description:
+                  "See exactly how manual tapping compares to automatic software BPM detection, tested across genres from EDM and Pop to Jazz and Classical, plus the specific factors that affect your accuracy.",
+                href: "/blog/how-accurate-is-tap-tempo",
+              },
+              {
+                title: "How to Find the BPM of Any Song (7 Proven Methods)",
+                description:
+                  "Compare Tap Tempo with DJ software, DAWs, mobile apps, manual counting, and more — and find out which method actually fits your workflow.",
+                href: "/blog/how-to-find-bpm-of-any-song",
+              },
+              {
+                title: "Why Songs Don't Always Have One Fixed BPM",
+                description:
+                  "Learn why your tapped BPM can shift depending on where in the song you tap, and how live performance, rubato, and tempo automation all affect the number you get.",
+                href: "/blog/why-songs-dont-have-one-fixed-bpm",
+              },
+              {
+                title: "Why BPM Results Differ Even When Measuring the Same Song",
+                description:
+                  "Discover why two people tapping the same song can get different BPM numbers, and how human timing, beat choice, and device latency all play a role.",
+                href: "/blog/why-bpm-results-differ",
+              },
+            ]}
+          />
         </div>
       </section>
 
