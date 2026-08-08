@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -368,26 +369,22 @@ export function DelayReverbSeoContent() {
           <p>
             Want to go deeper into delay and reverb techniques? These guides build on the calculations above:
           </p>
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How to Set Delay for Electric Guitar</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                A practical, genre-by-genre guide to dialing in slapback, dotted eighth, and ambient delay tones on your pedal or plugin, with real settings for feedback and mix.
-              </p>
-              <Link href="/blog/how-to-set-delay-for-electric-guitar" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Delay vs. Reverb: What&apos;s the Difference?</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Understand what each effect actually does to your sound, when to use one over the other, and how to combine them without muddying your mix.
-              </p>
-              <Link href="/blog/delay-vs-reverb" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-          </div>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "How to Set Delay for Electric Guitar",
+                description:
+                  "A practical, genre-by-genre guide to dialing in slapback, dotted eighth, and ambient delay tones on your pedal or plugin, with real settings for feedback and mix.",
+                href: "/blog/how-to-set-delay-for-electric-guitar",
+              },
+              {
+                title: "Delay vs. Reverb: What's the Difference?",
+                description:
+                  "Understand what each effect actually does to your sound, when to use one over the other, and how to combine them without muddying your mix.",
+                href: "/blog/delay-vs-reverb",
+              },
+            ]}
+          />
         </div>
       </section>
 
