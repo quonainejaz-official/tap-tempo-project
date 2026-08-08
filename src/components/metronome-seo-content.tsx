@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, CheckCircle2, AlertTriangle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function Collapsible({ title, children, defaultOpen = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen)
@@ -432,44 +433,34 @@ export function MetronomeSeoContent() {
           <p>
             Want to build on what you just practiced? These guides go deeper into timing and metronome practice:
           </p>
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Common Metronome Mistakes That Slow Down Your Progress</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Discover the 10 most common metronome mistakes musicians make — and practical, step-by-step ways to fix each one for faster rhythm improvement.
-              </p>
-              <Link href="/blog/common-metronome-mistakes" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How to Practice with a Metronome</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                A full step-by-step tempo progression method for building reliable timing, from your first slow practice tempo to performance speed.
-              </p>
-              <Link href="/blog/practice-with-a-metronome" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Why Slow Practice Makes You a Better Musician</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Discover why slow, accurate practice builds real skill faster than rushing, and how to structure a routine that locks in muscle memory and timing.
-              </p>
-              <Link href="/blog/why-slow-practice-makes-better-musician" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How to Increase Playing Speed With a Metronome</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                A structured method for building playing speed with a metronome - confirm a clean working tempo, test small increments, and break through plateaus.
-              </p>
-              <Link href="/blog/how-to-increase-playing-speed-with-metronome" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-          </div>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "Common Metronome Mistakes That Slow Down Your Progress",
+                description:
+                  "Discover the 10 most common metronome mistakes musicians make — and practical, step-by-step ways to fix each one for faster rhythm improvement.",
+                href: "/blog/common-metronome-mistakes",
+              },
+              {
+                title: "How to Practice with a Metronome",
+                description:
+                  "A full step-by-step tempo progression method for building reliable timing, from your first slow practice tempo to performance speed.",
+                href: "/blog/practice-with-a-metronome",
+              },
+              {
+                title: "Why Slow Practice Makes You a Better Musician",
+                description:
+                  "Discover why slow, accurate practice builds real skill faster than rushing, and how to structure a routine that locks in muscle memory and timing.",
+                href: "/blog/why-slow-practice-makes-better-musician",
+              },
+              {
+                title: "How to Increase Playing Speed With a Metronome",
+                description:
+                  "A structured method for building playing speed with a metronome - confirm a clean working tempo, test small increments, and break through plateaus.",
+                href: "/blog/how-to-increase-playing-speed-with-metronome",
+              },
+            ]}
+          />
         </div>
       </section>
 
