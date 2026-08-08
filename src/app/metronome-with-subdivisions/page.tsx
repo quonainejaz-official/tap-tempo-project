@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MetronomeWidget } from "@/components/metronome-widget"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
@@ -193,21 +194,40 @@ export default function MetronomeSubdivisionsPage() {
         </section>
 
         {/* Continue Learning */}
-        <section className="space-y-3">
+        <section className="space-y-4">
           <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
-          <div className="grid gap-3 sm:grid-cols-3">
-            <Link href="/blog/practice-with-a-metronome" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Practice With a Metronome</h3>
-              <p className="text-xs text-muted-foreground">Step-by-step guide to building solid timing with a metronome.</p>
-            </Link>
-            <Link href="/metronome" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Metronome Guide</h3>
-              <p className="text-xs text-muted-foreground">Full guide to using a metronome for any instrument or genre.</p>
-            </Link>
-            <Link href="/blog/common-metronome-mistakes" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Common Metronome Mistakes</h3>
-              <p className="text-xs text-muted-foreground">Avoid the habits that silently sabotage your rhythm practice.</p>
-            </Link>
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+            <p>
+              Want to build on what you just practiced? These guides go deeper into timing and metronome practice:
+            </p>
+            <ContinueLearningCarousel
+              items={[
+                {
+                  title: "Common Metronome Mistakes That Slow Down Your Progress",
+                  description:
+                    "Discover the 10 most common metronome mistakes musicians make — and practical, step-by-step ways to fix each one for faster rhythm improvement.",
+                  href: "/blog/common-metronome-mistakes",
+                },
+                {
+                  title: "How to Practice with a Metronome",
+                  description:
+                    "A full step-by-step tempo progression method for building reliable timing, from your first slow practice tempo to performance speed.",
+                  href: "/blog/practice-with-a-metronome",
+                },
+                {
+                  title: "Why Slow Practice Makes You a Better Musician",
+                  description:
+                    "Discover why slow, accurate practice builds real skill faster than rushing, and how to structure a routine that locks in muscle memory and timing.",
+                  href: "/blog/why-slow-practice-makes-better-musician",
+                },
+                {
+                  title: "How to Increase Playing Speed With a Metronome",
+                  description:
+                    "A structured method for building playing speed with a metronome - confirm a clean working tempo, test small increments, and break through plateaus.",
+                  href: "/blog/how-to-increase-playing-speed-with-metronome",
+                },
+              ]}
+            />
           </div>
         </section>
 

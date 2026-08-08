@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MetronomeWidget } from "@/components/metronome-widget"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
@@ -198,21 +199,40 @@ export default function MetronomeDrummersPage() {
         </section>
 
         {/* Continue Learning */}
-        <section className="space-y-3">
+        <section className="space-y-4">
           <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
-          <div className="grid gap-3 sm:grid-cols-3">
-            <Link href="/metronome" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Metronome</h3>
-              <p className="text-xs text-muted-foreground">Use our free online metronome to practice timing, rhythm, tempo, and groove with adjustable BPM and time signatures.</p>
-            </Link>
-            <Link href="/metronome-for-guitar-practice" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Metronome for Guitar Practice</h3>
-              <p className="text-xs text-muted-foreground">Practice chord changes, strumming patterns, and picking accuracy with metronome exercises designed for guitarists.</p>
-            </Link>
-            <Link href="/metronome-with-subdivisions" className="block rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-              <h3 className="text-sm font-semibold mb-1">Metronome with Subdivisions</h3>
-              <p className="text-xs text-muted-foreground">Add eighth notes, triplets, and sixteenth-note clicks to your practice.</p>
-            </Link>
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+            <p>
+              Want to build on what you just practiced? These guides go deeper into timing and metronome practice:
+            </p>
+            <ContinueLearningCarousel
+              items={[
+                {
+                  title: "Common Metronome Mistakes That Slow Down Your Progress",
+                  description:
+                    "Discover the 10 most common metronome mistakes musicians make — and practical, step-by-step ways to fix each one for faster rhythm improvement.",
+                  href: "/blog/common-metronome-mistakes",
+                },
+                {
+                  title: "How to Practice with a Metronome",
+                  description:
+                    "A full step-by-step tempo progression method for building reliable timing, from your first slow practice tempo to performance speed.",
+                  href: "/blog/practice-with-a-metronome",
+                },
+                {
+                  title: "Why Slow Practice Makes You a Better Musician",
+                  description:
+                    "Discover why slow, accurate practice builds real skill faster than rushing, and how to structure a routine that locks in muscle memory and timing.",
+                  href: "/blog/why-slow-practice-makes-better-musician",
+                },
+                {
+                  title: "How to Increase Playing Speed With a Metronome",
+                  description:
+                    "A structured method for building playing speed with a metronome - confirm a clean working tempo, test small increments, and break through plateaus.",
+                  href: "/blog/how-to-increase-playing-speed-with-metronome",
+                },
+              ]}
+            />
           </div>
         </section>
 
