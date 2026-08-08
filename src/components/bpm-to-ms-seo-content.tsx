@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -404,26 +405,22 @@ export function BpmToMsSeoContent() {
           <p>
             Want to understand the concepts behind these conversions more deeply? These guides go further into the fundamentals:
           </p>
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">What Are Milliseconds in Music?</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Learn why audio software measures timing in milliseconds instead of seconds, and where you&apos;ll encounter ms values across recording, editing, and plugin workflows.
-              </p>
-              <Link href="/blog/what-are-milliseconds-in-music" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">Understanding Note Values: Quarter, Eighth &amp; Triplets</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                A deeper look at how quarter notes, eighth notes, dotted notes, and triplets shape rhythm and groove, the same subdivisions used throughout this converter&apos;s formulas and chart.
-              </p>
-              <Link href="/blog/understanding-note-values" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-          </div>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "What Are Milliseconds in Music?",
+                description:
+                  "Learn why audio software measures timing in milliseconds instead of seconds, and where you'll encounter ms values across recording, editing, and plugin workflows.",
+                href: "/blog/what-are-milliseconds-in-music",
+              },
+              {
+                title: "Understanding Note Values: Quarter, Eighth & Triplets",
+                description:
+                  "A deeper look at how quarter notes, eighth notes, dotted notes, and triplets shape rhythm and groove, the same subdivisions used throughout this converter's formulas and chart.",
+                href: "/blog/understanding-note-values",
+              },
+            ]}
+          />
         </div>
       </section>
 
