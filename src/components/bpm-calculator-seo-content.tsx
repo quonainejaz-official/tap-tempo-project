@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -256,26 +257,22 @@ export function BpmCalculatorSeoContent() {
           <p>
             Want to see how BPM calculations apply to real workflows? These guides go deeper into two of the most common use cases:
           </p>
-          <div className="space-y-4">
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How DJs Calculate BPM Before Mixing Songs</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                See the exact beatmatching, playlist-organizing, and verification workflow professional DJs use to prepare BPM values before a live set.
-              </p>
-              <Link href="/blog/how-djs-calculate-bpm" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-            <div className="p-4 rounded-xl border bg-card/50">
-              <h3 className="font-semibold text-sm mb-1">How to Choose Song BPM Before Recording</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                Learn how producers test and compare different tempos before recording, and why the right BPM shapes how an entire song feels.
-              </p>
-              <Link href="/blog/how-to-choose-song-bpm" className="text-primary hover:underline font-bold text-xs">
-                Read the full guide →
-              </Link>
-            </div>
-          </div>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "How DJs Calculate BPM Before Mixing Songs",
+                description:
+                  "See the exact beatmatching, playlist-organizing, and verification workflow professional DJs use to prepare BPM values before a live set.",
+                href: "/blog/how-djs-calculate-bpm",
+              },
+              {
+                title: "How to Choose Song BPM Before Recording",
+                description:
+                  "Learn how producers test and compare different tempos before recording, and why the right BPM shapes how an entire song feels.",
+                href: "/blog/how-to-choose-song-bpm",
+              },
+            ]}
+          />
         </div>
       </section>
 
