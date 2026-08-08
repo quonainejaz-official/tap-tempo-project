@@ -1,5 +1,7 @@
 // Generated file — do not edit directly
-export const content = `<p>You can play the passage cleanly at a slower tempo. Push it up a few clicks on the <a href="https://www.thetaptempo.com/metronome">metronome</a>, and it falls apart: fingers rush, notes blur together, or you simply can't keep up. This is one of the most common frustrations in instrumental practice, and it isn't a sign that you're doing something wrong. It's a sign that speed needs to be built with the same structure as any other skill.</p>
+export const content = `<p><strong>Quick Answer:</strong> Speed is built through structured repetition, not by forcing faster tempo. Confirm a clean working tempo, raise it in small 2–5 BPM increments, test with 3–5 clean repetitions before locking it in, and log your progress. Plateaus are normal — when a tempo increase fails, drop back, reinforce, and retest rather than pushing harder.</p>
+
+<p>You can play the passage cleanly at a slower tempo. Push it up a few clicks on the <a href="https://www.thetaptempo.com/metronome">metronome</a>, and it falls apart: fingers rush, notes blur together, or you simply can't keep up. This is one of the most common frustrations in instrumental practice, and it isn't a sign that you're doing something wrong. It's a sign that speed needs to be built with the same structure as any other skill.</p>
 
 <p>This guide covers the part most practice advice skips: what to do once "just increase the tempo gradually" stops working. You'll find a repeatable method for testing speed safely, a way to recognize and break through plateaus, and a recovery process for the tempo jumps that don't go as planned.</p>
 
