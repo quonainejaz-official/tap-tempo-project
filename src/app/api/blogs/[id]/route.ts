@@ -56,6 +56,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
     revalidatePath("/blog")
     revalidatePath("/")
+    revalidatePath("/llms.txt")
     revalidatePath(`/blog/${body.slug}`)
 
     return NextResponse.json({ success: true })
@@ -87,6 +88,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     revalidatePath("/blog")
     revalidatePath("/")
+    revalidatePath("/llms.txt")
     if (deletedSlug) revalidatePath(`/blog/${deletedSlug}`)
 
     return NextResponse.json({ success: true })

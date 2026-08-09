@@ -64,6 +64,7 @@ export async function POST(req: Request) {
     const result = await blogs.insertOne(blog)
     revalidatePath("/blog")
     revalidatePath("/")
+    revalidatePath("/llms.txt")
     revalidatePath(`/blog/${blog.slug}`)
 
     return NextResponse.json(
