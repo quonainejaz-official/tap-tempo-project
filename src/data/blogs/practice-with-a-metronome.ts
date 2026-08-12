@@ -60,7 +60,7 @@ export const content = `<h2>Quick Answer</h2>
 </table>
 <p>Don't worry about reaching a high BPM during your first few sessions. Your priority is to stay perfectly in time with the metronome, even if that means playing more slowly than usual. If you're unsure which practice tempo to start with, our <a href="https://www.thetaptempo.com/tempo-markings"><strong>Music Tempo Chart</strong></a> provides recommended BPM ranges for beginners, intermediate players, and different practice goals.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1783235267/taptempo/ie1qlcffw2mbnpnaqebj.jpg" alt="Beginner metronome practice routine showing a structured daily practice schedule." title="Metronome Practice Routine" class="blog-image" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1783235267/taptempo/ie1qlcffw2mbnpnaqebj.jpg" alt="Beginner metronome practice routine showing a structured daily practice schedule." title="Metronome Practice Routine" class="blog-image" loading="lazy" />
 <p class="blog-caption">A structured practice routine helps beginners develop consistent timing without feeling overwhelmed.</p>
 
 <hr>
@@ -180,7 +180,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>If you reach a point where your playing becomes tense or inconsistent, reduce the BPM slightly and rebuild your confidence before increasing it again. Long-term progress is built through consistency, not rushing.</p>
 <p>Using a Metronome during every practice session makes it much easier to follow this gradual progression because every improvement is based on measurable timing rather than guesswork.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1783235267/taptempo/x4ndd3tc7ckybptggoov.jpg" alt="Metronome speed progression chart showing gradual BPM increases for effective practice." title="Increase Practice Speed" class="blog-image" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1783235267/taptempo/x4ndd3tc7ckybptggoov.jpg" alt="Metronome speed progression chart showing gradual BPM increases for effective practice." title="Increase Practice Speed" class="blog-image" loading="lazy" />
 <p class="blog-caption">Tracking your BPM progression makes improvement measurable and keeps you motivated to continue.</p>
 
 <hr>

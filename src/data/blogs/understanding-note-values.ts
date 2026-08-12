@@ -37,7 +37,7 @@ export const content = `
 <p>This is exactly what beat subdivisions do. They change how the beat is divided, not the speed of the song itself.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784219923/taptempo/cdrdwperd1i78wsn6xig.webp" alt="Illustration explaining how quarter, eighth, and sixteenth note subdivisions divide a musical beat." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784219923/taptempo/cdrdwperd1i78wsn6xig.webp" alt="Illustration explaining how quarter, eighth, and sixteenth note subdivisions divide a musical beat." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <p>Imagine tapping your foot to a steady beat. If you clap only when your foot hits the ground, you're following the main pulse. Now clap halfway between every tap. Suddenly, the rhythm feels more active, even though the tempo hasn't changed. Add even more claps between each beat, and the music becomes tighter and more energetic without making the song any faster.</p>
@@ -140,7 +140,7 @@ export const content = `
 <p>Once you're comfortable with basic note values, you'll start noticing two rhythmic variations that appear frequently in modern music production: dotted notes and triplets. Both change the feel of a rhythm without changing the song's tempo, making them powerful creative tools for shaping movement and groove.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784219924/taptempo/mk98njsopvtfqzjbrh4a.webp" alt="Comparison of straight note values, dotted note rhythms, and triplet subdivisions in music production." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784219924/taptempo/mk98njsopvtfqzjbrh4a.webp" alt="Comparison of straight note values, dotted note rhythms, and triplet subdivisions in music production." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <p>Once you're comfortable with basic note values, you'll start noticing two rhythmic variations that appear frequently in modern music production: dotted notes and triplets. Both change the feel of a rhythm without changing the song's tempo, making them powerful creative tools for shaping movement and groove.</p>

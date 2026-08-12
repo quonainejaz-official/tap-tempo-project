@@ -14,7 +14,7 @@ export const content = `
 <p>Think of a tempo marking less like a fixed setting and more like a set of banks on a river. The water can move faster in one stretch and slower in another, speed up around a bend, and settle in a wide pool, but it never leaves the banks the composer built. Two rivers following the same banks can still carry water at noticeably different speeds.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785065615/taptempo/qoorjt2cxbvaecxq31ua.webp" alt="Illustration of a river flowing at different speeds within fixed banks, symbolizing how tempo markings allow variation within a set boundary" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785065615/taptempo/qoorjt2cxbvaecxq31ua.webp" alt="Illustration of a river flowing at different speeds within fixed banks, symbolizing how tempo markings allow variation within a set boundary" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h3>Why Two Faithful Performances Can Still Differ</h3>
@@ -50,7 +50,7 @@ export const content = `
 <p>Not every difference between performances comes from a conductor's personal philosophy. Some of it comes from physical realities that have nothing to do with taste.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785065616/taptempo/j4wgkt4pmxnxn4dkfueg.webp" alt="Diagram showing four factors that shape tempo interpretation: acoustics, conductor style, instrument choice, and ensemble size" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785065616/taptempo/j4wgkt4pmxnxn4dkfueg.webp" alt="Diagram showing four factors that shape tempo interpretation: acoustics, conductor style, instrument choice, and ensemble size" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h3>How a Reverberant Hall Changes a Feasible Tempo</h3>

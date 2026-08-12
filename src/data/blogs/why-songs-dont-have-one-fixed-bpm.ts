@@ -15,7 +15,7 @@ export const content = `
 <p>A useful way to think about it: constant tempo treats the song as a grid, while variable tempo treats the song as a performance. Understanding which one you are dealing with changes how you should measure it, and it explains why a single BPM reading rarely tells the whole story of a track that shifts speed.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785682366/taptempo/u2puhzuk60smvxax4kgc.webp" alt="Infographic explaining why songs change tempo, including human timing, emotional expression, classical rubato, jazz improvisation, and DAW tempo automation." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785682366/taptempo/u2puhzuk60smvxax4kgc.webp" alt="Infographic explaining why songs change tempo, including human timing, emotional expression, classical rubato, jazz improvisation, and DAW tempo automation." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h2>Why Live Performances Change Speed</h2>
@@ -91,7 +91,7 @@ export const content = `
 <p>From there, a <a href="https://www.thetaptempo.com/bpm-calculator"><strong>BPM Calculator</strong></a> becomes useful for converting those tapped values into the note-length and delay-time figures needed for tempo-synced effects, since a variable-tempo track often needs its automation and its effects settings recalculated for each section rather than relying on one global tempo.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785682368/taptempo/zbotkrnmrg5sxdoejdbb.webp" alt="Step-by-step infographic showing how to measure a song with changing BPM by identifying sections, tapping each part separately, recording BPM values, and creating a tempo map." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785682368/taptempo/zbotkrnmrg5sxdoejdbb.webp" alt="Step-by-step infographic showing how to measure a song with changing BPM by identifying sections, tapping each part separately, recording BPM values, and creating a tempo map." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h2>Measuring Songs with Changing BPM</h2>

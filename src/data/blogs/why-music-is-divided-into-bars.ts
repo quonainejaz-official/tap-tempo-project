@@ -64,7 +64,7 @@ export const content = `
 </table>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785252104/taptempo/cwjr2mtky0dvx9avjrqo.webp" alt="Comparison of medieval mensural notation without bar lines and modern standardized notation with bar lines" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785252104/taptempo/cwjr2mtky0dvx9avjrqo.webp" alt="Comparison of medieval mensural notation without bar lines and modern standardized notation with bar lines" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <p>The shift wasn't about making music sound different. It was about making music possible to coordinate on paper, not only by ear.</p>
@@ -106,7 +106,7 @@ export const content = `
 <p>None of this changes how the music actually sounds. A well-performed piece would sound the same whether or not bar lines existed on the page. What changes is how reliably a group of independent musicians can produce that sound together, especially under the pressure of a live performance or a tight rehearsal schedule.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785252107/taptempo/mpj54cav2rmg0o5soihm.webp" alt="Conductor and orchestra musicians using bar numbers during a rehearsal to stay synchronized" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785252107/taptempo/mpj54cav2rmg0o5soihm.webp" alt="Conductor and orchestra musicians using bar numbers during a rehearsal to stay synchronized" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h2>How Conductors, Teachers, and Performers Use Bar Numbers</h2>

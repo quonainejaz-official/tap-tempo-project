@@ -60,7 +60,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>Neither method is universally better. Automatic software excels at large-scale analysis, while Tap Tempo is often the faster and more practical choice when you simply need the BPM of the song you're listening to.</p>
 <p>If you're still deciding which BPM detection method best suits your workflow, our guide on <a href="https://www.thetaptempo.com/blog/how-to-find-bpm-of-any-song"><strong>how to find the BPM of any song</strong></a> compares seven proven approaches and explains when each one works best. If you're analysing an entire music library, automatic software is the obvious choice. If you simply need the tempo of the song currently playing, manual tapping is usually the faster and more practical solution.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1783187804/taptempo/zrah4kchbw70u697oxrq.jpg" alt="Comparison between Tap Tempo and automatic BPM detection software showing accuracy, speed, and ideal use cases." title="Tap Tempo vs Software BPM Detection" class="blog-image" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1783187804/taptempo/zrah4kchbw70u697oxrq.jpg" alt="Comparison between Tap Tempo and automatic BPM detection software showing accuracy, speed, and ideal use cases." title="Tap Tempo vs Software BPM Detection" class="blog-image" loading="lazy" />
 <p class="blog-caption">Tap Tempo and automatic BPM detection each have strengths depending on the workflow and music source.</p>
 
 <h3>Accuracy Comparison</h3>
@@ -108,7 +108,7 @@ export const content = `<h2>Quick Answer</h2>
 <p>Jazz presents another challenge. Swing rhythms, improvisation, and expressive timing require you to follow the main pulse rather than individual notes or fills. New users sometimes tap along with melodic phrases instead of the underlying beat, which leads to inconsistent readings.</p>
 <p>Classical music is perhaps the least predictable genre for Tap Tempo. Conductors intentionally speed up and slow down performances to create expression, so there may not be one fixed BPM for the entire piece. In these situations, Tap Tempo is most useful for measuring individual sections rather than the complete performance.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1783187807/taptempo/tkk47egwvr9mke6ldbnf.jpg" alt="Infographic comparing Tap Tempo accuracy across EDM, Pop, Hip-Hop, Rock, Jazz, and Classical music." title="Tap Tempo Accuracy by Music Genre" class="blog-image" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1783187807/taptempo/tkk47egwvr9mke6ldbnf.jpg" alt="Infographic comparing Tap Tempo accuracy across EDM, Pop, Hip-Hop, Rock, Jazz, and Classical music." title="Tap Tempo Accuracy by Music Genre" class="blog-image" loading="lazy" />
 <p class="blog-caption">Tap Tempo accuracy varies slightly depending on musical style and rhythmic complexity.</p>
 
 <h3>Genre Comparison</h3>

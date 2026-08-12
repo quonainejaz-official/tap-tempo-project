@@ -8,7 +8,7 @@ export const content = `<p>Two versions of the same song, identical in every way
 
 <p>This sensitivity exists because rhythm engages the body directly, not just the ears. Walking pace, heartbeat, and breathing all sit within familiar tempo ranges, and music that moves noticeably faster or slower than those internal rhythms registers as a shift in energy, even when the listener cannot consciously name why a track suddenly feels different.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786379003/taptempo/aneh1tmjorpd5sulnpqo.webp" alt="How the brain perceives small tempo changes through rhythm and bodily cues" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786379003/taptempo/aneh1tmjorpd5sulnpqo.webp" alt="How the brain perceives small tempo changes through rhythm and bodily cues" class="rounded-xl w-full" loading="lazy" />
 
 <p>A track sitting at 120 BPM and the same arrangement nudged to 124 BPM will often be described by listeners as "punchier" or "more energetic," despite the two versions sharing identical instrumentation, melody, and lyrics. Nothing musically complex changed; only the rate at which the beat repeats did, and that was enough to shift the emotional read of the whole track.</p>
 
@@ -32,7 +32,7 @@ export const content = `<p>Two versions of the same song, identical in every way
 </tbody>
 </table>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786379005/taptempo/isecnysthxxmajbyyccn.webp" alt="How BPM changes affect music emotion, energy, urgency, and restraint" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786379005/taptempo/isecnysthxxmajbyyccn.webp" alt="How BPM changes affect music emotion, energy, urgency, and restraint" class="rounded-xl w-full" loading="lazy" />
 
 <p><strong>Quick Answer:</strong> Small tempo increases tend to raise perceived energy and urgency, while small decreases create space and restraint. The effect is often felt before it is consciously identified as a tempo change.</p>
 

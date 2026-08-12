@@ -38,7 +38,7 @@ export const content = `
 <p>Bach's own instrumental music shows this clearly, and it also shows how much room these markings left for interpretation. The first movement of his Brandenburg Concerto No. 3 carries no tempo marking at all in Bach's original score. Performers and editors have had to choose between Allegro and Allegro moderato ever since, based on style rather than a number Bach ever wrote down.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784818524/taptempo/o9oin7n0szgj5o370eoa.webp" alt="Timeline illustration showing the historical origin of Italian tempo markings from 17th-century opera to the invention of the metronome" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784818524/taptempo/o9oin7n0szgj5o370eoa.webp" alt="Timeline illustration showing the historical origin of Italian tempo markings from 17th-century opera to the invention of the metronome" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h3>How the Meaning of Allegro and Other Tempo Words Has Changed</h3>
@@ -149,7 +149,7 @@ export const content = `
 </table>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784818522/taptempo/lyjhfsufzwbuckohudlk.webp" alt="Illustration comparing a flexible tempo marking like Andante with a fixed BPM number like quarter note equals 92" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784818522/taptempo/lyjhfsufzwbuckohudlk.webp" alt="Illustration comparing a flexible tempo marking like Andante with a fixed BPM number like quarter note equals 92" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h3>Why Beginners Need a BPM Reference Point for a Tempo Marking</h3>

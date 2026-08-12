@@ -83,7 +83,7 @@ export const content = `
 </table>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785427790/taptempo/kacmf0tb1lgkthwboiku.webp" alt="Diagram showing beat hierarchy in a four-beat measure with beat one as the strongest downbeat" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785427790/taptempo/kacmf0tb1lgkthwboiku.webp" alt="Diagram showing beat hierarchy in a four-beat measure with beat one as the strongest downbeat" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <div class="callout-takeaway">
@@ -153,7 +153,7 @@ export const content = `
 <p>Pop and rock music offer a slightly different listening challenge, because backbeat emphasis often shifts weight toward beats two and four rather than one and three. A useful listening cue is the snare drum, which in most pop and rock drumming lands specifically on beats two and four, effectively creating a secondary layer of strong-beat emphasis that works alongside the more traditional downbeat.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785427791/taptempo/nwxgydhvqpowep7fuigx.webp" alt="Infographic comparing beat emphasis patterns in marches, waltzes, and pop/rock backbeats" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785427791/taptempo/nwxgydhvqpowep7fuigx.webp" alt="Infographic comparing beat emphasis patterns in marches, waltzes, and pop/rock backbeats" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h3>A Simple Three-Step Listening Framework</h3>

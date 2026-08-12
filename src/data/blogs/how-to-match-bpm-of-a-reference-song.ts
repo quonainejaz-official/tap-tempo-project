@@ -27,7 +27,7 @@ export const content = `<p>Producers lean on reference tracks constantly, but te
 <h3>Verifying With Transient Inspection in Your DAW</h3>
 <p>The most reliable way to confirm a tempo is to look directly at the audio. Import the reference track, zoom into the waveform, and check where the strongest transients, typically kick drum hits, land relative to your grid. Checking this at multiple points in the song, for example around bar 1, bar 9, and bar 33, reveals whether the track holds a single tempo throughout or drifts as it progresses.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786546042/taptempo/hwjc99vme3mej7duauq1.webp" alt="Reference song BPM verification using tap tempo and waveform transient alignment in a DAW" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786546042/taptempo/hwjc99vme3mej7duauq1.webp" alt="Reference song BPM verification using tap tempo and waveform transient alignment in a DAW" class="rounded-xl w-full" loading="lazy" />
 
 <p>If the transients line up cleanly with your grid at the tempo you've set, you've confirmed the BPM directly from the audio rather than trusting a label. If they drift out of alignment further into the song, that's your first signal you may be dealing with a tempo-changing track, which the next section of this guide covers in detail.</p>
 
@@ -66,7 +66,7 @@ export const content = `<p>Producers lean on reference tracks constantly, but te
 <h3>Linear Tempo Drift vs. Section-Based Changes</h3>
 <p>Two different patterns tend to show up in tempo-changing references, and they call for different handling. Linear drift happens gradually, common in live-tracked or acoustic recordings, where the tempo creeps up slightly through a chorus or pulls back during a quiet section without ever landing on a clean, fixed number. Section-based changes are abrupt instead, where a track deliberately jumps from one fixed tempo to another, often between a verse and a chorus, as a clear compositional choice.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786546043/taptempo/gvvbs8t8p1vsyzveggol.webp" alt="Comparison of fixed tempo, gradual tempo drift, and section-based tempo changes in a reference song" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786546043/taptempo/gvvbs8t8p1vsyzveggol.webp" alt="Comparison of fixed tempo, gradual tempo drift, and section-based tempo changes in a reference song" class="rounded-xl w-full" loading="lazy" />
 
 <p>Identifying which pattern you're dealing with usually just takes checking your transient alignment at several points across the song, the same method described earlier for verifying tempo in general.</p>
 

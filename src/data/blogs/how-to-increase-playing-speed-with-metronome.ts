@@ -23,7 +23,7 @@ export const content = `<p><strong>Quick Answer:</strong> Speed is built through
 <h2>Step-by-Step Speed Method</h2>
 <p>A structured speed method replaces vague "practice faster" advice with a repeatable process: establish a clean baseline, test upward in small increments, confirm the result with multiple repetitions, and log what happened before deciding your next move. All four steps use nothing more than a metronome and a consistent way to track what you play.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786219353/taptempo/m8oe5xcwfgwnv7cqy3zd.webp" alt="4-step metronome speed method infographic: establish tempo, test increments, confirm reps, log results" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786219353/taptempo/m8oe5xcwfgwnv7cqy3zd.webp" alt="4-step metronome speed method infographic: establish tempo, test increments, confirm reps, log results" class="rounded-xl w-full" loading="lazy" />
 
 <h3>Establish Your Clean Working Tempo</h3>
 <p>Before increasing anything, find the tempo at which you can play the passage correctly, with even timing and no tension, at least three times in a row. This is your working tempo, and it's the foundation the rest of the method builds on. If you're not certain what that tempo is, start slower than feels necessary. Confirming a genuinely clean baseline matters more than starting fast.</p>
@@ -72,7 +72,7 @@ export const content = `<p><strong>Quick Answer:</strong> Speed is built through
 
 <p>A third sign is more subtle: the passage feels physically effortful in a way it didn't at your previous working tempo, even when the notes come out correct. Effort that increases faster than tempo does is usually an early warning that the current speed isn't sustainable yet, even if it technically works for now.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786219354/taptempo/v3ykrgjfhcdkvuvxj1av.webp" alt="Infographic showing 3 warning signs of increasing metronome tempo too fast" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786219354/taptempo/v3ykrgjfhcdkvuvxj1av.webp" alt="Infographic showing 3 warning signs of increasing metronome tempo too fast" class="rounded-xl w-full" loading="lazy" />
 
 <h3>Using Practice Variability to Break Through</h3>
 <p>When a plateau persists across several sessions, introducing variability into your practice, such as practicing the passage at a slightly slower tempo than your working tempo, or in short isolated sections, can help. This approach relates to a broader principle in motor learning: practice that varies slightly from session to session often transfers better to real performance than repeating the exact same conditions over and over.</p>
@@ -90,7 +90,7 @@ export const content = `<p><strong>Quick Answer:</strong> Speed is built through
 <h3>Building a Tempo Progression Log</h3>
 <p>A short log of your working tempo over time makes plateaus and genuine progress much easier to distinguish from each other. It doesn't need to be complicated. A simple table works well:</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786219355/taptempo/lhfoup7vqnlhbbfa0r7k.webp" alt="Line chart infographic showing metronome tempo progression across practice sessions" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786219355/taptempo/lhfoup7vqnlhbbfa0r7k.webp" alt="Line chart infographic showing metronome tempo progression across practice sessions" class="rounded-xl w-full" loading="lazy" />
 
 <table>
 <thead>

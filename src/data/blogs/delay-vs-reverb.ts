@@ -50,7 +50,7 @@ export const content = `
 </ul>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784648643/taptempo/lyamzs8fvjjsupvgw8an.webp" alt="Diagram comparing four reverb types — room, hall, plate, and spring — showing their different decay wave shapes." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784648643/taptempo/lyamzs8fvjjsupvgw8an.webp" alt="Diagram comparing four reverb types — room, hall, plate, and spring — showing their different decay wave shapes." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <p>Delay has its own well-known variation worth knowing before you go further: slapback delay, a single, fast, low-repeat echo popularized in early rock and rockabilly recordings. It's technically a delay, but because the repeat is so quick and subtle, it can read almost like a tight room rather than an obvious echo effect.</p>
@@ -147,7 +147,7 @@ export const content = `
 <p>Dry source → Delay send → Reverb on the delay return</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784648644/taptempo/bzraat1he8hgsxt28vhs.webp" alt="Signal chain diagram showing audio routed from dry vocal through a delay send into reverb on the delay return." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784648644/taptempo/bzraat1he8hgsxt28vhs.webp" alt="Signal chain diagram showing audio routed from dry vocal through a delay send into reverb on the delay return." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <p>Placing delay before reverb in the signal path means the discrete echoes themselves get treated with reverb, giving the repeats a sense of decaying naturally into the space rather than sounding like separate, dry copies. This is the order most engineers default to for vocals and lead instruments, because it creates a smooth, cohesive tail rather than two competing effects.</p>

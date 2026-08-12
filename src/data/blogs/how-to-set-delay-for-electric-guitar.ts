@@ -53,7 +53,7 @@ export const content = `
 <p>Choosing the right style depends less on the pedal you're using and more on how you want the guitar to sit in the song.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784382192/taptempo/llzxtg8uguhtepe5puxi.webp" alt="Comparison chart of slapback, quarter-note, and dotted-eighth guitar delay styles showing their rhythmic placement and musical feel." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784382192/taptempo/llzxtg8uguhtepe5puxi.webp" alt="Comparison chart of slapback, quarter-note, and dotted-eighth guitar delay styles showing their rhythmic placement and musical feel." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <h3>Slapback Delay</h3>
@@ -125,7 +125,7 @@ export const content = `
 <p>Once you know your song's BPM, converting that number into an exact delay time in milliseconds removes all the guesswork. You can calculate this manually or let a <a href="https://www.thetaptempo.com/bpm-to-ms"><strong>BPM to ms converter</strong></a> do it instantly.</p>
 
 <figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1784382194/taptempo/kzbhteuah9edeoxmkpis.webp" alt="Side-by-side comparison of analog and digital delay pedals showing their different sound characteristics and best use cases." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1784382194/taptempo/kzbhteuah9edeoxmkpis.webp" alt="Side-by-side comparison of analog and digital delay pedals showing their different sound characteristics and best use cases." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 </figure>
 
 <p>Neither option is objectively better. Many guitarists keep both available because each suits different musical situations.</p>

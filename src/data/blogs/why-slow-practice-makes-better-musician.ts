@@ -6,7 +6,7 @@ export const content = `<p>Every musician has felt the temptation to play a new 
 <h2>Why Slow Practice Works</h2>
 <p>Slow practice works because it lets you play something correctly before you try to play it quickly, and correct repetition is what the brain actually encodes into skill. Speed without accuracy does not build the pattern you want; it builds and reinforces the pattern you are actually playing, mistakes included.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786032100/taptempo/dulbyakfgnidsipmae10.webp" alt="Infographic comparing full speed practice versus slow accurate practice for musicians" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786032100/taptempo/dulbyakfgnidsipmae10.webp" alt="Infographic comparing full speed practice versus slow accurate practice for musicians" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <p>This is the core idea behind deliberate practice, a concept widely used in skill-acquisition research across music, sports, and other precision disciplines. Deliberate practice is not simply repeating something over and over. It is repeating something slowly enough to notice errors, correct them immediately, and reinforce only the version you actually want to keep.</p>
 
@@ -54,7 +54,7 @@ export const content = `<p>Every musician has felt the temptation to play a new 
 
 <p>This process is often described as automaticity, the point at which a movement no longer needs step-by-step conscious control. A pianist who has practiced a scale pattern slowly and correctly for weeks eventually stops thinking about individual fingers; the hand simply knows where to go. That automaticity only forms around whatever version of the movement was actually repeated, which is why the accuracy of early repetitions matters so much more than their speed.</p>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786032101/taptempo/rm275mzpesenps5lzfo6.webp" alt="Diagram showing how repetition strengthens neural pathways to build muscle memory" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786032101/taptempo/rm275mzpesenps5lzfo6.webp" alt="Diagram showing how repetition strengthens neural pathways to build muscle memory" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <h2>Why Speed Without Accuracy Backfires</h2>
 <p>Practicing a mistake does not skip this process; it accelerates it in the wrong direction. If a passage is rushed and played inconsistently, the nervous system reinforces that inconsistency just as efficiently as it would reinforce a correct pattern. This is a major reason experienced teachers insist on slow, accurate repetition before allowing a student to increase tempo, since a fast but sloppy version becomes surprisingly difficult to unlearn later.</p>
@@ -89,7 +89,7 @@ export const content = `<p>Every musician has felt the temptation to play a new 
 </tbody>
 </table>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1786032103/taptempo/izszyyvsktkga6o0bq3x.webp" alt="Weekly slow practice routine timeline for musicians showing tempo progression" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1786032103/taptempo/izszyyvsktkga6o0bq3x.webp" alt="Weekly slow practice routine timeline for musicians showing tempo progression" width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <p>This is a general template rather than a fixed rule; some passages need far longer at a slow tempo, and simpler ones may move through these stages in a single session.</p>
 

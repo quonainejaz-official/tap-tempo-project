@@ -83,7 +83,7 @@ export const content = `<h2>Quick Answer</h2>
 
 
 <p>Neither person in this scenario is wrong about what they heard. They've simply locked onto a different layer of the same rhythm.</p>
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857214/taptempo/nfpcj8yz7li5pmfye2fi.webp" alt="Infographic showing how tapping different beat layers of a song — half-time, main beat, snare backbeat, and eighth-note subdivision — produces different BPM readings of 60, 120, 120, and 240." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785857214/taptempo/nfpcj8yz7li5pmfye2fi.webp" alt="Infographic showing how tapping different beat layers of a song — half-time, main beat, snare backbeat, and eighth-note subdivision — produces different BPM readings of 60, 120, 120, and 240." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <h3>Syncopation, Swing, and Accents</h3>
 <p>Syncopation, swing, and heavy accenting can make beat selection harder, because they pull your ear toward an off-beat sound instead of the underlying pulse. A funk or hip-hop groove with a strong syncopated snare can genuinely trick your hand into tapping ahead of or behind the actual beat, even if your instincts feel confident in the moment.</p>
@@ -112,7 +112,7 @@ export const content = `<h2>Quick Answer</h2>
 <li><strong>Keep your device and setup consistent when comparing results with someone else.</strong> If you're troubleshooting a mismatch, try tapping on the same device to rule out latency differences.</li>
 </ul>
 
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1785857215/taptempo/b08s7sc8jigskp6o5cz5.webp" alt="Infographic listing five habits for a more accurate BPM reading: tap at least 8 times, follow one consistent beat layer, choose a steady section, match devices when comparing, and cross-check with math." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1785857215/taptempo/b08s7sc8jigskp6o5cz5.webp" alt="Infographic listing five habits for a more accurate BPM reading: tap at least 8 times, follow one consistent beat layer, choose a steady section, match devices when comparing, and cross-check with math." width="800" height="450" class="rounded-xl w-full" loading="lazy" />
 
 <h3>Cross-Checking Your Result</h3>
 <p>If you already know the time between two beats, our <a href="https://www.thetaptempo.com/bpm-calculator">BPM Calculator</a> can confirm a tempo mathematically, which is useful for double-checking a tap-based reading that seems off.</p>

@@ -21,7 +21,7 @@ export const content = `<p>Learning to practice with a metronome is one of the f
 <p>Once you understand the most common practice mistakes, metronome sessions become less frustrating and far more rewarding.</p>
 
 <figure>
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1783437513/taptempo/ijjkunpfxqeeyws3tani.jpg" alt="A close-up photograph capturing a digital metronome displaying 96 BPM positioned on a wooden music stand next to a musician holding an acoustic guitar fretboard, emphasizing a focused practice environment." title="Why Metronome Practice Feels Difficult" class="blog-image" loading="lazy" width="1200" height="800" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1783437513/taptempo/ijjkunpfxqeeyws3tani.jpg" alt="A close-up photograph capturing a digital metronome displaying 96 BPM positioned on a wooden music stand next to a musician holding an acoustic guitar fretboard, emphasizing a focused practice environment." title="Why Metronome Practice Feels Difficult" class="blog-image" loading="lazy" width="1200" height="800" />
 </figure>
 
 <h2>10 Common Mistakes</h2>
@@ -83,7 +83,7 @@ export const content = `<p>Learning to practice with a metronome is one of the f
 </table>
 
 <figure>
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1783437515/taptempo/hfguk9cpcfamcynepcy2.jpg" alt="An infographic comparing 'Chasing Speed' (rushed progress with large BPM jumps) on the left to 'Building Mastery' (consistent progress with small, gradual steps) on the right, overlaid on a music studio background." title="Increasing BPM Too Quickly" class="blog-image" loading="lazy" width="1200" height="800" />
+<img src="https://res.cloudinary.com/dym1gtcer/image/upload/w_800/v1783437515/taptempo/hfguk9cpcfamcynepcy2.jpg" alt="An infographic comparing 'Chasing Speed' (rushed progress with large BPM jumps) on the left to 'Building Mastery' (consistent progress with small, gradual steps) on the right, overlaid on a music studio background." title="Increasing BPM Too Quickly" class="blog-image" loading="lazy" width="1200" height="800" />
 </figure>
 
 <h4><strong>Why it happens</strong></h4>
