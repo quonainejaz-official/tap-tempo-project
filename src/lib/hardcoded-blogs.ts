@@ -17,6 +17,7 @@ import { content as c15 } from "@/data/blogs/why-bpm-results-differ"
 import { content as c16 } from "@/data/blogs/why-slow-practice-makes-better-musician"
 import { content as c17 } from "@/data/blogs/how-to-increase-playing-speed-with-metronome"
 import { content as c18 } from "@/data/blogs/why-small-bpm-changes-affect-song-feel"
+import { content as c19 } from "@/data/blogs/how-to-match-bpm-of-a-reference-song"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -40,6 +41,7 @@ const blogContentMap: Record<string, string> = {
   "why-slow-practice-makes-better-musician": c16,
   "how-to-increase-playing-speed-with-metronome": c17,
   "why-small-bpm-changes-affect-song-feel": c18,
+  "how-to-match-bpm-of-a-reference-song": c19,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
