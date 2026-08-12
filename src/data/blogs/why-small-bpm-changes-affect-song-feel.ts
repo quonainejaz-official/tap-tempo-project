@@ -83,7 +83,7 @@ export const content = `<p>Two versions of the same song, identical in every way
 
 <p><strong>Quick Answer:</strong> The best time to experiment with tempo is after the arrangement is finished but before the mix is locked. Test two or three nearby BPM values, listen with fresh ears, and judge based on energy, vocal comfort, and groove rather than instinct alone.</p>
 
-<p>Experiment with multiple tempos using our <a href="https://www.thetaptempo.com/bpm-calculator"><strong>BPM Calculator</strong></a> to discover which BPM gives your song the strongest emotional impact.</p>
+<p>Experiment with multiple tempos using our BPM Calculator to discover which BPM gives your song the strongest emotional impact.</p>
 
 <h2>Continue Learning</h2>
 <p>Explore more guides on tempo, energy, and music production:</p>
