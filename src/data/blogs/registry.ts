@@ -73,8 +73,9 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
   "excerpt": "Learn how to find the BPM of any song using Tap Tempo, DJ software, DAWs, apps, and more. Compare seven proven methods to choose the right one.",
   "metaTitle": "How to Find the BPM of Any Song: 7 Methods | TheTapTempo",
   "metaDescription": "Learn how to find the BPM of any song using Tap Tempo, DJ software, DAWs, apps, and more. Compare seven proven methods to choose the right one.",
-  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1782851632/taptempo/rmyrud7x7ll44ilv34tj.jpg",
-  "coverImagePublicId": "taptempo/rmyrud7x7ll44ilv34tj",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1786729403/taptempo/f0bzwdwntc5dst1yprbk.webp",
+  "coverImagePublicId": "taptempo/f0bzwdwntc5dst1yprbk",
+  "coverImageAlt": "How to find the BPM of any song using seven proven methods",
   "author": "TheTapTempo Editorial Team",
   "readTime": "26 min read",
   "tags": [
