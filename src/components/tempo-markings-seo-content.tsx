@@ -34,6 +34,35 @@ function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
   )
 }
 
+function ComparisonCard({
+  leftLabel,
+  leftValue,
+  rightLabel,
+  rightValue,
+}: {
+  leftLabel: string
+  leftValue: string
+  rightLabel: string
+  rightValue: string
+}) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+      <div className="rounded-xl border bg-card p-4">
+        <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-1.5">
+          {leftLabel}
+        </p>
+        <p className="text-sm font-medium text-foreground">{leftValue}</p>
+      </div>
+      <div className="rounded-xl border bg-card p-4">
+        <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-1.5">
+          {rightLabel}
+        </p>
+        <p className="text-sm font-medium text-foreground">{rightValue}</p>
+      </div>
+    </div>
+  )
+}
+
 export function TempoMarkingsSeoContent() {
   return (
     <section className="mt-16 space-y-12 divide-y divide-border">
@@ -90,34 +119,27 @@ export function TempoMarkingsSeoContent() {
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Tempo vs Rhythm</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Many beginners confuse tempo and rhythm.
+          Many beginners confuse tempo and rhythm — tempo is how fast music moves, while rhythm is the pattern of notes and beats.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Tempo = how fast music moves
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Rhythm = the pattern of notes and beats
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">Think of it like walking:</p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>Tempo = your walking speed</li>
-          <li>Rhythm = the pattern of your footsteps</li>
-        </ul>
+        <ComparisonCard
+          leftLabel="Tempo"
+          leftValue="Your walking speed"
+          rightLabel="Rhythm"
+          rightValue="The pattern of your footsteps"
+        />
       </section>
 
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Tempo vs Time Signature</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          A time signature tells you how beats are organized.
+          A time signature tells you how beats are organized, while tempo tells you how quickly those beats occur.
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Tempo tells you how quickly those beats occur.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">For example:</p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>4/4 time tells you there are four beats per measure</li>
-          <li>120 BPM tells you how fast those beats happen</li>
-        </ul>
+        <ComparisonCard
+          leftLabel="Time Signature"
+          leftValue="4/4 time = four beats per measure"
+          rightLabel="Tempo"
+          rightValue="120 BPM = how fast those beats happen"
+        />
         <p className="text-sm text-muted-foreground leading-relaxed">
           If you&apos;re still learning beat structure, our{" "}
           <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">beats-per-bar guide</Link>{" "}
