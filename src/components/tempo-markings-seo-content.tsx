@@ -153,40 +153,46 @@ export function TempoMarkingsSeoContent() {
           Tempo affects much more than speed.
         </p>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Emotional impact</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Changing tempo changes mood instantly.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">Examples:</p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>Slow tempos often feel emotional, dramatic, or peaceful</li>
-          <li>Moderate tempos feel balanced and natural</li>
-          <li>Fast tempos often create excitement and energy</li>
-        </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:auto-rows-fr">
+          <div className="rounded-xl border bg-card p-4">
+            <h4 className="font-semibold text-sm text-foreground mb-1">Emotional Impact</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Changing tempo changes mood instantly.
+            </p>
+            <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+              <li>Slow tempos often feel emotional, dramatic, or peaceful</li>
+              <li>Moderate tempos feel balanced and natural</li>
+              <li>Fast tempos often create excitement and energy</li>
+            </ul>
+          </div>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Performance consistency</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Without tempo markings, musicians might perform the same piece very differently.
-        </p>
+          <div className="rounded-xl border bg-card p-4">
+            <h4 className="font-semibold text-sm text-foreground mb-1">Performance Consistency</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Without tempo markings, musicians might perform the same piece very differently. This is exactly why tempo markings became essential once the same compositions began being performed by different orchestras, in different cities, and across different generations.
+            </p>
+          </div>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Genre influence</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Different music styles often use specific tempo ranges:
-        </p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>Ballads &#x2192; slower BPM</li>
-          <li>Pop music &#x2192; moderate BPM</li>
-          <li>Dance music &#x2192; faster BPM</li>
-          <li>Electronic music &#x2192; wide BPM variations</li>
-        </ul>
+          <div className="rounded-xl border bg-card p-4">
+            <h4 className="font-semibold text-sm text-foreground mb-1">Genre Influence</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Different music styles often use specific tempo ranges:
+            </p>
+            <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+              <li>Ballads &#x2192; slower BPM</li>
+              <li>Pop music &#x2192; moderate BPM</li>
+              <li>Dance music &#x2192; faster BPM</li>
+              <li>Electronic music &#x2192; wide BPM variations</li>
+            </ul>
+          </div>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Musical interpretation</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Professional musicians do not simply count beats.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          They use tempo to shape expression and musical storytelling.
-        </p>
+          <div className="rounded-xl border bg-card p-4">
+            <h4 className="font-semibold text-sm text-foreground mb-1">Musical Interpretation</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Professional musicians do not simply count beats. They use tempo to shape expression and musical storytelling. Two performers can play the exact same notes yet sound completely different, depending on how they interpret the tempo marking.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section>
