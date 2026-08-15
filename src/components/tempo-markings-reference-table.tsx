@@ -19,6 +19,7 @@ const tempoCategory = (marking: { bpmMin: number; bpmMax: number }): Speed => {
 const dedicatedGuideTerms = new Set([
   "Grave",
   "Largo",
+  "Lento",
   "Adagio",
   "Andante",
   "Moderato",

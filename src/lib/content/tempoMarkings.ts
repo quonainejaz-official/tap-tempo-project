@@ -2,6 +2,7 @@ export const tempoMarkings = [
   { term: "Larghissimo", bpmMin: 10, bpmMax: 24, description: "Extremely slow, almost static", musicalFeel: "Funereal, meditative, immense space" },
   { term: "Grave", bpmMin: 25, bpmMax: 45, description: "Very slow and solemn", musicalFeel: "Heavy, serious, weighty" },
   { term: "Largo", bpmMin: 40, bpmMax: 60, description: "Broad and dignified", musicalFeel: "Expansive, flowing, majestic" },
+  { term: "Lento", bpmMin: 40, bpmMax: 60, description: "Slow, smooth and flowing", musicalFeel: "Calm, sustained, gentle" },
   { term: "Larghetto", bpmMin: 60, bpmMax: 66, description: "Rather broad, slightly faster than Largo", musicalFeel: "Intimate, gentle, floating" },
   { term: "Adagio", bpmMin: 66, bpmMax: 76, description: "Slow and stately", musicalFeel: "Lyrical, expressive, breathing" },
   { term: "Adagietto", bpmMin: 70, bpmMax: 80, description: "Quite slow, slightly faster than Adagio", musicalFeel: "Intimate, softer, gentle" },

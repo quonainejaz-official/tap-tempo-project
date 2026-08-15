@@ -178,6 +178,9 @@ export function TempoMarkingsSeoContent() {
         <p id="tempo-guide-largo" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Largo</strong> — Largo has a broad and spacious feel. Musicians often describe it as powerful and grand.
         </p>
+        <p id="tempo-guide-lento" className="text-sm text-muted-foreground leading-relaxed">
+          <strong>Lento</strong> — Lento means slow, smooth, and flowing. It sits close to Largo in speed but implies a more connected, singing quality rather than broadness. Composers use Lento when they want sustained, unhurried motion.
+        </p>
         <p id="tempo-guide-adagio" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Adagio</strong> — Adagio combines slower speed with expressive emotion. Many emotional piano pieces use Adagio sections.
         </p>
@@ -187,12 +190,14 @@ export function TempoMarkingsSeoContent() {
         <p id="tempo-guide-andante" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Andante</strong> — Andante literally suggests a walking pace. Imagine walking naturally down a street without rushing.
         </p>
+        <h4 className="text-lg font-serif font-bold mt-8 mb-3">What is Moderato Tempo Range?</h4>
         <p id="tempo-guide-moderato" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Moderato</strong> — Moderato sits comfortably in the middle. It creates balance without feeling too relaxed or too energetic.
         </p>
 
         <h3 id="tempo-guide-fast-heading" className="text-lg font-serif font-bold mt-8 mb-3">Fast Tempo Markings</h3>
 
+        <h4 className="text-lg font-serif font-bold mt-8 mb-3">What is a Fast Tempo Called in Music?</h4>
         <p id="tempo-guide-allegro" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Allegro</strong> — Allegro is one of the most common tempo markings. It usually feels lively and energetic. Many classical and pop-inspired pieces use Allegro.
         </p>
@@ -200,7 +205,7 @@ export function TempoMarkingsSeoContent() {
           <strong>Vivace</strong> — Vivace moves faster and often feels bright and joyful.
         </p>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Very Fast Tempo Markings</h3>
+        <h4 className="text-lg font-serif font-bold mt-8 mb-3">Very Fast Tempo Markings</h4>
 
         <p id="tempo-guide-presto" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Presto</strong> — Presto demands speed and precision. Fast instrumental passages often use this marking.
@@ -439,6 +444,22 @@ export function TempoMarkingsSeoContent() {
           <FaqItem
             q="How does a metronome help?"
             a="A metronome provides consistent beats that help musicians maintain timing and improve accuracy."
+          />
+          <FaqItem
+            q="What is Moderato tempo range?"
+            a="Moderato ranges from 108–120 BPM. It sits in the middle of the tempo spectrum, meaning &quot;moderate speed&quot; in Italian. It&apos;s neither slow nor fast, creating a balanced, controlled, neutral feel that&apos;s commonly used across classical and pop music."
+          />
+          <FaqItem
+            q="How many BPM is Moderato?"
+            a="Moderato is typically 108–120 BPM. Some sources place it slightly lower, around 86–97 BPM, depending on style and era. In practice, Moderato simply means a comfortable, walking-to-moderate pace — not rushed, not slow."
+          />
+          <FaqItem
+            q="What tempo in music means fast?"
+            a="Allegro (120–156 BPM) is the most common fast tempo marking, meaning &quot;fast, quick, and bright.&quot; Faster still are Vivace (156–176 BPM), Presto (168–200 BPM), and Prestissimo (200–300 BPM), used for the quickest, most energetic passages."
+          />
+          <FaqItem
+            q="What is a fast tempo called in music?"
+            a="A fast tempo is generally called Allegro, the most widely used fast marking in music. For even faster speeds, terms like Vivace, Presto, and Prestissimo are used, each indicating a progressively quicker pace than Allegro."
           />
         </div>
       </section>
