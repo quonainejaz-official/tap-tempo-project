@@ -238,40 +238,23 @@ export function TempoMarkingsSeoContent() {
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Tempo Changes Explained</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Music doesn&apos;t always stay at one speed.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Composers frequently change tempo throughout a piece.
+          Music doesn&apos;t always stay at one speed. Composers frequently change tempo throughout a piece using terms like these:
         </p>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Accelerando</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Accelerando means gradually becoming faster.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Imagine a train slowly gaining speed.
-        </p>
-
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Ritardando</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Ritardando means gradually slowing down.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          This often creates dramatic endings.
-        </p>
-
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Rubato</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Rubato allows flexible timing for expression.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          The musician slightly stretches or compresses time while keeping the musical phrase natural.
-        </p>
-
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">A Tempo</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          A tempo means returning to the original speed.
-        </p>
+        <div className="space-y-2.5">
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            <strong>Accelerando</strong> — Accelerando means gradually becoming faster. Imagine a train slowly gaining speed.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            <strong>Ritardando</strong> — Ritardando means gradually slowing down. This often creates dramatic endings.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            <strong>Rubato</strong> — Rubato allows flexible timing for expression. The musician slightly stretches or compresses time while keeping the musical phrase natural.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            <strong>A Tempo</strong> — A tempo means returning to the original speed.
+          </p>
+        </div>
       </section>
 
       <section>
