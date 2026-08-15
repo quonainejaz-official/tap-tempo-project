@@ -334,66 +334,43 @@ export function TempoMarkingsSeoContent() {
       <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">How to Practice Tempo Markings Using a Metronome</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          A metronome turns abstract tempo terms into something you can hear and feel.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">Follow this simple workflow:</p>
-
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Choose your BPM</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Select the target BPM from the chart.
+          A metronome turns abstract tempo terms into something you can hear and feel. Follow this simple workflow:
         </p>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Start slower than your target</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Starting slowly improves control and accuracy.
-        </p>
+        <div className="space-y-2.5">
+          {[
+            { title: "Choose your BPM", desc: "Select the target BPM from the chart." },
+            { title: "Start slower than your target", desc: "Starting slowly improves control and accuracy." },
+            { title: "Increase gradually", desc: "Increase by 5 BPM, 10 BPM, or small consistent increments." },
+            { title: "Track accuracy", desc: "Pay attention to timing consistency, note clarity, and mistakes during transitions." },
+            { title: "Practice tempo changes", desc: "Switch between slower and faster speeds to help build internal timing." },
+          ].map((step, i) => (
+            <div key={step.title} className="flex items-start gap-2.5">
+              <span className="w-6 h-6 shrink-0 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold mt-0.5">
+                {i + 1}
+              </span>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <strong>{step.title}</strong> — {step.desc}
+              </p>
+            </div>
+          ))}
+        </div>
 
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Increase gradually</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Increase by:
-        </p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>5 BPM</li>
-          <li>10 BPM</li>
-          <li>Small consistent increments</li>
-        </ul>
-
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Track accuracy</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Pay attention to:
-        </p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>Timing consistency</li>
-          <li>Note clarity</li>
-          <li>Mistakes during transitions</li>
-        </ul>
-
-        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Practice tempo changes</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Switch between slower and faster speeds.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          This helps build internal timing.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          You can practice directly with our{" "}
-          <Link href="/metronome" className="text-primary hover:underline font-bold">online metronome</Link>{" "}
-          to hear tempo in real time.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          If you&apos;re trying to identify song speed quickly, use the{" "}
-          <Link href="/tap-tempo" className="text-primary hover:underline font-bold">Tap Tempo tool</Link>{" "}
-          by tapping along with the beat.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Need to convert values during production work? The{" "}
-          <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM calculator</Link>{" "}
-          can help estimate and compare tempo values more accurately.
-        </p>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Music producers can also calculate delay timing using the{" "}
-          <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">delay and reverb time calculator</Link>.
-        </p>
+        <div className="mt-4 rounded-xl border bg-card px-4 py-3 flex flex-wrap items-center gap-2">
+          <span className="text-sm font-semibold text-foreground">Related tools:</span>
+          <Link href="/metronome" className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-muted/40">
+            Online Metronome
+          </Link>
+          <Link href="/tap-tempo" className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-muted/40">
+            Tap Tempo tool
+          </Link>
+          <Link href="/bpm-calculator" className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-muted/40">
+            BPM calculator
+          </Link>
+          <Link href="/delay-reverb-time-calculator" className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-muted/40">
+            Delay &amp; Reverb Time calculator
+          </Link>
+        </div>
       </section>
 
       <section>
