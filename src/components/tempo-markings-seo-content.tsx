@@ -212,22 +212,20 @@ export function TempoMarkingsSeoContent() {
         <p id="tempo-guide-andante" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Andante</strong> — Andante literally suggests a walking pace. Imagine walking naturally down a street without rushing.
         </p>
-        <h4 className="text-lg font-serif font-bold mt-8 mb-3">What is Moderato Tempo Range?</h4>
         <p id="tempo-guide-moderato" className="text-sm text-muted-foreground leading-relaxed">
-          <strong>Moderato</strong> — Moderato sits comfortably in the middle. It creates balance without feeling too relaxed or too energetic.
+          <strong>Moderato (What is Moderato Tempo Range?)</strong> — Moderato sits comfortably in the middle. It creates balance without feeling too relaxed or too energetic.
         </p>
 
         <h3 id="tempo-guide-fast-heading" className="text-lg font-serif font-bold mt-8 mb-3">Fast Tempo Markings</h3>
 
-        <h4 className="text-lg font-serif font-bold mt-8 mb-3">What is a Fast Tempo Called in Music?</h4>
         <p id="tempo-guide-allegro" className="text-sm text-muted-foreground leading-relaxed">
-          <strong>Allegro</strong> — Allegro is one of the most common tempo markings. It usually feels lively and energetic. Many classical and pop-inspired pieces use Allegro.
+          <strong>Allegro (What is a Fast Tempo Called in Music?)</strong> — Allegro is one of the most common tempo markings. It usually feels lively and energetic. Many classical and pop-inspired pieces use Allegro.
         </p>
         <p id="tempo-guide-vivace" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Vivace</strong> — Vivace moves faster and often feels bright and joyful.
         </p>
 
-        <h4 className="text-lg font-serif font-bold mt-8 mb-3">Very Fast Tempo Markings</h4>
+        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Very Fast Tempo Markings</h3>
 
         <p id="tempo-guide-presto" className="text-sm text-muted-foreground leading-relaxed">
           <strong>Presto</strong> — Presto demands speed and precision. Fast instrumental passages often use this marking.
