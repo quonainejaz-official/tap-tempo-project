@@ -255,6 +255,80 @@ export function TempoMarkingsSeoContent() {
       </section>
 
       <section>
+        <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">Tempo Marking Modifiers (Compound Terms)</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Composers often combine a base tempo marking with a modifier word to fine-tune the speed or character. These compound terms are common in classical scores but rarely explained clearly — here&apos;s what the most searched ones mean:
+        </p>
+
+        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Common Modifier Words</h3>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li><strong>Assai</strong> — &quot;very&quot; (e.g. Adagio assai = very slow)</li>
+          <li><strong>Molto</strong> — &quot;much, very&quot; (e.g. Allegro molto = very fast)</li>
+          <li><strong>Poco</strong> — &quot;a little&quot; (e.g. Poco Adagio = a little slow)</li>
+          <li><strong>Non Troppo</strong> — &quot;not too much&quot; (e.g. Allegro non troppo = fast, but not too fast)</li>
+          <li><strong>Con Moto</strong> — &quot;with motion&quot; (e.g. Andante con moto = walking pace, with movement)</li>
+          <li><strong>Maestoso</strong> — &quot;majestic&quot; (e.g. Andante maestoso = walking pace, played majestically)</li>
+          <li><strong>Moderato</strong> (as a modifier) — &quot;moderate&quot; (e.g. Andante moderato = between Andante and Moderato, roughly 92–112 BPM)</li>
+          <li><strong>Giusto</strong> — &quot;exact, strict&quot; (e.g. Allegro giusto = fast, played in strict, precise time)</li>
+          <li><strong>Scherzando</strong> — &quot;playful, joking&quot; (e.g. Allegro scherzando = fast and playful in character)</li>
+        </ul>
+
+        <h3 className="text-lg font-serif font-bold mt-8 mb-3">Common Compound Terms and Approximate BPM</h3>
+        <div className="overflow-x-auto rounded-xl border">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-muted/50">
+                <th className="text-left px-4 py-2 font-medium">Compound Term</th>
+                <th className="text-left px-4 py-2 font-medium">Approx. BPM</th>
+                <th className="text-left px-4 py-2 font-medium">Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Andante moderato</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">92&#x2013;112 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Walking pace, moderately brisk</td>
+              </tr>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Andante maestoso</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">76&#x2013;108 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Walking pace, played majestically</td>
+              </tr>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Andante con moto</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">80&#x2013;110 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Walking pace, with added motion</td>
+              </tr>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Allegro moderato</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">116&#x2013;120 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Moderately fast, held back slightly</td>
+              </tr>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Allegro giusto</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">120&#x2013;156 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Fast, in exact/strict tempo</td>
+              </tr>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Allegro scherzando</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">120&#x2013;156 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Fast and playful</td>
+              </tr>
+              <tr className="border-t">
+                <td className="px-4 py-2 font-serif italic">Allegro non troppo</td>
+                <td className="px-4 py-2 font-mono text-xs text-muted-foreground whitespace-nowrap">120&#x2013;140 BPM</td>
+                <td className="px-4 py-2 text-muted-foreground">Fast, but not pushed to the limit</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+          These modifiers don&apos;t change the base category (slow, moderate, fast) — they fine-tune character and exact pacing within it. When in doubt, treat the base term (Andante, Allegro, etc.) as the primary speed guide and the modifier as a performance instruction.
+        </p>
+      </section>
+
+      <section>
         <h2 className="text-xl md:text-2xl font-serif font-bold mb-5">How to Practice Tempo Markings Using a Metronome</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
           A metronome turns abstract tempo terms into something you can hear and feel.
