@@ -129,6 +129,15 @@ export function HomePageContent() {
       .catch(() => setPostsLoading(false))
   }, [])
 
+  const scrollToTools = () => {
+    const header = document.querySelector("header")
+    const headerHeight = header?.offsetHeight ?? 0
+    const target = document.getElementById("tools")
+    if (!target) return
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight
+    window.scrollTo({ top, behavior: "smooth" })
+  }
+
   return (
     <div className="min-h-screen">
       <section className="relative overflow-hidden">
@@ -172,11 +181,9 @@ export function HomePageContent() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex items-center justify-center gap-4 mb-6"
             >
-              <Button size="lg" asChild>
-                <Link href="/tap-tempo">
-                  <Activity className="w-5 h-5 mr-2" />
-                  Explore Music Tools
-                </Link>
+              <Button size="lg" onClick={scrollToTools}>
+                <Activity className="w-5 h-5 mr-2" />
+                Explore Music Tools
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link href="/metronome">
