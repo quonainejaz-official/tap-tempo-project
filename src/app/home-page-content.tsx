@@ -161,9 +161,9 @@ export function HomePageContent() {
               transition={{ duration: 0.5, delay: 0 }}
               className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold tracking-tight mb-4"
             >
-              Tempo &amp; Rhythm
+              Music Tools
               <br />
-              <span className="text-primary">for Musicians</span>
+              <span className="text-primary">for Musicians &amp; DJs</span>
             </motion.h1>
 
             <motion.p
