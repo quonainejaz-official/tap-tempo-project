@@ -425,6 +425,12 @@ export function BpmToMsSeoContent() {
                   "Learn what tempo-synced effects actually do, why manual timing drifts out of sync, and which effects benefit most from following your song's tempo.",
                 href: "/blog/tempo-synced-effects",
               },
+              {
+                title: "Latency vs Musical Timing: Why Milliseconds Matter in Recording and Mixing",
+                description:
+                  "Learn why technical latency and intentional musical timing both use milliseconds, but represent completely different concepts in recording and mixing.",
+                href: "/blog/latency-vs-musical-timing",
+              },
             ]}
           />
         </div>
