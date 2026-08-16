@@ -50,7 +50,7 @@ const jsonLd = {
           name: "What's the difference between this BPM calculator and a tap tempo tool?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "A tap tempo tool finds BPM by you tapping a button in real time, fastest for a song playing now. A BPM calculator works from a counted number of beats over a known time, more accurate for live performances or when you don't have a device to tap.",
+            text: "A tap tempo tool finds BPM by you tapping a button in real time, fastest for a song playing now. A BPM calculator works from a counted number of beats over a known time, more accurate for live performances or when you don't have a device to tap. For the fastest way to find a song's BPM, use our Tap Tempo tool at https://www.thetaptempo.com/tap-tempo.",
           },
         },
         {

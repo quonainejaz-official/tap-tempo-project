@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
@@ -47,9 +48,14 @@ export default function BpmCalculatorPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <div className="mb-8">
-        <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">BPM Calculator</h1>
+      <div className="mb-4">
+        <h1 className="text-4xl font-serif font-bold tracking-tight">BPM Calculator</h1>
         <p className="text-muted-foreground">Calculate BPM from beats and time, find total beats from tempo, or estimate song duration with this free BPM Calculator.</p>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5 px-4 rounded-xl border border-primary/20 bg-primary/5 mb-2">
+        <p className="text-sm text-muted-foreground">Don&apos;t know the beats or time?</p>
+        <Link href="/tap-tempo" className="text-sm font-bold text-primary hover:underline">Tap it out →</Link>
       </div>
 
       <Tabs defaultValue="find-bpm" className="w-full">
@@ -59,9 +65,9 @@ export default function BpmCalculatorPage() {
           <TabsTrigger value="find-duration">Find Duration</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="find-bpm" className="mt-6">
+        <TabsContent value="find-bpm" className="mt-4">
           <div className="p-6 rounded-xl border bg-card">
-            <div className="grid grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-2 gap-6 mb-5">
               <div className="space-y-2">
                 <Label>Number of Beats</Label>
                 <Input type="number" value={beats} onChange={e => setBeats(e.target.value)} />
