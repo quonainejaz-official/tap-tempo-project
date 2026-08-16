@@ -299,6 +299,18 @@ export function BpmCalculatorSeoContent() {
             q="What time signatures does this work for?"
             a={<>All of them. BPM always measures quarter‑note beats in standard time. For 6/8, the &ldquo;beat&rdquo; is usually a dotted quarter, but the math still works if you count the <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">main pulse</Link>.</>}
           />
+          <FaqItem
+            q="How do I calculate BPM manually without a tool?"
+            a="Count how many beats occur in 15 or 30 seconds using a stopwatch, then apply BPM = (Beats × 60) ÷ Seconds. Counting for longer than 15 seconds improves accuracy, since small counting errors affect the final result more over shorter samples. Our calculator above does this math instantly." />
+          <FaqItem
+            q="How do I convert BPM to seconds per beat?"
+            a={<>Divide 60 by the BPM: Seconds per beat = 60 ÷ BPM. For example, at 120 BPM, each beat lasts 60 ÷ 120 = 0.5 seconds. This is useful for syncing delay effects, loops, or claps to a track&apos;s tempo — use our <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">BPM to ms calculator</Link> for millisecond precision.</>} />
+          <FaqItem
+            q="How can I estimate a song's duration from its BPM?"
+            a="If you know a song&apos;s total beat count and BPM, use Seconds = (Beats × 60) ÷ BPM. For example, a 480-beat track at 80 BPM plays for (480 × 60) ÷ 80 = 360 seconds, or exactly 6 minutes. Use the &quot;Find Duration&quot; tab above to calculate this automatically." />
+          <FaqItem
+            q="How do I convert BPM to a tempo value?"
+            a={<>BPM already is the tempo value — &ldquo;120 BPM&rdquo; and &ldquo;a tempo of 120&rdquo; describe the same thing. If you need the equivalent Italian tempo term instead (like Allegro or Andante), check our <Link href="/tempo-markings" className="text-primary hover:underline font-bold">Tempo Markings guide</Link>, which maps BPM ranges to those names.</>} />
         </div>
       </section>
 
