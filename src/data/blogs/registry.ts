@@ -1007,6 +1007,56 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
       "a": "Sync guarantees tempo-accurate timing, not beat-accurate phase or the right division choice, so an off-beat feel can still come from an unsuitable note division, an incorrect project BPM, or a mismatched starting position."
     }
   ]
+},
+{
+  "slug": "latency-vs-musical-timing",
+  "title": "Latency vs Musical Timing: Why Milliseconds Matter in Recording and Mixing",
+  "excerpt": "Latency and musical timing both use milliseconds, but they mean different things. Learn to tell system delay from intentional timing when recording and mixing.",
+  "metaTitle": "Latency vs Musical Timing: Why Milliseconds Matter",
+  "metaDescription": "Latency and musical timing both use milliseconds, but they mean different things. Learn to tell system delay from intentional timing when recording and mixing.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1786857805/taptempo/vxkvmqev3qhmskqfzuey.webp",
+  "coverImagePublicId": "taptempo/vxkvmqev3qhmskqfzuey",
+  "coverImageAlt": "Latency vs musical timing comparison showing technical system delay and intentional rhythmic timing in music production.",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "15 min read",
+  "tags": [
+    "audio latency",
+    "music production",
+    "recording",
+    "monitoring",
+    "DAW",
+    "buffer size",
+    "latency",
+    "guide"
+  ],
+  "createdAt": "2026-08-16T00:00:00.000Z",
+  "updatedAt": "2026-08-16T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "What is audio latency?",
+      "a": "Audio latency is the elapsed time between an audio signal entering a digital system and that same signal becoming audible or usable at the output, caused by conversion, buffering, and processing along the signal path."
+    },
+    {
+      "q": "Is latency the same as delay?",
+      "a": "Latency and recording delay are often used interchangeably, but latency specifically refers to unintended system processing time, while \"delay\" can also describe an intentional musical effect, so the term alone doesn't tell you which one is meant."
+    },
+    {
+      "q": "Why is latency measured in milliseconds?",
+      "a": "Milliseconds give a consistent, human-readable unit of elapsed time that works the same way across different interfaces, sample rates, and buffer sizes, even though the underlying measurement starts as a sample count."
+    },
+    {
+      "q": "How much latency is acceptable?",
+      "a": "Acceptable latency depends on the performer, the instrument, and the monitoring method, with research showing tolerance ranging from roughly 1.4 to 42 milliseconds depending on the task, rather than a single fixed threshold."
+    },
+    {
+      "q": "Does latency affect recording?",
+      "a": "Latency affects the monitoring experience during recording, which can make a performance feel uncomfortable, though the recorded waveform itself isn't automatically displaced just because the performer felt a delay."
+    },
+    {
+      "q": "How is musical timing different from latency?",
+      "a": "Musical timing is an intentional relationship between events that a musician or producer chooses on purpose, while latency is an unintended delay the audio system introduces regardless of what anyone wants."
+    }
+  ]
 }
 ]
 
