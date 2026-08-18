@@ -383,6 +383,12 @@ export function DelayReverbSeoContent() {
                   "Understand what each effect actually does to your sound, when to use one over the other, and how to combine them without muddying your mix.",
                 href: "/blog/delay-vs-reverb",
               },
+              {
+                title: "Stereo Delay",
+                description:
+                  "Learn how stereo delay creates width, how it differs from mono and ping-pong delay, and how to use it on vocals, guitars, and synths without losing mono compatibility.",
+                href: "/blog/stereo-delay",
+              },
             ]}
           />
         </div>
