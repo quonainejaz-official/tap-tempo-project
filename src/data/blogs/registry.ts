@@ -1057,6 +1057,80 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
       "a": "Musical timing is an intentional relationship between events that a musician or producer chooses on purpose, while latency is an unintended delay the audio system introduces regardless of what anyone wants."
     }
   ]
+},
+{
+  "slug": "stereo-delay",
+  "title": "Stereo Delay Explained: How to Create Wider and More Professional Mixes",
+  "excerpt": "Stereo delay explained: how it compares to mono and ping-pong delay, and how to use it on vocals, guitars, and synths without losing mono compatibility.",
+  "metaTitle": "Stereo Delay Explained: How to Create Wider Mixes | TheTapTempo",
+  "metaDescription": "Stereo delay explained: how it compares to mono and ping-pong delay, and how to use it on vocals, guitars, and synths without losing mono compatibility.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1787067800/taptempo/stereo-delay-featured.webp",
+  "coverImagePublicId": "taptempo/stereo-delay-featured",
+  "coverImageAlt": "Stereo delay explained — infographic showing a dry mono signal splitting into offset left and right delay paths to create stereo width",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "22 min read",
+  "tags": [
+    "stereo delay",
+    "mixing",
+    "audio effects",
+    "music production",
+    "delay",
+    "ping-pong delay",
+    "mono compatibility",
+    "guide"
+  ],
+  "createdAt": "2026-08-18T00:00:00.000Z",
+  "updatedAt": "2026-08-18T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "What is stereo delay?",
+      "a": "A delay effect built around separate left and right signal paths, letting repeats spread across the stereo field instead of staying centered with the source."
+    },
+    {
+      "q": "How does stereo delay work?",
+      "a": "It typically runs two delay paths, one per channel, with some or all parameters controllable independently, so the wet signal can occupy a different position in the stereo image than the dry signal."
+    },
+    {
+      "q": "What is the difference between stereo delay and mono delay?",
+      "a": "Mono delay uses a single path with repeats that stay close to the source's position; stereo delay uses two paths that can differ in timing, panning, or level to create width."
+    },
+    {
+      "q": "Is ping-pong delay the same as stereo delay?",
+      "a": "No. Ping-pong is a specific stereo-delay configuration where repeats alternate between left and right. Stereo delay more broadly covers any configuration with separate left/right processing, whether or not it alternates."
+    },
+    {
+      "q": "Can stereo delay make a mix wider?",
+      "a": "It can, mainly through timing differences, panning, and independent left/right settings, though the result should be checked in mono to confirm it holds up."
+    },
+    {
+      "q": "Can I use stereo delay on a mono source?",
+      "a": "Yes. A mono vocal, guitar, or synth can feed two separate delay paths, producing a wet signal that spreads across the stereo field while the dry source stays centered."
+    },
+    {
+      "q": "Is stereo delay good for vocals?",
+      "a": "It can add supportive depth around a lead vocal when the repeats are filtered and kept behind the dry signal, though mono compatibility deserves close attention on lead vocals specifically."
+    },
+    {
+      "q": "Does stereo delay cause phase problems?",
+      "a": "It can. Timing differences between similar signals can cause frequency-dependent reinforcement and cancellation when summed to mono, though severity depends on the specific timing, level, and source material."
+    },
+    {
+      "q": "Why does stereo delay sound weak in mono?",
+      "a": "Left/right timing differences can cause certain frequencies to partially cancel when both channels combine, which reduces energy, thins the tone, or in more extreme cases removes part of the effect entirely."
+    },
+    {
+      "q": "How do I keep stereo delay mono compatible?",
+      "a": "Lower the wet level, reduce extreme timing offsets, lean on panning rather than timing for width, filter the repeats, and confirm the result by listening to the full mix in mono."
+    },
+    {
+      "q": "What does feedback do in stereo delay?",
+      "a": "It controls how many repeats occur and how long they persist, shaping density and duration rather than stereo width itself."
+    },
+    {
+      "q": "What does crossfeed do?",
+      "a": "Where available, it sends signal or feedback from one delay path into the opposite channel, creating connected movement between the two sides rather than fully independent repeats."
+    }
+  ]
 }
 ]
 
