@@ -389,6 +389,12 @@ export function DelayReverbSeoContent() {
                   "Learn how stereo delay creates width, how it differs from mono and ping-pong delay, and how to use it on vocals, guitars, and synths without losing mono compatibility.",
                 href: "/blog/stereo-delay",
               },
+              {
+                title: "Speaker Delay Explained: Live Sound & PA System Guide",
+                description:
+                  "How live sound engineers use delay to align PA systems, delay towers, and fill speakers.",
+                href: "/blog/speaker-delay-live-sound",
+              },
             ]}
           />
         </div>
