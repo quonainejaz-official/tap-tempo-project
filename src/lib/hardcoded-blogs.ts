@@ -21,6 +21,7 @@ import { content as c19 } from "@/data/blogs/how-to-match-bpm-of-a-reference-son
 import { content as c20 } from "@/data/blogs/tempo-synced-effects"
 import { content as c21 } from "@/data/blogs/latency-vs-musical-timing"
 import { content as c22 } from "@/data/blogs/stereo-delay"
+import { content as c23 } from "@/data/blogs/speaker-delay-live-sound"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -48,6 +49,7 @@ const blogContentMap: Record<string, string> = {
   "tempo-synced-effects": c20,
   "latency-vs-musical-timing": c21,
   "stereo-delay": c22,
+  "speaker-delay-live-sound": c23,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
