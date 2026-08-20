@@ -1,8 +1,4 @@
-export const content = `<figure class="my-8">
-<img src="https://res.cloudinary.com/dym1gtcer/image/upload/v1787237316/taptempo/speaker-delay-live-sound-alignment.webp" alt="Diagram showing speaker delay aligning a main PA system and a delay tower so sound arrives together at the audience" width="800" height="450" class="rounded-xl w-full" loading="eager" />
-</figure>
-
-<h2>Quick Answer</h2>
+export const content = `<h2>Quick Answer</h2>
 <p>Speaker delay is a timing adjustment, measured in milliseconds, applied to PA speakers so that when a main system and a secondary system (like a delay tower or fill speaker) cover the same listening area from different distances, their sound arrives together instead of at separate times. Without it, listeners in the overlap zone hear an echo, smearing, or a hollow tone, with it, the whole venue sounds like one coherent system instead of several competing ones.</p>
 
 <p>Anyone who has stood far from the stage at a large concert, church service, or outdoor event has likely noticed the sound doesn&apos;t feel quite the same as it does up front. It can feel blurred, hollow, or inconsistent compared to nearby listeners, usually because of how multiple speaker systems combine when their arrivals reach that area at different times. Speaker delay is the timing adjustment live sound engineers use to correct this and keep coverage consistent across a venue.</p>

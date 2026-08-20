@@ -158,10 +158,10 @@ export default async function BlogPostPage({ params }: Props) {
               <Image
                 src={meta.coverImage}
                 alt={meta.coverImageAlt || meta.title}
-                width={1200}
-                height={675}
+                width={800}
+                height={450}
                 className="w-full h-auto"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1024px"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px"
                 priority
               />
             </div>
