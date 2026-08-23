@@ -12,3 +12,6 @@ playwright-report/
 playwright/.cache/
 blog_pics/
 upload-*.js
+.security-reports/
+scripts/security-scan.ps1
+scripts/setup-scheduled-scan.ps1
