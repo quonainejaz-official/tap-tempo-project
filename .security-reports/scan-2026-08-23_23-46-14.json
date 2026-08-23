@@ -1,0 +1,53 @@
+﻿{
+    "summary":  {
+                    "critical":  2,
+                    "clean":  3,
+                    "warning":  0,
+                    "total":  5
+                },
+    "hostname":  "MR-SMART",
+    "findings":  [
+                     {
+                         "detail":  "Clean | Hash: D082CB40047E4E3CAF521395E25754481E6ABAAC10731B3D66FE34880964B157",
+                         "ioc":  "Clean",
+                         "target":  "GitHubDesktop/app-3.6.4",
+                         "time":  "2026-08-23T23:46:24.6291657+05:00",
+                         "severity":  "CLEAN",
+                         "category":  "APP_INSTALL"
+                     },
+                     {
+                         "detail":  "Clean | Hash: 61F20BBCC84FC835126C6A9809131F63D2DFA5AC581231B9D68D135830F6928D",
+                         "ioc":  "Clean",
+                         "target":  "VSCode/110a328ea5",
+                         "time":  "2026-08-23T23:46:24.7379375+05:00",
+                         "severity":  "CLEAN",
+                         "category":  "APP_INSTALL"
+                     },
+                     {
+                         "detail":  "Clean | Hash: D97A2B1A2170D6094625956D6AD5BA5D5EDFCE26BC3787C51447C9737B6AFC2D",
+                         "ioc":  "Clean",
+                         "target":  "npm CLI",
+                         "time":  "2026-08-23T23:46:27.3452277+05:00",
+                         "severity":  "CLEAN",
+                         "category":  "SYSTEM"
+                     },
+                     {
+                         "detail":  "Suspicious createRequire (check context) | File: C:\\Users\\IT LAND\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\worker.js",
+                         "ioc":  "CreateRequire",
+                         "target":  "C:\\Users\\IT LAND\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\worker.js",
+                         "time":  "2026-08-23T23:46:27.8405668+05:00",
+                         "severity":  "CRITICAL",
+                         "category":  "NPM_GLOBAL"
+                     },
+                     {
+                         "detail":  "Suspicious createRequire (check context) | File: C:\\Users\\IT LAND\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\node_modules\\fdir\\dist\\index.mjs",
+                         "ioc":  "CreateRequire",
+                         "target":  "C:\\Users\\IT LAND\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\node_modules\\fdir\\dist\\index.mjs",
+                         "time":  "2026-08-23T23:46:27.9730757+05:00",
+                         "severity":  "CRITICAL",
+                         "category":  "NPM_GLOBAL"
+                     }
+                 ],
+    "timestamp":  "2026-08-23_23-46-14",
+    "user":  "IT LAND"
+}

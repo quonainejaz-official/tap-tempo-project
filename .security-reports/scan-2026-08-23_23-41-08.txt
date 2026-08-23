@@ -1,0 +1,82 @@
+﻿============================================
+   MALWARE SCAN REPORT
+   Timestamp: 2026-08-23_23-41-08
+   Hostname:  MR-SMART
+   User:      IT LAND
+============================================
+
+SUMMARY: 14 findings | 9 CRITICAL | 5 WARNING | 0 CLEAN
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: BuildTag
+  Detail: Malware build tag | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.7924561+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: EvalInjector
+  Detail: GitHub Desktop eval injector | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8078459+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: VSCodeInjector
+  Detail: VS Code eval injector | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8105602+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: PayloadLoader
+  Detail: Malware payload loader file | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8125650+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: C2Server
+  Detail: Known C2 server IP | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8168717+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: C2Endpoint
+  Detail: C2 payload endpoint | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8168717+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: C2Endpoint2
+  Detail: C2 secondary endpoint | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8194529+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: C2Endpoint3
+  Detail: C2 endpoint variant | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8218921+05:00
+
+[CRITICAL] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: ExfilEndpoint
+  Detail: Data exfiltration endpoint | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8222147+05:00
+
+[WARNING] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: CreateRequire
+  Detail: Suspicious createRequire (check context) | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8254173+05:00
+
+[WARNING] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: SuspiciousSpawn
+  Detail: Suspicious detached child process spawn | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8351145+05:00
+
+[WARNING] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: CryptoAddress
+  Detail: Hardcoded crypto address | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8371197+05:00
+
+[WARNING] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: EthRPC
+  Detail: Ethereum RPC call | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8679367+05:00
+
+[WARNING] PROJECT_FILE | scripts\security-scan.ps1
+  IOC: EthRPC2
+  Detail: Ethereum transaction query | File: scripts\security-scan.ps1 | Size: 17794 bytes
+  Time: 2026-08-23T23:41:13.8679367+05:00
+
+============================================
+   END OF REPORT
+============================================

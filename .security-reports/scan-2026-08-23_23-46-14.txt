@@ -1,0 +1,37 @@
+﻿============================================
+   MALWARE SCAN REPORT
+   Timestamp: 2026-08-23_23-46-14
+   Hostname:  MR-SMART
+   User:      IT LAND
+============================================
+
+SUMMARY: 5 findings | 2 CRITICAL | 0 WARNING | 3 CLEAN
+
+[CLEAN] APP_INSTALL | GitHubDesktop/app-3.6.4
+  IOC: Clean
+  Detail: Clean | Hash: D082CB40047E4E3CAF521395E25754481E6ABAAC10731B3D66FE34880964B157
+  Time: 2026-08-23T23:46:24.6291657+05:00
+
+[CLEAN] APP_INSTALL | VSCode/110a328ea5
+  IOC: Clean
+  Detail: Clean | Hash: 61F20BBCC84FC835126C6A9809131F63D2DFA5AC581231B9D68D135830F6928D
+  Time: 2026-08-23T23:46:24.7379375+05:00
+
+[CLEAN] SYSTEM | npm CLI
+  IOC: Clean
+  Detail: Clean | Hash: D97A2B1A2170D6094625956D6AD5BA5D5EDFCE26BC3787C51447C9737B6AFC2D
+  Time: 2026-08-23T23:46:27.3452277+05:00
+
+[CRITICAL] NPM_GLOBAL | C:\Users\IT LAND\AppData\Roaming\npm\node_modules\pnpm\dist\worker.js
+  IOC: CreateRequire
+  Detail: Suspicious createRequire (check context) | File: C:\Users\IT LAND\AppData\Roaming\npm\node_modules\pnpm\dist\worker.js
+  Time: 2026-08-23T23:46:27.8405668+05:00
+
+[CRITICAL] NPM_GLOBAL | C:\Users\IT LAND\AppData\Roaming\npm\node_modules\pnpm\dist\node_modules\fdir\dist\index.mjs
+  IOC: CreateRequire
+  Detail: Suspicious createRequire (check context) | File: C:\Users\IT LAND\AppData\Roaming\npm\node_modules\pnpm\dist\node_modules\fdir\dist\index.mjs
+  Time: 2026-08-23T23:46:27.9730757+05:00
+
+============================================
+   END OF REPORT
+============================================
