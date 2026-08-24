@@ -201,6 +201,26 @@ export function MetronomeWidget({
     initializedRef.current = false
   }, [stopScheduler])
 
+  useEffect(() => {
+    const unlockAudio = () => {
+      if (!audioCtxRef.current) {
+        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        audioCtxRef.current = new AudioContextClass()
+      }
+      if (audioCtxRef.current.state === "suspended") {
+        audioCtxRef.current.resume()
+      }
+    }
+
+    window.addEventListener("pointerdown", unlockAudio, { once: true })
+    window.addEventListener("keydown", unlockAudio, { once: true })
+
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio)
+      window.removeEventListener("keydown", unlockAudio)
+    }
+  }, [])
+
   const awaitCtxOnStartRef = useRef(false)
 
   const handlePlayToggle = useCallback(async () => {
@@ -405,6 +425,21 @@ export function MetronomeWidget({
   }, [])
 
   const fireTap = useCallback(() => {
+    const ctx = audioCtxRef.current
+    if (ctx && ctx.state !== "closed") {
+      if (ctx.state === "suspended") ctx.resume()
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = "sine"
+      osc.frequency.setValueAtTime(1400, ctx.currentTime)
+      gain.gain.setValueAtTime(0.3, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04)
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.04)
+    }
+
     const now = Date.now()
     if (tapResetTimerRef.current) clearTimeout(tapResetTimerRef.current)
 
