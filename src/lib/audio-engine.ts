@@ -132,9 +132,10 @@ export class AudioEngine {
     osc2.stop(t + 0.4)
   }
 
-  public playMetronomeClick(accent = false, volume = 1, style: "click" | "beep" | "woodblock" = "click") {
+  public playMetronomeClick(accent = false, volume = 1, style: "click" | "beep" | "woodblock" = "click", gainMultiplier?: number) {
     if (!this.ctx) return
     const t = this.ctx.currentTime
+    const vol = gainMultiplier !== undefined ? gainMultiplier : volume
 
     if (style === "beep") {
       const osc = this.ctx.createOscillator()
@@ -143,7 +144,7 @@ export class AudioEngine {
       osc.connect(gain)
       gain.connect(this.ctx.destination)
       osc.frequency.setValueAtTime(accent ? 1200 : 1000, t)
-      gain.gain.setValueAtTime(volume, t)
+      gain.gain.setValueAtTime(vol, t)
       gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08)
       osc.start(t)
       osc.stop(t + 0.08)
@@ -162,7 +163,7 @@ export class AudioEngine {
       source.connect(filter)
       filter.connect(gain)
       gain.connect(this.ctx.destination)
-      gain.gain.setValueAtTime(volume * 0.6, t)
+      gain.gain.setValueAtTime(vol * 0.6, t)
       gain.gain.exponentialRampToValueAtTime(0.01, t + 0.04)
       source.start(t)
       source.stop(t + 0.04)
@@ -174,10 +175,58 @@ export class AudioEngine {
     osc.connect(gain)
     gain.connect(this.ctx.destination)
     osc.frequency.setValueAtTime(accent ? 880 : 660, t)
-    gain.gain.setValueAtTime(volume, t)
+    gain.gain.setValueAtTime(vol, t)
     gain.gain.exponentialRampToValueAtTime(0.01, t + 0.05)
     osc.start(t)
     osc.stop(t + 0.05)
+  }
+
+  public playMetronomeClickDirect(frequency: number, vol: number, decay: number, style: "click" | "beep" | "woodblock" = "click") {
+    if (!this.ctx) return
+    const t = this.ctx.currentTime
+
+    if (style === "beep") {
+      const osc = this.ctx.createOscillator()
+      const gain = this.ctx.createGain()
+      osc.type = "sine"
+      osc.connect(gain)
+      gain.connect(this.ctx.destination)
+      osc.frequency.setValueAtTime(frequency, t)
+      gain.gain.setValueAtTime(vol, t)
+      gain.gain.exponentialRampToValueAtTime(0.01, t + decay)
+      osc.start(t)
+      osc.stop(t + decay)
+      return
+    }
+
+    if (style === "woodblock") {
+      if (!this.noiseBuffer) return
+      const source = this.ctx.createBufferSource()
+      source.buffer = this.noiseBuffer
+      const filter = this.ctx.createBiquadFilter()
+      filter.type = "bandpass"
+      filter.frequency.value = frequency
+      filter.Q.value = 1.5
+      const gain = this.ctx.createGain()
+      source.connect(filter)
+      filter.connect(gain)
+      gain.connect(this.ctx.destination)
+      gain.gain.setValueAtTime(vol * 0.6, t)
+      gain.gain.exponentialRampToValueAtTime(0.01, t + decay)
+      source.start(t)
+      source.stop(t + decay)
+      return
+    }
+
+    const osc = this.ctx.createOscillator()
+    const gain = this.ctx.createGain()
+    osc.connect(gain)
+    gain.connect(this.ctx.destination)
+    osc.frequency.setValueAtTime(frequency, t)
+    gain.gain.setValueAtTime(vol, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + decay)
+    osc.start(t)
+    osc.stop(t + decay)
   }
 }
 

@@ -8,6 +8,18 @@ import { Hand } from "lucide-react"
 const MAX_TAPS = 8
 const RESET_MS = 3000
 
+export type BeatState = "A" | "N" | "G" | "M"
+
+const BEAT_SOUNDS: Record<BeatState, { frequency: number; gain: number; decay: number }> = {
+  A: { frequency: 880, gain: 1.0, decay: 0.05 },
+  N: { frequency: 440, gain: 0.7, decay: 0.05 },
+  G: { frequency: 330, gain: 0.25, decay: 0.03 },
+  M: { frequency: 0, gain: 0.0, decay: 0 },
+}
+
+const SCHEDULER_LOOKAHEAD = 0.1
+const SCHEDULER_INTERVAL = 25
+
 function calcBpm(timestamps: number[]): number | null {
   if (timestamps.length < 2) return null
   const intervals: number[] = []
@@ -45,6 +57,13 @@ export const subdivisions: { label: string; value: Subdivision; clicks: number }
   { label: "⅙", value: "sixteenth", clicks: 4 },
 ]
 
+interface QueueNote {
+  time: number
+  beatIndex: number
+  beatState: BeatState
+  isSubdivision: boolean
+}
+
 interface MetronomeWidgetProps {
   defaultSubdivision?: Subdivision
   showSubdivisions?: boolean
@@ -58,30 +77,54 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const [beat, setBeat] = useState(-1)
   const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">("click")
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
-
   const [tapPulse, setTapPulse] = useState(false)
+  const [beatStates, setBeatStates] = useState<BeatState[]>(["N", "N", "N", "N"])
+
   const tapTimestampsRef = useRef<number[]>([])
   const tapResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const rafRef = useRef<number | null>(null)
+  const schedulerTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const nextNoteTimeRef = useRef(0)
   const currentBeatRef = useRef(0)
+  const subdBeatRef = useRef(0)
+  const notesInQueueRef = useRef<QueueNote[]>([])
+
+  const audioCtxRef = useRef<AudioContext | null>(null)
+  const engineRef = useRef<AudioEngine | null>(null)
+  const initializedRef = useRef(false)
 
   const bpmRef = useRef(bpm)
   const volumeRef = useRef(volume)
   const numBeatsRef = useRef(parseInt(signature.split("/")[0]))
   const soundStyleRef = useRef<"click" | "beep" | "woodblock">("click")
+  const subdRef = useRef(subdivision)
+  const beatStatesRef = useRef(beatStates)
+  const signatureRef = useRef(signature)
+  const gapClickRef = useRef(false)
+  const playBarsRef = useRef(2)
+  const silentBarsRef = useRef(2)
+  const isRandomMuteRef = useRef(false)
+  const randomMutePercentRef = useRef(25)
+  const playingRef = useRef(false)
 
   useEffect(() => { bpmRef.current = bpm }, [bpm])
   useEffect(() => { volumeRef.current = volume }, [volume])
-  useEffect(() => { numBeatsRef.current = parseInt(signature.split("/")[0]) }, [signature])
   useEffect(() => { soundStyleRef.current = soundStyle }, [soundStyle])
-
-  const subdRef = useRef(subdivision)
-  const subdBeatRef = useRef(0)
   useEffect(() => { subdRef.current = subdivision }, [subdivision])
+  useEffect(() => { beatStatesRef.current = beatStates }, [beatStates])
+  useEffect(() => { signatureRef.current = signature }, [signature])
 
-  const numBeats = parseInt(signature.split("/")[0])
+  useEffect(() => {
+    const nb = parseInt(signature.split("/")[0])
+    numBeatsRef.current = nb
+    setBeatStates(prev => {
+      if (prev.length === nb) return prev
+      const next = [...prev]
+      while (next.length < nb) next.push("N")
+      return next.slice(0, nb)
+    })
+  }, [signature])
 
   useEffect(() => {
     const saved = localStorage.getItem("taptempo_last_bpm")
@@ -91,63 +134,143 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     }
   }, [])
 
+  const initAudio = useCallback(() => {
+    if (initializedRef.current) return
+    const engine = AudioEngine.getInstance()
+    engine.init()
+    engineRef.current = engine
+    audioCtxRef.current = engine.ctx
+    initializedRef.current = true
+  }, [])
+
   const stopScheduler = useCallback(() => {
     if (rafRef.current !== null) {
       cancelAnimationFrame(rafRef.current)
       rafRef.current = null
     }
+    if (schedulerTimerRef.current !== null) {
+      clearInterval(schedulerTimerRef.current)
+      schedulerTimerRef.current = null
+    }
+    notesInQueueRef.current = []
   }, [])
 
-  const scheduler = useCallback(() => {
-    const engine = AudioEngine.getInstance()
-    const ctx = engine.ctx
+  const closeAudio = useCallback(() => {
+    stopScheduler()
+    if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
+      audioCtxRef.current.close().catch(() => {})
+    }
+    audioCtxRef.current = null
+    engineRef.current = null
+    initializedRef.current = false
+  }, [stopScheduler])
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+      if (schedulerTimerRef.current !== null) clearInterval(schedulerTimerRef.current)
+      if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
+        audioCtxRef.current.close().catch(() => {})
+      }
+    }
+  }, [])
+
+  const playNote = useCallback((freq: number, vol: number, _decay: number) => {
+    const engine = engineRef.current
+    if (!engine || !audioCtxRef.current) return
+    const isAccent = freq >= 800
+    engine.playMetronomeClick(isAccent, 1, soundStyleRef.current, vol)
+  }, [])
+
+  const scheduleNotes = useCallback(() => {
+    const ctx = audioCtxRef.current
     if (!ctx) return
+
     const subd = subdivisions.find(s => s.value === subdRef.current)
     const clicksPerBeat = subd ? subd.clicks : 1
-    while (nextNoteTimeRef.current < ctx.currentTime + 0.1) {
+
+    while (nextNoteTimeRef.current < ctx.currentTime + SCHEDULER_LOOKAHEAD) {
       const isSubdClick = subdBeatRef.current > 0
-      const isAccent = currentBeatRef.current === 0 && !isSubdClick
-      engine.playMetronomeClick(isAccent, volumeRef.current, soundStyleRef.current)
-      setBeat(currentBeatRef.current)
+      const beatIdx = currentBeatRef.current % beatStatesRef.current.length
+      const state = beatStatesRef.current[beatIdx]
+
+      if (!isSubdClick) {
+        const { frequency, gain, decay } = BEAT_SOUNDS[state]
+        const vol = gain * volumeRef.current
+        if (vol > 0) playNote(frequency, vol, decay)
+
+        notesInQueueRef.current.push({
+          time: nextNoteTimeRef.current,
+          beatIndex: beatIdx,
+          beatState: state,
+          isSubdivision: false,
+        })
+      } else {
+        const subdState: BeatState = state === "M" ? "M" : "N"
+        const { frequency, gain, decay } = BEAT_SOUNDS[subdState]
+        const vol = gain * volumeRef.current
+        if (vol > 0) playNote(frequency, vol, decay)
+
+        notesInQueueRef.current.push({
+          time: nextNoteTimeRef.current,
+          beatIndex: beatIdx,
+          beatState: subdState,
+          isSubdivision: true,
+        })
+      }
+
       const secondsPerBeat = 60.0 / bpmRef.current
       nextNoteTimeRef.current += secondsPerBeat / clicksPerBeat
+
       subdBeatRef.current = (subdBeatRef.current + 1) % clicksPerBeat
       if (subdBeatRef.current === 0) {
         currentBeatRef.current = (currentBeatRef.current + 1) % numBeatsRef.current
       }
     }
-    rafRef.current = requestAnimationFrame(scheduler)
+  }, [playNote])
+
+  const animationLoop = useCallback(() => {
+    const ctx = audioCtxRef.current
+    if (!ctx) return
+
+    const queue = notesInQueueRef.current
+    while (queue.length > 0 && queue[0].time < ctx.currentTime) {
+      const note = queue.shift()!
+      if (!note.isSubdivision) {
+        setBeat(note.beatIndex)
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(animationLoop)
   }, [])
 
-  const restartScheduler = useCallback(() => {
-    stopScheduler()
-    const engine = AudioEngine.getInstance()
-    const ctx = engine.ctx
-    if (ctx) {
-      currentBeatRef.current = 0
-      subdBeatRef.current = 0
-      nextNoteTimeRef.current = ctx.currentTime + 0.05
-      rafRef.current = requestAnimationFrame(scheduler)
-    }
-  }, [scheduler, stopScheduler])
+  const startScheduler = useCallback(() => {
+    const ctx = audioCtxRef.current
+    if (!ctx) return
+
+    currentBeatRef.current = 0
+    subdBeatRef.current = 0
+    nextNoteTimeRef.current = ctx.currentTime + 0.05
+    notesInQueueRef.current = []
+
+    schedulerTimerRef.current = setInterval(scheduleNotes, SCHEDULER_INTERVAL)
+    rafRef.current = requestAnimationFrame(animationLoop)
+  }, [scheduleNotes, animationLoop])
 
   useEffect(() => {
+    playingRef.current = playing
     if (playing) {
-      const engine = AudioEngine.getInstance()
-      engine.init()
-      const ctx = engine.ctx
+      initAudio()
+      const ctx = audioCtxRef.current
       if (!ctx) return
       if (ctx.state === "suspended") ctx.resume()
-      currentBeatRef.current = 0
-      nextNoteTimeRef.current = ctx.currentTime + 0.05
-      rafRef.current = requestAnimationFrame(scheduler)
+      startScheduler()
     } else {
       stopScheduler()
       setBeat(-1)
-      subdBeatRef.current = 0
+      notesInQueueRef.current = []
     }
-    return stopScheduler
-  }, [playing, scheduler, stopScheduler])
+  }, [playing, initAudio, startScheduler, stopScheduler])
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -166,15 +289,15 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleBpmInput = (val: number) => {
+  const handleBpmInput = useCallback((val: number) => {
     const clamped = Math.max(20, Math.min(300, val))
     setBpm(clamped)
-    if (playing) restartScheduler()
-  }
+    bpmRef.current = clamped
+    localStorage.setItem("taptempo_last_bpm", String(clamped))
+  }, [])
 
   const fireTap = useCallback(() => {
     const now = Date.now()
-
     if (tapResetTimerRef.current) clearTimeout(tapResetTimerRef.current)
 
     const timestamps = tapTimestampsRef.current
@@ -184,7 +307,6 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     }
 
     tapTimestampsRef.current = [...tapTimestampsRef.current.slice(-(MAX_TAPS - 1)), now]
-
     const calculated = calcBpm(tapTimestampsRef.current)
     if (calculated !== null) {
       handleBpmInput(calculated)
@@ -197,8 +319,19 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
       tapTimestampsRef.current = []
       setTapPulse(false)
     }, RESET_MS)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleBpmInput])
+
+  const cycleBeatState = useCallback((index: number) => {
+    setBeatStates(prev => {
+      const next = [...prev]
+      const order: BeatState[] = ["A", "N", "G", "M"]
+      const currentIdx = order.indexOf(next[index])
+      next[index] = order[(currentIdx + 1) % order.length]
+      return next
+    })
   }, [])
+
+  const numBeats = parseInt(signature.split("/")[0])
 
   return (
     <div className="w-full max-w-3xl rounded-2xl bg-white border shadow-sm px-6 py-6">
@@ -251,18 +384,31 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
         />
       </div>
 
-      {/* Beat Dots */}
+      {/* Beat Dots - Interactive */}
       <div className="flex justify-center gap-3 mb-5">
-        {Array.from({ length: numBeats }).map((_, i) => (
-          <div
-            key={i}
-            className={`w-4 h-4 rounded-full transition-all duration-75 ${
-              i === beat
-                ? "bg-[#1565FF] scale-125 shadow-[0_0_8px_rgba(21,101,255,0.35)]"
-                : "bg-[#D9D9D9]"
-            }`}
-          />
-        ))}
+        {Array.from({ length: numBeats }).map((_, i) => {
+          const state = beatStates[i] || "N"
+          const isActive = i === beat
+          let dotClass = ""
+          if (isActive && state !== "M") {
+            dotClass = "bg-[#1565FF] scale-125 shadow-[0_0_8px_rgba(21,101,255,0.35)]"
+          } else {
+            switch (state) {
+              case "A": dotClass = "bg-[#1565FF]"; break
+              case "N": dotClass = "bg-[#1565FF]/40"; break
+              case "G": dotClass = "bg-[#D9D9D9]"; break
+              case "M": dotClass = "border-2 border-dashed border-[#999] bg-transparent"; break
+            }
+          }
+          return (
+            <button
+              key={i}
+              onClick={() => cycleBeatState(i)}
+              className={`w-4 h-4 rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
+              title={`Beat ${i + 1}: ${state === "A" ? "Accent" : state === "N" ? "Normal" : state === "G" ? "Ghost" : "Mute"} (click to change)`}
+            />
+          )
+        })}
       </div>
 
       {/* START/STOP Button */}
