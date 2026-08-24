@@ -10,9 +10,7 @@ export default function MetronomePage() {
       <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
       <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
-      <div className="w-full max-w-5xl mx-auto">
-        <MetronomeEngine defaultPreset="default" />
-      </div>
+      <MetronomeEngine defaultPreset="default" />
 
       {/* Practice CTAs */}
       <div className="w-full max-w-5xl mx-auto mt-6 grid gap-3 sm:grid-cols-3">

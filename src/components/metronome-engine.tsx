@@ -65,18 +65,20 @@ export function MetronomeEngine({ defaultPreset = "default" }: MetronomeEnginePr
   const config = PRESETS[defaultPreset]
 
   return (
-    <MetronomeWidget
-      key={defaultPreset}
-      defaultBpm={config?.bpm}
-      defaultSignature={config?.signature}
-      defaultSubdivision={config?.subdivision}
-      defaultBeatStates={config?.beatStates}
-      showSubdivisions={config?.showSubdivisions ?? true}
-      defaultGapClick={config?.gapClick}
-      defaultPlayBars={config?.playBars}
-      defaultSilentBars={config?.silentBars}
-      defaultRandomMute={config?.randomMute}
-      defaultRandomMutePercent={config?.randomMutePercent}
-    />
+    <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
+      <MetronomeWidget
+        key={defaultPreset}
+        defaultBpm={config?.bpm}
+        defaultSignature={config?.signature}
+        defaultSubdivision={config?.subdivision}
+        defaultBeatStates={config?.beatStates}
+        showSubdivisions={config?.showSubdivisions ?? true}
+        defaultGapClick={config?.gapClick}
+        defaultPlayBars={config?.playBars}
+        defaultSilentBars={config?.silentBars}
+        defaultRandomMute={config?.randomMute}
+        defaultRandomMutePercent={config?.randomMutePercent}
+      />
+    </div>
   )
 }
