@@ -388,37 +388,38 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   return (
     <div className="w-full max-w-3xl rounded-2xl bg-white border shadow-sm px-6 py-6">
       {/* BPM + Tap Button Row */}
-      <div className="flex items-center justify-center gap-4 mb-1">
-        <div className="relative flex items-center justify-center">
+      <div className="flex items-center justify-center gap-6 mb-1">
+        <div className="relative flex items-center justify-center min-w-[220px] min-h-[160px]">
           {/* Pulse Ring SVG */}
           <svg
-            className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-100 ${
+            className={`absolute inset-0 m-auto pointer-events-none transition-opacity duration-100 ${
               pulseActive ? "opacity-100" : "opacity-0"
             }`}
-            viewBox="0 0 200 100"
-            preserveAspectRatio="xMidYMid meet"
+            width="220"
+            height="160"
+            viewBox="0 0 220 160"
           >
             <circle
-              cx="100"
-              cy="50"
-              r="42"
+              cx="110"
+              cy="80"
+              r="70"
               fill="none"
               stroke="#1565FF"
               strokeWidth="2"
               className={`transition-all duration-150 ease-out ${
                 pulseActive
                   ? pulseState === "A"
-                    ? "opacity-40 scale-100"
-                    : "opacity-20 scale-100"
-                  : "opacity-0 scale-90"
+                    ? "opacity-40"
+                    : "opacity-20"
+                  : "opacity-0"
               }`}
-              style={{ transformOrigin: "100px 50px", transform: pulseActive ? "scale(1.15)" : "scale(1)" }}
+              style={{ transformOrigin: "110px 80px", transform: pulseActive ? "scale(1.12)" : "scale(1)" }}
             />
             {pulseActive && pulseState === "A" && (
               <circle
-                cx="100"
-                cy="50"
-                r="42"
+                cx="110"
+                cy="80"
+                r="70"
                 fill="#1565FF"
                 opacity="0.06"
               />
@@ -481,15 +482,8 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
           let dotClass = ""
           if (isActive && state !== "M") {
             dotClass = "bg-[#1565FF] scale-125 shadow-[0_0_12px_rgba(21,101,255,0.6)]"
-          } else if (!playing) {
-            dotClass = "bg-[#E5E7EB] hover:bg-[#D1D5DB] border border-[#D9D9D9]"
           } else {
-            switch (state) {
-              case "A": dotClass = "bg-[#1565FF]"; break
-              case "N": dotClass = "bg-[#1565FF]/40"; break
-              case "G": dotClass = "bg-[#D9D9D9]"; break
-              case "M": dotClass = "border-2 border-dashed border-[#999] bg-transparent"; break
-            }
+            dotClass = "bg-[#E5E7EB] hover:bg-[#D1D5DB] border border-[#D9D9D9]"
           }
           return (
             <button
