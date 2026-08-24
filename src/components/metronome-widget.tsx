@@ -81,6 +81,11 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const [beatStates, setBeatStates] = useState<BeatState[]>(["N", "N", "N", "N"])
   const [pulseActive, setPulseActive] = useState(false)
   const [pulseState, setPulseState] = useState<BeatState>("N")
+  const [isGapActive, setIsGapActive] = useState(false)
+  const [playBars, setPlayBars] = useState(2)
+  const [silentBars, setSilentBars] = useState(2)
+  const [isRandomMuteActive, setIsRandomMuteActive] = useState(false)
+  const [randomMutePercent, setRandomMutePercent] = useState(15)
 
   const tapTimestampsRef = useRef<number[]>([])
   const tapResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -110,6 +115,8 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const randomMutePercentRef = useRef(25)
   const playingRef = useRef(false)
   const pulseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const barBeatCountRef = useRef(0)
+  const barCountRef = useRef(0)
 
   useEffect(() => { bpmRef.current = bpm }, [bpm])
   useEffect(() => { volumeRef.current = volume }, [volume])
@@ -117,6 +124,11 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   useEffect(() => { subdRef.current = subdivision }, [subdivision])
   useEffect(() => { beatStatesRef.current = beatStates }, [beatStates])
   useEffect(() => { signatureRef.current = signature }, [signature])
+  useEffect(() => { gapClickRef.current = isGapActive }, [isGapActive])
+  useEffect(() => { playBarsRef.current = playBars }, [playBars])
+  useEffect(() => { silentBarsRef.current = silentBars }, [silentBars])
+  useEffect(() => { isRandomMuteRef.current = isRandomMuteActive }, [isRandomMuteActive])
+  useEffect(() => { randomMutePercentRef.current = randomMutePercent }, [randomMutePercent])
 
   useEffect(() => {
     const nb = parseInt(signature.split("/")[0])
@@ -192,43 +204,60 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
 
     const subd = subdivisions.find(s => s.value === subdRef.current)
     const clicksPerBeat = subd ? subd.clicks : 1
+    const numBeats = numBeatsRef.current
 
     while (nextNoteTimeRef.current < ctx.currentTime + SCHEDULER_LOOKAHEAD) {
       const isSubdClick = subdBeatRef.current > 0
       const beatIdx = currentBeatRef.current % beatStatesRef.current.length
       const state = beatStatesRef.current[beatIdx]
 
+      let isMuted = false
+
       if (!isSubdClick) {
-        const { frequency, gain, decay } = BEAT_SOUNDS[state]
-        const vol = gain * volumeRef.current
-        if (vol > 0) playNote(frequency, vol, decay)
+        const isNewBar = barBeatCountRef.current === 0
+        if (isNewBar && gapClickRef.current) {
+          const totalBars = playBarsRef.current + silentBarsRef.current
+          const currentBar = barCountRef.current % totalBars
+          isMuted = currentBar >= playBarsRef.current
+        }
+        if (!isMuted && isRandomMuteRef.current && randomMutePercentRef.current > 0) {
+          isMuted = Math.random() * 100 < randomMutePercentRef.current
+        }
 
-        notesInQueueRef.current.push({
-          time: nextNoteTimeRef.current,
-          beatIndex: beatIdx,
-          beatState: state,
-          isSubdivision: false,
-        })
+        barBeatCountRef.current++
+        if (barBeatCountRef.current >= numBeats) {
+          barBeatCountRef.current = 0
+          barCountRef.current++
+        }
       } else {
-        const subdState: BeatState = state === "M" ? "M" : "N"
-        const { frequency, gain, decay } = BEAT_SOUNDS[subdState]
-        const vol = gain * volumeRef.current
-        if (vol > 0) playNote(frequency, vol, decay)
-
-        notesInQueueRef.current.push({
-          time: nextNoteTimeRef.current,
-          beatIndex: beatIdx,
-          beatState: subdState,
-          isSubdivision: true,
-        })
+        if (gapClickRef.current) {
+          const totalBars = playBarsRef.current + silentBarsRef.current
+          const currentBar = barCountRef.current % totalBars
+          isMuted = currentBar >= playBarsRef.current
+        }
+        if (!isMuted && isRandomMuteRef.current && randomMutePercentRef.current > 0) {
+          isMuted = Math.random() * 100 < randomMutePercentRef.current
+        }
       }
+
+      const finalState: BeatState = isMuted ? "M" : state
+      const { frequency, gain, decay } = BEAT_SOUNDS[finalState]
+      const vol = gain * volumeRef.current
+      if (vol > 0) playNote(frequency, vol, decay)
+
+      notesInQueueRef.current.push({
+        time: nextNoteTimeRef.current,
+        beatIndex: beatIdx,
+        beatState: finalState,
+        isSubdivision: isSubdClick,
+      })
 
       const secondsPerBeat = 60.0 / bpmRef.current
       nextNoteTimeRef.current += secondsPerBeat / clicksPerBeat
 
       subdBeatRef.current = (subdBeatRef.current + 1) % clicksPerBeat
       if (subdBeatRef.current === 0) {
-        currentBeatRef.current = (currentBeatRef.current + 1) % numBeatsRef.current
+        currentBeatRef.current = (currentBeatRef.current + 1) % numBeats
       }
     }
   }, [playNote])
@@ -248,7 +277,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
       if (queue[0].time > now) break
       const note = queue.shift()!
 
-      if (!note.isSubdivision) {
+      if (note.beatState !== "M" && !note.isSubdivision) {
         setBeat(note.beatIndex)
       }
 
@@ -269,6 +298,8 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
 
     currentBeatRef.current = 0
     subdBeatRef.current = 0
+    barBeatCountRef.current = 0
+    barCountRef.current = 0
     nextNoteTimeRef.current = ctx.currentTime + 0.05
     notesInQueueRef.current = []
 
@@ -567,6 +598,125 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
           max={100}
           className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
         />
+      </div>
+
+      {/* Practice Tools & Presets */}
+      <div className="border-t border-[#D9D9D9] mt-4 pt-4">
+        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground text-center mb-3">
+          Practice Tools &amp; Presets
+        </div>
+
+        <div className="space-y-3 mb-4">
+          {/* Gap Click */}
+          <div className="flex items-center justify-between gap-3">
+            <button
+              onClick={() => setIsGapActive(g => !g)}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all shrink-0 ${
+                isGapActive
+                  ? "bg-[#1565FF] text-white"
+                  : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+              }`}
+            >
+              Gap Click
+            </button>
+            {isGapActive && (
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <span className="text-[10px] text-muted-foreground shrink-0">Play</span>
+                <input
+                  type="number"
+                  min={1}
+                  max={16}
+                  value={playBars}
+                  onChange={e => setPlayBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
+                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                />
+                <span className="text-[10px] text-muted-foreground shrink-0">Silent</span>
+                <input
+                  type="number"
+                  min={1}
+                  max={16}
+                  value={silentBars}
+                  onChange={e => setSilentBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
+                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                />
+                <span className="text-[10px] text-muted-foreground/50 shrink-0">bars</span>
+              </div>
+            )}
+          </div>
+
+          {/* Random Mute */}
+          <div className="flex items-center justify-between gap-3">
+            <button
+              onClick={() => setIsRandomMuteActive(r => !r)}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all shrink-0 ${
+                isRandomMuteActive
+                  ? "bg-[#1565FF] text-white"
+                  : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+              }`}
+            >
+              Random Mute
+            </button>
+            {isRandomMuteActive && (
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <Slider
+                  value={[randomMutePercent]}
+                  onValueChange={v => setRandomMutePercent(v[0])}
+                  min={0}
+                  max={50}
+                  className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+                />
+                <span className="text-xs font-mono text-muted-foreground w-8 text-right shrink-0">{randomMutePercent}%</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Quick Presets */}
+        <div className="flex justify-center gap-1.5 flex-wrap">
+          <button
+            onClick={() => {
+              setSubdivision("sixteenth")
+              setSignature("4/4")
+              setIsGapActive(false)
+              setIsRandomMuteActive(false)
+              setPlaying(true)
+            }}
+            className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#666] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
+          >
+            1/16 Mode
+          </button>
+          <button
+            onClick={() => {
+              handleBpmInput(90)
+              setSignature("4/4")
+              setSubdivision("quarter")
+              setBeatStates(["A", "N", "A", "N"])
+              setIsGapActive(false)
+              setIsRandomMuteActive(false)
+              setPlaying(true)
+            }}
+            className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#666] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
+          >
+            Guitar
+          </button>
+          <button
+            onClick={() => {
+              handleBpmInput(120)
+              setSignature("4/4")
+              setSubdivision("quarter")
+              setBeatStates(["N", "N", "N", "N"])
+              setIsGapActive(true)
+              setPlayBars(2)
+              setSilentBars(2)
+              setIsRandomMuteActive(true)
+              setRandomMutePercent(15)
+              setPlaying(true)
+            }}
+            className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#666] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
+          >
+            Drummer
+          </button>
+        </div>
       </div>
     </div>
   )
