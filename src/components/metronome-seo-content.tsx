@@ -97,9 +97,9 @@ export function MetronomeSeoContent() {
 
       {/* What Is a Metronome? */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">What Is a Metronome? Understanding the Core Concept</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Free Online Metronome &amp; Beat Generator: Core Concepts</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          A metronome is a device that produces a regular, audible pulse, a click or tick, at a speed you can set. This pulse helps musicians play in time. The speed is measured in BPM (beats per minute). For example, a tempo of 60 BPM equals one beat per second; 120 BPM equals two beats per second. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
+          Whether you use a traditional device or generate <strong>metronome beats online</strong>, a metronome produces a regular, audible pulse (a click or tick) at a speed you can set. As a responsive <strong>app metronome</strong> running directly in your browser, this tool helps musicians stay perfectly in time on any device. The speed is measured in BPM (beats per minute). For example, a tempo of 60 BPM equals one beat per second; 120 BPM equals two beats per second. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Think of the metronome as your personal timekeeper. It doesn&apos;t judge; it simply gives you a steady rhythmic reference. Whether you&apos;re practicing scales, learning a new piece, or recording in a studio, it keeps you locked into the tempo.
@@ -111,9 +111,9 @@ export function MetronomeSeoContent() {
 
       {/* How to Use a Metronome */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">How to Use a Metronome: A Step-by-Step Workflow</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">How to Use This Online Metronome App: Step-by-Step</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          If you&apos;re new to using a metronome, here&apos;s a simple process to get started. Most online or app-based metronomes share similar controls.
+          Follow these quick steps to start using this responsive <strong>online metronome app</strong> on desktop, tablet, or mobile. No downloads or setup required.
         </p>
         <div className="space-y-4">
           <div>
@@ -155,6 +155,9 @@ export function MetronomeSeoContent() {
         <p className="text-sm text-muted-foreground leading-relaxed">
           Not all metronomes are created equal. Here&apos;s a comparison table to help you choose based on your needs.
         </p>
+        <blockquote className="border-l-4 border-primary bg-primary/5 rounded-r-lg px-4 py-3 text-sm text-muted-foreground leading-relaxed">
+          <strong className="text-foreground">PWA Tip:</strong> Add this <strong>online metronome app</strong> to your phone&apos;s home screen for instant, full-screen access with no browser chrome. Tap &quot;Add to Home Screen&quot; in your mobile browser menu to install it as a lightweight PWA.
+        </blockquote>
         <div className="overflow-x-auto rounded-xl border">
           <table className="w-full text-sm">
             <thead>

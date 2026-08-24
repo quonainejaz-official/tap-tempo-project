@@ -7,8 +7,8 @@ import Link from "next/link"
 export default function MetronomePage() {
   return (
     <div className="flex flex-col items-center px-4 py-4 bg-background">
-      <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
-      <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
+      <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Free Online Metronome</h1>
+      <p className="text-muted-foreground text-sm mb-4">Precision beats and Web App — rhythm practice, tempo control, and timing on any device</p>
 
       <MetronomeEngine defaultPreset="default" />
 

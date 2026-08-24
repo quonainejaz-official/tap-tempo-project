@@ -4,23 +4,23 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/metronome`
 
 export const metadata: Metadata = {
-  title: "Online Metronome Tool & Rhythm Guide",
+  title: "Free Online Metronome – Precision Beats & Web App | TheTapTempo",
   description:
-    "Use our free metronome tool to improve rhythm and timing. Explore BPM, tempo, time signatures, polyrhythms, and practice techniques for every skill level.",
+    "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Online Metronome Tool & Rhythm Guide | TheTapTempo",
+    title: "Free Online Metronome – Precision Beats & Web App | TheTapTempo",
     description:
-      "Use our free metronome tool to improve rhythm and timing. Explore BPM, tempo, time signatures, polyrhythms, and practice techniques for every skill level.",
+      "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Metronome Tool & Rhythm Guide | TheTapTempo",
+    title: "Free Online Metronome – Precision Beats & Web App | TheTapTempo",
     description:
-      "Use our free metronome tool to improve rhythm and timing. Explore BPM, tempo, time signatures, polyrhythms, and practice techniques for every skill level.",
+      "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",
   },
   robots: { index: true, follow: true },
 }
