@@ -399,20 +399,30 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
         <div className="flex items-center justify-center gap-4">
           <div className="relative flex items-center justify-center w-[140px] h-[140px]">
             <svg
-              className={`absolute inset-0 m-auto pointer-events-none transition-opacity duration-100 ${
-                pulseActive ? "opacity-100" : "opacity-0"
-              }`}
+              className="absolute inset-0 m-auto pointer-events-none"
               width="140"
               height="140"
-              viewBox="0 0 140 140"
+              viewBox="0 0 160 160"
             >
-              <circle cx="70" cy="70" r="64" fill="none" stroke="#1565FF" strokeWidth="2"
-                className={`transition-all duration-150 ease-out ${
-                  pulseActive ? (pulseState === "A" ? "opacity-40" : "opacity-20") : "opacity-0"
-                }`}
-                style={{ transformOrigin: "70px 70px", transform: pulseActive ? "scale(1.12)" : "scale(1)" }}
+              {/* Idle ring — always visible at 40% */}
+              <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="3"
+                strokeOpacity="0.4"
+                className="transition-all duration-150 ease-out"
+                style={{ transformOrigin: "80px 80px", transform: "scale(1)" }}
               />
-              {pulseActive && pulseState === "A" && <circle cx="70" cy="70" r="64" fill="#1565FF" opacity="0.06" />}
+              {/* Active pulse ring — scales up and brightens on beat */}
+              <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="3"
+                className={`transition-all duration-150 ease-out ${
+                  pulseActive
+                    ? pulseState === "A"
+                      ? "opacity-100"
+                      : "opacity-70"
+                    : "opacity-0"
+                }`}
+                style={{ transformOrigin: "80px 80px", transform: pulseActive ? "scale(1.05)" : "scale(1)" }}
+              />
+              {/* Accent fill glow */}
+              {pulseActive && pulseState === "A" && <circle cx="80" cy="80" r="68" fill="#1565FF" opacity="0.08" />}
             </svg>
             <div className="relative flex flex-col items-center justify-center z-10">
               <span className="font-mono text-3xl font-extrabold tracking-tight text-gray-900 leading-none">
