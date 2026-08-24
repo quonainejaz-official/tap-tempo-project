@@ -49,8 +49,9 @@ const presets = [
   { label: "Vivace", val: 170 },
 ]
 
-export type Subdivision = "quarter" | "eighth" | "triplet" | "sixteenth"
+export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth"
 export const subdivisions: { label: string; value: Subdivision; clicks: number }[] = [
+  { label: "None", value: "none", clicks: 1 },
   { label: "1/4", value: "quarter", clicks: 1 },
   { label: "1/8", value: "eighth", clicks: 2 },
   { label: "1/3", value: "triplet", clicks: 3 },
@@ -223,7 +224,7 @@ export function MetronomeWidget({
     if (!ctx) return
 
     const subd = subdivisions.find(s => s.value === subdRef.current)
-    const clicksPerBeat = subd ? subd.clicks : 1
+    const clicksPerBeat = subdRef.current === "none" ? 1 : (subd ? subd.clicks : 1)
     const numBeats = numBeatsRef.current
 
     while (nextNoteTimeRef.current < ctx.currentTime + SCHEDULER_LOOKAHEAD) {
