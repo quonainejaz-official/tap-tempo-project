@@ -397,28 +397,28 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
       <div className="lg:col-span-5 h-full flex flex-col justify-between items-center py-2 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
         {/* BPM Pulse Ring + TAP */}
         <div className="flex items-center justify-center gap-4">
-          <div className="relative flex items-center justify-center w-[180px] h-[180px]">
+          <div className="relative flex items-center justify-center w-[140px] h-[140px]">
             <svg
               className={`absolute inset-0 m-auto pointer-events-none transition-opacity duration-100 ${
                 pulseActive ? "opacity-100" : "opacity-0"
               }`}
-              width="180"
-              height="180"
-              viewBox="0 0 180 180"
+              width="140"
+              height="140"
+              viewBox="0 0 140 140"
             >
-              <circle cx="90" cy="90" r="82" fill="none" stroke="#1565FF" strokeWidth="2"
+              <circle cx="70" cy="70" r="64" fill="none" stroke="#1565FF" strokeWidth="2"
                 className={`transition-all duration-150 ease-out ${
                   pulseActive ? (pulseState === "A" ? "opacity-40" : "opacity-20") : "opacity-0"
                 }`}
-                style={{ transformOrigin: "90px 90px", transform: pulseActive ? "scale(1.12)" : "scale(1)" }}
+                style={{ transformOrigin: "70px 70px", transform: pulseActive ? "scale(1.12)" : "scale(1)" }}
               />
-              {pulseActive && pulseState === "A" && <circle cx="90" cy="90" r="82" fill="#1565FF" opacity="0.06" />}
+              {pulseActive && pulseState === "A" && <circle cx="70" cy="70" r="64" fill="#1565FF" opacity="0.06" />}
             </svg>
             <div className="relative flex flex-col items-center justify-center z-10">
-              <span className="font-mono text-4xl font-extrabold tracking-tight text-gray-900 leading-none">
+              <span className="font-mono text-3xl font-extrabold tracking-tight text-gray-900 leading-none">
                 {bpm}
               </span>
-              <span className="text-xs font-bold text-gray-500 uppercase mt-0.5">BPM</span>
+              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">BPM</span>
             </div>
           </div>
 
