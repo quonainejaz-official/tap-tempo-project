@@ -394,8 +394,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       {/* ── LEFT COLUMN ──────────────────────────────────────── */}
-      <div className="lg:col-span-5 h-full flex flex-col justify-between rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
-        <div className="flex-1 flex flex-col justify-around items-center gap-3">
+      <div className="lg:col-span-5 h-full flex flex-col justify-between items-center py-2 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
         {/* BPM Pulse Ring + TAP */}
         <div className="flex items-center justify-center gap-4">
           <div className="relative flex items-center justify-center w-[170px] h-[120px]">
@@ -460,32 +459,37 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
         </div>
 
         {/* START / STOP */}
-        <div className="flex justify-center">
-          <button onClick={() => setPlaying(p => !p)}
-            className={`w-full h-11 rounded-full text-sm font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 ${
-              playing ? "bg-[#FF3B30] text-white hover:bg-[#FF3B30]/90" : "bg-[#1565FF] text-white hover:bg-[#1565FF]/90 shadow-sm"
-            }`}
-          >
-            {playing ? "STOP" : "START"}
-          </button>
-        </div>
-        </div>
+        <button onClick={() => setPlaying(p => !p)}
+          className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 ${
+            playing
+              ? "bg-[#FF3B30] hover:bg-[#E03126] text-white"
+              : "bg-[#1565FF] hover:bg-[#0D52D6] text-white"
+          }`}
+        >
+          {playing ? "STOP" : "START"}
+        </button>
 
-        {/* BPM Slider */}
-        <Slider
-          value={[bpm]} min={20} max={300}
-          onValueChange={v => handleBpmInput(v[0])}
-          className="w-full [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
-        />
+        {/* Sliders */}
+        <div className="flex flex-col gap-5 w-full mt-2">
+          {/* BPM Slider */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold text-gray-500 w-10 uppercase tracking-wider shrink-0">BPM</span>
+            <Slider
+              value={[bpm]} min={20} max={300}
+              onValueChange={v => handleBpmInput(v[0])}
+              className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+            />
+          </div>
 
-        {/* Volume */}
-        <div className="flex items-center gap-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground shrink-0">VOL</span>
-          <Slider
-            value={[Math.round(volume * 100)]} max={100}
-            onValueChange={v => setVolume(v[0] / 100)}
-            className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
-          />
+          {/* Volume Slider */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold text-gray-500 w-10 uppercase tracking-wider shrink-0">VOL</span>
+            <Slider
+              value={[Math.round(volume * 100)]} max={100}
+              onValueChange={v => setVolume(v[0] / 100)}
+              className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+            />
+          </div>
         </div>
       </div>
 
