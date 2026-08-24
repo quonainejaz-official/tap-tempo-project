@@ -96,6 +96,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const currentBeatRef = useRef(0)
   const subdBeatRef = useRef(0)
   const notesInQueueRef = useRef<QueueNote[]>([])
+  const scheduleNotesRef = useRef<(() => void) | null>(null)
 
   const audioCtxRef = useRef<AudioContext | null>(null)
   const engineRef = useRef<AudioEngine | null>(null)
@@ -150,7 +151,6 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   }, [])
 
   const initAudio = useCallback(() => {
-    if (initializedRef.current) return
     const engine = AudioEngine.getInstance()
     engine.init()
     engineRef.current = engine
@@ -262,6 +262,9 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     }
   }, [playNote])
 
+  // Keep ref always current so scheduler never hits stale closure
+  useEffect(() => { scheduleNotesRef.current = scheduleNotes }, [scheduleNotes])
+
   const animationLoop = useCallback(() => {
     const ctx = audioCtxRef.current
     if (!ctx) return
@@ -303,9 +306,10 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     nextNoteTimeRef.current = ctx.currentTime + 0.05
     notesInQueueRef.current = []
 
-    schedulerTimerRef.current = setInterval(scheduleNotes, SCHEDULER_INTERVAL)
+    // Use ref so the interval always calls the latest scheduleNotes
+    schedulerTimerRef.current = setInterval(() => scheduleNotesRef.current?.(), SCHEDULER_INTERVAL)
     rafRef.current = requestAnimationFrame(animationLoop)
-  }, [scheduleNotes, animationLoop])
+  }, [animationLoop])
 
   useEffect(() => {
     playingRef.current = playing
@@ -313,13 +317,15 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
       initAudio()
       const ctx = audioCtxRef.current
       if (!ctx) return
-      if (ctx.state === "suspended") ctx.resume()
+      if (ctx.state === "suspended") {
+        ctx.resume().catch(() => {})
+      }
       startScheduler()
     } else {
       stopScheduler()
       setBeat(-1)
       setPulseActive(false)
-      if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
+      if ( pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
       notesInQueueRef.current = []
     }
   }, [playing, initAudio, startScheduler, stopScheduler])
@@ -386,9 +392,10 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const numBeats = parseInt(signature.split("/")[0])
 
   return (
-    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       {/* ── LEFT COLUMN ──────────────────────────────────────── */}
-      <div className="lg:col-span-5 rounded-2xl bg-white border border-[#D9D9D9] shadow-sm px-4 py-4 space-y-3">
+      <div className="lg:col-span-5 h-full flex flex-col justify-between rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
+        <div className="flex-1 flex flex-col justify-around items-center gap-3">
         {/* BPM Pulse Ring + TAP */}
         <div className="flex items-center justify-center gap-4">
           <div className="relative flex items-center justify-center w-[170px] h-[120px]">
@@ -462,6 +469,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
             {playing ? "STOP" : "START"}
           </button>
         </div>
+        </div>
 
         {/* BPM Slider */}
         <Slider
@@ -482,7 +490,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
       </div>
 
       {/* ── RIGHT COLUMN ─────────────────────────────────────── */}
-      <div className="lg:col-span-7 rounded-2xl bg-white border border-[#D9D9D9] shadow-sm px-4 py-4 space-y-3">
+      <div className="lg:col-span-7 h-full flex flex-col justify-between rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
         {/* Time Signatures */}
         <div>
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Time Signature</span>
@@ -540,7 +548,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
         </div>
 
         {/* Practice Tools */}
-        <div className="border-t border-[#D9D9D9] pt-3">
+        <div className="flex-1 border-t border-gray-200 pt-3">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Practice Tools</span>
 
           {/* Gap Click */}
