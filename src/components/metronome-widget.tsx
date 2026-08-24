@@ -67,25 +67,44 @@ interface QueueNote {
 interface MetronomeWidgetProps {
   defaultSubdivision?: Subdivision
   showSubdivisions?: boolean
+  defaultBpm?: number
+  defaultSignature?: string
+  defaultBeatStates?: BeatState[]
+  defaultGapClick?: boolean
+  defaultPlayBars?: number
+  defaultSilentBars?: number
+  defaultRandomMute?: boolean
+  defaultRandomMutePercent?: number
 }
 
-export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisions = true }: MetronomeWidgetProps) {
-  const [bpm, setBpm] = useState(120)
+export function MetronomeWidget({
+  defaultSubdivision = "quarter",
+  showSubdivisions = true,
+  defaultBpm,
+  defaultSignature,
+  defaultBeatStates,
+  defaultGapClick,
+  defaultPlayBars,
+  defaultSilentBars,
+  defaultRandomMute,
+  defaultRandomMutePercent,
+}: MetronomeWidgetProps) {
+  const [bpm, setBpm] = useState(defaultBpm ?? 120)
   const [playing, setPlaying] = useState(false)
   const [volume, setVolume] = useState(0.8)
-  const [signature, setSignature] = useState("4/4")
+  const [signature, setSignature] = useState(defaultSignature ?? "4/4")
   const [beat, setBeat] = useState(-1)
   const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">("click")
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
   const [tapPulse, setTapPulse] = useState(false)
-  const [beatStates, setBeatStates] = useState<BeatState[]>(["N", "N", "N", "N"])
+  const [beatStates, setBeatStates] = useState<BeatState[]>(defaultBeatStates ?? ["N", "N", "N", "N"])
   const [pulseActive, setPulseActive] = useState(false)
   const [pulseState, setPulseState] = useState<BeatState>("N")
-  const [isGapActive, setIsGapActive] = useState(false)
-  const [playBars, setPlayBars] = useState(2)
-  const [silentBars, setSilentBars] = useState(2)
-  const [isRandomMuteActive, setIsRandomMuteActive] = useState(false)
-  const [randomMutePercent, setRandomMutePercent] = useState(15)
+  const [isGapActive, setIsGapActive] = useState(defaultGapClick ?? false)
+  const [playBars, setPlayBars] = useState(defaultPlayBars ?? 2)
+  const [silentBars, setSilentBars] = useState(defaultSilentBars ?? 2)
+  const [isRandomMuteActive, setIsRandomMuteActive] = useState(defaultRandomMute ?? false)
+  const [randomMutePercent, setRandomMutePercent] = useState(defaultRandomMutePercent ?? 15)
 
   const tapTimestampsRef = useRef<number[]>([])
   const tapResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -109,11 +128,11 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const subdRef = useRef(subdivision)
   const beatStatesRef = useRef(beatStates)
   const signatureRef = useRef(signature)
-  const gapClickRef = useRef(false)
-  const playBarsRef = useRef(2)
-  const silentBarsRef = useRef(2)
-  const isRandomMuteRef = useRef(false)
-  const randomMutePercentRef = useRef(25)
+  const gapClickRef = useRef(defaultGapClick ?? false)
+  const playBarsRef = useRef(defaultPlayBars ?? 2)
+  const silentBarsRef = useRef(defaultSilentBars ?? 2)
+  const isRandomMuteRef = useRef(defaultRandomMute ?? false)
+  const randomMutePercentRef = useRef(defaultRandomMutePercent ?? 25)
   const playingRef = useRef(false)
   const pulseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const barBeatCountRef = useRef(0)
@@ -143,12 +162,13 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   }, [signature])
 
   useEffect(() => {
+    if (defaultBpm !== undefined) return
     const saved = localStorage.getItem("taptempo_last_bpm")
     if (saved) {
       const parsed = parseInt(saved, 10)
       if (!isNaN(parsed)) setBpm(Math.max(20, Math.min(300, parsed)))
     }
-  }, [])
+  }, [defaultBpm])
 
   const initAudio = useCallback(() => {
     const engine = AudioEngine.getInstance()

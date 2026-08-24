@@ -1,6 +1,6 @@
 "use client"
 
-import { MetronomeWidget } from "@/components/metronome-widget"
+import { MetronomeEngine } from "@/components/metronome-engine"
 import { MetronomeSeoContent } from "@/components/metronome-seo-content"
 import Link from "next/link"
 
@@ -11,7 +11,7 @@ export default function MetronomePage() {
       <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
       <div className="w-full max-w-5xl mx-auto">
-        <MetronomeWidget />
+        <MetronomeEngine defaultPreset="default" />
       </div>
 
       {/* Practice CTAs */}

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { MetronomeWidget } from "@/components/metronome-widget"
+import { MetronomeEngine } from "@/components/metronome-engine"
 import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -41,7 +41,7 @@ export default function MetronomeDrummersPage() {
       <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome for Drummers</h1>
       <p className="text-muted-foreground text-sm mb-4">Build clean rudiments, limb independence, and consistent groove timing</p>
 
-      <MetronomeWidget showSubdivisions={false} />
+      <MetronomeEngine defaultPreset="drummer" />
 
       <div className="w-full max-w-3xl mt-16 space-y-10 pb-16 px-6">
         {/* Quick Answer */}
