@@ -51,10 +51,10 @@ const presets = [
 
 export type Subdivision = "quarter" | "eighth" | "triplet" | "sixteenth"
 export const subdivisions: { label: string; value: Subdivision; clicks: number }[] = [
-  { label: "¼", value: "quarter", clicks: 1 },
-  { label: "⅛", value: "eighth", clicks: 2 },
-  { label: "⅜", value: "triplet", clicks: 3 },
-  { label: "⅙", value: "sixteenth", clicks: 4 },
+  { label: "1/4", value: "quarter", clicks: 1 },
+  { label: "1/8", value: "eighth", clicks: 2 },
+  { label: "1/3", value: "triplet", clicks: 3 },
+  { label: "1/16", value: "sixteenth", clicks: 4 },
 ]
 
 interface QueueNote {
@@ -79,6 +79,8 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
   const [tapPulse, setTapPulse] = useState(false)
   const [beatStates, setBeatStates] = useState<BeatState[]>(["N", "N", "N", "N"])
+  const [pulseActive, setPulseActive] = useState(false)
+  const [pulseState, setPulseState] = useState<BeatState>("N")
 
   const tapTimestampsRef = useRef<number[]>([])
   const tapResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -107,6 +109,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
   const isRandomMuteRef = useRef(false)
   const randomMutePercentRef = useRef(25)
   const playingRef = useRef(false)
+  const pulseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => { bpmRef.current = bpm }, [bpm])
   useEffect(() => { volumeRef.current = volume }, [volume])
@@ -169,6 +172,7 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
       if (schedulerTimerRef.current !== null) clearInterval(schedulerTimerRef.current)
+      if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
       if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
         audioCtxRef.current.close().catch(() => {})
       }
@@ -233,11 +237,26 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     const ctx = audioCtxRef.current
     if (!ctx) return
 
+    const now = ctx.currentTime
     const queue = notesInQueueRef.current
-    while (queue.length > 0 && queue[0].time < ctx.currentTime) {
+
+    while (queue.length > 0) {
+      if (now - queue[0].time > 0.2) {
+        queue.shift()
+        continue
+      }
+      if (queue[0].time > now) break
       const note = queue.shift()!
+
       if (!note.isSubdivision) {
         setBeat(note.beatIndex)
+      }
+
+      if (note.beatState !== "M") {
+        if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
+        setPulseState(note.beatState)
+        setPulseActive(true)
+        pulseTimerRef.current = setTimeout(() => setPulseActive(false), 150)
       }
     }
 
@@ -268,6 +287,8 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     } else {
       stopScheduler()
       setBeat(-1)
+      setPulseActive(false)
+      if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
       notesInQueueRef.current = []
     }
   }, [playing, initAudio, startScheduler, stopScheduler])
@@ -337,11 +358,48 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
     <div className="w-full max-w-3xl rounded-2xl bg-white border shadow-sm px-6 py-6">
       {/* BPM + Tap Button Row */}
       <div className="flex items-center justify-center gap-4 mb-1">
-        <div className="flex items-baseline gap-2">
-          <span className="font-mono text-5xl md:text-6xl font-bold text-[#444] tracking-tight leading-none">
-            {bpm}
-          </span>
-          <span className="text-base font-medium text-muted-foreground">BPM</span>
+        <div className="relative flex items-center justify-center">
+          {/* Pulse Ring SVG */}
+          <svg
+            className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-100 ${
+              pulseActive ? "opacity-100" : "opacity-0"
+            }`}
+            viewBox="0 0 200 100"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <circle
+              cx="100"
+              cy="50"
+              r="42"
+              fill="none"
+              stroke="#1565FF"
+              strokeWidth="2"
+              className={`transition-all duration-150 ease-out ${
+                pulseActive
+                  ? pulseState === "A"
+                    ? "opacity-40 scale-100"
+                    : "opacity-20 scale-100"
+                  : "opacity-0 scale-90"
+              }`}
+              style={{ transformOrigin: "100px 50px", transform: pulseActive ? "scale(1.15)" : "scale(1)" }}
+            />
+            {pulseActive && pulseState === "A" && (
+              <circle
+                cx="100"
+                cy="50"
+                r="42"
+                fill="#1565FF"
+                opacity="0.06"
+              />
+            )}
+          </svg>
+
+          <div className="relative flex items-baseline gap-2 z-10">
+            <span className="font-mono text-5xl md:text-6xl font-bold text-[#444] tracking-tight leading-none">
+              {bpm}
+            </span>
+            <span className="text-base font-medium text-muted-foreground">BPM</span>
+          </div>
         </div>
 
         <button
