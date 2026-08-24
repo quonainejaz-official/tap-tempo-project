@@ -156,7 +156,9 @@ export function MetronomeSeoContent() {
           Not all metronomes are created equal. Here&apos;s a comparison table to help you choose based on your needs.
         </p>
         <blockquote className="border-l-4 border-primary bg-primary/5 rounded-r-lg px-4 py-3 text-sm text-muted-foreground leading-relaxed">
-          <strong className="text-foreground">PWA Tip:</strong> Add this <strong>online metronome app</strong> to your phone&apos;s home screen for instant, full-screen access with no browser chrome. Tap &quot;Add to Home Screen&quot; in your mobile browser menu to install it as a lightweight PWA.
+          <strong className="text-foreground">Looking for an app metronome without App Store installs?</strong><br />
+          Our <strong>free online metronome</strong> functions as a lightweight Web App (PWA) directly in your browser. You get high-precision <strong>metronome beats online</strong> on iOS, Android, and Desktop without downloading third-party applications.<br />
+          <em>Tip: Tap &quot;Add to Home Screen&quot; in your mobile browser menu for instant, full-screen access.</em>
         </blockquote>
         <div className="overflow-x-auto rounded-xl border">
           <table className="w-full text-sm">
