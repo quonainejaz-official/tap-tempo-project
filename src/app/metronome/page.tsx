@@ -10,10 +10,12 @@ export default function MetronomePage() {
       <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight mb-1 text-foreground">Metronome</h1>
       <p className="text-muted-foreground text-sm mb-4">Free metronome tool for rhythm practice, tempo control, and timing</p>
 
-      <MetronomeWidget />
+      <div className="w-full max-w-5xl mx-auto">
+        <MetronomeWidget />
+      </div>
 
       {/* Practice CTAs */}
-      <div className="w-full max-w-3xl mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="w-full max-w-5xl mx-auto mt-6 grid gap-3 sm:grid-cols-3">
         <div className="rounded-xl border bg-card p-5 flex flex-col">
           <h2 className="font-semibold text-sm mb-1 min-h-[20px]">Subdivision Practice</h2>
           <p className="text-sm text-muted-foreground mb-3 flex-1">
@@ -52,7 +54,7 @@ export default function MetronomePage() {
         </div>
       </div>
 
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-5xl mx-auto">
         <MetronomeSeoContent />
       </div>
 
