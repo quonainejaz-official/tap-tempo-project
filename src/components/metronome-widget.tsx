@@ -251,10 +251,56 @@ export function MetronomeWidget({
   }, [])
 
   const playNote = useCallback((freq: number, vol: number, _decay: number) => {
-    const engine = engineRef.current
-    if (!engine || !audioCtxRef.current) return
-    const isAccent = freq >= 800
-    engine.playMetronomeClick(isAccent, 1, soundStyleRef.current, vol)
+    const ctx = audioCtxRef.current
+    if (!ctx || vol <= 0) return
+    const t = ctx.currentTime
+    const style = soundStyleRef.current
+
+    if (style === "beep") {
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = "sine"
+      osc.frequency.setValueAtTime(freq >= 800 ? 1200 : 1000, t)
+      gain.gain.setValueAtTime(vol, t)
+      gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08)
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start(t)
+      osc.stop(t + 0.08)
+      return
+    }
+
+    if (style === "woodblock") {
+      const bufferSize = ctx.sampleRate * 0.04
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+      const data = buffer.getChannelData(0)
+      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1
+      const source = ctx.createBufferSource()
+      source.buffer = buffer
+      const filter = ctx.createBiquadFilter()
+      filter.type = "bandpass"
+      filter.frequency.value = freq >= 800 ? 2200 : 1600
+      filter.Q.value = 1.5
+      const gain = ctx.createGain()
+      gain.gain.setValueAtTime(vol * 0.6, t)
+      gain.gain.exponentialRampToValueAtTime(0.01, t + 0.04)
+      source.connect(filter)
+      filter.connect(gain)
+      gain.connect(ctx.destination)
+      source.start(t)
+      source.stop(t + 0.04)
+      return
+    }
+
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.frequency.setValueAtTime(freq >= 800 ? 880 : 660, t)
+    gain.gain.setValueAtTime(vol, t)
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.05)
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.start(t)
+    osc.stop(t + 0.05)
   }, [])
 
   const scheduleNotes = useCallback(() => {
