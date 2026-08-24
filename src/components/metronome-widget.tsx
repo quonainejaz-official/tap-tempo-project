@@ -201,6 +201,24 @@ export function MetronomeWidget({
     initializedRef.current = false
   }, [stopScheduler])
 
+  const awaitCtxOnStartRef = useRef(false)
+
+  const handlePlayToggle = useCallback(async () => {
+    if (!playingRef.current) {
+      if (!audioCtxRef.current) {
+        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        audioCtxRef.current = new AudioContextClass()
+      }
+      if (audioCtxRef.current.state === "suspended") {
+        await audioCtxRef.current.resume()
+      }
+      awaitCtxOnStartRef.current = true
+      setPlaying(true)
+    } else {
+      setPlaying(false)
+    }
+  }, [])
+
   useEffect(() => {
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
@@ -335,28 +353,39 @@ export function MetronomeWidget({
   useEffect(() => {
     playingRef.current = playing
     if (playing) {
-      initAudio()
-      const ctx = audioCtxRef.current
-      if (!ctx) return
-      if (ctx.state === "suspended") {
-        ctx.resume().catch(() => {})
+      if (!audioCtxRef.current) {
+        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        audioCtxRef.current = new AudioContextClass()
       }
-      startScheduler()
+      const ctx = audioCtxRef.current
+      const resumeAndStart = async () => {
+        if (ctx.state === "suspended") {
+          await ctx.resume()
+        }
+        awaitCtxOnStartRef.current = false
+        startScheduler()
+      }
+      if (awaitCtxOnStartRef.current || ctx.state === "suspended") {
+        resumeAndStart()
+      } else {
+        startScheduler()
+      }
     } else {
+      awaitCtxOnStartRef.current = false
       stopScheduler()
       setBeat(-1)
       setPulseActive(false)
-      if ( pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
+      if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
       notesInQueueRef.current = []
     }
-  }, [playing, initAudio, startScheduler, stopScheduler])
+  }, [playing, startScheduler, stopScheduler])
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).tagName === "INPUT") return
       if (e.code === "Space") {
         e.preventDefault()
-        setPlaying(p => !p)
+        handlePlayToggle()
       }
       if (e.code === "KeyT") {
         e.preventDefault()
@@ -490,7 +519,7 @@ export function MetronomeWidget({
         </div>
 
         {/* START / STOP */}
-        <button onClick={() => setPlaying(p => !p)}
+        <button onClick={handlePlayToggle}
           className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 ${
             playing
               ? "bg-[#FF3B30] hover:bg-[#E03126] text-white"
@@ -641,9 +670,9 @@ export function MetronomeWidget({
           {/* Quick Presets */}
           <div className="flex gap-1.5 flex-wrap mt-2">
             {[
-              { label: "1/16 Mode", action: () => { setSubdivision("sixteenth"); setSignature("4/4"); setIsGapActive(false); setIsRandomMuteActive(false); setPlaying(true) } },
-              { label: "Guitar", action: () => { handleBpmInput(90); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["A", "N", "A", "N"]); setIsGapActive(false); setIsRandomMuteActive(false); setPlaying(true) } },
-              { label: "Drummer", action: () => { handleBpmInput(120); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(true); setPlayBars(2); setSilentBars(2); setIsRandomMuteActive(true); setRandomMutePercent(15); setPlaying(true) } },
+              { label: "1/16 Mode", action: () => { setSubdivision("sixteenth"); setSignature("4/4"); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
+              { label: "Guitar", action: () => { handleBpmInput(90); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["A", "N", "A", "N"]); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
+              { label: "Drummer", action: () => { handleBpmInput(120); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(true); setPlayBars(2); setSilentBars(2); setIsRandomMuteActive(true); setRandomMutePercent(15); handlePlayToggle() } },
             ].map(p => (
               <button key={p.label} onClick={p.action}
                 className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#666] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
