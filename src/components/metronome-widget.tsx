@@ -477,10 +477,12 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
       <div className="flex justify-center gap-3 mb-5">
         {Array.from({ length: numBeats }).map((_, i) => {
           const state = beatStates[i] || "N"
-          const isActive = i === beat
+          const isActive = i === beat && playing
           let dotClass = ""
           if (isActive && state !== "M") {
-            dotClass = "bg-[#1565FF] scale-125 shadow-[0_0_8px_rgba(21,101,255,0.35)]"
+            dotClass = "bg-[#1565FF] scale-125 shadow-[0_0_12px_rgba(21,101,255,0.6)]"
+          } else if (!playing) {
+            dotClass = "bg-[#E5E7EB] hover:bg-[#D1D5DB] border border-[#D9D9D9]"
           } else {
             switch (state) {
               case "A": dotClass = "bg-[#1565FF]"; break
@@ -606,69 +608,79 @@ export function MetronomeWidget({ defaultSubdivision = "quarter", showSubdivisio
           Practice Tools &amp; Presets
         </div>
 
-        <div className="space-y-3 mb-4">
+        <div className="space-y-2 mb-4">
           {/* Gap Click */}
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between py-1.5">
+            <span className="text-xs font-medium text-[#666]">Gap Click</span>
             <button
+              role="switch"
+              aria-checked={isGapActive}
               onClick={() => setIsGapActive(g => !g)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all shrink-0 ${
-                isGapActive
-                  ? "bg-[#1565FF] text-white"
-                  : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+              className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
+                isGapActive ? "bg-[#1565FF]" : "bg-[#D9D9D9]"
               }`}
             >
-              Gap Click
+              <span
+                className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out mt-0.5 ${
+                  isGapActive ? "translate-x-4" : "translate-x-0.5"
+                }`}
+              />
             </button>
-            {isGapActive && (
-              <div className="flex items-center gap-2 flex-1 min-w-0">
-                <span className="text-[10px] text-muted-foreground shrink-0">Play</span>
-                <input
-                  type="number"
-                  min={1}
-                  max={16}
-                  value={playBars}
-                  onChange={e => setPlayBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
-                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
-                />
-                <span className="text-[10px] text-muted-foreground shrink-0">Silent</span>
-                <input
-                  type="number"
-                  min={1}
-                  max={16}
-                  value={silentBars}
-                  onChange={e => setSilentBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
-                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
-                />
-                <span className="text-[10px] text-muted-foreground/50 shrink-0">bars</span>
-              </div>
-            )}
           </div>
+          {isGapActive && (
+            <div className="flex items-center gap-2 pl-2 pb-1">
+              <span className="text-[10px] text-muted-foreground shrink-0">Play</span>
+              <input
+                type="number"
+                min={1}
+                max={16}
+                value={playBars}
+                onChange={e => setPlayBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
+                className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+              />
+              <span className="text-[10px] text-muted-foreground shrink-0">Silent</span>
+              <input
+                type="number"
+                min={1}
+                max={16}
+                value={silentBars}
+                onChange={e => setSilentBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
+                className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+              />
+              <span className="text-[10px] text-muted-foreground/50 shrink-0">bars</span>
+            </div>
+          )}
 
           {/* Random Mute */}
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between py-1.5">
+            <span className="text-xs font-medium text-[#666]">Random Mute</span>
             <button
+              role="switch"
+              aria-checked={isRandomMuteActive}
               onClick={() => setIsRandomMuteActive(r => !r)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all shrink-0 ${
-                isRandomMuteActive
-                  ? "bg-[#1565FF] text-white"
-                  : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+              className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
+                isRandomMuteActive ? "bg-[#1565FF]" : "bg-[#D9D9D9]"
               }`}
             >
-              Random Mute
+              <span
+                className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out mt-0.5 ${
+                  isRandomMuteActive ? "translate-x-4" : "translate-x-0.5"
+                }`}
+              />
             </button>
-            {isRandomMuteActive && (
-              <div className="flex items-center gap-2 flex-1 min-w-0">
-                <Slider
-                  value={[randomMutePercent]}
-                  onValueChange={v => setRandomMutePercent(v[0])}
-                  min={0}
-                  max={50}
-                  className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
-                />
-                <span className="text-xs font-mono text-muted-foreground w-8 text-right shrink-0">{randomMutePercent}%</span>
-              </div>
-            )}
           </div>
+          {isRandomMuteActive && (
+            <div className="flex items-center gap-2 pl-2 pb-1">
+              <Slider
+                value={[randomMutePercent]}
+                onValueChange={v => setRandomMutePercent(v[0])}
+                min={0}
+                max={50}
+                className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+              />
+              <span className="text-xs font-mono text-muted-foreground w-8 text-right shrink-0">{randomMutePercent}%</span>
+            </div>
+          )}
         </div>
 
         {/* Quick Presets */}
