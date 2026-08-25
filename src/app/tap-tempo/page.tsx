@@ -362,7 +362,7 @@ export default function TapTempoPage() {
   return (
     <div className="container mx-auto max-w-4xl px-4 md:px-6">
       <div className="mt-3 mb-2">
-        <h1 className="text-3xl font-bold tracking-tight mb-1">Tap Tempo</h1>
+        <h1 className="font-serif text-3xl md:text-4xl font-bold tracking-tight mb-1 text-foreground">Tap Tempo</h1>
         <p className="text-sm text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
