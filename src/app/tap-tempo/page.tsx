@@ -361,9 +361,9 @@ export default function TapTempoPage() {
 
   return (
     <div className="container mx-auto px-4 mt-2 md:mt-3 py-8 max-w-4xl">
-      <div className="mb-1">
+      <div className="mt-2 mb-1">
         <h1 className="text-4xl font-serif font-bold tracking-tight mt-1 mb-1">Tap Tempo</h1>
-        <p className="text-muted-foreground mb-2 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
+        <p className="text-muted-foreground mb-3 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch">
@@ -554,7 +554,7 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-2.5 p-2.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl px-4">
+        <div className="mt-2 p-2.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl px-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
