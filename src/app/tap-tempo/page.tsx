@@ -360,7 +360,7 @@ export default function TapTempoPage() {
   const isStable = tapCount >= 4
 
   return (
-    <div className="container mx-auto px-4 py-4">
+    <div className="container mx-auto max-w-6xl px-4 md:px-6 py-4">
       <div className="mt-2 mb-2">
         <h1 className="text-2xl md:text-3xl font-bold tracking-tight mt-0 mb-1">Tap Tempo</h1>
         <p className="text-muted-foreground mb-2 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
