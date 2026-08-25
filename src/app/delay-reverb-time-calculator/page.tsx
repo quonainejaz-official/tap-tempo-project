@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { Suspense, useState, useRef, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -45,11 +46,28 @@ const reverbPresets: Record<string, string[]> = {
 }
 
 export default function DelayTimeCalculatorPage() {
+  return (
+    <Suspense>
+      <DelayTimeCalculatorContent />
+    </Suspense>
+  )
+}
+
+function DelayTimeCalculatorContent() {
+  const searchParams = useSearchParams()
   const [mode, setMode] = useState<"delay" | "reverb">("delay")
   const [bpm, setBpm] = useState("120")
   const [activePreset, setActivePreset] = useState<string | null>(null)
   const [copiedLabel, setCopiedLabel] = useState<string | null>(null)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    const param = searchParams.get("bpm")
+    if (param) {
+      const parsed = parseInt(param, 10)
+      if (!isNaN(parsed) && parsed > 0) setBpm(String(parsed))
+    }
+  }, [searchParams])
 
   const calculateMs = (noteFraction: number) => {
     const b = Number(bpm)

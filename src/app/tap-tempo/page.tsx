@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo } from "react"
+import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion"
 import { useTapTempo, type TapData } from "@/hooks/use-tap-tempo"
 import { useSleepDetect } from "@/hooks/use-sleep-detect"
@@ -234,16 +234,43 @@ export default function TapTempoPage() {
   const [lastMethod, setLastMethod] = useState<"touch"|"keyboard"|"space"|null>(null)
   const ringIdRef = useRef(0)
 
+  const idleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const flashIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const latestBpmRef = useRef<number>(0)
+  const [isFlashing, setIsFlashing] = useState(false)
+
   const displayBpm = useSpring(0, { stiffness: 300, damping: 30 })
   const roundedBpm = useTransform(displayBpm, v => Math.round(v))
 
   useEffect(() => {
     if (bpm !== null) {
       displayBpm.set(bpm)
+      latestBpmRef.current = bpm
     } else {
       displayBpm.set(0)
+      latestBpmRef.current = 0
     }
   }, [bpm, displayBpm])
+
+  const triggerSingleFlash = useCallback(() => {
+    setIsFlashing(true)
+    setTimeout(() => setIsFlashing(false), 100)
+  }, [])
+
+  const startFlashing = useCallback(() => {
+    const latest = latestBpmRef.current
+    if (!latest || isNaN(latest) || latest <= 0) return
+    if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
+    const intervalMs = (60 / latest) * 1000
+    flashIntervalRef.current = setInterval(triggerSingleFlash, intervalMs)
+  }, [triggerSingleFlash])
+
+  useEffect(() => {
+    return () => {
+      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
+      if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
+    }
+  }, [])
 
   // Global key listener
   useEffect(() => {
@@ -275,6 +302,13 @@ export default function TapTempoPage() {
     tap()
     setLastMethod(method)
 
+    // Idle flash: clear timers, update ref, schedule start
+    if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
+    if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
+    setIsFlashing(false)
+    latestBpmRef.current = bpm ?? 0
+    idleTimeoutRef.current = setTimeout(startFlashing, 1500)
+
     // Add rings
     const now = Date.now()
     ringIdRef.current += 1
@@ -295,6 +329,10 @@ export default function TapTempoPage() {
     e.stopPropagation()
     reset()
     setRings([])
+    if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
+    if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
+    latestBpmRef.current = 0
+    setIsFlashing(false)
   }
 
   const copyBpm = (e: React.MouseEvent) => {
@@ -356,6 +394,7 @@ export default function TapTempoPage() {
               </motion.div>
             ) : (
               <div className="relative z-10 flex flex-col items-center">
+                <div className={`w-3.5 h-3.5 rounded-full bg-primary/30 opacity-30 transition-all duration-100 inline-block mb-2 ${isFlashing ? "opacity-100 scale-125 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.8)]" : ""}`} />
                 <div className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground mb-4 uppercase">
                   Beats Per Minute
                 </div>
@@ -499,6 +538,29 @@ export default function TapTempoPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {bpm !== null && bpm > 0 && (
+        <div className="mt-6 p-4 rounded-xl border bg-card text-center transition-all duration-300">
+          <p className="text-xs md:text-sm text-muted-foreground mb-2">
+            Need delay timing for <strong className="text-foreground font-bold">{bpm}</strong> BPM?
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`/bpm-to-ms?bpm=${bpm}`}
+              className="text-xs font-semibold text-primary hover:underline transition-colors"
+            >
+              Convert <span className="bpm-num">{bpm}</span> BPM to MS →
+            </a>
+            <span className="text-muted-foreground/40 hidden sm:inline">•</span>
+            <a
+              href={`/delay-reverb-time-calculator?bpm=${bpm}`}
+              className="text-xs font-semibold text-primary hover:underline transition-colors"
+            >
+              Delay &amp; Reverb Calculator →
+            </a>
+          </div>
+        </div>
+      )}
 
       <SeoContent />
 

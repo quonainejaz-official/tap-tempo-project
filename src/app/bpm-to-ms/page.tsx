@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -23,7 +24,24 @@ const noteDivisions = [
 ]
 
 export default function BpmToMsPage() {
+  return (
+    <Suspense>
+      <BpmToMsContent />
+    </Suspense>
+  )
+}
+
+function BpmToMsContent() {
+  const searchParams = useSearchParams()
   const [bpm, setBpm] = useState("120")
+
+  useEffect(() => {
+    const param = searchParams.get("bpm")
+    if (param) {
+      const parsed = parseInt(param, 10)
+      if (!isNaN(parsed) && parsed > 0) setBpm(String(parsed))
+    }
+  }, [searchParams])
 
   const calculateMs = (noteFraction: number) => {
     const b = Number(bpm)
