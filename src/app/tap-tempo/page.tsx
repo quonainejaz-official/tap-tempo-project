@@ -346,17 +346,17 @@ export default function TapTempoPage() {
   const isStable = tapCount >= 4
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="mb-6">
+    <div className="container mx-auto px-4 mt-2 md:mt-4 py-8 max-w-4xl">
+      <div className="mb-2">
         <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">Tap Tempo</h1>
         <p className="text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Left: Tap Zone */}
-        <div className="lg:col-span-2 flex flex-col">
+      <div className="grid lg:grid-cols-3 gap-3.5">
+        {/* BOX 1: Main Tapper Card */}
+        <div className="lg:col-span-2 lg:row-span-2 flex flex-col">
           <motion.div
-            className={`relative flex flex-col items-center justify-center rounded-2xl border bg-card p-12 min-h-[360px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
+            className={`relative flex flex-col items-center justify-center rounded-2xl border bg-card py-8 px-12 min-h-[320px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
             onPointerDown={(e) => { e.preventDefault(); handleTap("touch") }}
             onMouseEnter={wake}
             onMouseLeave={setSleeping}
@@ -430,9 +430,9 @@ export default function TapTempoPage() {
           </motion.div>
         </div>
 
-        {/* Right: Controls + Audio (same height as tap zone) */}
-        <div className="flex flex-col gap-4 h-full">
-          <div className="flex flex-wrap gap-2 p-4 rounded-xl border bg-card">
+        {/* BOX 2: Quick Action Controls */}
+        <div className="flex flex-col gap-3 h-full">
+          <div className="flex flex-wrap gap-2 p-3 rounded-xl border bg-card">
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={handleReset} disabled={!bpm}>Reset</Button>
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
               <Copy className="w-4 h-4 mr-2" /> Copy
@@ -461,26 +461,26 @@ export default function TapTempoPage() {
             </Drawer>
           </div>
 
-          <div className="flex-1 p-4 rounded-xl border bg-card flex flex-col gap-3">
+          <div className="flex-1 p-3 rounded-xl border bg-card flex flex-col gap-2">
             <Button
               variant={showGraph ? "default" : "outline"}
               size="sm"
-              className="w-full"
+              className="w-full py-1.5 px-2.5 text-xs"
               onClick={(e) => { e.stopPropagation(); setShowGraph(!showGraph) }}
             >
-              <Activity className="w-4 h-4 mr-2" /> {showGraph ? "Hide" : "Show"} Graph
+              <Activity className="w-3.5 h-3.5 mr-1.5" /> {showGraph ? "Hide" : "Show"} Graph
             </Button>
             <Button
               variant={showMusic ? "default" : "outline"}
               size="sm"
-              className="w-full"
+              className="w-full py-1.5 px-2.5 text-xs"
               onClick={(e) => {
                 e.stopPropagation()
                 setShowMusic(!showMusic)
                 if (!showMusic) init()
               }}
             >
-              <Music2 className="w-4 h-4 mr-2" /> {showMusic ? "Hide" : "Show"} Audio
+              <Music2 className="w-3.5 h-3.5 mr-1.5" /> {showMusic ? "Hide" : "Show"} Audio
             </Button>
             <AnimatePresence>
               {showMusic && (
@@ -490,22 +490,22 @@ export default function TapTempoPage() {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="flex flex-col gap-4 pt-2 border-t">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-col gap-2 pt-2 border-t">
+                    <div className="flex flex-wrap gap-1.5">
                       {(["kick", "clap", "hihat", "cowbell"] as const).map(s => (
                         <Button
                           key={s}
                           variant={sound === s ? "default" : "outline"}
                           size="sm"
                           onClick={() => setSound(s)}
-                          className="capitalize flex-1 min-w-[70px]"
+                          className="capitalize flex-1 min-w-[60px] py-1 px-2 text-xs"
                         >
                           {s}
                         </Button>
                       ))}
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm text-muted-foreground w-12">Vol</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-muted-foreground w-8">Vol</span>
                       <Slider
                         value={[volume * 100]}
                         onValueChange={(v) => setVolume(v[0] / 100)}
@@ -528,7 +528,7 @@ export default function TapTempoPage() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden mt-6"
+            className="overflow-hidden mt-3"
           >
             <div className="rounded-xl border bg-card p-4">
               <div className="h-[180px] w-full">
@@ -540,24 +540,26 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-6 p-4 rounded-xl border bg-card text-center transition-all duration-300">
-          <p className="text-xs md:text-sm text-muted-foreground mb-2">
-            Need delay timing for <strong className="text-foreground font-bold">{bpm}</strong> BPM?
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <a
-              href={`/bpm-to-ms?bpm=${bpm}`}
-              className="text-xs font-semibold text-primary hover:underline transition-colors"
-            >
-              Convert <span className="bpm-num">{bpm}</span> BPM to MS →
-            </a>
-            <span className="text-muted-foreground/40 hidden sm:inline">•</span>
-            <a
-              href={`/delay-reverb-time-calculator?bpm=${bpm}`}
-              className="text-xs font-semibold text-primary hover:underline transition-colors"
-            >
-              Delay &amp; Reverb Calculator →
-            </a>
+        <div className="mt-3 p-2.5 px-4 rounded-xl border bg-card transition-all duration-300">
+          <div className="flex flex-row justify-between items-center">
+            <p className="text-xs text-muted-foreground">
+              Need delay timing for <strong className="text-foreground font-bold">{bpm}</strong> BPM?
+            </p>
+            <div className="flex items-center gap-3">
+              <a
+                href={`/bpm-to-ms?bpm=${bpm}`}
+                className="text-xs font-semibold text-primary hover:underline transition-colors"
+              >
+                Convert {bpm} BPM to MS →
+              </a>
+              <span className="text-muted-foreground/40">•</span>
+              <a
+                href={`/delay-reverb-time-calculator?bpm=${bpm}`}
+                className="text-xs font-semibold text-primary hover:underline transition-colors"
+              >
+                Delay &amp; Reverb Calculator →
+              </a>
+            </div>
           </div>
         </div>
       )}
