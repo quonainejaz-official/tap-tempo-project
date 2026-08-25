@@ -366,7 +366,7 @@ export default function TapTempoPage() {
         <p className="text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-3.5 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch h-full">
         {/* BOX 1: Main Tapper Card */}
         <div className="lg:col-span-2 lg:row-span-2 h-full flex flex-col justify-between">
           <motion.div
@@ -445,7 +445,7 @@ export default function TapTempoPage() {
         </div>
 
         {/* BOX 2 & 3: Right Column */}
-        <div className="flex flex-col justify-between gap-3 h-full">
+        <div className="flex flex-col h-full gap-3.5">
           <div className="flex flex-wrap gap-2 p-3 rounded-xl border bg-card">
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={handleReset} disabled={!bpm}>Reset</Button>
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
@@ -554,7 +554,7 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-2.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl p-3 px-4">
+        <div className="mt-3.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl p-3 px-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
