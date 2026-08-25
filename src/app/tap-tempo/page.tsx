@@ -361,16 +361,16 @@ export default function TapTempoPage() {
 
   return (
     <div className="container mx-auto px-4 mt-2 md:mt-3 py-8 max-w-4xl">
-      <div className="mb-2">
-        <h1 className="text-4xl font-serif font-bold tracking-tight mb-2">Tap Tempo</h1>
-        <p className="text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
+      <div className="mb-1">
+        <h1 className="text-4xl font-serif font-bold tracking-tight mt-1 mb-1">Tap Tempo</h1>
+        <p className="text-muted-foreground mb-2 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch">
         {/* BOX 1: Main Tapper Card */}
-        <div className="lg:col-span-2 lg:row-span-2 h-full flex flex-col justify-between">
+        <div className="lg:col-span-2 h-full flex flex-col justify-between rounded-xl border bg-card p-4">
           <motion.div
-            className={`relative flex flex-col items-center justify-center rounded-2xl border bg-card p-4 md:p-6 min-h-[320px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
+            className={`relative flex flex-col items-center justify-center min-h-[320px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
             onPointerDown={(e) => { e.preventDefault(); handleTap("touch") }}
             onMouseEnter={wake}
             onMouseLeave={setSleeping}
@@ -413,7 +413,7 @@ export default function TapTempoPage() {
                   Beats Per Minute
                 </div>
 
-                <div className="font-mono text-8xl md:text-[120px] font-bold tracking-tighter leading-none my-2 text-foreground drop-shadow-sm">
+                <div className="font-mono text-8xl md:text-[120px] font-bold tracking-tighter leading-none py-4 text-foreground drop-shadow-sm">
                   {bpm === null ? "---" : <motion.span>{roundedBpm}</motion.span>}
                 </div>
 
@@ -445,7 +445,7 @@ export default function TapTempoPage() {
         </div>
 
         {/* BOX 2 & 3: Right Column */}
-        <div className="flex flex-col h-full gap-3.5">
+        <div className="lg:col-span-1 flex flex-col justify-between gap-3.5 h-full">
           <div className="flex flex-wrap gap-2 p-3 rounded-xl border bg-card">
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={handleReset} disabled={!bpm}>Reset</Button>
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
@@ -475,7 +475,7 @@ export default function TapTempoPage() {
             </Drawer>
           </div>
 
-          <div className="flex-1 p-3.5 rounded-xl border bg-card flex flex-col justify-between gap-2">
+          <div className="flex-1 flex flex-col justify-between rounded-xl border bg-card p-3.5">
             <Button
               variant={showGraph ? "default" : "outline"}
               size="sm"
@@ -554,7 +554,7 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-3.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl p-3 px-4">
+        <div className="mt-2.5 p-2.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl px-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
