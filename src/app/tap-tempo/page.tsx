@@ -360,15 +360,15 @@ export default function TapTempoPage() {
   const isStable = tapCount >= 4
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 md:px-6 py-4">
-      <div className="mt-2 mb-2">
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight mt-0 mb-1">Tap Tempo</h1>
-        <p className="text-muted-foreground mb-2 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
+    <div className="container mx-auto max-w-5xl px-4 py-4">
+      <div className="mt-3 mb-2">
+        <h1 className="text-3xl font-bold tracking-tight mb-1">Tap Tempo</h1>
+        <p className="text-sm text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch mt-2 mb-3">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch mt-3">
         {/* BOX 1: Main Tapper Card */}
-        <div className="lg:col-span-2 h-full flex flex-col justify-between rounded-xl border bg-card p-4">
+        <div className="lg:col-span-2 h-full flex flex-col justify-between rounded-xl border bg-card p-5">
           <motion.div
             className={`relative flex flex-col items-center justify-center min-h-[320px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
             onPointerDown={(e) => { e.preventDefault(); handleTap("touch") }}
@@ -554,7 +554,7 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-2 p-2.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl px-4">
+        <div className="mt-3 p-2.5 px-4 rounded-xl border bg-card/80">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
