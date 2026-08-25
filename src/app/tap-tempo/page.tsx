@@ -221,6 +221,20 @@ function TapGraph({ taps }: { taps: TapData[] }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+function getTempoMarking(bpm: number): string {
+  if (bpm < 25) return "Larghissimo"
+  if (bpm < 45) return "Grave"
+  if (bpm < 60) return "Largo"
+  if (bpm < 66) return "Larghetto"
+  if (bpm < 76) return "Adagio"
+  if (bpm < 108) return "Andante"
+  if (bpm < 120) return "Moderato"
+  if (bpm < 156) return "Allegro"
+  if (bpm < 176) return "Vivace"
+  if (bpm < 200) return "Presto"
+  return "Prestissimo"
+}
+
 export default function TapTempoPage() {
   const { bpm, taps, tap, reset, tapCount } = useTapTempo()
   const { state: sleepState, wake, setSleeping } = useSleepDetect()
@@ -352,9 +366,9 @@ export default function TapTempoPage() {
         <p className="text-muted-foreground">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-3.5">
+      <div className="grid lg:grid-cols-3 gap-3.5 items-stretch">
         {/* BOX 1: Main Tapper Card */}
-        <div className="lg:col-span-2 lg:row-span-2 flex flex-col">
+        <div className="lg:col-span-2 lg:row-span-2 h-full flex flex-col justify-between">
           <motion.div
             className={`relative flex flex-col items-center justify-center rounded-2xl border bg-card py-8 px-12 min-h-[320px] flex-1 cursor-pointer overflow-hidden transition-colors duration-500 select-none touch-manipulation ${sleepState === 'sleeping' ? 'bg-muted/50 border-muted' : isStable ? 'border-primary/50 shadow-glow-accent' : ''}`}
             onPointerDown={(e) => { e.preventDefault(); handleTap("touch") }}
@@ -430,8 +444,8 @@ export default function TapTempoPage() {
           </motion.div>
         </div>
 
-        {/* BOX 2: Quick Action Controls */}
-        <div className="flex flex-col gap-3 h-full">
+        {/* BOX 2 & 3: Right Column */}
+        <div className="flex flex-col justify-between gap-3.5 h-full">
           <div className="flex flex-wrap gap-2 p-3 rounded-xl border bg-card">
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={handleReset} disabled={!bpm}>Reset</Button>
             <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
@@ -540,24 +554,32 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-3 p-2.5 px-4 rounded-xl border bg-card transition-all duration-300">
-          <div className="flex flex-row justify-between items-center">
-            <p className="text-xs text-muted-foreground">
-              Need delay timing for <strong className="text-foreground font-bold">{bpm}</strong> BPM?
-            </p>
-            <div className="flex items-center gap-3">
+        <div className="mt-3 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl p-3 px-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="text-muted-foreground font-medium">
+                Target: <strong className="text-foreground font-bold">{bpm} BPM</strong>
+              </span>
+              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
+                {getTempoMarking(bpm)}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 ml-auto">
               <a
                 href={`/bpm-to-ms?bpm=${bpm}`}
-                className="text-xs font-semibold text-primary hover:underline transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
               >
-                Convert {bpm} BPM to MS →
+                Convert to MS ({Math.round(60000 / bpm)}ms) →
               </a>
-              <span className="text-muted-foreground/40">•</span>
               <a
                 href={`/delay-reverb-time-calculator?bpm=${bpm}`}
-                className="text-xs font-semibold text-primary hover:underline transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
               >
-                Delay &amp; Reverb Calculator →
+                Delay Calculator →
               </a>
             </div>
           </div>
