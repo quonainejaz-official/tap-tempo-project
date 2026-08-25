@@ -360,13 +360,13 @@ export default function TapTempoPage() {
   const isStable = tapCount >= 4
 
   return (
-    <div className="container mx-auto px-4 mt-2 md:mt-3 py-8 max-w-4xl">
-      <div className="mt-2 mb-1">
-        <h1 className="text-4xl font-serif font-bold tracking-tight mt-1 mb-1">Tap Tempo</h1>
-        <p className="text-muted-foreground mb-3 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
+    <div className="container mx-auto px-4 py-2 md:py-3 max-w-4xl max-h-[calc(100vh-70px)] flex flex-col justify-center overflow-hidden">
+      <div className="mt-0 mb-1">
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight mt-0 mb-1">Tap Tempo</h1>
+        <p className="text-muted-foreground mb-2 text-xs md:text-sm">Tap any beat with our BPM Tapper to instantly calculate song tempo and beats per minute.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 items-stretch mt-1.5">
         {/* BOX 1: Main Tapper Card */}
         <div className="lg:col-span-2 h-full flex flex-col justify-between rounded-xl border bg-card p-4">
           <motion.div
@@ -554,7 +554,7 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {bpm !== null && bpm > 0 && (
-        <div className="mt-2 p-2.5 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl px-4">
+        <div className="mt-1.5 p-2 px-3 bg-card/80 border border-primary/20 shadow-sm backdrop-blur-sm rounded-xl">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
