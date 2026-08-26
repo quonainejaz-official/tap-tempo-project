@@ -118,6 +118,11 @@ export function HomePageContent() {
 
   return (
     <div className="min-h-screen">
+      <style>{`
+        .bpm-dot{animation:pulse-dot 1.3s ease-in-out infinite}
+        @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
+        @media(prefers-reduced-motion:reduce){.bpm-dot{animation:none}}
+      `}</style>
       <section className="relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <div className="max-w-3xl mx-auto text-center">
@@ -179,7 +184,10 @@ export function HomePageContent() {
             >
               <div className="text-center">
                 <div className="text-3xl font-bold font-mono text-foreground">{display}</div>
-                <div className="text-xs mt-1">Live BPM Demo</div>
+                <div className="text-xs mt-1 flex items-center justify-center gap-1.5">
+                  <span className="bpm-dot inline-block h-2 w-2 rounded-full bg-primary" />
+                  Live BPM Demo
+                </div>
               </div>
               <div className="h-10 w-px bg-border" />
               <div className="text-left text-sm leading-relaxed">
