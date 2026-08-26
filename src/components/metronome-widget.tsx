@@ -569,8 +569,8 @@ export function MetronomeWidget({
               tapPulse ? "border-[#1565FF] bg-[#1565FF]/10" : "border-[#D9D9D9] bg-white shadow-sm hover:border-[#1565FF] hover:shadow-md"
             }`}
           >
-            <Hand size={16} className={`mb-0.5 transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#888]"}`} />
-            <span className={`text-[7px] font-bold uppercase tracking-[0.15em] transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#999]"}`}>
+            <Hand size={16} className={`mb-0.5 transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#767676]"}`} />
+            <span className={`text-[7px] font-bold uppercase tracking-[0.15em] transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#767676]"}`}>
               TAP
             </span>
             {tapPulse && <span className="absolute inset-0 rounded-xl border-2 border-[#1565FF] animate-ping opacity-30" />}
@@ -578,7 +578,7 @@ export function MetronomeWidget({
         </div>
 
         {/* Helper */}
-        <p className="text-center text-[10px] text-muted-foreground/60 font-mono leading-none">
+        <p className="text-center text-[10px] text-muted-foreground font-mono leading-none">
           Press <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px] font-sans">T</kbd> or tap
         </p>
 
@@ -618,6 +618,7 @@ export function MetronomeWidget({
             <Slider
               value={[bpm]} min={20} max={300}
               onValueChange={v => handleBpmInput(v[0])}
+              aria-label="BPM"
               className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
             />
           </div>
@@ -628,6 +629,7 @@ export function MetronomeWidget({
             <Slider
               value={[Math.round(volume * 100)]} max={100}
               onValueChange={v => setVolume(v[0] / 100)}
+              aria-label="Volume"
               className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
             />
           </div>
@@ -643,7 +645,7 @@ export function MetronomeWidget({
             {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8"].map(sig => (
               <button key={sig} onClick={() => setSignature(sig)}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                  signature === sig ? "bg-[#1565FF] text-white" : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                  signature === sig ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
                 }`}
               >{sig}</button>
             ))}
@@ -657,7 +659,7 @@ export function MetronomeWidget({
             {(["click", "beep", "woodblock"] as const).map(s => (
               <button key={s} onClick={() => setSoundStyle(s)}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-all capitalize ${
-                  soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                  soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
                 }`}
               >{s}</button>
             ))}
@@ -672,7 +674,7 @@ export function MetronomeWidget({
               {subdivisions.map(s => (
                 <button key={s.value} onClick={() => setSubdivision(s.value)}
                   className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                    subdivision === s.value ? "bg-[#1565FF] text-white" : "bg-transparent text-[#666] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                    subdivision === s.value ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
                   }`}
                 >{s.label}</button>
               ))}
@@ -686,8 +688,8 @@ export function MetronomeWidget({
           <div className="flex gap-1.5 flex-wrap">
             {presets.map(p => (
               <button key={p.label} onClick={() => handleBpmInput(p.val)}
-                className="px-3 py-1 rounded-full text-xs border border-[#D9D9D9] text-[#666] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
-              >{p.label} <span className="opacity-50 ml-0.5">{p.val}</span></button>
+                className="px-3 py-1 rounded-full text-xs border border-[#D9D9D9] text-[#595959] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
+              >{p.label} <span className="ml-0.5">{p.val}</span></button>
             ))}
           </div>
         </div>
@@ -698,8 +700,8 @@ export function MetronomeWidget({
 
           {/* Gap Click */}
           <div className="flex items-center justify-between py-1">
-            <span className="text-xs font-medium text-[#666]">Gap Click</span>
-            <button role="switch" aria-checked={isGapActive} onClick={() => setIsGapActive(g => !g)}
+            <span className="text-xs font-medium text-[#595959]">Gap Click</span>
+            <button role="switch" aria-checked={isGapActive} aria-label="Toggle Gap Click" onClick={() => setIsGapActive(g => !g)}
               className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
                 isGapActive ? "bg-[#1565FF]" : "bg-[#D9D9D9]"
               }`}
@@ -727,8 +729,8 @@ export function MetronomeWidget({
 
           {/* Random Mute */}
           <div className="flex items-center justify-between py-1">
-            <span className="text-xs font-medium text-[#666]">Random Mute</span>
-            <button role="switch" aria-checked={isRandomMuteActive} onClick={() => setIsRandomMuteActive(r => !r)}
+            <span className="text-xs font-medium text-[#595959]">Random Mute</span>
+            <button role="switch" aria-checked={isRandomMuteActive} aria-label="Toggle Random Mute" onClick={() => setIsRandomMuteActive(r => !r)}
               className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
                 isRandomMuteActive ? "bg-[#1565FF]" : "bg-[#D9D9D9]"
               }`}
@@ -742,6 +744,7 @@ export function MetronomeWidget({
             <div className="flex items-center gap-2 pl-2 pb-1">
               <Slider value={[randomMutePercent]} min={0} max={50}
                 onValueChange={v => setRandomMutePercent(v[0])}
+                aria-label="Random Mute Percentage"
                 className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
               />
               <span className="text-xs font-mono text-muted-foreground w-8 text-right shrink-0">{randomMutePercent}%</span>
@@ -756,7 +759,7 @@ export function MetronomeWidget({
               { label: "Drummer", action: () => { handleBpmInput(120); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(true); setPlayBars(2); setSilentBars(2); setIsRandomMuteActive(true); setRandomMutePercent(15); handlePlayToggle() } },
             ].map(p => (
               <button key={p.label} onClick={p.action}
-                className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#666] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
+                className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#595959] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
               >{p.label}</button>
             ))}
           </div>
