@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -11,12 +12,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import {
   Activity,
   Clock,
@@ -28,7 +23,6 @@ import {
   Zap,
   Sparkles,
   ArrowRight,
-  ExternalLink,
   X,
   Facebook,
   Instagram,
@@ -36,10 +30,13 @@ import {
   Linkedin,
   Globe,
   BookOpen,
-  CheckCircle2,
-  Search,
   Users,
 } from "lucide-react"
+
+const HomepageFaq = dynamic(
+  () => import("@/components/homepage-faq").then((m) => m.HomepageFaq),
+  { ssr: true }
+)
 
 interface BlogItem {
   _id: string
@@ -85,25 +82,6 @@ const toolCategories = [
     tools: [
       { icon: Sparkles, title: "AI Tempo", desc: "Analyse audio and detect tempo automatically.", href: "/ai-tempo" },
     ],
-  },
-]
-
-const faqs = [
-  {
-    q: "What is tap tempo?",
-    a: "Tap tempo is a method of determining the BPM (beats per minute) of a song or rhythm by physically tapping along to the beat. Our BPM tapper measures the time between your taps and calculates the average tempo.",
-  },
-  {
-    q: "How accurate is the BPM tapper?",
-    a: "The accuracy depends on the consistency of your tapping, not the tool. Our algorithm averages up to 16 consecutive taps with outlier rejection to filter out inconsistent taps. With 8-12 steady taps, you can expect accuracy within ±1 BPM.",
-  },
-  {
-    q: "How do I calculate BPM from a song?",
-    a: "The easiest way is to use our Tap Tempo tool: tap along to the beat of any song for 8-12 taps, and the BPM will be displayed instantly. You can also use the BPM Calculator to find BPM from duration and number of beats.",
-  },
-  {
-    q: "What is the formula for delay time from BPM?",
-    a: "For a quarter note delay: Delay (ms) = 60,000 ÷ BPM. For dotted eighth: Delay (ms) = 45,000 ÷ BPM. For triplet: Delay (ms) = 40,000 ÷ BPM. Use our Delay & Reverb Time Calculator for instant results.",
   },
 ]
 
@@ -403,14 +381,7 @@ export function HomePageContent() {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-3">Frequently Asked Questions</h2>
             <p className="text-muted-foreground mb-6">Common questions about tempo, BPM, and how TheTapTempo tools work together.</p>
-            <Accordion type="multiple">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger>{faq.q}</AccordionTrigger>
-                  <AccordionContent>{faq.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <HomepageFaq />
           </div>
         </div>
       </section>

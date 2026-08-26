@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import Script from "next/script"
 import { BASE_URL } from "@/lib/constants"
 import { hardcodedBlogs } from "@/data/blogs/registry"
 import "@/styles/blog-prose.css"
@@ -79,6 +80,13 @@ const jsonLd = {
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <Script
+        id="cloudinary-preconnect"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `var l=document.createElement('link');l.rel='preconnect';l.href='https://res.cloudinary.com';document.head.appendChild(l);`,
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -127,7 +127,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-white/40">
+      <div className="container mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-white/50">
         <p>&copy; {new Date().getFullYear()} TheTapTempo. All rights reserved.</p>
         <p>Built with precision.</p>
       </div>
