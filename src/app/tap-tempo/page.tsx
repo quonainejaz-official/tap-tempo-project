@@ -524,6 +524,7 @@ export default function TapTempoPage() {
                         value={[volume * 100]}
                         onValueChange={(v) => setVolume(v[0] / 100)}
                         max={100}
+                        aria-label="Volume"
                         className="flex-1"
                       />
                     </div>

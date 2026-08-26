@@ -13,7 +13,8 @@ export async function GET() {
       updatedAt: i.updatedAt?.toISOString(),
     }))
     return NextResponse.json({ items: serialized })
-  } catch {
+  } catch (e) {
+    console.error("GET /api/navigation error:", e)
     return NextResponse.json({ error: "Failed to fetch navigation" }, { status: 500 })
   }
 }
@@ -35,7 +36,8 @@ export async function POST(req: Request) {
 
     const result = await nav.insertOne(item)
     return NextResponse.json({ ...item, _id: result.insertedId.toString() }, { status: 201 })
-  } catch {
+  } catch (e) {
+    console.error("POST /api/navigation error:", e)
     return NextResponse.json({ error: "Failed to create nav item" }, { status: 500 })
   }
 }

@@ -62,7 +62,7 @@ function MistakeCard({ num, title, desc, fix }: { num: number; title: string; de
       </div>
       <div className="flex items-start gap-2 pl-6">
         <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-        <p className="text-xs text-green-600 dark:text-green-400 font-medium">{fix}</p>
+        <p className="text-xs text-green-700 dark:text-green-400 font-medium">{fix}</p>
       </div>
     </div>
   )
