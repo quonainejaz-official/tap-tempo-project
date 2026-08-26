@@ -144,7 +144,7 @@ export function HomePageContent() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="mb-3"
@@ -167,18 +167,18 @@ export function HomePageContent() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6"
             >
               A complete tempo and rhythm ecosystem for musicians, producers, composers, and music learners. From tap tempo and metronome practice to delay calculations and AI-powered analysis, everything you need to master rhythm is here.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5 }}
               className="flex items-center justify-center gap-4 mb-6"
             >
               <Button size="lg" onClick={scrollToTools}>
@@ -194,9 +194,9 @@ export function HomePageContent() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
+              transition={{ duration: 1 }}
               className="flex items-center justify-center gap-8 text-muted-foreground"
             >
               <div className="text-center">
