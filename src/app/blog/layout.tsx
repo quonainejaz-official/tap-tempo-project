@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { BASE_URL } from "@/lib/constants"
 import { hardcodedBlogs } from "@/data/blogs/registry"
+import "@/styles/blog-prose.css"
 
 const pageUrl = `${BASE_URL}/blog`
 

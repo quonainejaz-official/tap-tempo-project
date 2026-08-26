@@ -11,6 +11,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import GoogleAnalytics from "@/components/google-analytics"
 import { BASE_URL } from "@/lib/constants"
+import { CriticalCss } from "@/components/critical-css"
 import "./globals.css"
 
 const dmSans = DM_Sans({
@@ -108,6 +109,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
       <head>
+        <CriticalCss />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

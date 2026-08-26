@@ -9,6 +9,7 @@ import HighlightExtension from "@tiptap/extension-highlight"
 import PlaceholderExtension from "@tiptap/extension-placeholder"
 import TextAlignExtension from "@tiptap/extension-text-align"
 import { Button } from "@/components/ui/button"
+import "@/styles/editor.css"
 import {
   Bold,
   Italic,
