@@ -24,6 +24,7 @@ import { content as c22 } from "@/data/blogs/stereo-delay"
 import { content as c23 } from "@/data/blogs/speaker-delay-live-sound"
 import { content as c24 } from "@/data/blogs/how-tempo-affects-emotion"
 import { content as c25 } from "@/data/blogs/history-of-italian-musical-terms"
+import { content as c26 } from "@/data/blogs/musical-phrases"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -54,6 +55,7 @@ const blogContentMap: Record<string, string> = {
   "speaker-delay-live-sound": c23,
   "how-tempo-affects-emotion": c24,
   "history-of-italian-musical-terms": c25,
+  "musical-phrases": c26,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
