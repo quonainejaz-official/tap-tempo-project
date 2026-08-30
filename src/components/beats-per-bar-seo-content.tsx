@@ -259,6 +259,12 @@ export function BeatsPerBarSeoContent() {
                   "Understand which beats in a bar naturally feel emphasized, why that matters for groove and accent placement, and how it changes across different time signatures.",
                 href: "/blog/strong-and-weak-beats-in-music",
               },
+              {
+                title: "How Musical Phrases Are Built from Bars and Measures",
+                description:
+                  "Learn how bars combine into musical phrases, why phrase length varies, and how cadences signal where one idea ends and the next begins.",
+                href: "/blog/musical-phrases",
+              },
             ]}
           />
         </div>
