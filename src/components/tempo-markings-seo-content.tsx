@@ -479,6 +479,12 @@ export function TempoMarkingsSeoContent() {
                   "Discover how tempo affects emotion in music, shaping tension, energy, and reflection through pacing, dynamics, and phrasing.",
                 href: "/blog/how-tempo-affects-emotion",
               },
+              {
+                title: "Italian Musical Terms: Why Italian Became Music's Language",
+                description:
+                  "Discover how Italian musical terms became the standard language of tempo markings in Western classical music, from Renaissance roots to modern use.",
+                href: "/blog/history-of-italian-musical-terms",
+              },
             ]}
           />
         </div>
