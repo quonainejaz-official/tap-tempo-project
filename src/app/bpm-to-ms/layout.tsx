@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Free BPM to ms calculator with exact formulas, a millisecond chart, and workflows for reverb pre-delay, compressor release, delay, and LFO sync timing.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "BPM to ms / Milliseconds Converter | TheTapTempo",
+    title: "BPM to ms / Milliseconds Converter",
     description:
       "Free BPM to ms calculator with exact formulas, a millisecond chart, and workflows for reverb pre-delay, compressor release, delay, and LFO sync timing.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BPM to ms / Milliseconds Converter | TheTapTempo",
+    title: "BPM to ms / Milliseconds Converter",
     description:
       "Free BPM to ms calculator with exact formulas, a millisecond chart, and workflows for reverb pre-delay, compressor release, delay, and LFO sync timing.",
   },

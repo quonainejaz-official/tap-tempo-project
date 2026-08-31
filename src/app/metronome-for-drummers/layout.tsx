@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Use a metronome for drum practice to build clean rudiments, limb independence, and consistent groove timing at any tempo.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice | TheTapTempo",
+    title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice",
     description:
       "Use a metronome for drum practice to build clean rudiments, limb independence, and consistent groove timing at any tempo.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice | TheTapTempo",
+    title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice",
     description:
       "Use a metronome for drum practice to build clean rudiments, limb independence, and consistent groove timing at any tempo.",
   },

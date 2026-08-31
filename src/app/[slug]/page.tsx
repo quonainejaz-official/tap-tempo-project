@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonical = `${BASE_URL}/${slug}`
 
   return {
-    title: page.metaTitle || `${page.title} | TheTapTempo`,
+    title: page.metaTitle || page.title,
     description: page.metaDescription || "",
     alternates: { canonical },
     openGraph: {

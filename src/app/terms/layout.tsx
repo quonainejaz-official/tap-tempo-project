@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/terms`
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | The Tap Tempo",
+  title: "Terms & Conditions",
   description:
     "Read the Terms & Conditions for The Tap Tempo and understand the guidelines for using our browser-based music tools and content.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Terms & Conditions | The Tap Tempo",
+    title: "Terms & Conditions",
     description:
       "Read the Terms & Conditions for The Tap Tempo and understand the guidelines for using our browser-based music tools and content.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms & Conditions | The Tap Tempo",
+    title: "Terms & Conditions",
     description:
       "Read the Terms & Conditions for The Tap Tempo and understand the guidelines for using our browser-based music tools and content.",
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      name: "Terms & Conditions | The Tap Tempo",
+      name: "Terms & Conditions",
       description:
         "Read the Terms & Conditions for The Tap Tempo and understand the guidelines for using our browser-based music tools and content.",
       url: pageUrl,

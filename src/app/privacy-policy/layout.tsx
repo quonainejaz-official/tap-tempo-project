@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/privacy-policy`
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | The Tap Tempo",
+  title: "Privacy Policy",
   description:
     "Read the Privacy Policy for The Tap Tempo to understand how we collect, use and protect information while you use our music tools and website.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Privacy Policy | The Tap Tempo",
+    title: "Privacy Policy",
     description:
       "Read the Privacy Policy for The Tap Tempo to understand how we collect, use and protect information while you use our music tools and website.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | The Tap Tempo",
+    title: "Privacy Policy",
     description:
       "Read the Privacy Policy for The Tap Tempo to understand how we collect, use and protect information while you use our music tools and website.",
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      name: "Privacy Policy | The Tap Tempo",
+      name: "Privacy Policy",
       description:
         "Read the Privacy Policy for The Tap Tempo to understand how we collect, use and protect information while you use our music tools and website.",
       url: pageUrl,

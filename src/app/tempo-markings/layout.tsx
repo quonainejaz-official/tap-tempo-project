@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Tempo markings chart with BPM ranges, Italian terms (Adagio to Presto), and practical metronome tips for musicians, students, and beginners.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Tempo Markings Chart: BPM & Italian Terms | TheTapTempo",
+    title: "Tempo Markings Chart: BPM & Italian Terms",
     description:
       "Tempo markings chart with BPM ranges, Italian terms (Adagio to Presto), and practical metronome tips for musicians, students, and beginners.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tempo Markings Chart: BPM & Italian Terms | TheTapTempo",
+    title: "Tempo Markings Chart: BPM & Italian Terms",
     description:
       "Tempo markings chart with BPM ranges, Italian terms (Adagio to Presto), and practical metronome tips for musicians, students, and beginners.",
   },

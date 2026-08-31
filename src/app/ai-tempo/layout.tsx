@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/ai-tempo`
 
 export const metadata: Metadata = {
-  title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm | TheTapTempo",
+  title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm",
   description:
     "Ask TapTempoAI anything about BPM, tempo, rhythm, and music practice. Get instant answers for musicians, producers, DJs, and creators. Free AI-powered music assistant.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm | TheTapTempo",
+    title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm",
     description:
       "Ask TapTempoAI anything about BPM, tempo, rhythm, and music practice. Get instant answers for musicians, producers, DJs, and creators. Free AI-powered music assistant.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm | TheTapTempo",
+    title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm",
     description:
       "Ask TapTempoAI anything about BPM, tempo, rhythm, and music practice. Get instant answers for musicians, producers, DJs, and creators. Free AI-powered music assistant.",
   },

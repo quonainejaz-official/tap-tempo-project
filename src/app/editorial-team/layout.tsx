@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/editorial-team`
 
 export const metadata: Metadata = {
-  title: "Editorial Team | The Tap Tempo",
+  title: "Editorial Team",
   description:
     "Meet the editorial team behind The Tap Tempo. Learn how we create accurate, trusted music education content and browser-based tools for musicians.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Editorial Team | The Tap Tempo",
+    title: "Editorial Team",
     description:
       "Meet the editorial team behind The Tap Tempo. Learn how we create accurate, trusted music education content and browser-based tools for musicians.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Editorial Team | The Tap Tempo",
+    title: "Editorial Team",
     description:
       "Meet the editorial team behind The Tap Tempo. Learn how we create accurate, trusted music education content and browser-based tools for musicians.",
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      name: "Editorial Team | The Tap Tempo",
+      name: "Editorial Team",
       description:
         "Meet the editorial team behind The Tap Tempo. Learn how we create accurate, trusted music education content and browser-based tools for musicians.",
       url: pageUrl,
@@ -48,7 +48,7 @@ const jsonLd = {
     },
     {
       "@type": "AboutPage",
-      name: "Editorial Team | The Tap Tempo",
+      name: "Editorial Team",
       description:
         "Meet the editorial team behind The Tap Tempo. Learn how we create accurate, trusted music education content and browser-based tools for musicians.",
       url: pageUrl,

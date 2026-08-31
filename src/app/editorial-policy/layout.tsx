@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/editorial-policy`
 
 export const metadata: Metadata = {
-  title: "Editorial Policy | The Tap Tempo",
+  title: "Editorial Policy",
   description:
     "Learn how TheTapTempo researches, reviews, updates, and maintains educational content to provide accurate and trustworthy music resources.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Editorial Policy | The Tap Tempo",
+    title: "Editorial Policy",
     description:
       "Learn how TheTapTempo researches, reviews, updates, and maintains educational content to provide accurate and trustworthy music resources.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Editorial Policy | The Tap Tempo",
+    title: "Editorial Policy",
     description:
       "Learn how TheTapTempo researches, reviews, updates, and maintains educational content to provide accurate and trustworthy music resources.",
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      name: "Editorial Policy | The Tap Tempo",
+      name: "Editorial Policy",
       description:
         "Learn how TheTapTempo researches, reviews, updates, and maintains educational content to provide accurate and trustworthy music resources.",
       url: pageUrl,
@@ -48,7 +48,7 @@ const jsonLd = {
     },
     {
       "@type": "CreativeWork",
-      name: "Editorial Policy | The Tap Tempo",
+      name: "Editorial Policy",
       description:
         "Learn how TheTapTempo researches, reviews, updates, and maintains educational content to provide accurate and trustworthy music resources.",
       url: pageUrl,

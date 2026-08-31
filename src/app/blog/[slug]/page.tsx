@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!meta) return { title: "Blog Not Found" }
 
   return {
-    title: meta.metaTitle || `${meta.title} | TheTapTempo`,
+    title: meta.metaTitle || meta.title,
     description: meta.metaDescription || meta.excerpt || "",
     alternates: { canonical },
     openGraph: {

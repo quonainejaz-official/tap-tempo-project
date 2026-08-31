@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Free online metronome with subdivisions. Practice eighth notes, triplets, and sixteenth notes with precise subdivision clicks for better rhythmic accuracy.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths | TheTapTempo",
+    title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths",
     description:
       "Free online metronome with subdivisions. Practice eighth notes, triplets, and sixteenth notes with precise subdivision clicks for better rhythmic accuracy.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths | TheTapTempo",
+    title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths",
     description:
       "Free online metronome with subdivisions. Practice eighth notes, triplets, and sixteenth notes with precise subdivision clicks for better rhythmic accuracy.",
   },

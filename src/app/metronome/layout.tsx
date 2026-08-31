@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/metronome`
 
 export const metadata: Metadata = {
-  title: "Free Online Metronome – Precision Beats & Web App | TheTapTempo",
+  title: "Free Online Metronome – Precision Beats & Web App",
   description:
     "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Free Online Metronome – Precision Beats & Web App | TheTapTempo",
+    title: "Free Online Metronome – Precision Beats & Web App",
     description:
       "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Metronome – Precision Beats & Web App | TheTapTempo",
+    title: "Free Online Metronome – Precision Beats & Web App",
     description:
       "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",
   },

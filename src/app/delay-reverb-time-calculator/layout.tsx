@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Delay & Reverb Time Calculator | TheTapTempo",
+    title: "Delay & Reverb Time Calculator",
     description:
       "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Delay & Reverb Time Calculator | TheTapTempo",
+    title: "Delay & Reverb Time Calculator",
     description:
       "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",
   },

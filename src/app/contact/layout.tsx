@@ -4,12 +4,12 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/contact`
 
 export const metadata: Metadata = {
-  title: "Contact Us | The Tap Tempo",
+  title: "Contact Us",
   description:
     "Contact The Tap Tempo for questions, feedback, feature requests, or support regarding our browser-based music tools.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Contact Us | The Tap Tempo",
+    title: "Contact Us",
     description:
       "Contact The Tap Tempo for questions, feedback, feature requests, or support regarding our browser-based music tools.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Us | The Tap Tempo",
+    title: "Contact Us",
     description:
       "Contact The Tap Tempo for questions, feedback, feature requests, or support regarding our browser-based music tools.",
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      name: "Contact Us | The Tap Tempo",
+      name: "Contact Us",
       description:
         "Contact The Tap Tempo for questions, feedback, feature requests, or support regarding our browser-based music tools.",
       url: pageUrl,

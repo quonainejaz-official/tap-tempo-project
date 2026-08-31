@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Use a metronome for guitar practice to build clean chord changes, steady strumming patterns, and consistent picking technique at any tempo.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking | TheTapTempo",
+    title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking",
     description:
       "Use a metronome for guitar practice to build clean chord changes, steady strumming patterns, and consistent picking technique at any tempo.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking | TheTapTempo",
+    title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking",
     description:
       "Use a metronome for guitar practice to build clean chord changes, steady strumming patterns, and consistent picking technique at any tempo.",
   },

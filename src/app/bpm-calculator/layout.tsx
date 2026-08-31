@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "BPM Calculator - Tempo, Beats & Song Duration | TheTapTempo",
+    title: "BPM Calculator - Tempo, Beats & Song Duration",
     description:
       "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BPM Calculator - Tempo, Beats & Song Duration | TheTapTempo",
+    title: "BPM Calculator - Tempo, Beats & Song Duration",
     description:
       "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",
   },

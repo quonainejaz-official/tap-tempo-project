@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Beats Per Bar Calculator: Any Time Signature | TheTapTempo",
+    title: "Beats Per Bar Calculator: Any Time Signature",
     description:
       "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Beats Per Bar Calculator: Any Time Signature | TheTapTempo",
+    title: "Beats Per Bar Calculator: Any Time Signature",
     description:
       "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",
   },

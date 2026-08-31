@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Read articles on BPM, tap tempo, music production, metronome practice, delay and reverb techniques, and music theory for musicians, producers, and DJs.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Blog | TheTapTempo",
+    title: "Blog",
     description:
       "Read articles on BPM, tap tempo, music production, metronome practice, delay and reverb techniques, and music theory for musicians, producers, and DJs.",
     type: "website",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | TheTapTempo",
+    title: "Blog",
     description:
       "Read articles on BPM, tap tempo, music production, metronome practice, delay and reverb techniques, and music theory for musicians, producers, and DJs.",
   },
