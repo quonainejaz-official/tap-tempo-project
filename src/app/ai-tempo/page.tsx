@@ -251,6 +251,10 @@ export default function AiTempoPage() {
                 <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Delay & Reverb Time Calculator</h3>
                 <p className="text-sm text-muted-foreground">Calculate delay and reverb times</p>
               </a>
+              <a href="/pitch-tempo-calculator" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Pitch Tempo Calculator</h3>
+                <p className="text-sm text-muted-foreground">Calculate BPM shifts from pitch faders or semitones</p>
+              </a>
               <a href="/tempo-markings" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
                 <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Tempo Markings</h3>
                 <p className="text-sm text-muted-foreground">Italian tempo terms guide</p>

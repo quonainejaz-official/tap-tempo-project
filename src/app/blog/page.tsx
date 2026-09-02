@@ -31,6 +31,7 @@ const learningEcosystem = [
     tools: [
       { title: "BPM to ms", href: "/bpm-to-ms" },
       { title: "Delay & Reverb Time", href: "/delay-reverb-time-calculator" },
+      { title: "Pitch Tempo Calculator", href: "/pitch-tempo-calculator" },
     ],
   },
   {

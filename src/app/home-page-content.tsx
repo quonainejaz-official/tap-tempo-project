@@ -74,6 +74,7 @@ const toolCategories = [
     tools: [
       { icon: Table2, title: "BPM to ms", desc: "Convert tempo to exact millisecond values.", href: "/bpm-to-ms" },
       { icon: Sliders, title: "Delay & Reverb Time", desc: "Calculate delay and reverb timing from BPM.", href: "/delay-reverb-time-calculator" },
+      { icon: Sliders, title: "Pitch Tempo Calculator", desc: "Calculate BPM shifts from DJ pitch faders (%) or producer semitone transposition.", href: "/pitch-tempo-calculator" },
     ],
   },
   {
@@ -191,7 +192,7 @@ export function HomePageContent() {
               </div>
               <div className="h-10 w-px bg-border" />
               <div className="text-left text-sm leading-relaxed">
-                <div className="font-medium text-foreground">7 Free Tools</div>
+                <div className="font-medium text-foreground">8 Free Tools</div>
                 <div>No registration required</div>
               </div>
               <div className="h-10 w-px bg-border" />
