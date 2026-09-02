@@ -243,6 +243,10 @@ export default function AiTempoPage() {
                 <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">BPM Calculator</h3>
                 <p className="text-sm text-muted-foreground">Calculate BPM from time</p>
               </a>
+              <a href="/beats-per-bar-calculator" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
+                <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Beats Per Bar Calculator</h3>
+                <p className="text-sm text-muted-foreground">Interactive time signature tool</p>
+              </a>
               <a href="/bpm-to-ms" className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow group">
                 <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">BPM to MS</h3>
                 <p className="text-sm text-muted-foreground">Convert BPM to milliseconds</p>
