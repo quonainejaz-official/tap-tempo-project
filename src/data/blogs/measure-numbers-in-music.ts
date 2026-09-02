@@ -28,7 +28,7 @@ export const content = `<p>A conductor raises a hand and says, &ldquo;Let&apos;s
 
 <p>If the director instead says, &ldquo;Sopranos, begin at measure 27, right after the piano introduction,&rdquo; the instruction points to one specific measure, regardless of which verse a singer might have been thinking of.</p>
 
-<p>This doesn&apos;t mean conductors avoid describing the music. Many instructions still combine a bar number with a lyric, an entrance, a rehearsal mark, or a general description, &ldquo;two bars before the crescendo, at measure 42,&rdquo; for example. Conductors frequently pair a bar number with a <a href="https://www.thetaptempo.com/tempo-markings" class="text-primary hover:underline font-bold">tempo</a> instruction as well, telling the ensemble not just where to start, but at what speed, a combination covered in more detail in our guide to <a href="https://www.thetaptempo.com/tempo-markings" class="text-primary hover:underline font-bold">tempo markings</a>.</p>
+<p>This doesn&apos;t mean conductors avoid describing the music. Many instructions still combine a bar number with a lyric, an entrance, a rehearsal mark, or a general description, &ldquo;two bars before the crescendo, at measure 42,&rdquo; for example. Conductors frequently pair a bar number with a tempo instruction as well, telling the ensemble not just where to start, but at what speed, a combination covered in more detail in our guide to <a href="https://www.thetaptempo.com/tempo-markings" class="text-primary hover:underline font-bold">tempo markings</a>.</p>
 
 <h2>Bar Numbers vs Rehearsal Marks: What&apos;s the Difference?</h2>
 
