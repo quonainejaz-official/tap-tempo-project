@@ -265,6 +265,12 @@ export function BeatsPerBarSeoContent() {
                   "Learn how bars combine into musical phrases, why phrase length varies, and how cadences signal where one idea ends and the next begins.",
                 href: "/blog/musical-phrases",
               },
+              {
+                title: "Measure Numbers in Music: Why Bars Matter During Rehearsals",
+                description:
+                  "Learn how measure numbers help musicians navigate a score, keep rehearsals in sync, and communicate quickly about specific bars.",
+                href: "/blog/measure-numbers-in-music",
+              },
             ]}
           />
         </div>
