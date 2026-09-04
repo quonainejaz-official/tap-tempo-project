@@ -64,6 +64,9 @@ export default function MetronomeDrummersPage() {
               How to Practice with a Metronome
             </Link>. This page focuses specifically on drum-kit and rudiment practice.
           </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Guitarists can apply the same timing principles to chord changes, strumming, and picking in our <Link href="/metronome-for-guitar-practice" className="text-primary hover:underline font-bold">guitar practice guide</Link>.
+          </p>
         </section>
 
         {/* Rudiment Practice */}
@@ -75,7 +78,7 @@ export default function MetronomeDrummersPage() {
 
           <h3 className="font-semibold text-sm">Single Stroke Roll Drill</h3>
           <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground leading-relaxed">
-            <li>Set the metronome to a slow tempo (60 BPM).</li>
+            <li>Set the metronome to a slow tempo (60 BPM). If you need to find a comfortable starting point quickly, you can <Link href="/tap-tempo" className="text-primary hover:underline font-bold">tap to find the right tempo</Link>.</li>
             <li>Play one stroke per click, alternating hands (R-L-R-L).</li>
             <li>Focus on even volume and spacing between strokes.</li>
             <li>Increase tempo by 5 BPM only after five clean, relaxed rounds.</li>
@@ -106,6 +109,9 @@ export default function MetronomeDrummersPage() {
               </tbody>
             </table>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            When comparing different practice speeds, you can also <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">find your target BPM</Link> before increasing the tempo.
+          </p>
 
           <h3 className="font-semibold text-sm pt-2">The 4-Bar Rudiment Rotation</h3>
           <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground leading-relaxed">
@@ -114,6 +120,9 @@ export default function MetronomeDrummersPage() {
             <li>Keep the metronome at the same tempo throughout the switch.</li>
             <li>This trains clean transitions between techniques without losing time.</li>
           </ol>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Understanding how beats are grouped within each bar can also help when moving between different time signatures; you can <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">check the beat count for each bar</Link> when needed.
+          </p>
         </section>
 
         {/* Limb Independence Practice */}
@@ -176,6 +185,9 @@ export default function MetronomeDrummersPage() {
               </tbody>
             </table>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            If you prefer musical terms instead of BPM numbers, you can learn how <Link href="/tempo-markings" className="text-primary hover:underline font-bold">tempo descriptions like Largo and Allegro</Link> correspond to different speed ranges.
+          </p>
         </section>
 
         {/* Common Drumming Timing Mistakes */}
@@ -195,6 +207,9 @@ export default function MetronomeDrummersPage() {
           </ul>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Practicing fills and groove transitions separately, at a tempo where the return to the beat feels controlled, helps prevent these specific issues.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            For drum recording and production, you can also <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">translate BPM into milliseconds</Link> when working out timing for delay-based effects.
           </p>
         </section>
 
@@ -240,7 +255,7 @@ export default function MetronomeDrummersPage() {
         <section className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-2">
           <h2 className="font-semibold text-sm">Ready to Practice?</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Set a comfortable tempo above and start with the rudiment or limb independence drill that matches your current skill level. Increase speed only once your timing feels completely steady.
+            Set a comfortable tempo above and start with the rudiment or limb independence drill that matches your current skill level. Increase speed only once your timing feels completely steady. Use an <Link href="/metronome" className="text-primary hover:underline font-bold">online timing reference</Link> consistently as you build speed and groove control.
           </p>
         </section>
 
