@@ -156,6 +156,7 @@ export function BpmToMsSeoContent() {
         <p className="text-sm text-muted-foreground leading-relaxed">
           For example, if that 300 ms represents an eighth note, the quarter note is 600 ms, and BPM = 60,000 ÷ 600 = 100 BPM. This <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">ms to bpm conversion</Link> is invaluable when matching pre-recorded delay loops or estimating the tempo of a sampled performance.
         </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">If your samples or loops are transposed or pitched up/down, calculate the exact resulting speed with our <Link href="/pitch-tempo-calculator" className="text-primary hover:underline font-bold">pitch to BPM speed changes</Link> tool.</p>
       </section>
 
       {/* From BPM to a Perfectly Timed Mix */}
@@ -204,7 +205,7 @@ export function BpmToMsSeoContent() {
         <div>
           <h3 className="font-semibold text-sm">Enter the Exact Millisecond Value</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            In your <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">delay</Link>, reverb, or compressor plugin, type the precise millisecond number from the chart or your calculation. If the device offers tempo sync, engaging it will now keep the effect locked through tempo changes. If you&apos;re working with unsynced hardware or automating a DAW parameter manually, this step is non-negotiable.
+            In your delay, reverb, or compressor plugin, type the precise millisecond number from the chart or your calculation. If the device offers tempo sync, engaging it will now keep the effect locked through tempo changes. If you&apos;re working with unsynced hardware or automating a DAW parameter manually, this step is non-negotiable.
           </p>
         </div>
 
