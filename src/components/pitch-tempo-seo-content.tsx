@@ -12,7 +12,7 @@ import {
 const keyTakeaways = [
   "+1 Semitone shift increases tempo by approximately +5.95%.",
   "-1 Semitone shift decreases tempo by approximately -5.61%.",
-  "+6% DJ pitch fader adjustment equals approximately +1.004 semitones.",
+  "+6% DJ pitch fader adjustment equals approximately +1.009 semitones.",
   "DJ Pitch Faders follow a linear scale (%), while Producer Resampling/Semitones follow a logarithmic scale (2^(n/12)).",
   "Enabling Key Lock / Master Tempo preserves musical key when tempo changes, but applies DSP time-stretching processing.",
 ]
@@ -299,7 +299,7 @@ export function PitchTempoSeoContent() {
                 { shift: "0", speed: "0.00%", bpm120: "120.00", bpm128: "128.00", impact: "No shift" },
                 { shift: "+3% DJ fader", speed: "+3.00%", bpm120: "123.60", bpm128: "131.84", impact: "Micro-pitch shift; not a fixed musical interval" },
                 { shift: "+1 st", speed: "+5.95%", bpm120: "127.14", bpm128: "135.61", impact: "Key rises by 1 chromatic semitone" },
-                { shift: "+6% DJ fader", speed: "+6.00%", bpm120: "127.20", bpm128: "135.68", impact: "Key Lock off: pitch rises by approximately +1.004 st; Key Lock on: key is approximately preserved" },
+                { shift: "+6% DJ fader", speed: "+6.00%", bpm120: "127.20", bpm128: "135.68", impact: "Key Lock off: pitch rises by approximately +1.009 st; Key Lock on: key is approximately preserved" },
                 { shift: "+2 st", speed: "+12.25%", bpm120: "134.70", bpm128: "143.68", impact: "Key rises by 2 chromatic semitones" },
                 { shift: "+12 st", speed: "+100.00%", bpm120: "240.00", bpm128: "256.00", impact: "Octave up; same pitch class" },
               ].map((row) => (
@@ -318,7 +318,7 @@ export function PitchTempoSeoContent() {
           A +6% DJ pitch adjustment and a +1 semitone shift are close but not identical:
         </p>
         <div className="p-4 rounded-xl border bg-muted/30 text-center font-mono text-lg font-bold text-foreground">
-          12 × log2(1.06) ≈ 1.0039 st
+          12 × log2(1.06) ≈ 1.009 st
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
           A +6% fader move takes 120 BPM to 127.20 BPM, while a full +1 semitone takes it to 127.14 BPM. The difference increases as the adjustment becomes larger.
@@ -479,8 +479,8 @@ export function PitchTempoSeoContent() {
               <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
                 <p>Almost, but not exactly. A +6% playback-rate change has a ratio of 1.06, while one equal-tempered semitone has a ratio of 2^(1/12) = 1.059463.</p>
                 <p>The equivalent interval is:</p>
-                <div className="p-4 rounded-xl border bg-muted/30 text-center font-mono text-lg font-bold text-foreground">12 × log2(1.06) ≈ 1.0039 st</div>
-                <p>Therefore, +6% is approximately +1.004 semitones.</p>
+                <div className="p-4 rounded-xl border bg-muted/30 text-center font-mono text-lg font-bold text-foreground">12 × log2(1.06) ≈ 1.009 st</div>
+                <p>Therefore, +6% is approximately +1.009 semitones.</p>
               </div>
             </AccordionContent>
           </AccordionItem>
