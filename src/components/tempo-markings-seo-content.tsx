@@ -260,6 +260,7 @@ export function TempoMarkingsSeoContent() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             <strong>A Tempo</strong> — A tempo means returning to the original speed.
           </p>
+          <p className="text-sm text-muted-foreground leading-relaxed"><strong>Note on Pitch &amp; Transposition:</strong> When altering playback speed or pitch electronically (like changing tape speeds or transposing audio), Italian terms map to the new target tempo. Calculate exact speed changes using our <Link href="/pitch-tempo-calculator" className="text-primary hover:underline font-bold">pitch transposition BPM shift</Link> calculator.</p>
         </div>
       </section>
 
