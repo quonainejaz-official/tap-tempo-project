@@ -64,6 +64,9 @@ export default function MetronomeSubdivisionsPage() {
               How to Practice with a Metronome
             </Link>. This page focuses specifically on using subdivisions to sharpen your timing.
           </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Your time signature determines how beats are grouped within each bar; you can also <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">check beats per bar</Link> for different time signatures.
+          </p>
         </section>
 
         {/* Subdivision Reference Chart */}
@@ -107,6 +110,7 @@ export default function MetronomeSubdivisionsPage() {
               </tbody>
             </table>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">If you&apos;re working with musical tempo terms such as Largo, Andante, Moderato, or Allegro, see our guide to <Link href="/tempo-markings" className="text-primary hover:underline font-bold">musical tempo markings</Link> and their BPM ranges.</p>
         </section>
 
         {/* How to Practice with Subdivisions */}
@@ -116,7 +120,7 @@ export default function MetronomeSubdivisionsPage() {
           <div>
             <h3 className="font-semibold text-sm">Step 1: Start with Quarter Notes</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Set the metronome to a comfortable tempo (60-80 BPM) with no subdivision active. Play or tap along until the pulse feels completely natural.
+              Set the metronome to a comfortable tempo (60-80 BPM) with no subdivision active. If you need to find a starting tempo quickly, you can <Link href="/tap-tempo" className="text-primary hover:underline font-bold">tap a tempo to find your BPM</Link>. Play or tap along until the pulse feels completely natural. If you&apos;re unsure what BPM to practice at, you can <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">calculate BPM</Link> before you begin.
             </p>
           </div>
 
@@ -146,6 +150,7 @@ export default function MetronomeSubdivisionsPage() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Once triplets feel steady, move to sixteenth-note subdivisions. Start slow (50-60 BPM) since four clicks per beat happen quickly even at moderate tempos.
             </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">This type of subdivision practice is especially useful for drummers working on fills, ghost notes, and tighter rhythmic control. Our <Link href="/metronome-for-drummers" className="text-primary hover:underline font-bold">drumming practice</Link> tool can help you focus on these timing patterns.</p>
           </div>
         </section>
 
@@ -187,9 +192,9 @@ export default function MetronomeSubdivisionsPage() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             If you&apos;re working out exact millisecond timing for production or recording (rather than live practice), our{" "}
             <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">
-              BPM to Milliseconds Calculator
+              convert BPM to milliseconds
             </Link>{" "}
-            converts any subdivision into exact time values.
+            tool converts any subdivision into exact time values.
           </p>
         </section>
 
@@ -235,7 +240,7 @@ export default function MetronomeSubdivisionsPage() {
         <section className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-2">
           <h2 className="font-semibold text-sm">Ready to Practice?</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Turn on a subdivision above and start with a comfortable tempo. Focus on consistency before speed, and gradually work through eighth notes, triplets, and sixteenths as your <Link href="/metronome" className="text-primary hover:underline font-bold">Metronome</Link> timing becomes more precise.
+            Turn on a subdivision above and start with a comfortable tempo. Focus on consistency before speed, and gradually work through eighth notes, triplets, and sixteenths as your <Link href="/metronome" className="text-primary hover:underline font-bold">online metronome</Link> timing becomes more precise.
           </p>
         </section>
 
