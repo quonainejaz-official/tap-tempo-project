@@ -98,11 +98,12 @@ export function BeatsPerBarSeoContent() {
           A 128 BPM track in 4/4 has the same tempo as a 128 BPM track in 3/4. The difference? Bar duration.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Bar duration (seconds) = (60 ÷ BPM) × beats per bar
+          Bar duration (seconds) = (60 ÷ BPM) × beats per bar.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           At 128 BPM in 4/4, one bar lasts exactly 1.875 seconds. In 3/4, it&apos;s 1.406 seconds. That 0.47‑second gap is why your 8‑bar intro in 3/4 feels shorter than you expected; not because it&apos;s faster, but because it has fewer beats per grouping.
         </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">Note: If you pitch-shift or transpose your track audio, your BPM will change — use our <Link href="/pitch-tempo-calculator" className="text-primary hover:underline font-bold">pitch shift tempo calculator</Link> to get your new tempo before recalculating bar durations.</p>
       </section>
 
       <section>
