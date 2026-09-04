@@ -127,6 +127,7 @@ export function DelayReverbSeoContent() {
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">
           Why these work: Shorter delays (30‑80 ms) thicken without obvious repeat. Dotted eighth creates movement. Triplets add a swung feel.
         </p>
+        <p className="text-sm text-muted-foreground leading-relaxed mt-3">If you are working with transposed loops or tape pitch shifts, calculate the new track BPM first using our <Link href="/pitch-tempo-calculator" className="text-primary hover:underline font-bold">semitone pitch shift speed changes</Link> tool before dialing in your delay times.</p>
       </section>
 
       <section>
