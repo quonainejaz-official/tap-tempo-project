@@ -223,7 +223,7 @@ export function BpmCalculatorSeoContent() {
             <li>Track A beats = (124 × 240) ÷ 60 = 496 beats</li>
             <li>Track B beats = (128 × 180) ÷ 60 = 384 beats</li>
           </ul>
-          <p className="text-sm text-muted-foreground leading-relaxed">Knowing this helps you plan where to start the mix so phrases align. Curious how professional DJs use this in a real set? See our full guide: <Link href="/blog/how-djs-calculate-bpm" className="text-primary hover:underline font-bold">How DJs Calculate BPM Before Mixing Songs</Link>.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">Knowing this helps you plan where to start the mix so phrases align. If you need to adjust a track&apos;s BPM to match your mix using pitch faders, calculate the exact speed shift using our <Link href="/pitch-tempo-calculator" className="text-primary hover:underline font-bold">DJ pitch percentage formula</Link> tool.</p>
         </div>
 
         <div>
