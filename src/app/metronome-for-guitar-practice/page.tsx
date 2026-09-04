@@ -76,11 +76,14 @@ export default function MetronomeGuitarPracticePage() {
           <h3 className="font-semibold text-sm">The 4-Bar Chord Change Drill</h3>
           <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground leading-relaxed">
             <li>Pick two chords you&apos;re learning (e.g., G and C).</li>
-            <li>Set the metronome to a slow tempo (50-60 BPM).</li>
+            <li>Set the metronome to a slow tempo (50-60 BPM). If you need to find a comfortable starting tempo, you can <Link href="/tap-tempo" className="text-primary hover:underline font-bold">tap to find a starting BPM</Link>.</li>
             <li>Strum each chord for a full bar (4 beats), then switch on beat 1 of the next bar.</li>
             <li>Once this feels clean, reduce to switching every 2 beats.</li>
             <li>Increase tempo by 5 BPM only after five clean rounds.</li>
           </ol>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            When comparing different practice tempos, you can also <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">work out the BPM</Link> before choosing your target speed.
+          </p>
 
           <h3 className="font-semibold text-sm pt-2">Common Guitar Chord-Change Tempo Benchmarks</h3>
           <div className="overflow-x-auto rounded-xl border">
@@ -107,6 +110,9 @@ export default function MetronomeGuitarPracticePage() {
               </tbody>
             </table>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            These exercises are usually practiced in four-beat bars, but understanding how beats are grouped can help when working with different time signatures. You can <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">see how many beats fit in each bar</Link> with our calculator.
+          </p>
         </section>
 
         {/* Strumming Pattern Practice */}
@@ -168,6 +174,9 @@ export default function MetronomeGuitarPracticePage() {
               </tbody>
             </table>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            If BPM numbers are unfamiliar, it can also help to understand <Link href="/tempo-markings" className="text-primary hover:underline font-bold">common tempo terms</Link> such as Largo, Andante, Moderato, Allegro, and Vivace.
+          </p>
         </section>
 
         {/* Common Guitar Timing Mistakes */}
@@ -187,6 +196,9 @@ export default function MetronomeGuitarPracticePage() {
           </ul>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Practicing chord changes and picking separately, at a tempo where both feel controlled, helps prevent these specific issues.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            For guitar recording and production, you can also <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">convert a tempo into milliseconds</Link> when working out timing for delay and other effects.
           </p>
         </section>
 
@@ -232,7 +244,7 @@ export default function MetronomeGuitarPracticePage() {
         <section className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-2">
           <h2 className="font-semibold text-sm">Ready to Practice?</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Set a comfortable tempo above and start with the chord change or strumming drill that matches your current skill level. Increase speed only once your timing feels completely steady. Use a <Link href="/metronome" className="text-primary hover:underline font-bold">metronome</Link> consistently to track your progress.
+            Set a comfortable tempo above and start with the chord change or strumming drill that matches your current skill level. Increase speed only once your timing feels completely steady. Use an <Link href="/metronome" className="text-primary hover:underline font-bold">online timing reference</Link> consistently to track your progress.
           </p>
         </section>
 
