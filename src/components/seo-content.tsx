@@ -246,6 +246,7 @@ export function SeoContent() {
           <div className="space-y-2">
             <h4 className="font-semibold text-foreground text-sm">For DJs: Pre-Cue Tempo Matching</h4>
             <p>A manual tapper is indispensable when dealing with un‑quantized vinyl rips, obscure edits, or tracks that haven&apos;t been analyzed yet. Tap the tempo before you load the track, and you&apos;ll already know whether it fits the current DJ transition.</p>
+            <p>If you need to shift a track&apos;s speed using pitch faders or semitone transposition, calculate the new target speed with our <Link href="/pitch-tempo-calculator" className="text-primary hover:underline font-bold">Pitch Tempo Calculator</Link>.</p>
           </div>
           <div className="space-y-2">
             <h4 className="font-semibold text-foreground text-sm">For Guitarists: Tap Tempo Delay Sync</h4>
