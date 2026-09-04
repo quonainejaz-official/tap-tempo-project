@@ -166,7 +166,7 @@ export default function PitchTempoCalculatorPage() {
                 <div className="mt-3 flex items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
                   <AlertTriangle className="w-4 h-4 shrink-0" />
                   <span>
-                    ⚠️ Requires {numPitch > 0 ? `+${numPitch}` : `${numPitch}`}% adjustment, which exceeds your active ±{faderMax}% pitch fader limit.
+                    Requires {numPitch > 0 ? `+${numPitch}` : `${numPitch}`}% adjustment, which exceeds your active ±{faderMax}% pitch fader limit.
                   </span>
                 </div>
               )}
@@ -283,7 +283,7 @@ export default function PitchTempoCalculatorPage() {
                 <div className="mt-3 flex items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
                   <AlertTriangle className="w-4 h-4 shrink-0" />
                   <span>
-                    ⚠️ Requires {pitchPct > 0 ? `+${pitchPct.toFixed(2)}` : `${pitchPct.toFixed(2)}`}% adjustment, which exceeds your active ±{faderMax}% pitch fader limit.
+                    Requires {pitchPct > 0 ? `+${pitchPct.toFixed(2)}` : `${pitchPct.toFixed(2)}`}% adjustment, which exceeds your active ±{faderMax}% pitch fader limit.
                   </span>
                 </div>
               )}
