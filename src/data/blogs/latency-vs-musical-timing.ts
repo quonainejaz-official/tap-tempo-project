@@ -151,5 +151,6 @@ export const content = `<p>A vocalist hears her own voice arrive a beat late in 
 <li><a href="https://www.thetaptempo.com/blog/understanding-note-values">Understanding Note Values</a></li>
 <li><a href="https://www.thetaptempo.com/blog/tempo-synced-effects">Why Tempo-Synced Effects Sound Better Than Manual Timing</a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-to-find-bpm-of-any-song">How to Find the BPM of Any Song</a></li>
+<li><a href="https://www.thetaptempo.com/blog/speaker-delay-live-sound">Speaker Delay Explained: Live Sound &amp; PA System Guide</a></li>
 </ul>
 `;

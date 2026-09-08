@@ -220,6 +220,7 @@ export const content = `
 <li><a href="https://www.thetaptempo.com/delay-reverb-time-calculator"><strong>Delay & Reverb Time Calculator</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-to-set-delay-for-electric-guitar"><strong>How to Set Delay Time for Electric Guitar Without Guesswork</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/understanding-note-values"><strong>Understanding Note Values: Why Quarter, Eighth, and Triplet Delays Sound Different</strong></a></li>
+<li><a href="https://www.thetaptempo.com/blog/speaker-delay-live-sound"><strong>Speaker Delay Explained: Live Sound &amp; PA System Guide</strong></a></li>
 </ul>
 
 <h2>Stop Guessing and Start Mixing</h2>

@@ -280,6 +280,7 @@ export const content = `
 <li><a href="https://www.thetaptempo.com/blog/common-metronome-mistakes"><strong>Common Metronome Mistakes That Slow Down Your Progress</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-to-choose-song-bpm"><strong>How to Choose the Right BPM Before You Start Recording a Song</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/understanding-note-values"><strong>Understanding Note Values: Why Quarter, Eighth, and Triplet Delays Sound Different</strong></a></li>
+<li><a href="https://www.thetaptempo.com/blog/speaker-delay-live-sound"><strong>Speaker Delay Explained: Live Sound &amp; PA System Guide</strong></a></li>
 </ul>
 
 <h2>Ready to Dial In the Perfect Delay?</h2>
