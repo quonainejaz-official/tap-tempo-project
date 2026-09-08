@@ -153,6 +153,7 @@ export const content = `
 <li><a href="https://www.thetaptempo.com/blog/common-metronome-mistakes"><strong>Common Metronome Mistakes That Slow Down Your Progress</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-to-choose-song-bpm"><strong>How to Choose the Right BPM Before You Start Recording a Song</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/what-are-milliseconds-in-music"><strong>What Are Milliseconds in Music</strong></a></li>
+<li><a href="https://www.thetaptempo.com/blog/measure-numbers-in-music"><strong>Measure Numbers in Music</strong></a></li>
 </ul>
 
 <p>Tempo markings provide direction, not strict limits. Use our <a href="https://www.thetaptempo.com/tempo-markings"><strong>Tempo Markings Tool</strong></a> to explore common tempo references while remembering that musical interpretation always plays an important role.</p>

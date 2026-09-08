@@ -166,6 +166,7 @@ export const content = `
 <li><a href="https://www.thetaptempo.com/blog/delay-vs-reverb"><strong>Delay vs Reverb: Which Effect Should You Use and When?</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/understanding-note-values"><strong>Understanding Note Values: Why Quarter, Eighth, and Triplet Delays Sound Different</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-to-choose-song-bpm"><strong>How to Choose the Right BPM Before You Start Recording a Song</strong></a></li>
+<li><a href="https://www.thetaptempo.com/blog/measure-numbers-in-music"><strong>Measure Numbers in Music</strong></a></li>
 </ul>
 
 <p>Bars are the foundation of written musical organization. Once you understand why they exist, use our <a href="https://www.thetaptempo.com/beats-per-bar-calculator"><strong>Beats Per Bar Calculator</strong></a> to explore how different musical meters organize beats within each measure.</p>

@@ -165,5 +165,7 @@ export const content = `<p>A bar holds the beats, but a phrase holds the meaning
 
 <p>Phrase construction builds directly on how bars themselves are organized. If you haven&apos;t already, <a href="https://www.thetaptempo.com/blog/why-music-is-divided-into-bars" class="text-primary hover:underline font-bold">Why Music Is Divided Into Bars</a> is a useful starting point for understanding the foundation this article builds on. From there, <a href="https://www.thetaptempo.com/blog/strong-and-weak-beats-in-music" class="text-primary hover:underline font-bold">Understanding Strong and Weak Beats</a> explains the internal rhythmic organization that shapes how motifs and phrases feel as they unfold across each bar.</p>
 
+<p>To navigate longer works precisely, <a href="https://www.thetaptempo.com/blog/measure-numbers-in-music" class="text-primary hover:underline font-bold">Measure Numbers in Music</a> explains how measures are numbered for rehearsal, analysis, and reference across a score.</p>
+
 <p>Recognizing how musical phrases form from bars and measures changes the way you read and listen to music, turning strings of notes into ideas with real shape and direction. When you&apos;re ready to analyze the beats within a measure, try the <a href="https://www.thetaptempo.com/beats-per-bar-calculator" class="text-primary hover:underline font-bold">Beats Per Bar Calculator</a> to see how beats are organized before studying how those measures combine into musical phrases.</p>
 `
