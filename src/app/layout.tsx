@@ -86,6 +86,18 @@ const jsonLd = {
       "@type": "Organization",
       name: "TheTapTempo",
       url: BASE_URL,
+      sameAs: [
+        "https://www.youtube.com/@TheTapTempo",
+        "https://www.linkedin.com/in/the-tap-tempo/",
+        "https://www.producthunt.com/@the_taptempo",
+        "https://x.com/taptempous",
+        "https://www.instagram.com/taptempous/",
+        "https://www.crunchbase.com/organization/the-tap-tempo",
+        "https://medium.com/@taptempous",
+        "https://www.facebook.com/profile.php?id=61591940093409",
+        "https://www.trustpilot.com/review/thetaptempo.com",
+        "https://soundcloud.com/the-taptempo",
+      ],
       logo: {
         "@type": "ImageObject",
         url: `${BASE_URL}/logo.svg`,

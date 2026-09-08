@@ -111,7 +111,7 @@ export default function MetronomeGuitarPracticePage() {
             </table>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            These exercises are usually practiced in four-beat bars, but understanding how beats are grouped can help when working with different time signatures. You can <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">see how many beats fit in each bar</Link> with our calculator.
+            These exercises are usually practiced in four-beat bars, but understanding how beats are grouped can help when working with different time signatures. You can <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">see how many beats fit in each bar</Link> with our calculator.
           </p>
         </section>
 

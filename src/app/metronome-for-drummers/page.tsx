@@ -121,7 +121,7 @@ export default function MetronomeDrummersPage() {
             <li>This trains clean transitions between techniques without losing time.</li>
           </ol>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Understanding how beats are grouped within each bar can also help when moving between different time signatures; you can <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">check the beat count for each bar</Link> when needed.
+            Understanding how beats are grouped within each bar can also help when moving between different time signatures; you can <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">check the beat count for each bar</Link> when needed.
           </p>
         </section>
 

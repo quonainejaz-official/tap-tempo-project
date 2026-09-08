@@ -65,7 +65,7 @@ export default function MetronomeSubdivisionsPage() {
             </Link>. This page focuses specifically on using subdivisions to sharpen your timing.
           </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Your time signature determines how beats are grouped within each bar; you can also <Link href="/beats-per-bar" className="text-primary hover:underline font-bold">check beats per bar</Link> for different time signatures.
+            Your time signature determines how beats are grouped within each bar; you can also <Link href="/beats-per-bar-calculator" className="text-primary hover:underline font-bold">check beats per bar</Link> for different time signatures.
           </p>
         </section>
 
