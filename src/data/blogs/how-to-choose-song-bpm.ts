@@ -304,6 +304,7 @@ export const content = `<p>Every recording session begins with hundreds of creat
 <li><a href="https://www.thetaptempo.com/blog/how-to-find-bpm-of-any-song"><strong>How to Find the BPM of Any Song</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/practice-with-a-metronome"><strong>How to Practice with a Metronome</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-accurate-is-tap-tempo"><strong>How Accurate Is Tap Tempo? Human vs Software BPM Detection</strong></a></li>
+<li><a href="https://www.thetaptempo.com/blog/pitch-percentage-bpm"><strong>Pitch Percentage &amp; BPM: Technics vs. Pioneer Fader Behavior</strong></a></li>
 </ul>
 
 <h2>Final Thoughts</h2>
