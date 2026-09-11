@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 
 const defaultLinks = [
   { href: "/tap-tempo", label: "Tap Tempo" },
@@ -20,9 +21,26 @@ const defaultLinks = [
   { href: "/ai-tempo", label: "TapTempo-AI" },
 ]
 
+const dropdownItems: Record<string, { href: string; label: string }[]> = {
+  "/metronome": [
+    { href: "/metronome-with-subdivisions", label: "Subdivision Practice" },
+    { href: "/metronome-for-guitar-practice", label: "Guitar Practice" },
+    { href: "/metronome-for-drummers", label: "Drummers" },
+  ],
+  "/bpm-calculator": [
+    { href: "/pitch-tempo-calculator", label: "Pitch Tempo Calculator" },
+  ],
+}
+
 export function Header() {
   const [open, setOpen] = useState(false)
   const [navLinks, setNavLinks] = useState(defaultLinks)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    setOpenDropdown(null)
+  }, [pathname])
 
   useEffect(() => {
     fetch("/api/navigation")
@@ -65,25 +83,51 @@ export function Header() {
         </Link>
 
         <div className="hidden md:flex flex-1 items-center justify-between space-x-2">
-          <nav aria-label="Main navigation" className="flex items-center space-x-6 text-sm font-medium">
+          <nav
+            aria-label="Main navigation"
+            className="flex items-center space-x-6 text-sm font-medium"
+            onMouseLeave={() => setOpenDropdown(null)}
+          >
             {navLinks.map((link) => {
-              if (link.href === "/bpm-calculator") {
+              const items = dropdownItems[link.href]
+              if (items?.length) {
+                const isOpen = openDropdown === link.href
                 return (
-                  <div key={link.href} className="relative group">
+                  <div
+                    key={link.href}
+                    className="relative"
+                    onMouseEnter={() => setOpenDropdown(link.href)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                    onFocus={() => setOpenDropdown(link.href)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setOpenDropdown(null)
+                      }
+                    }}
+                  >
                     <Link
                       href={link.href}
+                      onClick={() => setOpenDropdown(null)}
                       className="transition-colors hover:text-foreground/80 text-foreground/60"
                     >
                       {link.label}
                     </Link>
-                    <div className="absolute left-0 top-full w-max invisible group-hover:visible">
-                      <div className="rounded-[10px] border bg-background p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_16px_rgba(0,0,0,0.05)] -translate-y-[3px] opacity-0 transition-all duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                        <Link
-                          href="/pitch-tempo-calculator"
-                          className="block whitespace-nowrap px-3 py-1.5 rounded-[6px] text-[13px] text-foreground/60 hover:text-foreground hover:bg-muted/60 transition-colors"
-                        >
-                          Pitch Tempo Calculator
-                        </Link>
+                    <div className={`absolute left-0 top-full w-max ${isOpen ? "visible" : "invisible"}`}>
+                      <div
+                        className={`rounded-[10px] border bg-background p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_16px_rgba(0,0,0,0.05)] transition-all duration-150 ease-out ${
+                          isOpen ? "translate-y-0 opacity-100" : "-translate-y-[3px] opacity-0"
+                        }`}
+                      >
+                        {items.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setOpenDropdown(null)}
+                            className="block whitespace-nowrap px-3 py-1.5 rounded-[6px] text-[13px] text-foreground/60 hover:text-foreground hover:bg-muted/60 transition-colors"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -114,26 +158,30 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <nav aria-label="Mobile navigation" className="flex flex-col space-y-4 mt-6">
-                {navLinks.map((link) => (
-                  <div key={link.href} className="flex flex-col space-y-2">
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="text-lg font-medium"
-                    >
-                      {link.label}
-                    </Link>
-                    {link.href === "/bpm-calculator" && (
+                {navLinks.map((link) => {
+                  const items = dropdownItems[link.href]
+                  return (
+                    <div key={link.href} className="flex flex-col space-y-2">
                       <Link
-                        href="/pitch-tempo-calculator"
+                        href={link.href}
                         onClick={() => setOpen(false)}
-                        className="text-base text-muted-foreground pl-4"
+                        className="text-lg font-medium"
                       >
-                        Pitch Tempo Calculator
+                        {link.label}
                       </Link>
-                    )}
-                  </div>
-                ))}
+                      {items?.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          className="text-base text-muted-foreground pl-4"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )
+                })}
               </nav>
             </SheetContent>
           </Sheet>
