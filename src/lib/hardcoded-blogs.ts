@@ -26,6 +26,7 @@ import { content as c24 } from "@/data/blogs/how-tempo-affects-emotion"
 import { content as c25 } from "@/data/blogs/history-of-italian-musical-terms"
 import { content as c26 } from "@/data/blogs/musical-phrases"
 import { content as c27 } from "@/data/blogs/measure-numbers-in-music"
+import { content as c28 } from "@/data/blogs/pitch-percentage-bpm"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -58,6 +59,7 @@ const blogContentMap: Record<string, string> = {
   "history-of-italian-musical-terms": c25,
   "musical-phrases": c26,
   "measure-numbers-in-music": c27,
+  "pitch-percentage-bpm": c28,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
