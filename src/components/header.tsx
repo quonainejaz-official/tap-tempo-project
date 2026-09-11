@@ -76,11 +76,11 @@ export function Header() {
                     >
                       {link.label}
                     </Link>
-                    <div className="absolute left-0 top-full pt-2 hidden group-hover:block">
-                      <div className="min-w-[200px] rounded-lg border bg-background shadow-lg p-1.5">
+                    <div className="absolute left-0 top-full w-max invisible group-hover:visible">
+                      <div className="rounded-[10px] border bg-background p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_16px_rgba(0,0,0,0.05)] -translate-y-[3px] opacity-0 transition-all duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100">
                         <Link
                           href="/pitch-tempo-calculator"
-                          className="block px-3 py-2 rounded-md text-sm text-foreground/70 hover:text-foreground hover:bg-accent transition-colors"
+                          className="block whitespace-nowrap px-3 py-1.5 rounded-[6px] text-[13px] text-foreground/60 hover:text-foreground hover:bg-muted/60 transition-colors"
                         >
                           Pitch Tempo Calculator
                         </Link>
