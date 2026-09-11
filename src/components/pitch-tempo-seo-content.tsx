@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { ContinueLearningCarousel } from "@/components/continue-learning-carousel"
 
 const keyTakeaways = [
   "+1 Semitone shift increases tempo by approximately +5.95%.",
@@ -408,6 +409,26 @@ export function PitchTempoSeoContent() {
         <p className="text-sm text-muted-foreground leading-relaxed">
           Unlinking pitch from tempo can introduce transient smearing, phasiness, chorus-like modulation, metallic artifacts, or stereo-image instability. Severity depends on source material, stretch ratio, algorithm, windowing, transient detection, and processing quality.
         </p>
+      </section>
+
+      {/* Continue Learning */}
+      <section className="space-y-4">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Continue Learning</h2>
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>
+            Want to understand how pitch percentages and fader ranges change tempo on real hardware? This guide explains it:
+          </p>
+          <ContinueLearningCarousel
+            items={[
+              {
+                title: "How Pitch Percentage Affects BPM in DJing: Technics vs. Pioneer Fader Behavior",
+                description:
+                  "Why does the same pitch % feel different on a Technics turntable vs. a Pioneer CDJ? A hardware-level look at pitch range, resolution, calibration, and drift.",
+                href: "/blog/pitch-percentage-bpm",
+              },
+            ]}
+          />
+        </div>
       </section>
 
       {/* FAQ */}
