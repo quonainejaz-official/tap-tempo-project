@@ -190,5 +190,6 @@ export const content = `<p>A pitch fader can show the exact same percentage on t
 <li><a href="https://www.thetaptempo.com/blog/how-to-increase-playing-speed-with-metronome" class="text-primary hover:underline font-bold">How to Increase Playing Speed With a Metronome</a></li>
 <li><a href="https://www.thetaptempo.com/blog/speaker-delay-live-sound" class="text-primary hover:underline font-bold">Speaker Delay Explained: Live Sound &amp; PA System Guide</a></li>
 <li><a href="https://www.thetaptempo.com/blog/measure-numbers-in-music" class="text-primary hover:underline font-bold">Measure Numbers in Music: Why Bars Matter During Rehearsals</a></li>
+<li><a href="https://www.thetaptempo.com/blog/semitones-to-bpm-shift" class="text-primary hover:underline font-bold">Semitones to BPM Shift: MPC60 vs SP-1200 Math</a></li>
 </ul>
 `;
