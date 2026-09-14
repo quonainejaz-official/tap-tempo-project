@@ -426,6 +426,12 @@ export function PitchTempoSeoContent() {
                   "Why does the same pitch % feel different on a Technics turntable vs. a Pioneer CDJ? A hardware-level look at pitch range, resolution, calibration, and drift.",
                 href: "/blog/pitch-percentage-bpm",
               },
+              {
+                title: "Semitones to BPM Shift: MPC60 vs SP-1200 Math",
+                description:
+                  "How semitone pitch shifts changed BPM on the Akai MPC60 and E-mu SP-1200, with the exact formula, worked examples, and the golden-era memory-saving hack.",
+                href: "/blog/semitones-to-bpm-shift",
+              },
             ]}
           />
         </div>
