@@ -1490,6 +1490,73 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
     }
   ]
 },
+{
+  "slug": "semitones-to-bpm-shift",
+  "title": "Semitones to BPM Shift: How Classic Hardware Samplers Change Track Speed",
+  "excerpt": "Why classic hardware samplers changed tempo when you changed pitch: the exact 2^(n/12) math behind semitone shifts, how it played out on the MPC60 and SP-1200, and the golden-era memory-saving hack.",
+  "metaTitle": "Semitones to BPM Shift: MPC60 vs SP-1200 Math | TheTapTempo",
+  "metaDescription": "How semitone pitch shifts changed BPM on the Akai MPC60 and E-mu SP-1200, with the exact formula, worked examples, and the golden-era memory-saving hack.",
+  "coverImage": "https://res.cloudinary.com/dym1gtcer/image/upload/v1789397047/taptempo/semitones-to-bpm-shift-featured.webp",
+  "coverImagePublicId": "taptempo/semitones-to-bpm-shift-featured",
+  "coverImageAlt": "Akai MPC60 and E-mu SP-1200 samplers illustrated side by side representing semitone pitch shift and BPM tempo change",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "15 min read",
+  "tags": [
+    "samplers",
+    "mpc60",
+    "sp-1200",
+    "semitones",
+    "pitch shift",
+    "resampling",
+    "tempo",
+    "hip-hop",
+    "guide"
+  ],
+  "createdAt": "2026-09-14T00:00:00.000Z",
+  "updatedAt": "2026-09-14T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "How many BPM does one semitone add to a sample?",
+      "a": "One semitone multiplies playback speed by 2^(1/12), approximately 1.05946, which is about a 5.946% increase. At 90 BPM, shifting up one semitone results in roughly 95.35 BPM."
+    },
+    {
+      "q": "Why do vintage samplers speed up when pitched up?",
+      "a": "Because pitch and speed were controlled by the same mechanism, playback rate. Raising the tuning made the sampler read its stored data faster, which raised both pitch and tempo simultaneously."
+    },
+    {
+      "q": "How did 90s hip-hop producers match sample tempos?",
+      "a": "Through a combination of turntable pitch controls before sampling, sampling at different RPM speeds to pre-shift pitch, post-sampling tuning adjustments on the sampler itself, and chopping samples into smaller pieces that could be re-triggered at the desired tempo."
+    },
+    {
+      "q": "Does tuning a sample change its tempo automatically?",
+      "a": "On classic hardware samplers, yes, tuning and tempo were locked together through playback rate. Modern time-stretching tools are built specifically to break that link, letting tempo and pitch move independently."
+    },
+    {
+      "q": "What happens to audio quality when resampling by semitones?",
+      "a": "Bandwidth narrows relative to the sample rate, pitch-down shifts can introduce aliasing, non-interpolated pitch shifting adds its own artifacts, and 12-bit encoding contributes quantization noise. Together these produce the characteristic texture associated with vintage sampler hardware."
+    },
+    {
+      "q": "Why does one semitone correspond to approximately 5.95%?",
+      "a": "Because the twelfth root of two, 2^(1/12), equals roughly 1.0594630943592952646. Subtracting 1 gives the percentage increase, about 5.946%, commonly rounded to 5.95%."
+    },
+    {
+      "q": "How does sample duration change when pitch is shifted?",
+      "a": "Duration moves inversely to playback rate. Pitching up an octave, 12 semitones, doubles playback speed and halves duration. Pitching down an octave halves speed and doubles duration."
+    },
+    {
+      "q": "How did limited sampler memory influence pitching practices?",
+      "a": "With as little as 10 seconds of total sample time on machines like the SP-1200, producers pre-pitched material upward, often via faster turntable playback, to shorten its recorded length and fit more musical content into a fixed amount of memory."
+    },
+    {
+      "q": "Did the MPC60 and SP-1200 handle pitch and resampling identically?",
+      "a": "No. The MPC60's 40 kHz sample rate and 0.1-semitone fine-tuning gave it cleaner, more precise transposition than the SP-1200's 26.04 kHz rate and coarser slider-based tuning, which produced more pronounced pitch-shifting artifacts."
+    },
+    {
+      "q": "What's technically different between vintage resampling and modern time-stretching?",
+      "a": "Vintage resampling changes pitch and tempo together because both are governed by playback rate. Modern time-stretching uses algorithmic processing that can change tempo independently of pitch, or the reverse, something vintage hardware had no mechanism to do."
+    }
+  ]
+},
 ]
 
 export function getHardcodedBlogMeta(slug: string): HardcodedBlogMeta | undefined {
