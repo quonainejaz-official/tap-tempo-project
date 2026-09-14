@@ -531,6 +531,7 @@ export const content = `<p>Every smooth DJ transition starts long before the fir
 <li><a href="https://www.thetaptempo.com/blog/how-to-find-bpm-of-any-song"><strong>How to Find the BPM of Any Song: 7 Methods</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/common-metronome-mistakes"><strong>Common Metronome Mistakes That Slow Down Your Progress</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-accurate-is-tap-tempo"><strong>How Accurate Is Tap Tempo? Human vs Software BPM Detection</strong></a></li>
+<li><a href="https://www.thetaptempo.com/blog/semitones-to-bpm-shift"><strong>Semitones to BPM Shift: MPC60 vs SP-1200 Math</strong></a></li>
 </ul>
 
 <h2>Final Thoughts</h2>
