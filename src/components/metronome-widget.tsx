@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Slider } from "@/components/ui/slider"
 import { Hand } from "lucide-react"
@@ -71,6 +72,7 @@ interface MetronomeWidgetProps {
   defaultBpm?: number
   defaultSignature?: string
   defaultBeatStates?: BeatState[]
+  defaultSound?: "click" | "beep" | "woodblock"
   defaultGapClick?: boolean
   defaultPlayBars?: number
   defaultSilentBars?: number
@@ -84,6 +86,7 @@ export function MetronomeWidget({
   defaultBpm,
   defaultSignature,
   defaultBeatStates,
+  defaultSound,
   defaultGapClick,
   defaultPlayBars,
   defaultSilentBars,
@@ -95,7 +98,7 @@ export function MetronomeWidget({
   const [volume, setVolume] = useState(0.8)
   const [signature, setSignature] = useState(defaultSignature ?? "4/4")
   const [beat, setBeat] = useState(-1)
-  const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">("click")
+  const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">(defaultSound ?? "click")
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
   const [tapPulse, setTapPulse] = useState(false)
   const [beatStates, setBeatStates] = useState<BeatState[]>(defaultBeatStates ?? ["N", "N", "N", "N"])
@@ -125,7 +128,7 @@ export function MetronomeWidget({
   const bpmRef = useRef(bpm)
   const volumeRef = useRef(volume)
   const numBeatsRef = useRef(parseInt(signature.split("/")[0]))
-  const soundStyleRef = useRef<"click" | "beep" | "woodblock">("click")
+  const soundStyleRef = useRef<"click" | "beep" | "woodblock">(defaultSound ?? "click")
   const subdRef = useRef(subdivision)
   const beatStatesRef = useRef(beatStates)
   const signatureRef = useRef(signature)
@@ -754,14 +757,14 @@ export function MetronomeWidget({
           {/* Quick Presets */}
           <div className="flex gap-1.5 flex-wrap mt-2">
             {[
-              { label: "1/16 Mode", action: () => { setSubdivision("sixteenth"); setSignature("4/4"); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
-              { label: "Guitar", action: () => { handleBpmInput(90); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["A", "N", "A", "N"]); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
-              { label: "Drummer", action: () => { handleBpmInput(120); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(true); setPlayBars(2); setSilentBars(2); setIsRandomMuteActive(true); setRandomMutePercent(15); handlePlayToggle() } },
-              { label: "Piano", action: () => { handleBpmInput(110); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
+              { label: "1/16 Mode", href: "/metronome-with-subdivisions" },
+              { label: "Guitar", href: "/metronome-for-guitar-practice" },
+              { label: "Drummer", href: "/metronome-for-drummers" },
+              { label: "Piano", href: "/metronome-for-piano-practice" },
             ].map(p => (
-              <button key={p.label} onClick={p.action}
+              <Link key={p.label} href={p.href}
                 className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#595959] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
-              >{p.label}</button>
+              >{p.label}</Link>
             ))}
           </div>
         </div>

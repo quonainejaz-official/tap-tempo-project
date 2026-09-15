@@ -45,18 +45,18 @@ const jsonLd = {
       mainEntity: [
         {
           "@type": "Question",
-          name: "What BPM should beginners start piano practice at?",
+          name: "What BPM should I practice piano scales at?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Most beginners should start scale and hand-synchronization practice between 60-80 BPM, increasing gradually as notes stay even and relaxed.",
+            text: "Choose a tempo slow enough that every note stays even and comfortable. A moderate tempo around 60 BPM in quarter notes is a common starting point. Increase in small steps only when your playing is consistently even, and drop back if it gets sloppy.",
           },
         },
         {
           "@type": "Question",
-          name: "Should I practice scales and hand synchronization with different metronome settings?",
+          name: "Should I practice hands separately before playing hands together?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. Scales are usually practiced one or two notes per click, while hand-synchronization drills work best with a slow quarter-note pulse so both hands lock to the same beat.",
+            text: "Yes. Master each hand alone at a controlled tempo, then combine hands at a slower tempo that keeps coordination stable. This isolates problems early and builds timing you can actually rely on.",
           },
         },
         {
@@ -64,15 +64,15 @@ const jsonLd = {
           name: "How do I use a metronome for Hanon exercises?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Start each Hanon exercise well below your clean tempo, typically 60-80 BPM, and raise the tempo by 2-5 BPM only after the entire pattern stays even with no rushing.",
+            text: "Start at a moderate tempo, around 60 BPM is a practical baseline, then increase gradually as long as control stays even. Prioritize perfect evenness over hitting any specific number.",
           },
         },
         {
           "@type": "Question",
-          name: "Can a metronome help with playing evenly between both hands?",
+          name: "Why do my hands fall out of sync when I play faster?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. Slow, steady click practice exposes uneven note spacing and accents between hands that are hard to notice without an external timing reference.",
+            text: "Faster tempos expose small timing gaps and position changes that slower playing hides. Lower the tempo, practice hands separately, use subdivisions, and loop short trouble spots until both hands lock to the pulse before speeding back up.",
           },
         },
       ],

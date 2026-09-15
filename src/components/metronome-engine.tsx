@@ -14,6 +14,7 @@ interface PresetConfig {
   subdivision: Subdivision
   beatStates: BeatState[]
   showSubdivisions: boolean
+  sound?: "click" | "beep" | "woodblock"
   gapClick: boolean
   playBars: number
   silentBars: number
@@ -65,6 +66,7 @@ const PRESETS: Record<MetronomeEnginePreset, PresetConfig | null> = {
     subdivision: "quarter",
     beatStates: ["N", "N", "N", "N"],
     showSubdivisions: false,
+    sound: "woodblock",
     gapClick: false,
     playBars: 2,
     silentBars: 2,
@@ -84,6 +86,7 @@ export function MetronomeEngine({ defaultPreset = "default" }: MetronomeEnginePr
         defaultSignature={config?.signature}
         defaultSubdivision={config?.subdivision}
         defaultBeatStates={config?.beatStates}
+        defaultSound={config?.sound}
         showSubdivisions={config?.showSubdivisions ?? true}
         defaultGapClick={config?.gapClick}
         defaultPlayBars={config?.playBars}
