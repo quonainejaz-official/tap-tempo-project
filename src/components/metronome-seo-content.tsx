@@ -228,21 +228,12 @@ export function MetronomeSeoContent() {
 
       {/* Piano Metronome */}
       <section className="space-y-3">
-        <h2 className="text-xl md:text-2xl font-serif font-bold">Piano Metronome: Building Evenness and Control</h2>
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Piano Metronome</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          For pianists, the metronome is invaluable for scales, arpeggios, and maintaining even tone across both hands.
+          Pianists use the metronome to build even scales, coordinate both hands, and develop consistent timing.
         </p>
-        <div className="p-4 rounded-xl border bg-card/50 space-y-2">
-          <h3 className="font-semibold text-sm">How to practice with a piano metronome:</h3>
-          <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-4">
-            <li>Play a C major scale, one note per click at 60 BPM.</li>
-            <li>Increase to two notes per click (eighth notes).</li>
-            <li>Add triplets &ndash; three notes per click &ndash; to develop finger independence.</li>
-            <li>For arpeggios, use subdivisions to ensure each note is equally spaced.</li>
-          </ul>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Common mistake: During scale and arpeggio practice, descending passages frequently showed greater tempo instability than ascending patterns. Using a metronome made these inconsistencies immediately measurable and easier to correct. This becomes obvious right away. Fix it by practicing the troublesome passage at half speed until it feels natural, then gradually increase.
+        <p className="text-sm">
+          <Link href="/metronome-for-piano-practice" className="text-primary hover:underline font-bold">Metronome for Piano Practice &rarr;</Link>
         </p>
       </section>
 
