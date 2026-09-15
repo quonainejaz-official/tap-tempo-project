@@ -11,7 +11,7 @@ const reservedSlugs = [
   "about", "contact", "privacy-policy", "terms", "editorial-team", "editorial-policy",
   "tap-tempo", "metronome", "bpm-calculator", "bpm-to-ms",
   "delay-time-calculator", "delay-reverb-time-calculator",
-  "tempo-markings", "beats-per-bar-calculator", "ai-tempo",
+  "tempo-markings", "beats-per-bar-calculator", "pitch-tempo-calculator", "ai-tempo",
   "blog", "admin", "api", "not-found",
   "sitemap.xml", "robots.txt", "favicon.ico", "favicon.svg", "manifest.json",
 ]

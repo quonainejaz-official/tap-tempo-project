@@ -16,6 +16,7 @@ const defaultSections: Record<string, FooterLink[]> = {
     { href: "/delay-reverb-time-calculator", label: "Delay & Reverb Time" },
     { href: "/tempo-markings", label: "Tempo Markings" },
     { href: "/beats-per-bar-calculator", label: "Beats Per Bar" },
+    { href: "/pitch-tempo-calculator", label: "Pitch Tempo" },
   ],
   "Popular Guides": [
     { href: "/blog/how-to-find-bpm-of-any-song", label: "How to Find the BPM of Any Song" },

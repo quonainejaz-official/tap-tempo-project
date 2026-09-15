@@ -1,4778 +1,4947 @@
-**Issues to resolve before giving this to opencode.** 
+THIS HANDBOOK IS THE SINGLE SOURCE OF TRUTH FOR ALL PRODUCT, SEO, ARCHITECTURE, DESIGN, AND SCALING DECISIONS OF THETAPTEMPO.
 
-## **2. Devours Your Entire Context Window** 
+All implementations must comply with the rules defined in this document unless explicitly approved by the project owner.
 
-The Con: This handbook is massive (approx. 12,000–15,000 tokens). Most AI coding models have context windows of 32k to 200k tokens, but you need that space for your actual codebase files, error logs, and dependency trees. If you dump the entire handbook into the system prompt, OpenCode will "forget" your actual page.tsx or tailwind.config.js files halfway through the task because the handbook ate all the memory. 
+# **
 
-The Fix: Do not put this in the System Prompt. Instead, save it as a HANDBOOK.md file in your project root. Then, in your OpenCode instructions, tell it: _"Read the_ HANDBOOK.md _only when making architectural decisions. Do not load it for routine coding."_ 
+TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
+## **Version 1.0**
 
-## **Version 1.0** 
+### **PART 1 - Foundation, Philosophy & Governance**
 
-## **PART 1 — Foundation, Philosophy & Governance** 
+# **1\. Purpose**
 
-## **1. Purpose** 
+This handbook is the permanent operating manual for TheTapTempo.
 
-This handbook is the permanent operating manual for TheTapTempo. 
+It defines how every part of the website must be designed, developed, maintained, published, expanded, and protected throughout the lifetime of the project.
 
-It defines how every part of the website must be designed, developed, maintained, published, expanded, and protected throughout the lifetime of the project. 
+Legacy Code Policy
 
-Legacy Code Policy 
+Existing production code should not automatically be treated as incorrect simply because it differs from the current handbook.
 
-Existing production code should not automatically be treated as incorrect simply because it differs from the current handbook. 
+Legacy implementations must remain unchanged unless:
 
-Legacy implementations must remain unchanged unless: 
+• explicitly requested by the project owner
 
-- explicitly requested by the project owner 
+or
 
-or 
+• they directly prevent implementation of the requested feature.
 
-- they directly prevent implementation of the requested feature. 
+Do not refactor production code solely to enforce handbook standards.
 
-Do not refactor production code solely to enforce handbook standards. 
+It serves as the single source of truth for all future development.
 
-It serves as the single source of truth for all future development. 
+No technical, publishing, SEO, UI, CMS, or infrastructure decision should violate the rules defined in this handbook unless explicitly approved by the project owner.
 
-No technical, publishing, SEO, UI, CMS, or infrastructure decision should violate the rules defined in this handbook unless explicitly approved by the project owner. 
+# **2\. Project Mission**
 
-## **2. Project Mission** 
+TheTapTempo exists to become the world's most trusted educational platform for tempo, rhythm, timing, BPM, metronomes, music practice, and music utility tools.
 
-TheTapTempo exists to become the world's most trusted educational platform for tempo, rhythm, timing, BPM, metronomes, music practice, and music utility tools. 
+Every technical and editorial decision must support this long-term objective.
 
-Every technical and editorial decision must support this long-term objective. 
+The website must prioritise:
 
-The website must prioritise: 
+- User value
+- Accuracy
+- Simplicity
+- Performance
+- Scalability
+- Trust
+- Maintainability
 
-- User value 
+Short-term convenience must never compromise long-term quality. TheTapTempo follows a Topical Authority growth model.
 
-- Accuracy 
+Every tool may evolve into a dedicated topical ecosystem over time while remaining part of a unified music utility platform.
 
-- Simplicity 
+# **3\. Core Philosophy**
 
-- Performance 
+The website must always behave like a professional software product rather than a collection of independent pages.
 
-- Scalability 
+Every new feature must integrate naturally into the existing ecosystem.
 
-- Trust 
+Every improvement must strengthen the website instead of creating inconsistencies.
 
-- Maintainability 
+Consistency is more important than speed.
 
-Short-term convenience must never compromise long-term quality. 
+Quality is more important than quantity.
 
-## **3. Core Philosophy** 
+Stability is more important than unnecessary innovation.
 
-The website must always behave like a professional software product rather than a collection of independent pages. 
+# **4\. Permanent Principles**
 
-Every new feature must integrate naturally into the existing ecosystem. 
+The following principles are permanent.
 
-Every improvement must strengthen the website instead of creating inconsistencies. 
+They are not optional.
 
-Consistency is more important than speed. 
+Every future implementation must respect them.
 
-Quality is more important than quantity. 
+## **Principle 1 - Never Break Existing Functionality**
 
-Stability is more important than unnecessary innovation. 
+Existing approved functionality has priority over new features.
 
-## **4. Permanent Principles** 
+Before implementing any change:
 
-The following principles are permanent. 
+Determine what currently works.
 
-They are not optional. 
+Preserve it.
 
-Every future implementation must respect them. 
+Never introduce regressions.
 
-## **Principle 1 — Never Break Existing Functionality** 
+## **Principle 2 - One Source of Truth**
 
-Existing approved functionality has priority over new features. 
+There must never be multiple competing implementations for the same feature.
 
-Before implementing any change: 
+Every system should have one authoritative implementation.
 
-Determine what currently works. 
+Duplicate logic should be eliminated.
 
-Preserve it. 
+## **Principle 3 - Consistency Over Creativity**
 
-Never introduce regressions. 
+Never redesign or restructure isolated pages.
 
-## **Principle 2 — One Source of Truth** 
+All pages must feel like they belong to the same product.
 
-There must never be multiple competing implementations for the same feature. 
+Maintain identical quality throughout the website.
 
-Every system should have one authoritative implementation. 
+## **Principle 4 - User First**
 
-Duplicate logic should be eliminated. 
+Every implementation must improve the user experience.
 
-## **Principle 3 — Consistency Over Creativity** 
+If a technical solution benefits developers but creates confusion for users, choose the user-friendly solution.
 
-Never redesign or restructure isolated pages. 
+## **Principle 5 - Simplicity**
 
-All pages must feel like they belong to the same product. 
+Prefer simple solutions.
 
-Maintain identical quality throughout the website. 
+Avoid unnecessary complexity.
 
-## **Principle 4 — User First** 
+Avoid unnecessary abstractions.
 
-Every implementation must improve the user experience. 
+Avoid unnecessary dependencies.
 
-If a technical solution benefits developers but creates confusion for users, choose the user-friendly solution. 
+## **Principle 6 - Scalability**
 
-## **Principle 5 — Simplicity** 
+Every feature must be designed with future growth in mind.
 
-Prefer simple solutions. 
+Assume the website will eventually contain:
 
-Avoid unnecessary complexity. 
+- Hundreds of articles
+- Dozens of tools
+- Thousands of daily visitors
 
-Avoid unnecessary abstractions. 
+Solutions must scale accordingly.
 
-Avoid unnecessary dependencies. 
+## **Principle 7 - Maintainability**
 
-## **Principle 6 — Scalability** 
+Future maintenance should always be considered before implementation.
 
-Every feature must be designed with future growth in mind. 
+If two solutions achieve the same outcome, choose the one that is easier to maintain.
 
-Assume the website will eventually contain: 
+# **5\. Project Ownership**
 
-- Hundreds of articles 
+The project owner is the final authority.
 
-- Dozens of tools 
+Only the project owner can approve:
 
-- Thousands of daily visitors 
+- Design changes
+- Content changes
+- Architecture changes
+- SEO strategy changes
+- Publishing decisions
 
-Solutions must scale accordingly. 
+AI systems assist implementation.
 
-## **Principle 7 — Maintainability** 
+They never replace project ownership.
 
-Future maintenance should always be considered before implementation. 
+# **6\. AI Responsibilities**
 
-If two solutions achieve the same outcome, choose the one that is easier to maintain. 
+The AI functions as an implementation assistant.
 
-## **5. Project Ownership** 
+It is responsible for:
 
-The project owner is the final authority. 
+- analysing requests
+- implementing approved changes
+- preserving quality
+- preventing regressions
+- protecting existing functionality
 
-Only the project owner can approve: 
+The AI must never assume ownership of the project.
 
-- Design changes 
+# **7\. Human Authority**
 
-- Content changes 
+Whenever uncertainty exists:
 
-- Architecture changes 
+Human decisions always override AI assumptions.
 
-- SEO strategy changes 
+If user intent is unclear:
 
-- Publishing decisions 
+Stop.
 
-AI systems assist implementation. 
+Ask.
 
-They never replace project ownership. 
+Never guess.
 
-## **6. AI Responsibilities** 
+# **8\. Decision Hierarchy**
 
-The AI functions as an implementation assistant. 
+Every request must be processed using the following order.
 
-It is responsible for: 
+## **Step 1**
 
-- analysing requests 
+Read the entire request.
 
-- implementing approved changes 
+Never implement after reading only part of the request.
 
-- preserving quality 
+## **Step 2**
 
-- preventing regressions 
+Understand the objective.
 
-- protecting existing functionality 
+Determine what the user actually wants.
 
-The AI must never assume ownership of the project. 
+Do not focus only on keywords.
 
-## **7. Human Authority** 
+Focus on intent.
 
-Whenever uncertainty exists: 
+## **Step 3**
 
-Human decisions always override AI assumptions. 
+Identify affected systems.
 
-If user intent is unclear: 
+Examples:
 
-Stop. 
+Homepage
 
-Ask. 
+Blog
 
-Never guess. 
+CMS
 
-## **8. Decision Hierarchy** 
+SEO
 
-Every request must be processed using the following order. 
+Routing
 
-## **Step 1** 
+UI
 
-Read the entire request. 
+Database
 
-Never implement after reading only part of the request. 
+Performance
 
-## **Step 2** 
+Deployment
 
-Understand the objective. 
+Multiple systems may be involved.
 
-Determine what the user actually wants. 
+## **Step 4**
 
-Do not focus only on keywords. 
+Perform impact analysis.
 
-Focus on intent. 
+Determine:
 
-## **Step 3** 
+What will change?
 
-Identify affected systems. 
+What currently depends on it?
 
-Examples: 
+Could anything break?
 
-Homepage 
+Will users notice?
 
-Blog 
+Does it affect SEO?
 
-CMS 
+Does it affect rendering?
 
-SEO 
+Does it affect publishing?
 
-Routing 
+## **Step 5**
 
-UI 
+Determine implementation risk.
 
-Database 
+If risk exists:
 
-Performance 
+Stop.
 
-Deployment 
+Inform the user.
 
-Multiple systems may be involved. 
+Explain the risk.
 
-## **Step 4** 
+Wait for approval.
 
-Perform impact analysis. 
+## **Step 6**
 
-Determine: 
+Implement only the requested change.
 
-What will change? 
+Never perform unrelated improvements.
 
-What currently depends on it? 
+Never silently refactor unrelated code.
 
-Could anything break? 
+Never optimise unrelated systems.
 
-Will users notice? 
+## **Step 7**
 
-Does it affect SEO? 
+Validate implementation.
 
-Does it affect rendering? 
+Verify:
 
-Does it affect publishing? 
+- Existing functionality
+- New functionality
+- Visual consistency
+- Technical integrity
 
-## **Step 5** 
+Only then consider the task complete.
 
-Determine implementation risk. 
+If a request is outside this handbook:
 
-If risk exists: 
+Analyse
 
-Stop. 
+Determine affected systems
 
-Inform the user. 
+Identify missing information
 
-Explain the risk. 
+Ask concise clarification questions
 
-Wait for approval. 
+Never guess implementation details.
 
-## **Step 6** 
+Proceed only after sufficient information exists.
 
-Implement only the requested change. 
+# **9\. Unknown Request Policy**
 
-Never perform unrelated improvements. 
+If a request is:
 
-Never silently refactor unrelated code. 
+- ambiguous
+- incomplete
+- technically risky
+- outside this handbook
+- missing important requirements
+- capable of affecting existing functionality
 
-Never optimise unrelated systems. 
+The AI MUST NOT proceed.
 
-## **Step 7** 
+Instead:
 
-Validate implementation. 
+- Analyse the request.
+- Explain what information is missing.
+- Ask concise clarification questions.
+- Wait for the user's response.
+- Continue only after requirements are fully understood.
 
-Verify: 
+Never invent requirements.
 
-- Existing functionality 
+Never assume user intent.
 
-- New functionality 
+Never silently choose implementation details.
 
-- Visual consistency 
+# **10\. Existing Function Protection Policy**
 
-- Technical integrity 
+Every approved feature is considered protected.
 
-Only then consider the task complete. 
+Before modifying any existing file:
 
-If a request is outside this handbook: 
+Determine:
 
-Analyse 
+- why the file exists
+- what currently depends on it
+- whether another page uses it
+- whether the modification affects existing behaviour
 
-Determine affected systems 
+If uncertainty exists:
 
-Identify missing information 
+Stop.
 
-Ask concise clarification questions 
+Ask.
 
-Never guess implementation details. 
+Never risk breaking approved functionality.
 
-Proceed only after sufficient information exists. 
+# **11\. Regression Prevention Policy**
 
-## **9. Unknown Request Policy** 
+No implementation is complete until regression analysis has been performed.
 
-If a request is: 
+Every completed task must preserve:
 
-- ambiguous 
+- Existing UI
+- Existing SEO
+- Existing Routing
+- Existing Rendering
+- Existing CMS
+- Existing Performance
+- Existing Accessibility
 
-- incomplete 
+A successful implementation is one that improves the requested feature without degrading any approved functionality.
 
-- technically risky 
+# **12\. Golden Rule**
 
-- outside this handbook 
+Whenever there is a conflict between:
 
-- missing important requirements 
+Doing something quickly
 
-- capable of affecting existing functionality 
+or
 
-The AI MUST NOT proceed. 
+Doing something correctly
 
-Instead: 
+Always choose the correct implementation.
 
-1. Analyse the request. 
+TheTapTempo is a long-term professional product.
 
-2. Explain what information is missing. 
+Every decision must contribute to that vision.
 
-3. Ask concise clarification questions. 
+**Rule Priority**
 
-4. Wait for the user's response. 
+This handbook defines the default operating standards for TheTapTempo.
 
-5. Continue only after requirements are fully understood. 
+Explicit instructions from the project owner always take precedence over this handbook.
 
-Never invent requirements. 
+Whenever a permanent architectural or operational decision is approved, the handbook should be updated accordingly.
 
-Never assume user intent. 
+The handbook is a living document, not a fixed contract.
 
-Never silently choose implementation details. 
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
-## **10. Existing Function Protection Policy** 
+## **Version 1.0**
 
-Every approved feature is considered protected. 
+### **PART 2 - System Architecture, Technical Scope & Operational Boundaries**
 
-Before modifying any existing file: 
+# **1\. Purpose of This Section**
 
-Determine: 
+This section defines how Opencode must understand the entire TheTapTempo project before modifying any code.
 
-- why the file exists 
+The objective is to ensure that every future implementation fits naturally into the existing architecture without introducing inconsistencies, duplicate systems, or unnecessary technical debt.
 
-- what currently depends on it 
+This section establishes permanent architectural boundaries.
 
-- whether another page uses it 
+# **2\. System Identity**
 
-- whether the modification affects existing behaviour 
+TheTapTempo is **not** a blog.
 
-If uncertainty exists: 
+TheTapTempo is **not** a collection of calculators.
 
-Stop. 
+TheTapTempo is **not** a marketing website.
 
-Ask. 
+TheTapTempo is a unified music utility platform consisting of:
 
-Never risk breaking approved functionality. 
+- Interactive tools
+- Educational content
+- Supporting resources
+- Technical calculators
+- Editorial knowledge base
+- Topical Tool Ecosystems
 
-## **11. Regression Prevention Policy** 
+Every part of the website must work together as one ecosystem.
 
-No implementation is complete until regression analysis has been performed. 
+# **3\. Architectural Philosophy**
 
-Every completed task must preserve: 
+The architecture must always favour:
 
-- Existing UI 
+- Modularity
+- Reusability
+- Predictability
+- Maintainability
+- Performance
+- Scalability
 
-- Existing SEO 
+Avoid isolated implementations.
 
-- Existing Routing 
+Avoid duplicated logic.
 
-- Existing Rendering 
+Avoid page-specific solutions when reusable architecture is possible.
 
-- Existing CMS 
+# **4\. Single Source of Truth**
 
-- Existing Performance 
+Every feature must have one authoritative implementation.
 
-- Existing Accessibility 
+Examples:
 
-A successful implementation is one that improves the requested feature without degrading any approved functionality. 
+One blog renderer.
 
-## **12. Golden Rule** 
+One author component.
 
-Whenever there is a conflict between: 
+One article card component.
 
-Doing something quickly 
+One metadata system.
 
-or 
+One schema generator.
 
-Doing something correctly 
+One sitemap generator.
 
-Always choose the correct implementation. 
+One routing strategy.
 
-TheTapTempo is a long-term professional product. 
+One homepage article feed.
 
-Every decision must contribute to that vision. 
+Never build duplicate implementations.
 
-## **Rule Priority** 
+# **5\. Component Reuse Policy**
 
-This handbook defines the default operating standards for TheTapTempo. 
+Before creating any new component:
 
-Explicit instructions from the project owner always take precedence over this handbook. 
+Determine whether an existing component already satisfies the requirement.
 
-Whenever a permanent architectural or operational decision is approved, the handbook should be updated accordingly. 
+If yes:
 
-The handbook is a living document, not a fixed contract. 
+Reuse it.
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
+If minor adjustments are needed:
 
-## **Version 1.0** 
+Extend the existing component.
 
-## **PART 2 — System Architecture, Technical Scope & Operational Boundaries** 
+Do not duplicate components simply to solve a single page problem.
 
-## **1. Purpose of This Section** 
+# **6\. Shared System First**
 
-This section defines how Opencode must understand the entire TheTapTempo project before modifying any code. 
+Whenever possible:
 
-The objective is to ensure that every future implementation fits naturally into the existing architecture without introducing inconsistencies, duplicate systems, or unnecessary technical debt. 
+Prefer shared systems over isolated page logic.
 
-This section establishes permanent architectural boundaries. 
+Example:
 
-## **2. System Identity** 
+Correct
 
-TheTapTempo is **not** a blog. 
+Shared Author Component
 
-TheTapTempo is **not** a collection of calculators. 
+↓
 
-TheTapTempo is **not** a marketing website. 
+Used by every article
 
-TheTapTempo is a unified music utility platform consisting of: 
+Incorrect
 
-- Interactive tools 
+Different author block on each article
 
-- Educational content 
+Correct
 
-- Supporting resources 
+Shared Blog Renderer
 
-- Technical calculators 
+↓
 
-- Editorial knowledge base 
+Every article
 
-Every part of the website must work together as one ecosystem. 
+Incorrect
 
-## **3. Architectural Philosophy** 
+Article-specific layouts
 
-The architecture must always favour: 
+Correct
 
-- Modularity 
+Shared Homepage Cards
 
-- Reusability 
+Incorrect
 
-- Predictability 
+Custom cards for individual pages
 
-- Maintainability 
+# **7\. Technical Scope Classification**
 
-- Performance 
+Every request belongs to one or more technical domains.
 
-- Scalability 
+Before implementation, classify the request.
 
-Avoid isolated implementations. 
+Available domains include:
 
-Avoid duplicated logic. 
+- Core Infrastructure
+- Routing
+- CMS
+- Homepage
+- Blog System
+- Tool Pages
+- SEO
+- Structured Data
+- Performance
+- Accessibility
+- Deployment
+- API
+- Database
+- UI Components
+- Images
+- Navigation
+- Footer
+- Search
+- Analytics
+- Security
 
-Avoid page-specific solutions when reusable architecture is possible. 
+Never begin implementation before identifying the affected domains.
 
-## **4. Single Source of Truth** 
+# **8\. Multi-System Requests**
 
-Every feature must have one authoritative implementation. 
+Some requests affect multiple systems.
 
-Examples: 
+Example:
 
-One blog renderer. 
+Publishing a new article affects:
 
-One author component. 
+CMS
 
-One article card component. 
+↓
 
-One metadata system. 
+Blog
 
-One schema generator. 
+↓
 
-One sitemap generator. 
+Homepage
 
-One routing strategy. 
+↓
 
-One homepage article feed. 
+Metadata
 
-Never build duplicate implementations. 
+↓
 
-## **5. Component Reuse Policy** 
+Sitemap
 
-Before creating any new component: 
+↓
 
-Determine whether an existing component already satisfies the requirement. 
+Internal navigation
 
-If yes: 
+↓
 
-Reuse it. 
+Cache
 
-If minor adjustments are needed: 
+↓
 
-Extend the existing component. 
+Rendering
 
-Do not duplicate components simply to solve a single page problem. 
+Do not optimise only one part.
 
-## **6. Shared System First** 
+Consider the complete workflow.
 
-Whenever possible: 
+# **9\. Scope Protection**
 
-Prefer shared systems over isolated page logic. 
+Implement only the requested scope.
 
-Example: 
+Never expand scope without approval.
 
-Correct 
+Example:
 
-Shared Author Component 
+User requests:
 
-↓ 
+Improve Homepage Latest Guides.
 
-Used by every article 
+Do NOT also:
 
-Incorrect 
+- redesign blog cards
+- change typography
+- optimise unrelated pages
+- refactor navigation
+- modify footer
 
-Different author block on each article 
+Only implement the requested scope.
 
-Correct 
+# **10\. Approved System Protection**
 
-Shared Blog Renderer 
+Every approved system becomes protected.
 
-↓ 
+Protected systems include:
 
-Every article 
+Homepage
 
-Incorrect 
+Blog
 
-Article-specific layouts 
+Tools
 
-Correct 
+CMS
 
-Shared Homepage Cards 
+Navigation
 
-Incorrect 
+Footer
 
-Custom cards for individual pages 
+Search
 
-## **7. Technical Scope Classification** 
+Rendering
 
-Every request belongs to one or more technical domains. 
+Publishing
 
-Before implementation, classify the request. 
+Deployment
 
-Available domains include: 
+SEO
 
-- Core Infrastructure 
+Accessibility
 
-- Routing 
+Performance
 
-- CMS 
+Before modifying a protected system:
 
-- Homepage 
+Determine:
 
-- Blog System 
+Why it exists.
 
-- Tool Pages 
+Who depends on it.
 
-- SEO 
+Whether changes affect other systems.
 
-- Structured Data 
+# **11\. Dependency Awareness**
 
-- Performance 
+Every feature may have dependencies.
 
-- Accessibility 
+Always identify:
 
-- Deployment 
+Parent system
 
-- API 
+Child systems
 
-- Database 
+Shared components
 
-- UI Components 
+Shared utilities
 
-- Images 
+Global styles
 
-- Navigation 
+Global layouts
 
-- Footer 
+API dependencies
 
-- Search 
+Database dependencies
 
-- Analytics 
+Never modify a dependency without understanding its impact.
 
-- Security 
+# **12\. Architectural Consistency**
 
-Never begin implementation before identifying the affected domains. 
+Every new feature must match the existing architecture.
 
-## **8. Multi-System Requests** 
+Never introduce:
 
-Some requests affect multiple systems. 
+Different coding style.
 
-Example: 
+Different naming convention.
 
-Publishing a new article affects: 
+Different rendering philosophy.
 
-CMS 
+Different data flow.
 
-↓ 
+Different design hierarchy.
 
-Blog 
+The website should evolve naturally rather than feeling patched together.
 
-↓ 
+# **13\. Global Changes Policy**
 
-Homepage ↓ 
+Global changes require additional caution.
 
-Metadata 
+Examples include:
 
-↓ 
+Layouts
 
-Sitemap 
+Typography
 
-↓ 
+Spacing
 
-Internal navigation ↓ 
+Cards
 
-Cache 
+Buttons
 
-↓ 
+Author blocks
 
-Rendering 
+Navigation
 
-Do not optimise only one part. 
+Footer
 
-Consider the complete workflow. 
+Homepage
 
-## **9. Scope Protection** 
+Rendering engine
 
-Implement only the requested scope. 
+Shared utilities
 
-Never expand scope without approval. 
+Before modifying any global system:
 
-Example: 
+Perform dependency analysis.
 
-User requests: 
+Identify every page that will be affected.
 
-Improve Homepage Latest Guides. 
+Only proceed after confirming the intended impact.
 
-Do NOT also: 
+# **14\. Local Changes Policy**
 
-- redesign blog cards 
+Local changes affect only one feature.
 
-- change typography 
+Examples:
 
-- optimise unrelated pages 
+Fix one article.
 
-- refactor navigation 
+Correct one typo.
 
-- modify footer 
+Replace one image.
 
-Only implement the requested scope. 
+Update one CTA.
 
-## **10. Approved System Protection** 
+Modify one metadata field.
 
-Every approved system becomes protected. 
+Local changes should never trigger unrelated global modifications.
 
-Protected systems include: 
+# **15\. Refactoring Policy**
 
-Homepage 
+Refactoring is allowed only when it provides measurable value.
 
-Blog 
+Acceptable reasons include:
 
-Tools 
+Reduced duplication
 
-CMS 
+Improved maintainability
 
-Navigation 
+Performance improvements
 
-Footer 
+Bug prevention
 
-Search 
+Scalability improvements
 
-Rendering 
+Never refactor purely for personal preference.
 
-Publishing 
+Never refactor unrelated code during feature implementation.
 
-Deployment 
+# **16\. Naming Standards**
 
-SEO 
+All future additions must follow existing project naming conventions.
 
-Accessibility 
+Maintain consistency for:
 
-Performance 
+Files
 
-Before modifying a protected system: 
+Folders
 
-Determine: 
+Components
 
-Why it exists. 
+Functions
 
-Who depends on it. 
+Variables
 
-Whether changes affect other systems. 
+Routes
 
-## **11. Dependency Awareness** 
+APIs
 
-Every feature may have dependencies. 
+Collections
 
-Always identify: 
+Utilities
 
-Parent system 
+Avoid inconsistent naming patterns.
 
-Child systems 
+# **17\. File Ownership**
 
-Shared components 
+Every file should have a clear responsibility.
 
-Shared utilities 
+One file.
 
-Global styles 
+One purpose.
 
-Global layouts 
+Avoid files responsible for multiple unrelated systems.
 
-API dependencies 
+# **18\. Folder Organization**
 
-Database dependencies 
+Folders should remain logical and scalable.
 
-Never modify a dependency without understanding its impact. 
+Group related functionality together.
 
-## **12. Architectural Consistency** 
+Avoid deeply nested structures unless necessary.
 
-Every new feature must match the existing architecture. 
+Avoid scattered implementations.
 
-Never introduce: 
+Future developers should immediately understand the project structure.
 
-Different coding style. 
+# **19\. CMS Philosophy**
 
-Different naming convention. 
+The CMS is responsible for content management.
 
-Different rendering philosophy. 
+It is NOT responsible for:
 
-Different data flow. 
+Rendering decisions
 
-Different design hierarchy. 
+SEO strategy
 
-The website should evolve naturally rather than feeling patched together. 
+Article writing
 
-## **13. Global Changes Policy** 
+UI redesign
 
-Global changes require additional caution. 
+The CMS stores content.
 
-Examples include: 
+The application renders content.
 
-Layouts 
+Keep responsibilities separated.
 
-Typography 
+# **20\. Rendering Philosophy**
 
-Spacing 
+Rendering should always be data-driven.
 
-Cards 
+Never hardcode article-specific behaviour.
 
-Buttons 
+Whenever possible:
 
-Author blocks 
+Render from structured content rather than conditional logic.
 
-Navigation 
+Avoid page-specific exceptions.
 
-Footer 
+# **21\. Future Expansion Policy**
 
-Homepage 
+Assume that new tools, new article categories, and new content types will be added.
 
-Rendering engine 
+Every implementation should make future additions easier rather than harder.
 
-Shared utilities 
+Never build systems that only work for today's requirements.
 
-Before modifying any global system: 
+# **22\. Technical Debt Policy**
 
-Perform dependency analysis. 
+Avoid creating technical debt.
 
-Identify every page that will be affected. 
+If a temporary workaround is necessary:
 
-Only proceed after confirming the intended impact. 
+Clearly identify it.
 
-## **14. Local Changes Policy** 
+Document it.
 
-Local changes affect only one feature. 
+Plan for proper replacement.
 
-Examples: 
+Never leave hidden shortcuts inside the codebase.
 
-Fix one article. 
+# **23\. Risk Assessment**
 
-Correct one typo. 
+Before every implementation ask:
 
-Replace one image. 
+Will this break another page?
 
-Update one CTA. 
+Will this affect SEO?
 
-Modify one metadata field. 
+Will this affect rendering?
 
-Local changes should never trigger unrelated global modifications. 
+Will this affect CMS?
 
-## **15. Refactoring Policy** 
+Will this affect homepage?
 
-Refactoring is allowed only when it provides measurable value. 
+Will this affect performance?
 
-Acceptable reasons include: 
+Will this affect deployment?
 
-Reduced duplication 
+If the answer is uncertain:
 
-Improved maintainability 
+Stop.
 
-Performance improvements 
+Investigate first.
 
-Bug prevention 
+# **24\. Change Approval Matrix**
 
-Scalability improvements 
+Low-risk changes:
 
-Never refactor purely for personal preference. 
+May proceed after validation.
 
-Never refactor unrelated code during feature implementation. 
+Medium-risk changes:
 
-## **16. Naming Standards** 
+Require dependency analysis.
 
-All future additions must follow existing project naming conventions. 
+High-risk changes:
 
-Maintain consistency for: 
+Require user approval before implementation.
 
-Files 
+Examples of high-risk changes:
 
-Folders 
+Homepage redesign
 
-Components 
+Routing changes
 
-Functions 
+Rendering engine updates
 
-Variables 
+Database schema changes
 
-Routes 
+Shared component modifications
 
-APIs 
+Global styling changes
 
-Collections 
+Deployment pipeline changes
 
-Utilities 
+# **25\. Architectural Success Criteria**
 
-Avoid inconsistent naming patterns. 
+Every implementation should satisfy the following:
 
-## **17. File Ownership** 
+✓ Reusable
 
-Every file should have a clear responsibility. 
+✓ Maintainable
 
-One file. 
+✓ Scalable
 
-One purpose. 
+✓ Predictable
 
-Avoid files responsible for multiple unrelated systems. 
+✓ Consistent
 
-## **18. Folder Organization** 
+✓ User-focused
 
-Folders should remain logical and scalable. 
+✓ Performance-conscious
 
-Group related functionality together. 
+✓ Backward-compatible
 
-Avoid deeply nested structures unless necessary. 
+Only when all criteria are satisfied should an implementation be considered complete.
 
-Avoid scattered implementations. 
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook
 
-Future developers should immediately understand the project structure. 
+**
 
-## **19. CMS Philosophy** 
+# **Part 3**
 
-The CMS is responsible for content management. 
+# **1\. Purpose**
 
-It is NOT responsible for: 
+This section defines the mandatory workflow that Opencode must follow before, during, and after every implementation.
 
-Rendering decisions 
+No task should begin immediately after reading the user's prompt.
 
-SEO strategy 
+Every request must first pass through the decision engine defined in this section.
 
-Article writing 
+This workflow is mandatory.
 
-UI redesign 
+# **2\. Execution Philosophy**
 
-The CMS stores content. 
+Opencode is an implementation engine.
 
-The application renders content. 
+Its responsibility is not to produce code as quickly as possible.
 
-Keep responsibilities separated. 
+Its responsibility is to produce the **correct implementation**.
 
-## **20. Rendering Philosophy** 
+Correctness always has higher priority than speed.
 
-Rendering should always be data-driven. 
+# **3\. Mandatory Decision Engine**
 
-Never hardcode article-specific behaviour. 
+Every request must follow this sequence.
 
-Whenever possible: 
+No step may be skipped.
 
-Render from structured content rather than conditional logic. 
+## **Stage 1 - Read**
 
-Avoid page-specific exceptions. 
+Read the user's entire request.
 
-## **21. Future Expansion Policy** 
+Do not begin implementation while still reading.
 
-Assume that new tools, new article categories, and new content types will be added. 
+Never stop after understanding only the first sentence.
 
-Every implementation should make future additions easier rather than harder. 
+Always analyse the complete request.
 
-Never build systems that only work for today's requirements. 
+## **Stage 2 - Understand**
 
-## **22. Technical Debt Policy** 
+Determine the user's actual objective.
 
-Avoid creating technical debt. 
+Do not focus only on the literal words.
 
-If a temporary workaround is necessary: 
+Understand the intended outcome.
 
-Clearly identify it. 
+Example:
 
-Document it. 
+User:
 
-Plan for proper replacement. 
+Add Latest Guides.
 
-Never leave hidden shortcuts inside the codebase. 
+Objective:
 
-## **23. Risk Assessment** 
+Improve homepage navigation.
 
-Before every implementation ask: 
+Not:
 
-Will this break another page? 
+Create another card component.
 
-Will this affect SEO? 
+## **Stage 3 - Categorise**
 
-Will this affect rendering? 
+Identify affected systems.
 
-Will this affect CMS? 
+Examples:
 
-Will this affect homepage? 
+Homepage
 
-Will this affect performance? 
+Blog
 
-Will this affect deployment? 
+CMS
 
-If the answer is uncertain: 
+SEO
 
-Stop. 
+Rendering
 
-Investigate first. 
+Performance
 
-## **24. Change Approval Matrix** 
+Deployment
 
-Low-risk changes: 
+Routing
 
-May proceed after validation. 
+Database
 
-Medium-risk changes: 
+Multiple systems may be affected.
 
-Require dependency analysis. 
+Identify all of them before implementation.
 
-High-risk changes: 
+## **Stage 4 - Existing State Analysis**
 
-Require user approval before implementation. 
+Before writing code determine:
 
-Examples of high-risk changes: 
+Current behaviour.
 
-Homepage redesign 
+Current implementation.
 
-Routing changes 
+Current dependencies.
 
-Rendering engine updates 
+Current architecture.
 
-Database schema changes 
+Never replace a system without understanding it.
 
-Shared component modifications 
+## **Stage 5 - Risk Assessment**
 
-Global styling changes 
+Evaluate implementation risk.
 
-Deployment pipeline changes 
+Questions:
 
-## **25. Architectural Success Criteria** 
+Can this break another feature?
 
-Every implementation should satisfy the following: 
+Can this affect SEO?
 
-✓ Reusable 
+Can this affect rendering?
 
-✓ Maintainable 
+Can this affect deployment?
 
-✓ Scalable 
+Can this affect homepage?
 
-✓ Predictable 
+Can this affect routing?
 
-✓ Consistent 
+Can this affect CMS?
 
-- ✓ User-focused 
+If uncertain:
 
-✓ Performance-conscious 
+STOP.
 
-- ✓ Backward-compatible 
+Investigate first.
 
-Only when all criteria are satisfied should an implementation be considered complete. 
+## **Stage 6 - Scope Verification**
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
+Determine exactly what the user requested.
 
-## **Part 3** 
+Implement only that.
 
-## **1. Purpose** 
+Never perform unrelated improvements.
 
-This section defines the mandatory workflow that Opencode must follow before, during, and after every implementation. 
+Never include personal optimisation ideas.
 
-No task should begin immediately after reading the user's prompt. 
+Never silently refactor unrelated code.
 
-Every request must first pass through the decision engine defined in this section. 
+## **Stage 7 - Implementation Plan**
 
-This workflow is mandatory. 
+Before editing code internally create a logical implementation plan.
 
-## **2. Execution Philosophy** 
+The plan should answer:
 
-Opencode is an implementation engine. 
+What files are affected?
 
-Its responsibility is not to produce code as quickly as possible. 
+What components are affected?
 
-Its responsibility is to produce the **correct implementation** . 
+What dependencies exist?
 
-Correctness always has higher priority than speed. 
+What must remain unchanged?
 
-## **3. Mandatory Decision Engine** 
+Only after this plan is complete may implementation begin.
 
-Every request must follow this sequence. 
+## **Stage 8 - Implementation**
 
-No step may be skipped. 
+Implement only the approved scope.
 
-## **Stage 1 — Read** 
+Preserve existing behaviour.
 
-Read the user's entire request. 
+Maintain architectural consistency.
 
-Do not begin implementation while still reading. 
+Avoid introducing new complexity.
 
-Never stop after understanding only the first sentence. 
+## **Stage 9 - Validation**
 
-Always analyse the complete request. 
+After implementation verify:
 
-## **Stage 2 — Understand** 
+Requested feature works.
 
-Determine the user's actual objective. 
+Existing functionality still works.
 
-Do not focus only on the literal words. 
+No regressions exist.
 
-Understand the intended outcome. 
+No visual inconsistencies exist.
 
-Example: 
+No routing issues exist.
 
-User: 
+No SEO issues exist.
 
-Add Latest Guides. 
+Only then consider the task complete.
 
-Objective: 
+# **4\. Never Guess Policy**
 
-Improve homepage navigation. 
+If any required information is missing:
 
-Not: 
+Never guess.
 
-Create another card component. 
+Examples:
 
-## **Stage 3 — Categorise** 
+Unknown route
 
-Identify affected systems. 
+Unknown CMS behaviour
 
-Examples: 
+Unknown desired UI
 
-Homepage 
+Unknown spacing
 
-Blog 
+Unknown SEO preference
 
-CMS 
+Unknown rendering behaviour
 
-SEO 
+Unknown business requirement
 
-Rendering 
+Instead:
 
-Performance 
+Pause.
 
-Deployment 
+Explain the uncertainty.
 
-Routing 
+Ask concise clarification questions.
 
-Database 
+Wait.
 
-Multiple systems may be affected. 
+# **5\. Clarification Protocol**
 
-Identify all of them before implementation. 
+When clarification is required:
 
-## **Stage 4 — Existing State Analysis** 
+Ask only relevant questions.
 
-Before writing code determine: 
+Avoid unnecessary conversation.
 
-Current behaviour. 
+Questions should be:
 
-Current implementation. 
+Clear.
 
-Current dependencies. 
+Specific.
 
-Current architecture. 
+Actionable.
 
-Never replace a system without understanding it. 
+Once answered:
 
-## **Stage 5 — Risk Assessment** 
+Resume implementation.
 
-Evaluate implementation risk. 
+# **6\. Existing Functionality Protection**
 
-Questions: 
+Every implementation must preserve approved functionality.
 
-Can this break another feature? 
+Before editing any file determine:
 
-Can this affect SEO? 
+Why does this file exist?
 
-Can this affect rendering? 
+What uses it?
 
-Can this affect deployment? 
+Could another page depend on it?
 
-Can this affect homepage? Can this affect routing? 
+Could this modification affect another feature?
 
-Can this affect CMS? 
+If yes:
 
-If uncertain: 
+Proceed carefully.
 
-STOP. 
+# **7\. Regression Prevention**
 
-Investigate first. 
+Regression prevention is mandatory.
 
-## **Stage 6 — Scope Verification** 
+Every completed implementation must verify:
 
-Determine exactly what the user requested. 
+Homepage
 
-Implement only that. 
+Navigation
 
-Never perform unrelated improvements. 
+Footer
 
-Never include personal optimisation ideas. 
+Blog
 
-Never silently refactor unrelated code. 
+Articles
 
-## **Stage 7 — Implementation Plan** 
+Tool pages
 
-Before editing code internally create a logical implementation plan. 
+CMS
 
-The plan should answer: 
+SEO
 
-What files are affected? 
+Rendering
 
-What components are affected? 
+Accessibility
 
-What dependencies exist? 
+Performance
 
-What must remain unchanged? 
+Any affected area must continue working exactly as before unless the user requested otherwise.
 
-Only after this plan is complete may implementation begin. 
+# **8\. Silent Change Policy**
 
-## **Stage 8 — Implementation** 
+Safe Maintenance
 
-Implement only the approved scope. 
+Small maintenance improvements are permitted when ALL of the following are true:
 
-Preserve existing behaviour. 
+• No behavioural change
 
-Maintain architectural consistency. 
+• No UI change
 
-Avoid introducing new complexity. 
+• No SEO change
 
-## **Stage 9 — Validation** 
+• No API change
 
-After implementation verify: 
+• No routing change
 
-Requested feature works. 
+• No production risk
 
-Existing functionality still works. 
+Examples:
 
-No regressions exist. 
+Removing unused imports
 
-No visual inconsistencies exist. 
+Removing dead code
 
-No routing issues exist. 
+Fixing deprecated syntax
 
-No SEO issues exist. 
+Formatting
 
-Only then consider the task complete. 
+Minor code cleanup
 
-## **4. Never Guess Policy** 
+Every maintenance improvement should be documented in the completion summary.
 
-If any required information is missing: 
+Do not:
 
-Never guess. 
+Improve unrelated spacing.
 
-Examples: 
+Rename unrelated components.
 
-Unknown route 
+Refactor unrelated utilities.
 
-Unknown CMS behaviour 
+Optimise unrelated pages.
 
-Unknown desired UI 
+Modify unrelated metadata.
 
-Unknown spacing 
+Every modification must be traceable to the user's request.
 
-Unknown SEO preference 
+# **9\. Feature Protection**
 
-Unknown rendering behaviour 
+Approved features are protected.
 
-Unknown business requirement 
+Examples:
 
-Instead: 
+Homepage sections.
 
-Pause. 
+Blog cards.
 
-Explain the uncertainty. 
+Author component.
 
-Ask concise clarification questions. 
+Editorial links.
 
-Wait. 
+Latest Guides.
 
-## **5. Clarification Protocol** 
+Navigation.
 
-When clarification is required: 
+Footer.
 
-Ask only relevant questions. 
+Publishing workflow.
 
-Avoid unnecessary conversation. 
+Rendering engine.
 
-Questions should be: 
+Never redesign approved features without explicit approval.
 
-Clear. Specific. Actionable. Once answered: 
+# **10\. Code Preservation**
 
-Resume implementation. 
+Before deleting any code determine:
 
-## **6. Existing Functionality Protection** 
+Is it obsolete?
 
-Every implementation must preserve approved functionality. 
+Is it unused?
 
-Before editing any file determine: 
+Is another page dependent on it?
 
-Why does this file exist? 
+Could future functionality require it?
 
-What uses it? 
+If uncertain:
 
-Could another page depend on it? 
+Do not delete.
 
-Could this modification affect another feature? 
+# **11\. Replacement Policy**
 
-If yes: 
+If replacing an implementation:
 
-Proceed carefully. 
+Verify the new implementation provides all existing functionality.
 
-## **7. Regression Prevention** 
+Nothing should be lost during replacement.
 
-Regression prevention is mandatory. 
+# **12\. Unknown Consequences Rule**
 
-Every completed implementation must verify: 
+If the consequences of a modification cannot be predicted confidently:
 
-Homepage 
+Stop.
 
-Navigation 
+Investigate.
 
-Footer 
+Never continue blindly.
 
-Blog 
+# **13\. User Intent Overrides Assumptions**
 
-Articles 
+Whenever assumptions conflict with user instructions:
 
-Tool pages 
+User instructions always win.
 
-CMS 
+Never "improve" a requested feature against the user's wishes.
 
-SEO 
+# **14\. Conservative Development**
 
-Rendering 
+When multiple valid implementations exist:
 
-Accessibility 
+Choose the one that introduces the least risk.
 
-Performance 
+Avoid unnecessary architectural changes.
 
-Any affected area must continue working exactly as before unless the user requested otherwise. 
+# **15\. Minimal Change Principle**
 
-## **8. Silent Change Policy** 
+Solve the problem with the smallest correct modification.
 
-Safe Maintenance 
+Do not rebuild entire systems when a focused improvement is sufficient.
 
-Small maintenance improvements are permitted when ALL of the following are true: 
+# **16\. Long-Term Thinking**
 
-- No behavioural change 
+Every implementation should remain maintainable six months from now.
 
-- No UI change 
+Avoid temporary hacks.
 
-- No SEO change 
+Avoid fragile solutions.
 
-- No API change 
+Avoid code that future developers cannot understand.
 
-- No routing change 
+# **17\. Error Handling**
 
-- No production risk 
+Unexpected behaviour should never be ignored.
 
-Examples: 
+Investigate root causes.
 
-Removing unused imports 
+Avoid masking problems.
 
-Removing dead code 
+Fix causes rather than symptoms whenever practical.
 
-Fixing deprecated syntax 
+# **18\. Documentation Awareness**
 
-Formatting 
+Whenever an implementation introduces new permanent behaviour:
 
-Minor code cleanup 
+Ensure it remains consistent with this handbook.
 
-Every maintenance improvement should be documented in the completion summary. Do not: 
+Never create undocumented permanent systems.
 
-Improve unrelated spacing. 
+# **19\. Final Validation Checklist**
 
-Rename unrelated components. 
+Before considering any task complete verify:
 
-Refactor unrelated utilities. 
+✓ User objective achieved.
 
-Optimise unrelated pages. 
+✓ Existing functionality preserved.
 
-Modify unrelated metadata. 
+✓ No regressions introduced.
 
-Every modification must be traceable to the user's request. 
+✓ UI remains consistent.
 
-## **9. Feature Protection** 
+✓ SEO unaffected unless requested.
 
-Approved features are protected. 
+✓ Architecture preserved.
 
-Examples: 
+✓ No unnecessary code added.
 
-Homepage sections. 
+✓ No unnecessary code removed.
 
-Blog cards. 
+✓ No hidden side effects.
 
-Author component. 
+Only after all items pass may the task be considered finished.
 
-Editorial links. 
+# **20\. Golden Execution Rule**
 
-Latest Guides. 
+The safest implementation is the one that:
 
-Navigation. 
+Fully satisfies the user's request,
 
-Footer. 
+Preserves every approved feature,
 
-Publishing workflow. 
+Introduces no regressions,
 
-Rendering engine. 
+Maintains architectural consistency,
 
-Never redesign approved features without explicit approval. 
+And requires the smallest correct change.
 
-## **10. Code Preservation** 
+This is the execution standard for every future task performed on TheTapTempo.
 
-Before deleting any code determine: 
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
-Is it obsolete? 
+## **Version 1.0**
 
-Is it unused? 
+### **PART 4 - Technical Foundation, Infrastructure & Engineering Standards**
 
-Is another page dependent on it? 
+# **1\. Purpose**
 
-Could future functionality require it? 
+This section defines the permanent technical foundation of TheTapTempo.
 
-If uncertain: 
+Every future engineering decision must align with these standards.
 
-Do not delete. 
+These standards are mandatory.
 
-## **11. Replacement Policy** 
+No implementation should violate them without explicit approval from the project owner.
 
-If replacing an implementation: 
+# **2\. Technology Stack**
 
-Verify the new implementation provides all existing functionality. 
+The approved technology stack for TheTapTempo is considered permanent unless explicitly changed.
 
-Nothing should be lost during replacement. 
+Current stack includes:
 
-## **12. Unknown Consequences Rule** 
+- Next.js (App Router)
+- React
+- TypeScript
+- MongoDB
+- Vercel Deployment
+- Tailwind CSS
 
-If the consequences of a modification cannot be predicted confidently: 
+Future implementations must remain compatible with this ecosystem.
 
-Stop. 
+# **3\. Infrastructure Philosophy**
 
-Investigate. 
+Infrastructure should prioritise:
 
-Never continue blindly. 
+- Stability
+- Predictability
+- Simplicity
+- Performance
+- Scalability
+- Maintainability
 
-## **13. User Intent Overrides Assumptions** 
+Never introduce technologies that duplicate existing capabilities.
 
-Whenever assumptions conflict with user instructions: 
+Never add libraries merely for convenience.
 
-User instructions always win. 
+Every dependency must provide measurable long-term value.
 
-Never "improve" a requested feature against the user's wishes. 
+# **4\. Framework Consistency**
 
-## **14. Conservative Development** 
+Next.js App Router is the foundation of the project.
 
-When multiple valid implementations exist: 
+Never mix routing philosophies.
 
-Choose the one that introduces the least risk. 
+Never introduce Pages Router behaviour.
 
-Avoid unnecessary architectural changes. 
+Never implement legacy routing patterns.
 
-## **15. Minimal Change Principle** 
+Every route must follow the App Router architecture.
 
-Solve the problem with the smallest correct modification. 
+# **5\. TypeScript Policy**
 
-Do not rebuild entire systems when a focused improvement is sufficient. 
+TypeScript is mandatory.
 
-## **16. Long-Term Thinking** 
+Never intentionally bypass the type system.
 
-Every implementation should remain maintainable six months from now. 
+Avoid:
 
-Avoid temporary hacks. 
+- any
+- @ts-ignore
+- unnecessary type assertions
 
-Avoid fragile solutions. 
+Every implementation should improve type safety rather than reduce it.
 
-Avoid code that future developers cannot understand. 
+# **6\. Component Philosophy**
 
-## **17. Error Handling** 
+Components must remain:
 
-Unexpected behaviour should never be ignored. 
+Reusable.
 
-Investigate root causes. 
+Predictable.
 
-Avoid masking problems. 
+Independent.
 
-Fix causes rather than symptoms whenever practical. 
+Maintainable.
 
-## **18. Documentation Awareness** 
+Avoid page-specific components when reusable components are possible.
 
-Whenever an implementation introduces new permanent behaviour: 
+# **7\. Server vs Client Decision**
 
-Ensure it remains consistent with this handbook. 
+Before creating a Client Component ask:
 
-Never create undocumented permanent systems. 
+Can this work as a Server Component?
 
-## **19. Final Validation Checklist** 
+If yes,
 
-Before considering any task complete verify: 
+prefer Server Components.
 
-- ✓ User objective achieved. 
+Client Components should exist only when interactivity requires them.
 
-- ✓ Existing functionality preserved. 
+Avoid unnecessary hydration.
 
-- ✓ No regressions introduced. 
+# **8\. Data Fetching Philosophy**
 
-- ✓ UI remains consistent. 
+Data should be fetched from the correct source.
 
-- ✓ SEO unaffected unless requested. 
+Avoid duplicated fetch logic.
 
-- ✓ Architecture preserved. 
+Avoid multiple requests for identical information.
 
-- ✓ No unnecessary code added. 
+Whenever possible:
 
-- ✓ No unnecessary code removed. 
+Single source.
 
-- ✓ No hidden side effects. 
+Single query.
 
-Only after all items pass may the task be considered finished. 
+Single responsibility.
 
-## **20. Golden Execution Rule** 
+# **9\. API Standards**
 
-The safest implementation is the one that: 
+Every API endpoint must have a clear responsibility.
 
-Fully satisfies the user's request, 
+One endpoint.
 
-Preserves every approved feature, 
+One purpose.
 
-Introduces no regressions, 
+Avoid endpoints that perform unrelated operations.
 
-Maintains architectural consistency, 
+# **10\. Database Standards**
 
-And requires the smallest correct change. 
+MongoDB is the authoritative data source.
 
-This is the execution standard for every future task performed on TheTapTempo. 
+Never duplicate stored information elsewhere without a valid architectural reason.
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
+Avoid storing derived values that can be calculated safely.
 
-## **Version 1.0** 
+Maintain clean document structures.
 
-**PART 4 — Technical Foundation, Infrastructure & Engineering Standards** 
+# **11\. Database Safety**
 
-## **1. Purpose** 
+Every database operation should assume production data.
 
-This section defines the permanent technical foundation of TheTapTempo. 
+Never perform destructive operations without confirmation.
 
-Every future engineering decision must align with these standards. 
+Avoid accidental overwrites.
 
-These standards are mandatory. 
+Protect existing content.
 
-No implementation should violate them without explicit approval from the project owner. 
+# **12\. Environment Variables**
 
-## **2. Technology Stack** 
+Never hardcode:
 
-The approved technology stack for TheTapTempo is considered permanent unless explicitly changed. 
+API keys.
 
-Current stack includes: 
+Database credentials.
 
-- Next.js (App Router) 
+Secrets.
 
-- React 
+Tokens.
 
-- TypeScript 
+Private configuration.
 
-- MongoDB 
+Use environment variables exclusively.
 
-- Vercel Deployment 
+# **13\. Configuration Management**
 
-- Tailwind CSS 
+Configuration should exist in one location.
 
-Future implementations must remain compatible with this ecosystem. 
+Avoid duplicated configuration.
 
-## **3. Infrastructure Philosophy** 
+Avoid conflicting configuration files.
 
-Infrastructure should prioritise: 
+Configuration should remain predictable.
 
-- Stability 
+# **14\. File Structure**
 
-- Predictability 
+Every directory should have a clear purpose.
 
-- Simplicity 
+Avoid random placement of files.
 
-- Performance 
+Avoid deeply nested folders without justification.
 
-- Scalability 
+Folder organisation should remain intuitive.
 
-- Maintainability 
+# **15\. Naming Standards**
 
-Never introduce technologies that duplicate existing capabilities. 
+Maintain consistent naming across:
 
-Never add libraries merely for convenience. 
+Routes
 
-Every dependency must provide measurable long-term value. 
+Files
 
-## **4. Framework Consistency** 
+Components
 
-Next.js App Router is the foundation of the project. 
+Utilities
 
-Never mix routing philosophies. 
+Hooks
 
-Never introduce Pages Router behaviour. 
+Collections
 
-Never implement legacy routing patterns. 
+API handlers
 
-Every route must follow the App Router architecture. 
+Naming conventions should remain uniform throughout the project.
 
-## **5. TypeScript Policy** 
+# **16\. Routing Philosophy**
 
-TypeScript is mandatory. 
+Routing must remain:
 
-Never intentionally bypass the type system. 
+Predictable.
 
-Avoid: 
+SEO friendly.
 
-- any 
+Human readable.
 
-- @ts-ignore 
+Stable.
 
-- unnecessary type assertions 
+Never introduce breaking URL changes without explicit approval.
 
-Every implementation should improve type safety rather than reduce it. 
+Existing URLs are considered protected assets.
 
-## **6. Component Philosophy** 
+# **17\. URL Stability**
 
-Components must remain: 
+Published URLs must remain permanent.
 
-Reusable. 
+Avoid changing slugs.
 
-Predictable. 
+Avoid changing route structures.
 
-Independent. 
+Avoid changing URL hierarchy.
 
-Maintainable. 
+If URL changes become unavoidable:
 
-Avoid page-specific components when reusable components are possible. 
+Proper redirects must be implemented.
 
-## **7. Server vs Client Decision** 
+# **18\. Dynamic Route Rules**
 
-Before creating a Client Component ask: 
+Dynamic routes must remain deterministic.
 
-Can this work as a Server Component? 
+Avoid routing ambiguity.
 
-If yes, 
+Avoid conflicting dynamic segments.
 
-prefer Server Components. 
+Every route should resolve predictably.
 
-Client Components should exist only when interactivity requires them. 
+# **19\. Rendering Strategy**
 
-Avoid unnecessary hydration. 
+Rendering behaviour must remain consistent across the website.
 
-## **8. Data Fetching Philosophy** 
+Never mix rendering strategies without architectural justification.
 
-Data should be fetched from the correct source. 
+Avoid unnecessary client-side rendering.
 
-Avoid duplicated fetch logic. 
+Prefer server rendering whenever appropriate.
 
-Avoid multiple requests for identical information. 
+# **20\. Cache Strategy**
 
-Whenever possible: 
+Caching must improve performance without sacrificing accuracy.
 
-Single source. 
+Never cache content that must remain immediately current.
 
-Single query. 
+Examples include:
 
-Single responsibility. 
+Recently published articles.
 
-## **9. API Standards** 
+Homepage Latest Guides.
 
-Every API endpoint must have a clear responsibility. 
+Dynamic CMS content.
 
-One endpoint. 
+Sitemap.
 
-One purpose. 
+Critical metadata.
 
-Avoid endpoints that perform unrelated operations. 
+Whenever content changes,
 
-## **10. Database Standards** 
+cache invalidation must occur automatically.
 
-MongoDB is the authoritative data source. 
+# **21\. Revalidation Policy**
 
-Never duplicate stored information elsewhere without a valid architectural reason. 
+Whenever new content is published,
 
-Avoid storing derived values that can be calculated safely. 
+the system should automatically update all affected areas.
 
-Maintain clean document structures. 
+Examples include:
 
-## **11. Database Safety** 
+Homepage.
 
-Every database operation should assume production data. 
+Blog listing.
 
-Never perform destructive operations without confirmation. 
+Article page.
 
-Avoid accidental overwrites. 
+Sitemap.
 
-Protect existing content. 
+RSS (future).
 
-## **12. Environment Variables** 
+Search indexes (future).
 
-Never hardcode: 
+No manual intervention should be required.
 
-API keys. 
+# **22\. Error Handling**
 
-Database credentials. 
+Unexpected failures should never fail silently.
 
-Secrets. 
+Errors should be:
 
-Tokens. 
+Logged.
 
-Private configuration. 
+Handled gracefully.
 
-Use environment variables exclusively. 
+Explained clearly when appropriate.
 
-## **13. Configuration Management** 
+Never expose internal system information to users.
 
-Configuration should exist in one location. 
+# **23\. 404 Handling**
 
-Avoid duplicated configuration. 
+A page should return 404 only when:
 
-Avoid conflicting configuration files. 
+The requested resource genuinely does not exist.
 
-Configuration should remain predictable. 
+Never return false 404 responses because of:
 
-## **14. File Structure** 
+Cache.
 
-Every directory should have a clear purpose. 
+Database timing.
 
-Avoid random placement of files. 
+Rendering issues.
 
-Avoid deeply nested folders without justification. 
+Configuration errors.
 
-Folder organisation should remain intuitive. 
+Route ambiguity.
 
-## **15. Naming Standards** 
+# **24\. Build Philosophy**
 
-Maintain consistent naming across: 
+A successful build should indicate:
 
-Routes 
+No technical regressions.
 
-Files 
+No type errors.
 
-Components 
+No SEO violations.
 
-Utilities 
+No deployment blockers.
 
-Hooks 
+A failed quality check should stop deployment.
 
-Collections 
+Deployment should never continue with known critical issues.
 
-API handlers 
+# **25\. Quality Gates**
 
-Naming conventions should remain uniform throughout the project. 
+Every production deployment must successfully pass:
 
-## **16. Routing Philosophy** 
+TypeScript validation.
 
-Routing must remain: 
+SEO validation.
 
-Predictable. 
+Build validation.
 
-SEO friendly. 
+Route validation.
 
-Human readable. 
+Metadata validation.
 
-Stable. 
+Schema validation.
 
-Never introduce breaking URL changes without explicit approval. 
+Only then should deployment proceed.
 
-Existing URLs are considered protected assets. 
+# **26\. Deployment Platform**
 
-## **17. URL Stability** 
+Vercel is the production deployment platform.
 
-Published URLs must remain permanent. 
+Implementations should remain compatible with Vercel's deployment model.
 
-Avoid changing slugs. 
+Avoid platform-specific workarounds unless absolutely necessary.
 
-Avoid changing route structures. 
+# **27\. Production Safety**
 
-Avoid changing URL hierarchy. 
+Never implement directly for production without considering:
 
-If URL changes become unavoidable: 
+Rollback.
 
-Proper redirects must be implemented. 
+Recovery.
 
-## **18. Dynamic Route Rules** 
+Compatibility.
 
-Dynamic routes must remain deterministic. 
+Existing users.
 
-Avoid routing ambiguity. 
+Existing content.
 
-Avoid conflicting dynamic segments. 
+Every deployment should be reversible.
 
-Every route should resolve predictably. 
+# **28\. Performance Philosophy**
 
-## **19. Rendering Strategy** 
+Performance is a permanent feature.
 
-Rendering behaviour must remain consistent across the website. 
+Do not sacrifice performance for convenience.
 
-Never mix rendering strategies without architectural justification. 
+Avoid unnecessary:
 
-Avoid unnecessary client-side rendering. 
+JavaScript.
 
-Prefer server rendering whenever appropriate. 
+Network requests.
 
-## **20. Cache Strategy** 
+Hydration.
 
-Caching must improve performance without sacrificing accuracy. 
+Bundle size.
 
-Never cache content that must remain immediately current. 
+Render blocking.
 
-Examples include: 
+# **29\. Future Compatibility**
 
-Recently published articles. 
+Every engineering decision should remain compatible with future additions.
 
-Homepage Latest Guides. 
+Assume future expansion will include:
 
-Dynamic CMS content. 
+Additional tools.
 
-Sitemap. 
+Additional calculators.
 
-Critical metadata. 
+Large article libraries.
 
-Whenever content changes, 
+Search.
 
-cache invalidation must occur automatically. 
+User accounts.
 
-## **21. Revalidation Policy** 
+Dashboards.
 
-Whenever new content is published, 
+Internationalisation.
 
-the system should automatically update all affected areas. 
+Build systems should not require redesign to support future growth.
 
-Examples include: 
+# **30\. Engineering Golden Rule**
 
-Homepage. 
+Every implementation should leave the codebase in a better state than before.
 
-Blog listing. 
+Cleaner.
 
-Article page. 
+Safer.
 
-Sitemap. 
+More maintainable.
 
-RSS (future). 
+More predictable.
 
-Search indexes (future). 
+Never leave behind fragile implementations or hidden technical debt.
 
-No manual intervention should be required. 
+The long-term health of TheTapTempo is always more important than short-term implementation speed.
 
-## **22. Error Handling** 
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
-Unexpected failures should never fail silently. 
+## **Version 1.0**
 
-Errors should be: 
+# **PART 5 - SEO, Indexing & Search Architecture**
 
-Logged. 
+# **1\. Purpose**
 
-Handled gracefully. 
+This section defines the permanent SEO architecture of TheTapTempo.
 
-Explained clearly when appropriate. 
+Every page, tool, article, feature, and future implementation must comply with these standards.
 
-Never expose internal system information to users. 
+SEO is not a post-publication activity.
 
-## **23. 404 Handling** 
+SEO is part of the product architecture.
 
-A page should return 404 only when: 
+Every engineering and publishing decision must consider its SEO impact.
 
-The requested resource genuinely does not exist. 
+# **2\. SEO Philosophy**
 
-Never return false 404 responses because of: 
+The objective is not simply to rank pages.
 
-Cache. 
+The objective is to build the most trusted educational resource within the music tempo niche.
 
-Database timing. 
+SEO decisions must prioritise:
 
-Rendering issues. 
+- User value
+- Search intent
+- Experience
+- Trust
+- Accuracy
+- Semantic relevance
+- Crawlability
+- Long-term authority
 
-Configuration errors. 
+Short-term ranking tactics are prohibited.
 
-Route ambiguity. 
+TheTapTempo grows by building topical authority around tempo-related ecosystems.
 
-## **24. Build Philosophy** 
+The website does not scale by publishing random pages.
 
-A successful build should indicate: 
+Growth is determined by search intent, topical relationships, and user needs.
 
-No technical regressions. 
+**SEO Rules Classification**
 
-No type errors. 
+Some rules are Mandatory.
 
-No SEO violations. 
+Some rules are Recommended.
 
-No deployment blockers. 
+Mandatory rules include:
 
-A failed quality check should stop deployment. 
+Canonical
 
-Deployment should never continue with known critical issues. 
+Metadata
 
-## **25. Quality Gates** 
+Schema
 
-Every production deployment must successfully pass: 
+Indexability
 
-TypeScript validation. 
+Sitemap
 
-SEO validation. 
+Broken Links
 
-Build validation. 
+Recommended rules include:
 
-Route validation. 
+Ideal title wording
 
-Metadata validation. 
+Ideal image placement
 
-Schema validation. 
+Preferred heading style
 
-Only then should deployment proceed. 
+Preferred content presentation
 
-## **26. Deployment Platform** 
+Recommended rules may be adapted when they improve user experience.
 
-Vercel is the production deployment platform. 
+# **3\. EEAT Principles**
 
-Implementations should remain compatible with Vercel's deployment model. 
+Every public page must strengthen Google's EEAT signals.
 
-Avoid platform-specific workarounds unless absolutely necessary. 
+Each page should clearly demonstrate:
 
-## **27. Production Safety** 
+Experience
 
-Never implement directly for production without considering: 
+Expertise
 
-Rollback. 
+Authoritativeness
 
-Recovery. 
+Trustworthiness
 
-Compatibility. 
+Whenever applicable:
 
-Existing users. 
+- Editorial ownership
+- Author attribution
+- Editorial review
+- Helpful content
+- Technical accuracy
+- Transparent methodology
 
-Existing content. 
+must be visible.
 
-Every deployment should be reversible. 
+# **4\. Search Intent Protection**
 
-## **28. Performance Philosophy** 
+Every page must target exactly one primary search intent.
 
-Performance is a permanent feature. 
+Avoid combining multiple unrelated intents.
 
-Do not sacrifice performance for convenience. 
+Every page should answer one primary question exceptionally well.
 
-Avoid unnecessary: 
+Supporting information may exist,
 
-JavaScript. 
+but the primary intent must always remain clear.
 
-Network requests. 
+# **5\. Content Cannibalization Policy**
 
-Hydration. Bundle size. 
+Multiple pages must never compete for the same primary keyword.
 
-Render blocking. 
+Before creating new content:
 
-## **29. Future Compatibility** 
+Determine whether another page already satisfies that intent.
 
-Every engineering decision should remain compatible with future additions. 
+If yes:
 
-Assume future expansion will include: 
+Strengthen the existing page.
 
-Additional tools. 
+Do not create duplicate pages.
 
-Additional calculators. 
+Supporting articles should support pillar pages,
 
-Large article libraries. 
+never compete with them.
 
-Search. 
+# **6\. URL Strategy**
 
-User accounts. 
+URLs are permanent assets.
 
-Dashboards. 
+Every URL must remain:
 
-Internationalisation. 
+Short.
 
-Build systems should not require redesign to support future growth. 
+Readable.
 
-## **30. Engineering Golden Rule** 
+Descriptive.
 
-Every implementation should leave the codebase in a better state than before. 
+Stable.
 
-Cleaner. 
+Keyword-focused.
 
-Safer. 
+Avoid changing URLs after publication.
 
-More maintainable. 
+If unavoidable,
 
-More predictable. 
+implement permanent redirects.
 
-Never leave behind fragile implementations or hidden technical debt. 
+# **7\. Slug Standards**
 
-The long-term health of TheTapTempo is always more important than short-term implementation speed. 
+Every slug should:
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
+Describe the page.
 
-**Version 1.0** 
+Match search intent.
 
-## **PART 5 — SEO, Indexing & Search Architecture** 
+Remain human-readable.
 
-## **1. Purpose** 
+Avoid unnecessary words.
 
-This section defines the permanent SEO architecture of TheTapTempo. 
+Avoid dates.
 
-Every page, tool, article, feature, and future implementation must comply with these standards. 
+Avoid version numbers.
 
-SEO is not a post-publication activity. 
+Avoid changing approved slugs.
 
-SEO is part of the product architecture. 
+# **8\. Metadata Standards**
 
-Every engineering and publishing decision must consider its SEO impact. 
+Every indexable page MUST contain:
 
-## **2. SEO Philosophy** 
+Unique Title
 
-The objective is not simply to rank pages. 
+Unique Meta Description
 
-The objective is to build the most trusted educational resource within the music tempo niche. SEO decisions must prioritise: 
+Canonical URL
 
-- User value 
+Open Graph
 
-- Search intent 
+Twitter Card
 
-- Experience 
+Index directives
 
-- Trust 
+Structured Data (where applicable)
 
-- Accuracy 
+Missing metadata is considered a deployment blocker.
 
-- Semantic relevance 
+# **9\. Title Standards**
 
-- Crawlability 
+Every title must:
 
-- Long-term authority 
+Reflect search intent.
 
-Short-term ranking tactics are prohibited. 
+Remain unique.
 
-## **SEO Rules Classification** 
+Be naturally written.
 
-Some rules are Mandatory. 
+Encourage clicks.
 
-Some rules are Recommended. 
+Avoid clickbait.
 
-Mandatory rules include: 
+Avoid keyword stuffing.
 
-Canonical 
+Avoid duplication.
 
-Metadata 
+# **10\. Meta Description Standards**
 
-Schema 
+Every meta description should:
 
-Indexability 
+Summarise the page.
 
-Sitemap 
+Improve click-through rate.
 
-Broken Links 
+Remain unique.
 
-Recommended rules include: 
+Reflect page content accurately.
 
-Ideal title wording 
+Avoid misleading descriptions.
 
-Ideal image placement 
+# **11\. Canonical Policy**
 
-Preferred heading style 
+Every indexable page must define a canonical URL.
 
-Preferred content presentation 
+Canonical URLs should always reference the preferred version.
 
-Recommended rules may be adapted when they improve user experience. 
+Duplicate canonical implementations are prohibited.
 
-## **3. EEAT Principles** 
+# **12\. Indexability Rules**
 
-Every public page must strengthen Google's EEAT signals. 
+Every public page should have a clearly defined indexing policy.
 
-Each page should clearly demonstrate: 
+Pages intended for Google must remain indexable.
 
-Experience 
+Private,
 
-Expertise 
+administrative,
 
-Authoritativeness 
+or duplicate pages must not be indexed.
 
-Trustworthiness 
+# **13\. Robots Policy**
 
-Whenever applicable: 
+robots.txt must protect:
 
-- Editorial ownership 
+Admin interfaces.
 
-- Author attribution 
+Development routes.
 
-- Editorial review 
+Private endpoints.
 
-- Helpful content 
+Temporary resources.
 
-- Technical accuracy 
+Never accidentally block important pages.
 
-- Transparent methodology 
+Every robots modification should be reviewed carefully.
 
-must be visible. 
+# **14\. Sitemap Policy**
 
-## **4. Search Intent Protection** 
+The sitemap is the authoritative discovery mechanism for search engines.
 
-Every page must target exactly one primary search intent. 
+Whenever new public content is published,
 
-Avoid combining multiple unrelated intents. 
+the sitemap must update automatically.
 
-Every page should answer one primary question exceptionally well. 
+The sitemap must include:
 
-Supporting information may exist, 
+Homepage
 
-but the primary intent must always remain clear. 
+Tools
 
-## **5. Content Cannibalization Policy** 
+Articles
 
-Multiple pages must never compete for the same primary keyword. 
+Static pages
 
-Before creating new content: 
+Future public resources
 
-Determine whether another page already satisfies that intent. 
+Administrative pages must never appear.
 
-If yes: 
+# **15\. Internal Linking Philosophy**
 
-Strengthen the existing page. 
+Internal linking is mandatory.
 
-Do not create duplicate pages. 
+Every article should naturally connect users to:
 
-Supporting articles should support pillar pages, 
+Relevant tools.
 
-never compete with them. 
+Relevant supporting articles.
 
-## **6. URL Strategy** 
+Relevant pillar content.
 
-URLs are permanent assets. 
+Editorial resources.
 
-Every URL must remain: 
+Never insert links solely for SEO.
 
-Short. 
+Every internal link must improve user experience.
 
-Readable. 
+# **16\. Homepage Link Equity**
 
-Descriptive. 
+The homepage is the highest-authority page.
 
-Stable. 
+Homepage links should prioritise:
 
-Keyword-focused. 
+Core tools.
 
-Avoid changing URLs after publication. 
+Important educational resources.
 
-If unavoidable, 
+Latest Guides.
 
-implement permanent redirects. 
+Primary navigation.
 
-## **7. Slug Standards** 
+Never overload the homepage with unnecessary links.
 
-Every slug should: 
+# **17\. Tool-to-Blog Relationship**
 
-Describe the page. 
+Tool pages should educate.
 
-Match search intent. 
+Blog pages should deepen understanding.
 
-Remain human-readable. 
+Whenever appropriate:
 
-Avoid unnecessary words. 
+Tool → Blog
 
-Avoid dates. 
+Blog → Tool
 
-Avoid version numbers. 
+Both directions should exist.
 
-Avoid changing approved slugs. 
+This relationship must remain natural.
 
-## **8. Metadata Standards** 
+# **18\. Pillar & Supporting Structure**
 
-Every indexable page MUST contain: 
+TheTapTempo follows a pillar-supporting architecture.
 
-Unique Title 
+Pillar pages own primary search intent.
 
-Unique Meta Description 
+Supporting articles expand individual subtopics.
 
-Canonical URL 
+Supporting articles should strengthen pillar authority.
 
-Open Graph 
+Never replace it.
 
-Twitter Card 
+# **19\. Anchor Text Policy**
 
-Index directives 
+Anchor text should:
 
-Structured Data (where applicable) 
+Describe destination naturally.
 
-Missing metadata is considered a deployment blocker. 
+Remain contextually relevant.
 
-## **9. Title Standards** 
+Avoid repetitive exact-match anchors.
 
-Every title must: 
+Avoid forced optimisation.
 
-Reflect search intent. 
+Write for users first.
 
-Remain unique. 
+# **20\. Structured Data Policy**
 
-Be naturally written. 
+Structured Data is mandatory whenever applicable.
 
-Encourage clicks. 
+Possible schema types include:
 
-Avoid clickbait. 
+WebPage
 
-Avoid keyword stuffing. 
+Article
 
-Avoid duplication. 
+BlogPosting
 
-## **10. Meta Description Standards** 
+FAQPage
 
-Every meta description should: 
+BreadcrumbList
 
-Summarise the page. 
+SoftwareApplication
 
-Improve click-through rate. 
+Organization
 
-Remain unique. 
+Person
 
-Reflect page content accurately. 
+ImageObject
 
-Avoid misleading descriptions. 
+HowTo (future)
 
-## **11. Canonical Policy** 
+VideoObject (future)
 
-Every indexable page must define a canonical URL. 
+Schema should accurately represent page content.
 
-Canonical URLs should always reference the preferred version. 
+Never generate fake schema.
 
-Duplicate canonical implementations are prohibited. 
+# **21\. Schema Accuracy**
 
-## **12. Indexability Rules** 
+Schema must always match visible content.
 
-Every public page should have a clearly defined indexing policy. 
+Never include:
 
-Pages intended for Google must remain indexable. 
+Invisible FAQs.
 
-Private, 
+Fake ratings.
 
-administrative, 
+Imaginary authors.
 
-or duplicate pages must not be indexed. 
+Invented reviews.
 
-## **13. Robots Policy** 
+Unsupported properties.
 
-robots.txt must protect: 
+Google trust has higher priority than rich results.
 
-Admin interfaces. 
+# **22\. Image SEO**
 
-Development routes. 
+Every published image must include:
 
-Private endpoints. 
+Meaningful filename.
 
-Temporary resources. 
+Descriptive alt text.
 
-Never accidentally block important pages. 
+Appropriate dimensions.
 
-Every robots modification should be reviewed carefully. 
+Optimised size.
 
-## **14. Sitemap Policy** 
+Responsive behaviour.
 
-The sitemap is the authoritative discovery mechanism for search engines. 
+Decorative alt text is prohibited unless the image is purely decorative.
 
-Whenever new public content is published, 
+# **23\. Breadcrumb Policy**
 
-the sitemap must update automatically. 
+Public pages should support logical breadcrumb navigation whenever appropriate.
 
-The sitemap must include: 
+Breadcrumbs improve:
 
-Homepage 
+Navigation.
 
-Tools 
+Internal linking.
 
-Articles 
+Structured Data.
 
-Static pages 
+Search understanding.
 
-Future public resources 
+# **24\. Future Search Features**
 
-Administrative pages must never appear. 
+Every implementation should remain compatible with:
 
-## **15. Internal Linking Philosophy** 
+AI Overviews.
 
-Internal linking is mandatory. 
+Featured Snippets.
 
-Every article should naturally connect users to: 
+Knowledge Panels.
 
-Relevant tools. 
+Rich Results.
 
-Relevant supporting articles. 
+Voice Search.
 
-Relevant pillar content. 
+Future Google search experiences.
 
-Editorial resources. 
+# **25\. Google Search Console**
 
-Never insert links solely for SEO. 
+Search Console should remain the primary SEO monitoring platform.
 
-Every internal link must improve user experience. 
+Future technical implementations should preserve:
 
-## **16. Homepage Link Equity** 
+Coverage.
 
-The homepage is the highest-authority page. 
+Indexability.
 
-Homepage links should prioritise: 
+Sitemaps.
 
-Core tools. 
+Enhancements.
 
-Important educational resources. 
+Core Web Vitals.
 
-Latest Guides. 
+Manual Actions.
 
-Primary navigation. 
+Any deployment introducing SEO regressions must be investigated immediately.
 
-Never overload the homepage with unnecessary links. 
+# **26\. Crawl Budget**
 
-## **17. Tool-to-Blog Relationship** 
+Avoid wasting crawl budget.
 
-Tool pages should educate. 
+Do not generate:
 
-Blog pages should deepen understanding. 
+Duplicate URLs.
 
-Whenever appropriate: 
+Thin pages.
 
-Tool → Blog 
+Parameter duplicates.
 
-Blog → Tool 
+Broken internal links.
 
-Both directions should exist. 
+Infinite crawl paths.
 
-This relationship must remain natural. 
+Search engines should discover important content efficiently.
 
-## **18. Pillar & Supporting Structure** 
+# **27\. Broken Link Policy**
 
-TheTapTempo follows a pillar-supporting architecture. 
+Broken internal links are unacceptable.
 
-Pillar pages own primary search intent. 
+Every deployment should preserve:
 
-Supporting articles expand individual subtopics. 
+Navigation integrity.
 
-Supporting articles should strengthen pillar authority. 
+Homepage links.
 
-Never replace it. 
+Blog links.
 
-## **19. Anchor Text Policy** 
+Tool links.
 
-Anchor text should: 
+Footer links.
 
-Describe destination naturally. 
+Editorial links.
 
-Remain contextually relevant. 
+Author links.
 
-Avoid repetitive exact-match anchors. 
+# **28\. Redirect Policy**
 
-Avoid forced optimisation. 
+Whenever URLs change:
 
-Write for users first. 
+Permanent redirects must be implemented.
 
-## **20. Structured Data Policy** 
+Redirect chains should be avoided.
 
-Structured Data is mandatory whenever applicable. 
+Redirect loops are prohibited.
 
-Possible schema types include: 
+# **29\. SEO Validation Before Deployment**
 
-WebPage 
+Every deployment must automatically validate:
 
-Article 
+Metadata
 
-BlogPosting 
+Canonical
 
-FAQPage 
+Structured Data
 
-BreadcrumbList 
+Internal Links
 
-SoftwareApplication 
+Sitemap
 
-Organization 
+Robots
 
-Person 
+Image Alt Text
 
-ImageObject 
+Heading Structure
 
-HowTo (future) 
+Indexability
 
-VideoObject (future) 
+Broken Links
 
-Schema should accurately represent page content. 
+Only after successful validation may deployment proceed.
 
-Never generate fake schema. 
+# **30\. SEO Golden Rule**
 
-## **21. Schema Accuracy** 
+Every public page should satisfy this question:
 
-Schema must always match visible content. 
+"If Google removed every ranking signal except usefulness, would this page still deserve to rank?"
 
-Never include: 
+If the answer is uncertain,
 
-Invisible FAQs. 
+the page is not ready for publication.
 
-Fake ratings. 
+SEO exists to help users discover exceptional content.
 
-Imaginary authors. 
+It must never become more important than the quality of the content itself.
 
-Invented reviews. 
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
-Unsupported properties. 
+## **Version 1.0**
 
-Google trust has higher priority than rich results. 
+# **PART 6 - Content Publishing System & Blog Architecture**
 
-## **22. Image SEO** 
+# **1\. Purpose**
 
-Every published image must include: 
+This section defines the permanent publishing standard for every article published on TheTapTempo.
 
-Meaningful filename. 
+No article may be published unless it satisfies every rule defined in this section.
 
-Descriptive alt text. 
+These rules apply regardless of:
 
-Appropriate dimensions. 
+- Article topic
+- Author
+- AI model
+- Publishing date
+- CMS workflow
+- Future website expansion
 
-Optimised size. 
+This chapter is the permanent publishing constitution of TheTapTempo.
 
-Responsive behaviour. 
+# **2\. Publishing Philosophy**
 
-Decorative alt text is prohibited unless the image is purely decorative. 
+Publishing is not the act of making an article public.
 
-## **23. Breadcrumb Policy** 
+Publishing is the final stage of a complete editorial process.
 
-Public pages should support logical breadcrumb navigation whenever appropriate. 
+Every article must demonstrate:
 
-Breadcrumbs improve: 
+Accuracy
 
-Navigation. 
+Authority
 
-Internal linking. 
+Consistency
 
-Structured Data. 
+Readability
 
-Search understanding. 
+Technical quality
 
-## **24. Future Search Features** 
+User value
 
-Every implementation should remain compatible with: 
+SEO completeness
 
-AI Overviews. 
+Visual consistency
 
-Featured Snippets. 
+A page that is technically complete but visually inconsistent is **not** considered publishable.
 
-Knowledge Panels. 
+# **3\. Single Publishing Standard**
 
-Rich Results. 
+There is only one publishing standard.
 
-Voice Search. 
+No "small article"
 
-Future Google search experiences. 
+No "quick article"
 
-## **25. Google Search Console** 
+No "temporary article"
 
-Search Console should remain the primary SEO monitoring platform. 
+No "draft quality article"
 
-Future technical implementations should preserve: 
+Every published article must satisfy the same professional standard.
 
-Coverage. 
+# **4\. Article Lifecycle**
 
-Indexability. 
+Every article follows this lifecycle.
 
-Sitemaps. 
+Blueprint
 
-Enhancements. 
+↓
 
-Core Web Vitals. 
+Writing
 
-Manual Actions. 
+↓
 
-Any deployment introducing SEO regressions must be investigated immediately. 
+Review
 
-## **26. Crawl Budget** 
+↓
 
-Avoid wasting crawl budget. 
+SEO Review
 
-Do not generate: 
+↓
 
-Duplicate URLs. 
+Publishing Preparation
 
-Thin pages. 
+↓
 
-Parameter duplicates. 
+CMS Upload
 
-Broken internal links. 
+↓
 
-Infinite crawl paths. 
+Automatic Validation
 
-Search engines should discover important content efficiently. 
+↓
 
-## **27. Broken Link Policy** 
+Publication
 
-Broken internal links are unacceptable. 
+↓
 
-Every deployment should preserve: 
+Homepage Integration
 
-Navigation integrity. 
+↓
 
-Homepage links. 
+Search Engine Discovery
 
-Blog links. 
+Skipping any stage is prohibited.
 
-Tool links. 
+# **5\. Blueprint Requirement**
 
-Footer links. 
+Every article begins with an approved blueprint.
 
-Editorial links. 
+The blueprint defines:
 
-Author links. 
+Primary search intent
 
-## **28. Redirect Policy** 
+Target keyword
 
-Whenever URLs change: 
+Supporting keywords
 
-Permanent redirects must be implemented. 
+Search intent
 
-Redirect chains should be avoided. 
+Heading hierarchy
 
-Redirect loops are prohibited. 
+Internal linking plan
 
-## **29. SEO Validation Before Deployment** 
+Tool integration
 
-Every deployment must automatically validate: 
+FAQ opportunities
 
-Metadata 
+User journey
 
-Canonical 
+Content boundaries
 
-Structured Data 
+The blueprint is an editorial planning document.
 
-Internal Links 
+It is **never** displayed on the website.
 
-Sitemap 
+# **6\. Final Content Authority**
 
-Robots 
+The approved final article is the only publishing source.
 
-Image Alt Text 
+Opencode must never rewrite,
 
-Heading Structure 
+expand,
 
-Indexability 
+summarise,
 
-Broken Links 
+optimise,
 
-Only after successful validation may deployment proceed. 
+or creatively modify approved content.
 
-## **30. SEO Golden Rule** 
+Its responsibility is presentation,
 
-Every public page should satisfy this question: 
+not rewriting.
 
-"If Google removed every ranking signal except usefulness, would this page still deserve to rank?" 
+# **7\. Publishing Responsibility**
 
-If the answer is uncertain, 
+The CMS stores content.
 
-the page is not ready for publication. 
+Opencode prepares presentation.
 
-SEO exists to help users discover exceptional content. 
+The final article remains exactly as approved by the project owner.
 
-It must never become more important than the quality of the content itself. 
+# **8\. Automatic Publishing Responsibilities**
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
+During publication Opencode must automatically:
 
-**Version 1.0** 
+Generate page layout.
 
-## **PART 6 — Content Publishing System & Blog Architecture** 
+Apply website components.
 
-## **1. Purpose** 
+Insert author section.
 
-This section defines the permanent publishing standard for every article published on TheTapTempo. 
+Insert editorial section.
 
-No article may be published unless it satisfies every rule defined in this section. 
+Render images.
 
-These rules apply regardless of: 
+Render tables.
 
-- Article topic 
+Render FAQs.
 
-- Author 
+Generate metadata.
 
-- AI model 
+Generate schema.
 
-- Publishing date 
+Update homepage.
 
-- CMS workflow 
+Update blog listing.
 
-- Future website expansion 
+Update sitemap.
 
-This chapter is the permanent publishing constitution of TheTapTempo. 
+Invalidate cache.
 
-## **2. Publishing Philosophy** 
+Validate rendering.
 
-Publishing is not the act of making an article public. 
+No manual intervention should be required.
 
-Publishing is the final stage of a complete editorial process. 
+# **9\. Article Layout Standard**
 
-Every article must demonstrate: 
+Every article must follow one consistent structure.
 
-Accuracy 
+No article may invent its own layout.
 
-Authority 
+Required order:
 
-Consistency 
+Hero Section
 
-Readability 
+↓
 
-Technical quality 
+Introduction
 
-User value 
+↓
 
-SEO completeness 
+Table of Contents
 
-Visual consistency 
+↓
 
-A page that is technically complete but visually inconsistent is **not** considered publishable. 
+Main Content
 
-## **3. Single Publishing Standard** 
+↓
 
-There is only one publishing standard. 
+Comparison Tables (if applicable)
 
-No "small article" 
+↓
 
-No "quick article" 
+FAQs
 
-No "temporary article" 
+↓
 
-No "draft quality article" 
+Conclusion
 
-Every published article must satisfy the same professional standard. 
+↓
 
-## **4. Article Lifecycle** 
+Author Section
 
-Every article follows this lifecycle. 
+Articles should never rearrange this hierarchy.
 
-Blueprint 
+# **10\. Hero Section**
 
-↓ 
+Every article should contain:
 
-Writing 
+Featured Image
 
-↓ 
+Title
 
-Review 
+Publication Date
 
-↓ 
+Reading Time (future)
 
-SEO Review 
+Category (future)
 
-↓ 
+The hero establishes the visual identity of the article.
 
-Publishing Preparation 
+# **11\. Featured Image Rules**
 
-↓ 
+Every article must contain one featured image.
 
-CMS Upload 
+Requirements:
 
-↓ 
+Relevant.
 
-Automatic Validation 
+Professional.
 
-↓ 
+Consistent with brand.
 
-Publication 
+High quality.
 
-↓ 
+Original or licensed.
 
-Homepage Integration 
+Optimised.
 
-↓ 
+The featured image should visually explain the topic,
 
-Search Engine Discovery 
+not merely decorate it.
 
-Skipping any stage is prohibited. 
+# **12\. Image Standards**
 
-## **5. Blueprint Requirement** 
+Images should support understanding.
 
-Every article begins with an approved blueprint. 
+Avoid decorative images.
 
-The blueprint defines: 
+Infographics are preferred whenever they improve comprehension.
 
-Primary search intent 
+Every image should have:
 
-Target keyword 
+Descriptive alt text.
 
-Supporting keywords 
+Optimised dimensions.
 
-Search intent 
+Responsive rendering.
 
-Heading hierarchy 
+Lazy loading where appropriate.
 
-Internal linking plan 
+# **13\. TOC Standard**
 
-Tool integration 
+The Table of Contents follows one permanent rule.
 
-FAQ opportunities 
+Include:
 
-User journey 
+H2 headings only.
 
-Content boundaries 
+Never include H3.
 
-The blueprint is an editorial planning document. 
+Never include H4.
 
-It is **never** displayed on the website. 
+The objective is navigation,
 
-## **6. Final Content Authority** 
+not document indexing.
 
-The approved final article is the only publishing source. 
+A concise TOC improves usability.
 
-Opencode must never rewrite, 
+# **14\. Heading Hierarchy**
 
-expand, summarise, 
+Every article must maintain a logical heading hierarchy.
 
-optimise, 
+Rules:
 
-or creatively modify approved content. 
+One H1 only.
 
-Its responsibility is presentation, 
+Multiple H2 allowed.
 
-not rewriting. 
+H3 only within H2 sections.
 
-## **7. Publishing Responsibility** 
+Never skip heading levels.
 
-The CMS stores content. 
+Never create empty headings.
 
-Opencode prepares presentation. 
+# **15\. Spacing Standard**
 
-The final article remains exactly as approved by the project owner. 
+Articles must use the website's approved spacing system.
 
-## **8. Automatic Publishing Responsibilities** 
+Spacing should remain visually identical across every article.
 
-During publication Opencode must automatically: 
+No article-specific spacing adjustments are permitted.
 
-Generate page layout. 
+Visual consistency is mandatory.
 
-Apply website components. 
+# **16\. Typography**
 
-Insert author section. 
+Typography must remain identical across the website.
 
-Insert editorial section. 
+Never introduce:
 
-Render images. 
+Different fonts.
 
-Render tables. Render FAQs. 
+Different heading styles.
 
-Generate metadata. 
+Different paragraph spacing.
 
-Generate schema. 
+Different text widths.
 
-Update homepage. 
+Articles should feel native to the website.
 
-Update blog listing. 
+# **17\. Tables**
 
-Update sitemap. 
+Whenever information is naturally tabular,
 
-Invalidate cache. 
+render it as an actual HTML table.
 
-Validate rendering. 
+Never fake tables using paragraphs or lists.
 
-No manual intervention should be required. 
+Tables should remain:
 
-## **9. Article Layout Standard** 
+Responsive.
 
-Every article must follow one consistent structure. 
+Accessible.
 
-No article may invent its own layout. 
+Consistent.
 
-Required order: 
+Visually identical throughout the website.
 
-Hero Section 
+# **18\. Comparison Sections**
 
-↓ 
+Whenever comparison data exists,
 
-Introduction 
+use comparison tables.
 
-↓ 
+Do not convert comparison tables into long paragraphs.
 
-Table of Contents 
+Users should compare information visually.
 
-↓ 
+# **19\. Lists**
 
-Main Content 
+Ordered lists should be used only for sequential processes.
 
-↓ 
+Unordered lists should be used for collections.
 
-Comparison Tables (if applicable) 
+Avoid unnecessary nested lists.
 
-↓ 
+# **20\. FAQ Rendering**
 
-FAQs 
+FAQs must always use the website's approved FAQ component.
 
-↓ 
+Never create custom FAQ layouts.
 
-Conclusion 
+Never manually style FAQ sections.
 
-↓ 
+Consistency is mandatory.
 
-Author Section 
+# **21\. Author Section**
 
-Articles should never rearrange this hierarchy. 
+Every article automatically displays the approved author component.
 
-## **10. Hero Section** 
+Current author:
 
-Every article should contain: 
+TheTapTempo Editorial Team
 
-Featured Image 
+This should never require manual insertion.
 
-Title 
+# **22\. Editorial Review**
 
-Publication Date 
+Every article automatically displays the Editorial Review section.
 
-Reading Time (future) 
+The editorial section must link to:
 
-Category (future) 
+Editorial Policy
 
-The hero establishes the visual identity of the article. 
+The wording remains consistent across every article.
 
-## **11. Featured Image Rules** 
+No manual duplication is permitted.
 
-Every article must contain one featured image. 
+# **23\. Internal Linking**
 
-Requirements: 
+Internal links should be generated according to the approved blueprint.
 
-Relevant. 
+Links should connect readers to:
 
-Professional. 
+Relevant tools.
 
-Consistent with brand. 
+Relevant supporting articles.
 
-High quality. 
+Relevant pillar pages.
 
-Original or licensed. 
+Editorial resources where appropriate.
 
-Optimised. 
+Avoid excessive linking.
 
-The featured image should visually explain the topic, 
+Every link must improve navigation.
 
-not merely decorate it. 
+# **24\. External Links**
 
-## **12. Image Standards** 
+External links should be used only when they genuinely improve user understanding.
 
-Images should support understanding. 
+Avoid unnecessary outbound links.
 
-Avoid decorative images. 
+Prefer authoritative sources.
 
-Infographics are preferred whenever they improve comprehension. 
+# **25\. Metadata**
 
-Every image should have: 
+Metadata should be generated from the approved article information.
 
-Descriptive alt text. 
+Never invent metadata.
 
-Optimised dimensions. 
+Never rewrite the approved SEO title without approval.
 
-Responsive rendering. 
+# **26\. Structured Data**
 
-Lazy loading where appropriate. 
+Every article automatically generates:
 
-## **13. TOC Standard** 
+Article Schema
 
-The Table of Contents follows one permanent rule. 
+Breadcrumb Schema
 
-Include: 
+Organization Schema
 
-H2 headings only. 
+Person Schema (Editorial Team)
 
-Never include H3. 
+ImageObject (when applicable)
 
-Never include H4. 
+Future schema additions should integrate automatically.
 
-The objective is navigation, 
+# **27\. Homepage Integration**
 
-not document indexing. 
+Every published article automatically becomes eligible for:
 
-A concise TOC improves usability. 
+Latest Guides.
 
-## **14. Heading Hierarchy** 
+Blog archive.
 
-Every article must maintain a logical heading hierarchy. 
+Future related article systems.
 
-Rules: 
+No manual homepage editing should be required.
 
-One H1 only. Multiple H2 allowed. 
+# **28\. Blog Archive**
 
-H3 only within H2 sections. 
+Articles should automatically appear in chronological order.
 
-Never skip heading levels. 
+Newest first.
 
-Never create empty headings. 
+No manual ordering.
 
-## **15. Spacing Standard** 
+No hardcoded entries.
 
-Articles must use the website's approved spacing system. 
+# **29\. Automatic Validation**
 
-Spacing should remain visually identical across every article. 
+Before publication Opencode must verify:
 
-No article-specific spacing adjustments are permitted. 
+Images render correctly.
 
-Visual consistency is mandatory. 
+Tables render correctly.
 
-## **16. Typography** 
+TOC renders correctly.
 
-Typography must remain identical across the website. 
+Author appears.
 
-Never introduce: 
+Editorial section appears.
 
-Different fonts. 
+Internal links work.
 
-Different heading styles. 
+Metadata exists.
 
-Different paragraph spacing. 
+Schema exists.
 
-Different text widths. 
+Responsive layout is correct.
 
-Articles should feel native to the website. 
+No 404 errors exist.
 
-## **17. Tables** 
+Only then may publication proceed.
 
-Whenever information is naturally tabular, 
+# **30\. Publishing Golden Rule**
 
-render it as an actual HTML table. 
+The responsibility of Opencode is **presentation and integration**, not authorship.
 
-Never fake tables using paragraphs or lists. 
+Approved content must remain unchanged.
 
-Tables should remain: 
-
-Responsive. 
-
-Accessible. 
-
-Consistent. 
-
-Visually identical throughout the website. 
-
-## **18. Comparison Sections** 
-
-Whenever comparison data exists, 
-
-use comparison tables. 
-
-Do not convert comparison tables into long paragraphs. 
-
-Users should compare information visually. 
-
-## **19. Lists** 
-
-Ordered lists should be used only for sequential processes. 
-
-Unordered lists should be used for collections. 
-
-Avoid unnecessary nested lists. 
-
-## **20. FAQ Rendering** 
-
-FAQs must always use the website's approved FAQ component. 
-
-Never create custom FAQ layouts. 
-
-Never manually style FAQ sections. 
-
-Consistency is mandatory. 
-
-## **21. Author Section** 
-
-Every article automatically displays the approved author component. 
-
-Current author: 
-
-TheTapTempo Editorial Team 
-
-This should never require manual insertion. 
-
-## **22. Editorial Review** 
-
-Every article automatically displays the Editorial Review section. 
-
-The editorial section must link to: 
-
-Editorial Policy 
-
-The wording remains consistent across every article. 
-
-No manual duplication is permitted. 
-
-## **23. Internal Linking** 
-
-Internal links should be generated according to the approved blueprint. 
-
-Links should connect readers to: 
-
-Relevant tools. 
-
-Relevant supporting articles. 
-
-Relevant pillar pages. 
-
-Editorial resources where appropriate. 
-
-Avoid excessive linking. 
-
-Every link must improve navigation. 
-
-## **23.1 Internal Link Styling**
-
-Every internal link (anchor text) within blog articles must always be displayed in bold.
-
-- The anchor text should be wrapped in a bold element.
-- The anchor text must remain natural and contextually relevant.
-- Do not force keywords into anchor text.
-- Do not change the wording solely for SEO.
-- Only the clickable anchor text should be bold; surrounding text must remain normal weight.
-- This rule applies consistently to all future blog articles unless explicitly instructed otherwise.
-
-## **24. External Links** 
-
-External links should be used only when they genuinely improve user understanding. 
-
-Avoid unnecessary outbound links. 
-
-Prefer authoritative sources. 
-
-## **25. Metadata** 
-
-Metadata should be generated from the approved article information. 
-
-Never invent metadata. 
-
-Never rewrite the approved SEO title without approval. 
-
-## **26. Structured Data** 
-
-Every article automatically generates: 
-
-Article Schema 
-
-Breadcrumb Schema 
-
-Organization Schema 
-
-Person Schema (Editorial Team) 
-
-ImageObject (when applicable) 
-
-Future schema additions should integrate automatically. 
-
-## **27. Homepage Integration** 
-
-Every published article automatically becomes eligible for: 
-
-Latest Guides. 
-
-Blog archive. 
-
-Future related article systems. 
-
-No manual homepage editing should be required. 
-
-## **28. Blog Archive** 
-
-Articles should automatically appear in chronological order. 
-
-Newest first. 
-
-No manual ordering. 
-
-No hardcoded entries. 
-
-## **29. Automatic Validation** 
-
-Before publication Opencode must verify: 
-
-Images render correctly. 
-
-Tables render correctly. 
-
-TOC renders correctly. 
-
-Author appears. 
-
-Editorial section appears. 
-
-Internal links work. 
-
-Metadata exists. 
-
-Schema exists. 
-
-Responsive layout is correct. 
-
-No 404 errors exist. 
-
-Only then may publication proceed. 
-
-## **30. Publishing Golden Rule** 
-
-The responsibility of Opencode is **presentation and integration** , not authorship. 
-
-Approved content must remain unchanged. 
-
-The system should make every article look like a native part of TheTapTempo without rewriting, reinterpreting, or modifying the editorial work. 
+The system should make every article look like a native part of TheTapTempo without rewriting, reinterpreting, or modifying the editorial work.
 
 Every published article should be visually, technically, and structurally indistinguishable from every other article on the website.
 
-## **31. Hardcoded Blog Publishing Workflow**
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
-This section defines the new publishing workflow for all future and migrated blog articles. It replaces the CMS/database workflow for blog content only. The CMS/database system remains in place for tools, settings, and non-blog content — do NOT remove it.
+## **Version 1.0**
 
-## **31.1 When This Applies**
+# **PART 7 - Design System, UI Consistency & User Experience Standards**
 
-This workflow applies when the project owner says "hardcoded blog", "static blog", "no database", or directly provides article files for manual placement. The standard CMS/database workflow still applies to all non-blog content (tools, calculators, settings, etc).
+# **1\. Purpose**
 
-## **31.2 Storage Format**
+The visual identity of TheTapTempo is a permanent business asset.
 
-Blog articles are stored as hardcoded files in the blog route directory. Each article is a file containing the full article component with embedded metadata, schema, and content. No database queries are needed at render time.
+Every page, tool, article, component, interaction, and future feature must preserve this identity.
 
-## **31.3 Existing MongoDB Articles — Migration**
+Users should never feel that different pages were built by different developers.
 
-All existing blog articles in MongoDB MUST be migrated to hardcoded files. Each article becomes a standalone file with:
-- Its slug as the filename
-- All metadata (title, metaTitle, metaDescription, createdAt, readTime, etc)
-- Full content HTML
-- FAQ data (if any)
-- Cover image URL
-- Generated metadata export
-- JSON-LD structured data (Article, BreadcrumbList)
-- Author and Editorial components
+Visual consistency is mandatory.
 
-After migration, the MongoDB blog collection may remain as backup but is no longer the render-time source for migrated articles.
+# **2\. Design Philosophy**
 
-## **31.4 Image Storage — Cloudinary Only**
+TheTapTempo follows a design philosophy based on:
 
-- All blog images MUST be uploaded to Cloudinary.
-- Source images are placed in the `blog_pics/` folder in the project root.
-- OpenCode uploads from `blog_pics/` to Cloudinary using the existing Cloudinary credentials.
-- Images are served from Cloudinary URLs — never from local storage.
-- After upload, the project owner deletes the local files from `blog_pics/`. OpenCode does NOT delete them.
-- Cloudinary automatically handles optimization, responsive sizes, and format conversion.
+Professionalism
 
-## **31.5 Image Upload Workflow**
+Minimalism
 
-When the project owner provides images for an article:
+Clarity
 
-1. Images are placed in `blog_pics/` folder with descriptive filenames.
-2. Project owner provides: filename, alt text, and position in the article.
-3. OpenCode uploads each image to Cloudinary.
-4. OpenCode inserts the Cloudinary URL at the specified position in the article content.
-5. Alt text is added according to the project owner's instructions.
-6. Project owner deletes the local files from `blog_pics/` after upload is confirmed.
+Consistency
 
-## **31.6 Image Deletion**
+Readability
 
-When a blog article is deleted, all associated Cloudinary images MUST also be deleted. OpenCode uses the Cloudinary API to delete images by public ID extracted from the article's image URLs.
+Accessibility
 
-## **31.7 Article Creation Workflow**
+Performance
 
-When the project owner requests a new blog article:
+Every interface decision must improve comprehension.
 
-1. OpenCode waits for the project owner to provide: slug, meta title, meta description, article content, internal linking instructions, image files (in `blog_pics/`), alt text for each image, and image positions.
-2. OpenCode uploads images to Cloudinary.
-3. OpenCode creates the hardcoded article file with:
-   - Proper formatting according to the approved design
-   - SEO-optimized metadata (meta title, meta description, canonical, Open Graph, Twitter Card, structured data)
-   - Internal links as specified
-   - Images at specified positions with Cloudinary URLs and alt text
-4. OpenCode updates the blog listing manifest so the homepage Latest Guides and blog archive can find the new article.
-5. OpenCode updates the sitemap to include the new article URL.
-6. OpenCode presents the rendered article for design approval.
-7. After approval, the same design template is used for all subsequent articles.
+Decoration should never reduce usability.
 
-## **31.8 Design Approval**
+Mandatory
 
-The first article follows a new design:
+Navigation
 
-1. OpenCode creates the article with a well-formatted layout.
-2. The project owner reviews and requests changes if needed.
-3. Once approved, the design becomes the template for all future blog articles.
-4. Subsequent articles use the exact same design — no per-article design changes.
+Footer
 
-## **31.9 Homepage Latest Guides — Hardcoded Source**
+Cards
 
-The homepage Latest Guides section is rewritten to pull from hardcoded blog files instead of the `/api/blogs?limit=3` MongoDB API. It reads a manifest file or directly imports from the hardcoded article registry. The section shows the most recent approved articles regardless of storage method.
+Typography
 
-## **31.10 Sitemap — Hardcoded Blog Support**
+Spacing System
 
-The sitemap generator (`sitemap.ts`) is updated to:
-- Continue reading dynamically from MongoDB for tool pages, static pages, etc.
-- ALSO read from the hardcoded blog article registry/files.
-- Automatically include every hardcoded blog article with proper priority and change frequency.
-- Update automatically whenever a new article is published via OpenCode.
+Responsive Behaviour
 
-The project owner does NOT need to manually edit the sitemap for new articles — OpenCode updates it during the publishing workflow.
+Accessibility
 
-## **31.11 SEO Requirements**
+Recommended
 
-Every hardcoded blog article MUST include:
+Minor visual refinements
 
-- Unique meta title
-- Unique meta description
-- Canonical URL
-- Open Graph tags
-- Twitter Card tags
-- JSON-LD structured data (Article, BreadcrumbList)
-- Proper heading hierarchy (one H1, semantic H2/H3)
-- Descriptive alt text on all images
-- Internal links to relevant tools and articles
-- Proper slug format
+Illustration positioning
 
-## **31.12 Differences from CMS Workflow (Sections 1-30)**
+Table density
 
-The following standard publishing rules DO NOT apply to hardcoded blogs:
+Decorative spacing
 
-- Section 4 (Article Lifecycle): CMS → DB pipeline is replaced by manual file creation.
-- Section 8 (Automatic Publishing): Updates to homepage and blog registry are handled by OpenCode during the publishing workflow, not by an automated system.
-- Section 13 (Homepage Integration): Homepage is updated via the hardcoded blog manifest, not by DB queries.
+Recommended rules may be adapted if approved by the project owner.
 
-The following standard publishing rules STILL APPLY:
+# **3\. Brand Consistency**
 
-- Section 3 (Single Publishing Standard): Same quality required.
-- Section 12 (Image Standards): Images must be optimized and have alt text.
-- Section 15 (Heading Hierarchy): Same heading rules apply.
-- Section 16 (Spacing Standard): Same spacing rules apply.
-- Section 17 (Typography): Same typography rules apply.
-- Section 20 (FAQ Rendering): Same FAQ component must be used.
-- Section 21 (Author Section): Author component auto-included.
-- Section 22 (Editorial Review): Editorial section auto-included.
-- Section 25 (Metadata): All metadata must be present.
-- Section 26 (Structured Data): All schema must be present.
-- Section 29 (Automatic Validation): Validation must still pass before considering publish complete.
-- Section 30 (Publishing Golden Rule): Content must not be rewritten or modified.
+Every new page must immediately feel like part of TheTapTempo.
 
-## **31.13 CMS Preservation**
+Never introduce:
 
-The existing CMS (admin panel, MongoDB collections, API routes for blog CRUD) remains in place and untouched. Do NOT remove:
-- `/admin/blogs` routes
-- `/api/blogs` routes
-- MongoDB blog collection
-- Any CMS-related code
+Different visual language
 
-These may be used for future content types or as a backup. The hardcoded blog workflow is an ADDITIONAL publishing path, not a replacement of the CMS infrastructure.
+Different spacing philosophy
 
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook**
+Different typography
+
+Different card styles
+
+Different button systems
+
+Different interaction styles
+
+The website must behave as one unified product.
+
+# **4\. Existing UI Protection**
+
+Approved UI is considered locked.
+
+Never redesign existing components unless explicitly instructed.
+
+Examples include:
+
+Homepage
+
+Navigation
+
+Footer
+
+Tool Hero
+
+Blog Hero
+
+Latest Guides
+
+Cards
+
+Buttons
+
+Tables
+
+FAQs
+
+Author Block
+
+Editorial Block
+
+These components should evolve only with explicit approval.
+
+# **5\. Visual Hierarchy**
+
+Every page must maintain a clear reading hierarchy.
+
+Priority should always be:
+
+Primary Action
+
+↓
+
+Primary Content
+
+↓
+
+Supporting Content
+
+↓
+
+Secondary Navigation
+
+↓
+
+Footer
+
+Never distract users from the primary purpose of the page.
+
+# **6\. Layout Consistency**
+
+All public pages should follow a consistent layout system.
+
+Container widths
+
+Padding
+
+Margins
+
+Alignment
+
+Content width
+
+must remain consistent throughout the website.
+
+# **7\. Spacing System**
+
+Spacing is global.
+
+Never modify spacing for a single page.
+
+Never manually compress or expand one article.
+
+Spacing adjustments should affect the entire design system only after approval.
+
+# **8\. Typography System**
+
+Typography must remain identical throughout the website.
+
+Maintain consistency for:
+
+Headings
+
+Paragraphs
+
+Lists
+
+Tables
+
+Captions
+
+Buttons
+
+Navigation
+
+Do not introduce custom typography for individual pages.
+
+# **9\. Colour System**
+
+Brand colours are permanent.
+
+Do not introduce new primary colours.
+
+Do not change existing colour hierarchy.
+
+Future components must inherit the existing colour palette.
+
+# **10\. Button System**
+
+Buttons should use the shared design system.
+
+Avoid custom button styles.
+
+Button behaviour should remain consistent across:
+
+Homepage
+
+Tools
+
+Blog
+
+Navigation
+
+Cards
+
+Footer
+
+# **11\. Card Components**
+
+Cards should be reusable.
+
+Examples:
+
+Tool Cards
+
+Article Cards
+
+Latest Guides
+
+Future Related Articles
+
+Cards should maintain:
+
+Consistent padding
+
+Consistent shadows
+
+Consistent borders
+
+Consistent hover behaviour
+
+# **12\. Tables**
+
+Tables are part of the design system.
+
+Every table should:
+
+Render responsively
+
+Maintain identical styling
+
+Support horizontal scrolling when required
+
+Never overflow containers
+
+Never convert to paragraphs
+
+# **13\. Images**
+
+Images must support learning.
+
+Preferred order:
+
+Educational Infographics
+
+↓
+
+Annotated Diagrams
+
+↓
+
+Illustrations
+
+↓
+
+Photography
+
+Decorative imagery should be avoided whenever possible.
+
+# **14\. Responsive Behaviour**
+
+Every feature must work across:
+
+Desktop
+
+Tablet
+
+Mobile
+
+No feature should exist only for one screen size.
+
+Responsive behaviour is mandatory.
+
+# **15\. Accessibility**
+
+Every visual component must support accessibility.
+
+Examples:
+
+Readable contrast
+
+Keyboard navigation
+
+Semantic HTML
+
+Descriptive alt text
+
+Accessible forms
+
+Accessible tables
+
+Accessibility is not optional.
+
+# **16\. Homepage Protection**
+
+The homepage is the highest-value page.
+
+Its structure should remain stable.
+
+Future additions must integrate into the existing hierarchy.
+
+Never redesign the homepage for a single feature request.
+
+# **17\. Homepage Sections**
+
+Homepage sections should remain modular.
+
+Examples:
+
+Hero
+
+Core Tools
+
+Latest Guides
+
+Educational Content
+
+Trust Signals
+
+Footer
+
+Each section should have one clear purpose.
+
+# **18\. Blog Presentation**
+
+Every article must use the shared article template.
+
+No article-specific layouts.
+
+No experimental designs.
+
+Consistency builds trust.
+
+# **19\. Tool Pages**
+
+All tool pages should follow the same presentation philosophy.
+
+Users should immediately recognise:
+
+Hero
+
+Tool
+
+Educational Content
+
+Related Resources
+
+CTA
+
+Footer
+
+Every tool should feel familiar.
+
+# **20\. Component Locking**
+
+The following components are locked.
+
+Do not redesign independently:
+
+Author Component
+
+Editorial Component
+
+FAQ Component
+
+TOC Component
+
+Latest Guides
+
+Navigation
+
+Footer
+
+Article Hero
+
+Tool Hero
+
+Changes to these components affect the entire website and require explicit approval.
+
+# **21\. Animation Philosophy**
+
+Animations should support usability.
+
+Avoid decorative motion.
+
+Prefer subtle transitions.
+
+Performance has higher priority than animation.
+
+# **22\. Empty States**
+
+Whenever content is unavailable,
+
+display meaningful empty states.
+
+Never display broken layouts.
+
+Never expose raw errors.
+
+# **23\. Error Pages**
+
+404
+
+500
+
+Future maintenance pages
+
+should follow the same design language as the rest of the website.
+
+# **24\. Future Expansion**
+
+Any future feature should inherit the existing design system automatically.
+
+Examples:
+
+New Tool
+
+New Calculator
+
+New Article Type
+
+Search
+
+Dashboard
+
+User Accounts
+
+Every future addition should appear native to the platform.
+
+# **25\. UI Validation Before Deployment**
+
+Before deployment verify:
+
+✓ Layout consistency
+
+✓ Responsive behaviour
+
+✓ Typography
+
+✓ Spacing
+
+✓ Cards
+
+✓ Images
+
+✓ Tables
+
+✓ Buttons
+
+✓ Navigation
+
+✓ Footer
+
+✓ Accessibility
+
+✓ No visual regressions
+
+# **26\. Design Golden Rule**
+
+Users should never need to learn a new interface while using TheTapTempo.
+
+Every page should feel immediately familiar.
+
+Every interaction should be predictable.
+
+Every component should belong to one unified design system.
+
+Consistency is a feature.
+
+Protect it.
+
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
+
+## **Version 1.0**
+
+# **PART 8- Quality Assurance, Deployment, Monitoring & Operational Maintenance**
+
+# **1\. Purpose**
+
+This section defines the permanent Quality Assurance (QA), deployment, monitoring, maintenance, and production protection standards for TheTapTempo.
+
+No feature, article, page, tool, or system may enter production unless it satisfies the quality standards defined in this chapter.
+
+Quality Assurance is not the final step.
+
+Quality Assurance exists throughout the entire implementation lifecycle.
+
+# **2\. Production Philosophy**
+
+Production is the most valuable environment.
+
+Every deployment must assume:
+
+- Real users are visiting.
+- Search engines are crawling.
+- Google is evaluating quality.
+- Existing rankings must be protected.
+- Existing functionality must remain stable.
+
+Production should never become a testing environment.
+
+# **3\. Definition of Done**
+
+A task is **NOT** complete when:
+
+- Code compiles.
+- The page loads.
+- The requested feature appears.
+
+A task is complete only when:
+
+- Requested functionality works.
+- Existing functionality still works.
+- UI remains consistent.
+- SEO remains valid.
+- Performance remains acceptable.
+- Accessibility remains intact.
+- Deployment validation passes.
+
+Only then may the task be marked as complete.
+
+# **4\. Mandatory QA Workflow**
+
+Every implementation must follow this order.
+
+Understand Request
+
+↓
+
+Analyse Existing System
+
+↓
+
+Implement
+
+↓
+
+Self Review
+
+↓
+
+Regression Testing
+
+↓
+
+SEO Validation
+
+↓
+
+UI Validation
+
+↓
+
+Performance Validation
+
+↓
+
+Deployment Validation
+
+↓
+
+Production Ready
+
+Skipping any stage is prohibited.
+
+# **5\. Self Review**
+
+Before considering implementation complete,
+
+Opencode must internally review:
+
+Code quality
+
+Architecture
+
+Readability
+
+Reusability
+
+Performance
+
+Potential regressions
+
+Never assume the first implementation is the final implementation.
+
+# **6\. Risk Based Validation Matrix**
+
+Validation Level 1
+
+Examples
+
+Typos
+
+Content corrections
+
+Minor CSS fixes
+
+Validate only affected page.
+
+\------------------
+
+Validation Level 2
+
+Article Publishing
+
+Validate
+
+Article
+
+Homepage
+
+Blog Listing
+
+Schema
+
+Metadata
+
+Sitemap
+
+\------------------
+
+Validation Level 3
+
+Shared Component Changes
+
+Validate
+
+All pages using component
+
+Accessibility
+
+Responsive
+
+Regression
+
+\------------------
+
+Validation Level 4
+
+Architecture Changes
+
+Run Full Site Validation
+
+SEO
+
+Performance
+
+Routing
+
+Schema
+
+Internal Links
+
+Navigation
+
+Footer
+
+Homepage
+
+CMS
+
+Deployment
+
+# **7\. SEO Validation**
+
+Every deployment must automatically validate:
+
+Unique Title
+
+Unique Meta Description
+
+Canonical
+
+Open Graph
+
+Twitter Card
+
+JSON-LD
+
+Breadcrumb Schema
+
+Article Schema
+
+Internal Links
+
+Broken Links
+
+Heading Hierarchy
+
+Image Alt Text
+
+Robots
+
+Sitemap
+
+Indexability
+
+No deployment may bypass SEO validation.
+
+# **8\. UI Validation**
+
+Every deployment must verify:
+
+Spacing
+
+Typography
+
+Buttons
+
+Cards
+
+Tables
+
+Hero Sections
+
+Responsive Behaviour
+
+Footer
+
+Navigation
+
+Latest Guides
+
+Author Block
+
+Editorial Block
+
+TOC
+
+FAQ
+
+Visual consistency is mandatory.
+
+# **9\. Content Validation**
+
+Before publication verify:
+
+Article title
+
+Slug
+
+Meta Title
+
+Meta Description
+
+Featured Image
+
+Featured Image Alt
+
+Internal Links
+
+External Links
+
+Tables
+
+FAQ
+
+Author
+
+Editorial Section
+
+TOC
+
+Conclusion
+
+Rendering
+
+Nothing should be missing.
+
+# **10\. Component Validation**
+
+Every reusable component should be validated after changes.
+
+Examples:
+
+Navigation
+
+Footer
+
+Author Component
+
+Editorial Component
+
+FAQ Component
+
+Latest Guides
+
+Article Cards
+
+Tool Cards
+
+Homepage Components
+
+Never assume one component change affects only one page.
+
+# **11\. Homepage Validation**
+
+Homepage is the most valuable page.
+
+Every deployment must verify:
+
+Core Tools
+
+Latest Guides
+
+Hero
+
+Cards
+
+Footer
+
+Navigation
+
+Responsive Behaviour
+
+Broken Links
+
+Performance
+
+No homepage regression is acceptable.
+
+# **12\. Blog Validation**
+
+Every newly published article must automatically verify:
+
+Article opens successfully.
+
+No 404.
+
+Slug resolves correctly.
+
+Author visible.
+
+Editorial section visible.
+
+TOC correct.
+
+Images visible.
+
+Tables render correctly.
+
+Metadata present.
+
+Schema generated.
+
+Homepage updated.
+
+Blog listing updated.
+
+# **13\. Automatic Homepage Updates**
+
+Whenever a new article is published,
+
+Latest Guides must update automatically.
+
+No manual homepage editing should ever be required.
+
+The homepage must always display the most recent approved articles.
+
+# **14\. Sitemap Validation**
+
+Every publication should verify:
+
+New URL exists.
+
+Sitemap updated.
+
+Priority correct.
+
+Change frequency correct.
+
+Last Modified updated.
+
+No duplicate URLs.
+
+# **15\. Internal Link Validation**
+
+Every deployment must verify:
+
+No broken internal links.
+
+Editorial links work.
+
+Author links work.
+
+Homepage links work.
+
+Footer links work.
+
+Tool links work.
+
+Blog links work.
+
+Never publish with broken navigation.
+
+# **16\. Performance Validation**
+
+Verify:
+
+No unnecessary JavaScript.
+
+No unnecessary hydration.
+
+Optimised images.
+
+No excessive bundle growth.
+
+No obvious rendering delays.
+
+Performance regressions require investigation before deployment.
+
+Deployment Quality Thresholds
+
+TypeScript
+
+0 Errors
+
+Broken Links
+
+0
+
+Critical SEO Errors
+
+0
+
+Accessibility
+
+No critical violations
+
+Production Build
+
+Successful
+
+Schema
+
+Valid
+
+Canonical
+
+Present
+
+Metadata
+
+Present
+
+Homepage
+
+Functional
+
+Latest Guides
+
+Functional
+
+# **17\. Accessibility Validation**
+
+Every deployment must verify:
+
+Heading hierarchy.
+
+Image alt text.
+
+Semantic HTML.
+
+Keyboard accessibility.
+
+Readable contrast.
+
+Accessible tables.
+
+Accessibility is part of product quality.
+
+# **18\. Deployment Pipeline**
+
+Every deployment follows:
+
+Code Validation
+
+↓
+
+TypeScript
+
+↓
+
+SEO Validation
+
+↓
+
+Rendering Validation
+
+↓
+
+Regression Testing
+
+↓
+
+Build
+
+↓
+
+Deployment
+
+↓
+
+Production Verification
+
+Production deployment should never skip validation.
+
+# **19\. Build Protection**
+
+The build process must fail automatically when critical issues exist.
+
+Examples:
+
+TypeScript errors.
+
+Missing metadata.
+
+Broken schema.
+
+Critical routing failures.
+
+Deployment should stop immediately.
+
+# **20\. Monitoring**
+
+Production should be monitored continuously.
+
+Areas include:
+
+Search Console
+
+Vercel
+
+Performance
+
+Core Web Vitals
+
+404 Errors
+
+Broken Links
+
+Deployment Logs
+
+API Failures
+
+Unexpected behaviour should be investigated promptly.
+
+# **21\. Rollback Policy**
+
+If a deployment introduces critical regressions:
+
+Rollback immediately.
+
+Never attempt risky hot fixes directly in production.
+
+Restore the last known stable version.
+
+Investigate.
+
+Fix properly.
+
+Redeploy.
+
+# **22\. Incident Handling**
+
+When unexpected issues occur:
+
+Identify root cause.
+
+Determine affected systems.
+
+Protect users.
+
+Protect SEO.
+
+Protect existing content.
+
+Never hide production issues.
+
+Solve causes,
+
+not symptoms.
+
+# **23\. Content Protection**
+
+Existing approved content is protected.
+
+Never accidentally overwrite:
+
+Articles
+
+Metadata
+
+Images
+
+Internal Links
+
+Homepage entries
+
+Editorial information
+
+Production data should be treated as permanent assets.
+
+# **24\. Operational Logs**
+
+Important operational changes should remain traceable.
+
+Examples:
+
+Publishing
+
+Deletion
+
+Routing changes
+
+Homepage changes
+
+Deployment
+
+Major SEO updates
+
+Future maintainers should understand what changed and why.
+
+# **25\. Emergency Protection**
+
+If uncertainty exists immediately before deployment:
+
+Do not deploy.
+
+Investigate first.
+
+It is always better to delay deployment than to introduce regressions.
+
+# **26\. Continuous Improvement**
+
+Every completed deployment should leave the platform:
+
+More stable.
+
+More maintainable.
+
+More scalable.
+
+More predictable.
+
+Never accumulate technical debt intentionally.
+
+# **27\. Operational Golden Rule**
+
+Production quality is never measured by successful deployment.
+
+Production quality is measured by:
+
+Stable users.
+
+Stable rankings.
+
+Stable architecture.
+
+Stable experience.
+
+Every deployment should make TheTapTempo better without making anything else worse.
+
+# **TheTapTempo Master Engineering, SEO & Publishing Handbook**
+
+## **Version 1.0**
+
+# **PART 9- Operational Intelligence, Decision Framework & AI Governance**
+
+# **1\. Purpose**
+
+This chapter defines how Opencode must think before acting.
+
+The previous chapters define standards.
+
+This chapter defines behaviour.
+
+Whenever uncertainty exists, this chapter takes precedence over implementation speed.
+
+The objective is to ensure every future decision remains consistent with TheTapTempo's long-term vision.
+
+# **2\. Primary Mission**
+
+Opencode exists to maintain, improve, and protect TheTapTempo.
+
+Its objective is **not** to generate the most code.
+
+Its objective is to produce the most correct implementation while preserving the integrity of the platform.
+
+# **3\. Decision Hierarchy**
+
+Every future decision must follow this priority order:
+
+- User Instructions
+- This Handbook
+- Existing Approved Architecture
+- Existing Approved Design System
+- Existing Approved Content
+- Engineering Best Practices
+
+If two rules conflict, follow the highest-priority rule.
+
+# **4\. Never Guess Principle**
+
+Unknown information must never be invented.
+
+Examples:
+
+Unknown SEO requirement
+
+Unknown UI preference
+
+Unknown business logic
+
+Unknown publishing rule
+
+Unknown CMS behaviour
+
+Unknown routing expectation
+
+Unknown schema requirement
+
+Unknown user objective
+
+When uncertainty exists:
+
+Stop.
+
+Analyse.
+
+Ask concise questions.
+
+Proceed only after clarification.
+
+# **5\. Change Impact Analysis**
+
+Before changing anything, determine:
+
+What depends on this?
+
+What could break?
+
+What SEO could change?
+
+What pages use it?
+
+What components share it?
+
+What automated systems depend on it?
+
+Never modify isolated code without understanding system-wide impact.
+
+# **6\. Scope Discipline**
+
+Only implement the requested scope.
+
+Do not:
+
+Refactor unrelated code.
+
+Optimise unrelated layouts.
+
+Redesign components.
+
+Rename files unnecessarily.
+
+Modify content.
+
+Silent improvements are prohibited.
+
+# **7\. Content Authority**
+
+Approved content is authoritative.
+
+Opencode may:
+
+Render it.
+
+Structure it.
+
+Validate it.
+
+Integrate it.
+
+Opencode may not:
+
+Rewrite it.
+
+Expand it.
+
+Shorten it.
+
+Optimise wording.
+
+Replace examples.
+
+Change meaning.
+
+Editorial authority always remains with the project owner.
+
+# **8\. Unknown Feature Workflow**
+
+Whenever a user requests a feature not covered by this handbook:
+
+Analyse the request.
+
+Determine affected systems.
+
+Identify missing requirements.
+
+Ask only the necessary clarification questions.
+
+Confirm understanding.
+
+Then implement.
+
+Never invent requirements.
+
+# **9\. Future Feature Integration**
+
+Every future feature must automatically consider whether updates are required for:
+
+Homepage
+
+Navigation
+
+Footer
+
+Internal Links
+
+SEO
+
+Schema
+
+Sitemap
+
+Metadata
+
+CMS
+
+Search
+
+Responsive Design
+
+Accessibility
+
+Performance
+
+Deployment
+
+If any area requires updates,
+
+include them automatically.
+
+# **10\. New Page Workflow**
+
+Whenever a completely new public page is introduced, evaluate whether it requires:
+
+Navigation placement
+
+Footer placement
+
+Homepage visibility
+
+Internal linking
+
+Metadata
+
+Canonical
+
+Schema
+
+Breadcrumbs
+
+Sitemap inclusion
+
+Search Console discovery
+
+Responsive testing
+
+Accessibility review
+
+Performance validation
+
+Deployment validation
+
+No public page should exist in isolation.
+
+# **11\. New Tool Workflow**
+
+Whenever a new tool is created, evaluate:
+
+Homepage placement
+
+Category placement
+
+Educational content
+
+Supporting article opportunities
+
+Internal linking
+
+Schema type
+
+Metadata
+
+Tool relationships
+
+Future pillar opportunities
+
+The tool should become part of the ecosystem, not an isolated page.
+
+# **12\. New Article Workflow**
+
+Whenever an article is published:
+
+Update homepage automatically.
+
+Update blog listing automatically.
+
+Update sitemap automatically.
+
+Generate schema automatically.
+
+Verify rendering automatically.
+
+Validate internal links automatically.
+
+The publishing workflow should remain fully automated.
+
+# **13\. Preservation Principle**
+
+Existing approved systems are protected.
+
+Never remove or redesign:
+
+Homepage sections
+
+Navigation
+
+Footer
+
+Editorial components
+
+Author components
+
+FAQ
+
+TOC
+
+Cards
+
+Templates
+
+unless explicit approval has been provided.
+
+# **14\. Scalability Principle**
+
+Every implementation should assume the platform will continue growing.
+
+Future additions may include:
+
+More tools
+
+Hundreds of articles
+
+Additional educational resources
+
+Interactive calculators
+
+New CMS features
+
+Search
+
+Accounts
+
+Localization
+
+Current architecture should support future growth without redesign.
+
+# **15\. Communication Standard**
+
+When reporting work:
+
+Explain only meaningful changes.
+
+Avoid unnecessary technical noise.
+
+If uncertainty prevented implementation,
+
+explain why.
+
+Provide concise recommendations.
+
+Professional communication is expected.
+
+# **16\. Continuous Learning**
+
+Whenever a permanent architectural decision is approved by the project owner,
+
+it should be incorporated into this handbook.
+
+The handbook should evolve.
+
+Not individual prompts.
+
+The handbook remains the single source of operational truth.
+
+# 17\. Operational Authority
+
+The handbook provides the default operating standards.
+
+The current request from the project owner always has higher priority.
+
+Permanent decisions should later be reflected inside the handbook.
+
+Temporary instructions should never permanently modify handbook behaviour.
+
+# **18\. Success Definition**
+
+Success is not measured by:
+
+Lines of code.
+
+Number of completed tasks.
+
+Deployment frequency.
+
+Success is measured by:
+
+Platform stability.
+
+SEO growth.
+
+User experience.
+
+Architectural consistency.
+
+Maintainability.
+
+Long-term scalability.
+
+# **19\. Operational Golden Rule**
+
+Every action should leave TheTapTempo in a better state than before.
+
+If an implementation cannot confidently improve the platform without introducing unnecessary risk,
+
+do not implement it until sufficient information exists.
+
+Protect the platform first.
+
+Build second.
+
+# **20\. Final Principle**
+
+TheTapTempo is a long-term product.
+
+Every engineering decision,
+
+every publishing decision,
+
+every SEO decision,
+
+and every design decision should be evaluated not only for today's requirements,
+
+but also for how it will serve the platform one year from now.
+
+Long-term quality always outweighs short-term convenience.
+
+\================================================================================
+
+PART 10 - SEO ARCHITECTURE & TOPICAL AUTHORITY SYSTEM
+
+\================================================================================
+
+Purpose:
+
+This section defines the permanent SEO architecture, website growth philosophy,
+
+search intent policies, and topical authority framework for TheTapTempo.
+
+The goal is to build a scalable, Google-friendly, and future-proof website
+
+architecture that prevents keyword cannibalization, supports topical authority,
+
+and allows individual tools to evolve into complete ecosystems over time.
+
+This section must always take precedence when planning:
+
+\- New pages
+
+\- Supporting pages
+
+\- Tool expansion
+
+\- Internal linking
+
+\- Blog content strategy
+
+\- URL architecture
+
+\- Future SEO scaling
+
+\================================================================================
+
+CHAPTER 10.1 - SEO PHILOSOPHY
+
+\================================================================================
+
+TheTapTempo follows a Topical Authority Growth Model.
+
+The website does NOT grow by publishing random pages or chasing individual
+
+keywords.
+
+Growth is determined by:
+
+\- Search Intent
+
+\- User Needs
+
+\- Google Search Console signals
+
+\- Topical Relationships
+
+\- Content Quality
+
+\- Website Authority
+
+TheTapTempo prioritizes:
+
+\- Topical Depth over Publishing Volume
+
+\- Authority over Quantity
+
+\- User Experience over Keyword Stuffing
+
+\- Scalable Architecture over Short-Term SEO Wins
+
+Permanent SEO Principle:
+
+"Prefer expanding existing authority over creating new URLs."
+
+\================================================================================
+
+CHAPTER 10.2 - TOOL HUB ARCHITECTURE
+
+\================================================================================
+
+Every tool page is considered a HUB page.
+
+Current HUB pages:
+
+\- /tap-tempo
+
+\- /metronome
+
+\- /bpm-calculator
+
+\- /bpm-to-ms
+
+\- /delay-reverb-time-calculator
+
+\- /tempo-markings
+
+\- /beats-per-bar-calculator
+
+\- /ai-tempo
+
+Tool pages are NOT simple calculators or utility pages.
+
+Every tool page acts as:
+
+\- Primary Search Intent Owner
+
+\- Parent SEO Entity
+
+\- Future Topical Ecosystem
+
+\- Supporting Page Parent
+
+Tool pages may gradually expand into their own topical ecosystems.
+
+\================================================================================
+
+CHAPTER 10.3 - SEARCH INTENT POLICY
+
+\================================================================================
+
+Permanent Rule:
+
+ONE SEARCH INTENT = ONE URL
+
+Examples:
+
+CORRECT:
+
+/metronome
+
+(Primary Metronome Intent)
+
+/metronome/exercises
+
+(Metronome Exercises Intent)
+
+/tempo-markings/music-tempo-chart
+
+(Music Tempo Chart Intent)
+
+INCORRECT:
+
+/metronome-guide
+
+/blog/music-tempo-chart
+
+/blog/metronome-exercises
+
+Duplicate or overlapping search intents are NOT allowed.
+
+The website must never create multiple pages targeting the same user intent.
+
+\================================================================================
+
+CHAPTER 10.4 - SUPPORTING PAGES POLICY
+
+\================================================================================
+
+Supporting pages are child pages of their parent tool.
+
+Allowed structure:
+
+/tool-name/supporting-page
+
+Examples:
+
+/metronome/exercises
+
+/tap-tempo/for-djs
+
+/tempo-markings/music-tempo-chart
+
+Supporting pages must:
+
+\- Support the parent tool.
+
+\- Target unique search intent.
+
+\- Link back to the parent tool.
+
+\- Improve topical authority.
+
+Supporting pages must NEVER:
+
+\- Exist outside their tool ecosystem.
+
+\- Be published inside the Blog section.
+
+\- Duplicate existing tool content.
+
+\================================================================================
+
+CHAPTER 10.5 - BLOG CONTENT POLICY
+
+\================================================================================
+
+The Blog section is reserved ONLY for editorial and educational content.
+
+Blog URL structure:
+
+/blog/post-name
+
+Examples:
+
+\- How DJs Calculate BPM
+
+\- Why Tempo Affects Human Emotion
+
+\- History of Tempo Markings
+
+\- Delay vs Reverb
+
+Blog Decision Framework:
+
+Can this topic naturally belong to a tool ecosystem?
+
+YES
+
+↓
+
+Tool Supporting Page
+
+NO
+
+↓
+
+Blog Article
+
+Tool-related supporting content MUST NOT be published as a blog post.
+
+\================================================================================
+
+CHAPTER 10.6 - SEO SCALING POLICY
+
+\================================================================================
+
+TheTapTempo follows a gradual SEO expansion strategy.
+
+Supporting pages must NEVER be created automatically.
+
+Future expansion decisions are determined by:
+
+\- Google Search Console data
+
+\- User behavior
+
+\- Search demand
+
+\- Existing authority signals
+
+Before expanding any tool ecosystem, the following must be evaluated:
+
+\- Search impressions
+
+\- Rankings
+
+\- Topical relevance
+
+\- Internal linking opportunities
+
+\- User value
+
+SEO expansion is intentionally gradual.
+
+Google must understand existing authority before introducing additional pages.
+
+Permanent Rule:
+
+DO NOT BUILD PAGES FASTER THAN GOOGLE CAN UNDERSTAND THE WEBSITE.
+
+\================================================================================
+
+CHAPTER 10.7 - TOPICAL AUTHORITY POLICY
+
+\================================================================================
+
+TheTapTempo is NOT a collection of unrelated music tools.
+
+TheTapTempo is a unified Tempo & Rhythm Authority Platform.
+
+Website architecture follows:
+
+HOME PAGE
+
+↓
+
+TOOL HUB PAGES
+
+↓
+
+TOOL SUPPORTING PAGES
+
+↓
+
+BLOG CONTENT
+
+↓
+
+STATIC PAGES
+
+Future growth model:
+
+Tool Hub
+
+↓
+
+Supporting Pages
+
+↓
+
+Topical Cluster
+
+↓
+
+Topical Ecosystem
+
+↓
+
+Topical Authority
+
+All future SEO decisions must support:
+
+\- Topical Authority
+
+\- EEAT Principles
+
+\- Search Intent Satisfaction
+
+\- Scalable URL Architecture
+
+\- Internal Linking Architecture
+
+\- Long-Term Organic Growth
+
+\================================================================================
+
+OPENCODE IMPLEMENTATION RULES
+
+\================================================================================
+
+OpenCode MUST NOT:
+
+\- Create supporting pages automatically.
+
+\- Create duplicate search intents.
+
+\- Create tool-related blog articles.
+
+\- Create overlapping URLs.
+
+\- Modify URL architecture without approval.
+
+\- Expand topical silos without approval.
+
+OpenCode MUST:
+
+\- Preserve SEO architecture.
+
+\- Preserve search intent hierarchy.
+
+\- Preserve topical relationships.
+
+\- Preserve internal linking logic.
+
+\- Maintain future scalability.
+
+SEO architecture must always remain scalable, simple, and future-proof.
+
+\================================================================================
+
+END OF PART 10
+
+\================================================================================
+
+# **End of Handbook**
+
+**TheTapTempo Master Engineering, SEO & Publishing Handbook**
 
 **Version 1.0**
 
-**PART 7 — Design System, UI Consistency & User Experience Standards**
-
-## **1. Purpose** 
-
-The visual identity of TheTapTempo is a permanent business asset. 
-
-Every page, tool, article, component, interaction, and future feature must preserve this identity. 
-
-Users should never feel that different pages were built by different developers. 
-
-Visual consistency is mandatory. 
-
-## **2. Design Philosophy** 
-
-TheTapTempo follows a design philosophy based on: 
-
-Professionalism 
-
-Minimalism 
-
-Clarity 
-
-Consistency 
-
-Readability 
-
-Accessibility 
-
-Performance 
-
-Every interface decision must improve comprehension. 
-
-Decoration should never reduce usability. 
-
-Mandatory 
-
-Navigation 
-
-Footer 
-
-Cards 
-
-Typography 
-
-Spacing System 
-
-Responsive Behaviour 
-
-Accessibility 
-
-Recommended 
-
-Minor visual refinements 
-
-Illustration positioning 
-
-Table density 
-
-Decorative spacing 
-
-Recommended rules may be adapted if approved by the project owner. 
-
-## **3. Brand Consistency** 
-
-Every new page must immediately feel like part of TheTapTempo. 
-
-Never introduce: 
-
-Different visual language 
-
-Different spacing philosophy 
-
-Different typography 
-
-Different card styles 
-
-Different button systems 
-
-Different interaction styles 
-
-The website must behave as one unified product. 
-
-## **4. Existing UI Protection** 
-
-Approved UI is considered locked. 
-
-Never redesign existing components unless explicitly instructed. 
-
-Examples include: 
-
-Homepage 
-
-Navigation 
-
-Footer 
-
-Tool Hero 
-
-Blog Hero 
-
-Latest Guides 
-
-Cards 
-
-Buttons 
-
-Tables 
-
-FAQs 
-
-Author Block 
-
-Editorial Block 
-
-These components should evolve only with explicit approval. 
-
-## **5. Visual Hierarchy** 
-
-Every page must maintain a clear reading hierarchy. 
-
-Priority should always be: 
-
-Primary Action 
-
-↓ 
-
-Primary Content 
-
-↓ 
-
-Supporting Content 
-
-↓ 
-
-Secondary Navigation 
-
-↓ 
-
-Footer 
-
-Never distract users from the primary purpose of the page. 
-
-## **6. Layout Consistency** 
-
-All public pages should follow a consistent layout system. 
-
-Container widths 
-
-Padding 
-
-Margins 
-
-Alignment 
-
-Content width 
-
-must remain consistent throughout the website. 
-
-## **7. Spacing System** 
-
-Spacing is global. 
-
-Never modify spacing for a single page. 
-
-Never manually compress or expand one article. 
-
-Spacing adjustments should affect the entire design system only after approval. 
-
-## **8. Typography System** 
-
-Typography must remain identical throughout the website. 
-
-Maintain consistency for: 
-
-Headings 
-
-Paragraphs 
-
-Lists 
-
-Tables 
-
-Captions 
-
-Buttons 
-
-Navigation 
-
-Do not introduce custom typography for individual pages. 
-
-## **9. Colour System** 
-
-Brand colours are permanent. 
-
-Do not introduce new primary colours. 
-
-Do not change existing colour hierarchy. 
-
-Future components must inherit the existing colour palette. 
-
-## **10. Button System** 
-
-Buttons should use the shared design system. 
-
-Avoid custom button styles. 
-
-Button behaviour should remain consistent across: 
-
-Homepage 
-
-Tools 
-
-Blog 
-
-Navigation 
-
-Cards 
-
-Footer 
-
-## **11. Card Components** 
-
-Cards should be reusable. 
-
-Examples: 
-
-Tool Cards 
-
-Article Cards 
-
-Latest Guides 
-
-Future Related Articles 
-
-Cards should maintain: 
-
-Consistent padding Consistent shadows 
-
-Consistent borders 
-
-Consistent hover behaviour 
-
-## **12. Tables** 
-
-Tables are part of the design system. 
-
-Every table should: 
-
-Render responsively 
-
-Maintain identical styling 
-
-Support horizontal scrolling when required 
-
-Never overflow containers 
-
-Never convert to paragraphs 
-
-## **13. Images** 
-
-Images must support learning. 
-
-Preferred order: 
-
-Educational Infographics 
-
-↓ 
-
-Annotated Diagrams 
-
-↓ 
-
-Illustrations 
-
-↓ 
-
-Photography 
-
-Decorative imagery should be avoided whenever possible. 
-
-## **14. Responsive Behaviour** 
-
-Every feature must work across: 
-
-Desktop 
-
-Tablet 
-
-Mobile 
-
-No feature should exist only for one screen size. 
-
-Responsive behaviour is mandatory. 
-
-## **15. Accessibility** 
-
-Every visual component must support accessibility. 
-
-Examples: 
-
-Readable contrast 
-
-Keyboard navigation 
-
-Semantic HTML 
-
-Descriptive alt text 
-
-Accessible forms 
-
-Accessible tables 
-
-Accessibility is not optional. 
-
-## **16. Homepage Protection** 
-
-The homepage is the highest-value page. 
-
-Its structure should remain stable. 
-
-Future additions must integrate into the existing hierarchy. 
-
-Never redesign the homepage for a single feature request. 
-
-## **17. Homepage Sections** 
-
-Homepage sections should remain modular. 
-
-Examples: 
-
-Hero 
-
-Core Tools 
-
-Latest Guides 
-
-Educational Content 
-
-Trust Signals 
-
-Footer 
-
-Each section should have one clear purpose. 
-
-## **18. Blog Presentation** 
-
-Every article must use the shared article template. 
-
-No article-specific layouts. 
-
-No experimental designs. 
-
-Consistency builds trust. 
-
-## **19. Tool Pages** 
-
-All tool pages should follow the same presentation philosophy. 
-
-Users should immediately recognise: 
-
-Hero 
-
-Tool 
-
-Educational Content 
-
-Related Resources 
-
-CTA 
-
-Footer 
-
-Every tool should feel familiar. 
-
-## **20. Component Locking** 
-
-The following components are locked. 
-
-Do not redesign independently: 
-
-Author Component 
-
-Editorial Component 
-
-FAQ Component 
-
-TOC Component 
-
-Latest Guides 
-
-Navigation 
-
-Footer 
-
-Article Hero 
-
-Tool Hero 
-
-Changes to these components affect the entire website and require explicit approval. 
-
-## **21. Animation Philosophy** 
-
-Animations should support usability. 
-
-Avoid decorative motion. 
-
-Prefer subtle transitions. 
-
-Performance has higher priority than animation. 
-
-## **22. Empty States** 
-
-Whenever content is unavailable, 
-
-display meaningful empty states. 
-
-Never display broken layouts. 
-
-Never expose raw errors. 
-
-## **23. Error Pages** 
-
-404 500 
-
-Future maintenance pages 
-
-should follow the same design language as the rest of the website. 
-
-## **24. Future Expansion** 
-
-Any future feature should inherit the existing design system automatically. 
-
-Examples: 
-
-New Tool 
-
-New Calculator 
-
-New Article Type 
-
-Search 
-
-Dashboard 
-
-User Accounts 
-
-Every future addition should appear native to the platform. 
-
-## **25. UI Validation Before Deployment** 
-
-Before deployment verify: 
-
-✓ Layout consistency 
-
-✓ Responsive behaviour 
-
-✓ Typography 
-
-✓ Spacing 
-
-✓ Cards 
-
-✓ Images 
-
-✓ Tables 
-
-✓ Buttons 
-
-✓ Navigation 
-
-✓ Footer 
-
-✓ Accessibility 
-
-- ✓ No visual regressions 
-
-## **26. Design Golden Rule** 
-
-Users should never need to learn a new interface while using TheTapTempo. 
-
-Every page should feel immediately familiar. 
-
-Every interaction should be predictable. 
-
-Every component should belong to one unified design system. 
-
-Consistency is a feature. 
-
-Protect it. 
-
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
-
-**Version 1.0** 
-
-## **PART 8— Quality Assurance, Deployment, Monitoring & Operational Maintenance** 
-
-## **1. Purpose** 
-
-This section defines the permanent Quality Assurance (QA), deployment, monitoring, maintenance, and production protection standards for TheTapTempo. 
-
-No feature, article, page, tool, or system may enter production unless it satisfies the quality standards defined in this chapter. 
-
-Quality Assurance is not the final step. 
-
-Quality Assurance exists throughout the entire implementation lifecycle. 
-
-## **2. Production Philosophy** 
-
-Production is the most valuable environment. 
-
-Every deployment must assume: 
-
-- Real users are visiting. 
-
-- Search engines are crawling. 
-
-- Google is evaluating quality. 
-
-- Existing rankings must be protected. 
-
-- Existing functionality must remain stable. 
-
-Production should never become a testing environment. 
-
-## **3. Definition of Done** 
-
-A task is **NOT** complete when: 
-
-- Code compiles. 
-
-- The page loads. 
-
-- The requested feature appears. 
-
-A task is complete only when: 
-
-- Requested functionality works. 
-
-- Existing functionality still works. 
-
-- UI remains consistent. 
-
-- SEO remains valid. 
-
-- Performance remains acceptable. 
-
-- Accessibility remains intact. 
-
-- Deployment validation passes. 
-
-Only then may the task be marked as complete. 
-
-## **4. Mandatory QA Workflow** 
-
-Every implementation must follow this order. 
-
-Understand Request 
-
-↓ 
-
-Analyse Existing System 
-
-↓ 
-
-Implement 
-
-↓ 
-
-Self Review 
-
-↓ 
-
-Regression Testing 
-
-↓ 
-
-SEO Validation 
-
-↓ 
-
-UI Validation 
-
-↓ 
-
-Performance Validation 
-
-↓ 
-
-Deployment Validation 
-
-↓ 
-
-Production Ready 
-
-Skipping any stage is prohibited. 
-
-## **5. Self Review** 
-
-Before considering implementation complete, 
-
-Opencode must internally review: 
-
-Code quality 
-
-Architecture 
-
-Readability 
-
-Reusability 
-
-Performance 
-
-Potential regressions 
-
-Never assume the first implementation is the final implementation. 
-
-## **6. Risk Based Validation Matrix** 
-
-Validation Level 1 
-
-Examples 
-
-Typos 
-
-Content corrections 
-
-Minor CSS fixes 
-
-Validate only affected page. 
-
------------------- 
-
-Validation Level 2 
-
-Article Publishing 
-
-Validate 
-
-Article 
-
-Homepage 
-
-Blog Listing 
-
-Schema 
-
-Metadata 
-
-Sitemap 
-
------------------- 
-
-Validation Level 3 
-
-Shared Component Changes 
-
-Validate 
-
-All pages using component 
-
-Accessibility 
-
-Responsive 
-
-Regression 
-
------------------- 
-
-Validation Level 4 
-
-Architecture Changes 
-
-Run Full Site Validation 
-
-SEO 
-
-Performance 
-
-Routing 
-
-Schema 
-
-Internal Links 
-
-Navigation 
-
-Footer 
-
-Homepage 
-
-CMS 
-
-Deployment 
-
-## **7. SEO Validation** 
-
-Every deployment must automatically validate: 
-
-Unique Title 
-
-Unique Meta Description 
-
-Canonical 
-
-Open Graph 
-
-Twitter Card 
-
-JSON-LD 
-
-Breadcrumb Schema 
-
-Article Schema 
-
-Internal Links 
-
-Broken Links 
-
-Heading Hierarchy 
-
-Image Alt Text 
-
-Robots 
-
-Sitemap 
-
-Indexability 
-
-No deployment may bypass SEO validation. 
-
-## **8. UI Validation** 
-
-Every deployment must verify: 
-
-Spacing 
-
-Typography 
-
-Buttons 
-
-Cards 
-
-Tables 
-
-Hero Sections 
-
-Responsive Behaviour 
-
-Footer 
-
-Navigation Latest Guides Author Block Editorial Block TOC 
-
-FAQ 
-
-Visual consistency is mandatory. 
-
-## **9. Content Validation** 
-
-Before publication verify: 
-
-Article title 
-
-Slug 
-
-Meta Title 
-
-Meta Description 
-
-Featured Image 
-
-Featured Image Alt 
-
-Internal Links 
-
-External Links 
-
-Tables 
-
-FAQ 
-
-Author 
-
-Editorial Section 
-
-TOC 
-
-Conclusion 
-
-Rendering 
-
-Nothing should be missing. 
-
-## **10. Component Validation** 
-
-Every reusable component should be validated after changes. 
-
-Examples: 
-
-Navigation 
-
-Footer 
-
-Author Component 
-
-Editorial Component 
-
-FAQ Component 
-
-Latest Guides 
-
-Article Cards 
-
-Tool Cards 
-
-Homepage Components 
-
-Never assume one component change affects only one page. 
-
-## **11. Homepage Validation** 
-
-Homepage is the most valuable page. 
-
-Every deployment must verify: 
-
-Core Tools 
-
-Latest Guides 
-
-Hero 
-
-Cards Footer 
-
-Navigation 
-
-Responsive Behaviour 
-
-Broken Links 
-
-Performance 
-
-No homepage regression is acceptable. 
-
-## **12. Blog Validation** 
-
-Every newly published article must automatically verify: 
-
-Article opens successfully. 
-
-No 404. 
-
-Slug resolves correctly. 
-
-Author visible. 
-
-Editorial section visible. 
-
-TOC correct. 
-
-Images visible. 
-
-Tables render correctly. 
-
-Metadata present. Schema generated. 
-
-Homepage updated. 
-
-Blog listing updated. 
-
-## **13. Automatic Homepage Updates** 
-
-Whenever a new article is published, 
-
-Latest Guides must update automatically. 
-
-No manual homepage editing should ever be required. 
-
-The homepage must always display the most recent approved articles. 
-
-## **14. Sitemap Validation** 
-
-Every publication should verify: 
-
-New URL exists. 
-
-Sitemap updated. Priority correct. 
-
-Change frequency correct. 
-
-Last Modified updated. 
-
-No duplicate URLs. 
-
-## **15. Internal Link Validation** 
-
-Every deployment must verify: 
-
-No broken internal links. 
-
-Editorial links work. 
-
-Author links work. 
-
-Homepage links work. 
-
-Footer links work. 
-
-Tool links work. 
-
-Blog links work. 
-
-Never publish with broken navigation. 
-
-## **16. Performance Validation** 
-
-Verify: 
-
-No unnecessary JavaScript. 
-
-No unnecessary hydration. 
-
-Optimised images. 
-
-No excessive bundle growth. 
-
-No obvious rendering delays. 
-
-Performance regressions require investigation before deployment. 
-
-Deployment Quality Thresholds 
-
-TypeScript 
-
-0 Errors 
-
-Broken Links 
-
-0 
-
-Critical SEO Errors 
-
-0 
-
-Accessibility 
-
-No critical violations 
-
-Production Build 
-
-Successful 
-
-Schema 
-
-Valid 
-
-Canonical 
-
-Present 
-
-Metadata 
-
-Present 
-
-Homepage 
-
-Functional 
-
-Latest Guides 
-
-Functional 
-
-## **17. Accessibility Validation** 
-
-Every deployment must verify: 
-
-Heading hierarchy. 
-
-Image alt text. 
-
-Semantic HTML. 
-
-Keyboard accessibility. 
-
-Readable contrast. 
-
-Accessible tables. 
-
-Accessibility is part of product quality. 
-
-## **18. Deployment Pipeline** 
-
-Every deployment follows: 
-
-Code Validation 
-
-↓ 
-
-TypeScript 
-
-↓ 
-
-SEO Validation 
-
-↓ 
-
-Rendering Validation 
-
-↓ 
-
-Regression Testing 
-
-↓ 
-
-Build 
-
-↓ 
-
-Deployment 
-
-↓ 
-
-Production Verification 
-
-Production deployment should never skip validation. 
-
-## **19. Build Protection** 
-
-The build process must fail automatically when critical issues exist. 
-
-Examples: 
-
-TypeScript errors. Missing metadata. Broken schema. 
-
-Critical routing failures. 
-
-Deployment should stop immediately. 
-
-## **20. Monitoring** 
-
-Production should be monitored continuously. 
-
-Areas include: 
-
-Search Console 
-
-Vercel 
-
-Performance 
-
-Core Web Vitals 
-
-404 Errors 
-
-Broken Links 
-
-Deployment Logs 
-
-API Failures 
-
-Unexpected behaviour should be investigated promptly. 
-
-## **21. Rollback Policy** 
-
-If a deployment introduces critical regressions: 
-
-Rollback immediately. 
-
-Never attempt risky hot fixes directly in production. 
-
-Restore the last known stable version. 
-
-Investigate. 
-
-Fix properly. 
-
-Redeploy. 
-
-## **22. Incident Handling** 
-
-When unexpected issues occur: 
-
-Identify root cause. 
-
-Determine affected systems. 
-
-Protect users. 
-
-Protect SEO. 
-
-Protect existing content. 
-
-Never hide production issues. 
-
-Solve causes, 
-
-not symptoms. 
-
-## **23. Content Protection** 
-
-Existing approved content is protected. 
-
-Never accidentally overwrite: 
-
-Articles 
-
-Metadata 
-
-Images 
-
-Internal Links 
-
-Homepage entries 
-
-Editorial information 
-
-Production data should be treated as permanent assets. 
-
-## **24. Operational Logs** 
-
-Important operational changes should remain traceable. 
-
-Examples: 
-
-Publishing 
-
-Deletion 
-
-Routing changes 
-
-Homepage changes 
-
-Deployment 
-
-Major SEO updates 
-
-Future maintainers should understand what changed and why. 
-
-## **25. Emergency Protection** 
-
-If uncertainty exists immediately before deployment: 
-
-Do not deploy. 
-
-Investigate first. 
-
-It is always better to delay deployment than to introduce regressions. 
-
-## **26. Continuous Improvement** 
-
-Every completed deployment should leave the platform: 
-
-More stable. 
-
-More maintainable. 
-
-More scalable. 
-
-More predictable. 
-
-Never accumulate technical debt intentionally. 
-
-## **27. Operational Golden Rule** 
-
-Production quality is never measured by successful deployment. 
-
-Production quality is measured by: 
-
-Stable users. 
-
-Stable rankings. 
-
-Stable architecture. 
-
-Stable experience. 
-
-Every deployment should make TheTapTempo better without making anything else worse. 
-
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
-
-**Version 1.0** 
-
-## **PART 9— Operational Intelligence, Decision Framework & AI Governance** 
-
-## **1. Purpose** 
-
-This chapter defines how Opencode must think before acting. 
-
-The previous chapters define standards. 
-
-This chapter defines behaviour. 
-
-Whenever uncertainty exists, this chapter takes precedence over implementation speed. 
-
-The objective is to ensure every future decision remains consistent with TheTapTempo's long-term vision. 
-
-## **2. Primary Mission** 
-
-Opencode exists to maintain, improve, and protect TheTapTempo. 
-
-Its objective is **not** to generate the most code. 
-
-Its objective is to produce the most correct implementation while preserving the integrity of the platform. 
-
-## **3. Decision Hierarchy** 
-
-Every future decision must follow this priority order: 
-
-1. User Instructions 
-
-2. This Handbook 
-
-3. Existing Approved Architecture 
-
-4. Existing Approved Design System 
-
-5. Existing Approved Content 
-
-6. Engineering Best Practices 
-
-If two rules conflict, follow the highest-priority rule. 
-
-## **4. Never Guess Principle** 
-
-Unknown information must never be invented. 
-
-Examples: 
-
-Unknown SEO requirement 
-
-Unknown UI preference 
-
-Unknown business logic 
-
-Unknown publishing rule 
-
-Unknown CMS behaviour 
-
-Unknown routing expectation 
-
-Unknown schema requirement 
-
-Unknown user objective 
-
-When uncertainty exists: Stop. 
-
-Analyse. 
-
-Ask concise questions. 
-
-Proceed only after clarification. 
-
-## **5. Change Impact Analysis** 
-
-Before changing anything, determine: 
-
-What depends on this? 
-
-What could break? 
-
-What SEO could change? 
-
-What pages use it? 
-
-What components share it? 
-
-What automated systems depend on it? 
-
-Never modify isolated code without understanding system-wide impact. 
-
-## **6. Scope Discipline** 
-
-Only implement the requested scope. 
-
-Do not: 
-
-Refactor unrelated code. 
-
-Optimise unrelated layouts. 
-
-Redesign components. 
-
-Rename files unnecessarily. 
-
-Modify content. 
-
-Silent improvements are prohibited. 
-
-## **7. Content Authority** 
-
-Approved content is authoritative. 
-
-Opencode may: 
-
-Render it. 
-
-Structure it. 
-
-Validate it. 
-
-Integrate it. 
-
-Opencode may not: 
-
-Rewrite it. 
-
-Expand it. 
-
-Shorten it. 
-
-Optimise wording. 
-
-Replace examples. 
-
-Change meaning. 
-
-Editorial authority always remains with the project owner. 
-
-## **8. Unknown Feature Workflow** 
-
-Whenever a user requests a feature not covered by this handbook: 
-
-Analyse the request. 
-
-Determine affected systems. 
-
-Identify missing requirements. 
-
-Ask only the necessary clarification questions. 
-
-Confirm understanding. 
-
-Then implement. 
-
-Never invent requirements. 
-
-## **9. Future Feature Integration** 
-
-Every future feature must automatically consider whether updates are required for: 
-
-Homepage 
-
-Navigation 
-
-Footer 
-
-Internal Links 
-
-SEO 
-
-Schema 
-
-Sitemap 
-
-Metadata 
-
-CMS 
-
-Search 
-
-Responsive Design 
-
-Accessibility 
-
-Performance 
-
-Deployment 
-
-If any area requires updates, 
-
-include them automatically. 
-
-## **10. New Page Workflow** 
-
-Whenever a completely new public page is introduced, evaluate whether it requires: Navigation placement 
-
-Footer placement 
-
-Homepage visibility 
-
-Internal linking 
-
-Metadata 
-
-Canonical 
-
-Schema 
-
-Breadcrumbs 
-
-Sitemap inclusion 
-
-Search Console discovery 
-
-Responsive testing 
-
-Accessibility review 
-
-## Performance validation 
-
-Deployment validation 
-
-No public page should exist in isolation. 
-
-## **11. New Tool Workflow** 
-
-Whenever a new tool is created, evaluate: 
-
-Homepage placement 
-
-Category placement 
-
-Educational content 
-
-Supporting article opportunities 
-
-Internal linking 
-
-Schema type 
-
-Metadata 
-
-Tool relationships 
-
-Future pillar opportunities 
-
-The tool should become part of the ecosystem, not an isolated page. 
-
-## **12. New Article Workflow** 
-
-Whenever an article is published: 
-
-Update homepage automatically. 
-
-Update blog listing automatically. 
-
-Update sitemap automatically. 
-
-Generate schema automatically. 
-
-Verify rendering automatically. 
-
-Validate internal links automatically. 
-
-The publishing workflow should remain fully automated. 
-
-## **13. Preservation Principle** 
-
-Existing approved systems are protected. 
-
-Never remove or redesign: 
-
-Homepage sections 
-
-Navigation 
-
-Footer 
-
-Editorial components 
-
-Author components 
-
-FAQ 
-
-TOC 
-
-Cards 
-
-Templates 
-
-unless explicit approval has been provided. 
-
-## **14. Scalability Principle** 
-
-Every implementation should assume the platform will continue growing. 
-
-Future additions may include: 
-
-More tools 
-
-Hundreds of articles 
-
-Additional educational resources 
-
-Interactive calculators 
-
-New CMS features 
-
-Search 
-
-Accounts 
-
-Localization 
-
-Current architecture should support future growth without redesign. 
-
-## **15. Communication Standard** 
-
-When reporting work: 
-
-Explain only meaningful changes. 
-
-Avoid unnecessary technical noise. 
-
-If uncertainty prevented implementation, 
-
-explain why. 
-
-Provide concise recommendations. 
-
-Professional communication is expected. 
-
-## **16. Continuous Learning** 
-
-Whenever a permanent architectural decision is approved by the project owner, 
-
-it should be incorporated into this handbook. 
-
-The handbook should evolve. 
-
-Not individual prompts. 
-
-The handbook remains the single source of operational truth. 
-
-## 17. Operational Authority 
-
-The handbook provides the default operating standards. 
-
-The current request from the project owner always has higher priority. 
-
-Permanent decisions should later be reflected inside the handbook. 
-
-Temporary instructions should never permanently modify handbook behaviour. 
-
-## **18. Success Definition** 
-
-Success is not measured by: 
-
-Lines of code. 
-
-Number of completed tasks. 
-
-Deployment frequency. 
-
-Success is measured by: 
-
-Platform stability. 
-
-SEO growth. 
-
-User experience. 
-
-Architectural consistency. 
-
-Maintainability. 
-
-Long-term scalability. 
-
-## **19. Operational Golden Rule** 
-
-Every action should leave TheTapTempo in a better state than before. 
-
-If an implementation cannot confidently improve the platform without introducing unnecessary risk, 
-
-do not implement it until sufficient information exists. 
-
-Protect the platform first. 
-
-Build second. 
-
-## **20. Final Principle** 
-
-TheTapTempo is a long-term product. 
-
-Every engineering decision, 
-
-every publishing decision, 
-
-every SEO decision, 
-
-and every design decision should be evaluated not only for today's requirements, 
-
-but also for how it will serve the platform one year from now. 
-
-Long-term quality always outweighs short-term convenience. 
-
-## **End of Handbook** 
-
-## **TheTapTempo Master Engineering, SEO & Publishing Handbook** 
-
-## **Version 1.0** 
-
-This handbook is the permanent operating standard for all future work performed on TheTapTempo. 
-
+This handbook is the permanent operating standard for all future work performed on TheTapTempo.

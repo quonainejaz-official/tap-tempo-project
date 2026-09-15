@@ -1,10 +1,13 @@
-const { MongoClient } = require("mongodb")
+// const { MongoClient } = require("mongodb")
 const cloudinary = require("cloudinary").v2
 const path = require("path")
 
 // ── Config ──
-const MONGODB_URI =
-  "mongodb://taptempous_db_user:gNmipNz_78DYvf2@ac-flvo2wy-shard-00-00.ykfjwmp.mongodb.net:27017,ac-flvo2wy-shard-00-01.ykfjwmp.mongodb.net:27017,ac-flvo2wy-shard-00-02.ykfjwmp.mongodb.net:27017/taptempo?ssl=true&replicaSet=atlas-yhd74k-shard-0&authSource=admin&retryWrites=true&w=majority"
+// MongoDB access is disabled — MONGODB_URI (previously a hardcoded live connection
+// string) is commented out. Restore via environment variables instead of hardcoding:
+// const MONGODB_URI = process.env.MONGODB_URI
+// const MONGODB_URI =
+//   "mongodb://taptempous_db_user:gNmipNz_78DYvf2@ac-flvo2wy-shard-00-00.ykfjwmp.mongodb.net:27017,ac-flvo2wy-shard-00-01.ykfjwmp.mongodb.net:27017,ac-flvo2wy-shard-00-02.ykfjwmp.mongodb.net:27017/taptempo?ssl=true&replicaSet=atlas-yhd74k-shard-0&authSource=admin&retryWrites=true&w=majority"
 
 cloudinary.config({
   cloud_name: "dym1gtcer",
@@ -439,14 +442,16 @@ function calculateReadTime(html) {
 
 // ── Main ──
 async function main() {
-  // 1. Connect to MongoDB and resolve image URLs
-  console.log("Connecting to MongoDB...")
-  const client = new MongoClient(MONGODB_URI)
-  await client.connect()
-  const db = client.db("taptempo")
-  const blogs = db.collection("blogs")
+  // 1. MongoDB connection is commented out — the script no longer touches the DB.
+  // console.log("Connecting to MongoDB...")
+  // const client = new MongoClient(MONGODB_URI)
+  // await client.connect()
+  // const db = client.db("taptempo")
+  // const blogs = db.collection("blogs")
 
-  const existing = await blogs.findOne({ slug: "how-to-find-bpm-of-any-song" })
+  // MongoDB read is disabled; treat as a new post so the Cloudinary upload path runs.
+  // const existing = await blogs.findOne({ slug: "how-to-find-bpm-of-any-song" })
+  const existing = null
 
   // Reuse existing image URLs or upload new ones
   let infographicUrl, decisionGuideUrl
@@ -489,27 +494,28 @@ async function main() {
   // 3. Update or create blog post
   if (existing) {
     console.log("Blog post with this slug already exists. Updating...")
-    await blogs.updateOne(
-      { slug: "how-to-find-bpm-of-any-song" },
-      {
-        $set: {
-          title: "How to Find the BPM of Any Song (7 Proven Methods)",
-          content,
-          excerpt:
-            "Learn how to find the BPM of any song using Tap Tempo, DJ software, DAWs, apps, and more. Compare seven proven methods to choose the right one.",
-          metaTitle: "How to Find the BPM of Any Song: 7 Methods | TheTapTempo",
-          metaDescription:
-            "Learn how to find the BPM of any song using Tap Tempo, DJ software, DAWs, apps, and more. Compare seven proven methods to choose the right one.",
-          author: "TheTapTempo Editorial Team",
-          tags: ["bpm", "tap tempo", "tempo detection", "music production", "dj tips", "guide"],
-          published: true,
-          readTime,
-          updatedAt: now,
-          faqs,
-        },
-      }
-    )
-    console.log("Blog post updated.")
+    // MongoDB write is disabled:
+    // await blogs.updateOne(
+    //   { slug: "how-to-find-bpm-of-any-song" },
+    //   {
+    //     $set: {
+    //       title: "How to Find the BPM of Any Song (7 Proven Methods)",
+    //       content,
+    //       excerpt:
+    //         "Learn how to find the BPM of any song using Tap Tempo, DJ software, DAWs, apps, and more. Compare seven proven methods to choose the right one.",
+    //       metaTitle: "How to Find the BPM of Any Song: 7 Methods | TheTapTempo",
+    //       metaDescription:
+    //         "Learn how to find the BPM of any song using Tap Tempo, DJ software, DAWs, apps, and more. Compare seven proven methods to choose the right one.",
+    //       author: "TheTapTempo Editorial Team",
+    //       tags: ["bpm", "tap tempo", "tempo detection", "music production", "dj tips", "guide"],
+    //       published: true,
+    //       readTime,
+    //       updatedAt: now,
+    //       faqs,
+    //     },
+    //   }
+    // )
+    console.log("Blog post updated.") // NO-OP: MongoDB access is commented out
   } else {
     const blog = {
       title: "How to Find the BPM of Any Song (7 Proven Methods)",
@@ -530,8 +536,10 @@ async function main() {
       faqs,
     }
 
-    const result = await blogs.insertOne(blog)
-    console.log("Blog post created with ID:", result.insertedId.toString())
+    // MongoDB write is disabled:
+    // const result = await blogs.insertOne(blog)
+    // console.log("Blog post created with ID:", result.insertedId.toString())
+    console.log("Blog post prepared (MongoDB is commented out — nothing persisted).")
   }
 
   // 4. Trigger revalidation via production API
@@ -544,7 +552,7 @@ async function main() {
     console.log("Could not trigger revalidation. User may need to redeploy.")
   }
 
-  await client.close()
+  // await client.close()
   console.log("Done!")
   console.log("Read time:", readTime)
 }
