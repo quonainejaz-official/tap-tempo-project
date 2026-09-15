@@ -640,10 +640,10 @@ export function MetronomeWidget({
       </div>
 
       {/* ── RIGHT COLUMN ─────────────────────────────────────── */}
-      <div className="lg:col-span-7 h-full flex flex-col justify-between rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
+      <div className="lg:col-span-7 h-full flex flex-col justify-between rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
         {/* Time Signatures */}
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Time Signature</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Time Signature</span>
           <div className="flex gap-1.5 flex-wrap">
             {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8"].map(sig => (
               <button key={sig} onClick={() => setSignature(sig)}
@@ -656,8 +656,8 @@ export function MetronomeWidget({
         </div>
 
         {/* Sound Style */}
-        <div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Sound</span>
+        <div className="mt-2.5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
           <div className="flex gap-1.5">
             {(["click", "beep", "woodblock"] as const).map(s => (
               <button key={s} onClick={() => setSoundStyle(s)}
@@ -671,8 +671,8 @@ export function MetronomeWidget({
 
         {/* Subdivisions */}
         {showSubdivisions && (
-          <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Subdivisions</span>
+          <div className="mt-2.5">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Subdivisions</span>
             <div className="flex gap-1.5">
               {subdivisions.map(s => (
                 <button key={s.value} onClick={() => setSubdivision(s.value)}
@@ -686,8 +686,8 @@ export function MetronomeWidget({
         )}
 
         {/* Tempo Presets */}
-        <div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Tempo Presets</span>
+        <div className="mt-2.5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Tempo Presets</span>
           <div className="flex gap-1.5 flex-wrap">
             {presets.map(p => (
               <button key={p.label} onClick={() => handleBpmInput(p.val)}
@@ -698,8 +698,8 @@ export function MetronomeWidget({
         </div>
 
         {/* Practice Tools */}
-        <div className="flex-1 border-t border-gray-200 pt-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">Practice Tools</span>
+        <div className="flex-1 border-t border-gray-200 pt-2 mt-2.5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Practice Tools</span>
 
           {/* Gap Click */}
           <div className="flex items-center justify-between py-1">
