@@ -2,7 +2,7 @@
 
 import { MetronomeWidget, type Subdivision, type BeatState } from "@/components/metronome-widget"
 
-export type MetronomeEnginePreset = "default" | "subdivision" | "guitar" | "drummer"
+export type MetronomeEnginePreset = "default" | "subdivision" | "guitar" | "drummer" | "piano"
 
 interface MetronomeEngineProps {
   defaultPreset?: MetronomeEnginePreset
@@ -57,6 +57,18 @@ const PRESETS: Record<MetronomeEnginePreset, PresetConfig | null> = {
     playBars: 2,
     silentBars: 2,
     randomMute: true,
+    randomMutePercent: 15,
+  },
+  piano: {
+    bpm: 110,
+    signature: "4/4",
+    subdivision: "quarter",
+    beatStates: ["N", "N", "N", "N"],
+    showSubdivisions: false,
+    gapClick: false,
+    playBars: 2,
+    silentBars: 2,
+    randomMute: false,
     randomMutePercent: 15,
   },
 }

@@ -13,7 +13,7 @@ export default function MetronomePage() {
       <MetronomeEngine defaultPreset="default" />
 
       {/* Practice CTAs */}
-      <div className="w-full max-w-5xl mx-auto mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="w-full max-w-5xl mx-auto mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border bg-card p-5 flex flex-col">
           <h2 className="font-semibold text-sm mb-1 min-h-[20px]">Subdivision Practice</h2>
           <p className="text-sm text-muted-foreground mb-3 flex-1">
@@ -48,6 +48,18 @@ export default function MetronomePage() {
             className="text-sm text-primary hover:underline font-bold mt-auto"
           >
             Drummers &rarr;
+          </Link>
+        </div>
+        <div className="rounded-xl border bg-card p-5 flex flex-col">
+          <h2 className="font-semibold text-sm mb-1 min-h-[20px]">Piano Practice</h2>
+          <p className="text-sm text-muted-foreground mb-3 flex-1">
+            Classical tempo control, scale exercises, and hand synchronization drills.
+          </p>
+          <Link
+            href="/metronome-for-piano-practice"
+            className="text-sm text-primary hover:underline font-bold mt-auto"
+          >
+            Piano Practice &rarr;
           </Link>
         </div>
       </div>

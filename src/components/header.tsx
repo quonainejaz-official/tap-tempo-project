@@ -26,6 +26,7 @@ const dropdownItems: Record<string, { href: string; label: string }[]> = {
     { href: "/metronome-with-subdivisions", label: "Subdivision Practice" },
     { href: "/metronome-for-guitar-practice", label: "Guitar Practice" },
     { href: "/metronome-for-drummers", label: "Drummers" },
+    { href: "/metronome-for-piano-practice", label: "Piano Practice" },
   ],
   "/bpm-calculator": [
     { href: "/pitch-tempo-calculator", label: "Pitch Tempo Calculator" },

@@ -757,6 +757,7 @@ export function MetronomeWidget({
               { label: "1/16 Mode", action: () => { setSubdivision("sixteenth"); setSignature("4/4"); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
               { label: "Guitar", action: () => { handleBpmInput(90); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["A", "N", "A", "N"]); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
               { label: "Drummer", action: () => { handleBpmInput(120); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(true); setPlayBars(2); setSilentBars(2); setIsRandomMuteActive(true); setRandomMutePercent(15); handlePlayToggle() } },
+              { label: "Piano", action: () => { handleBpmInput(110); setSignature("4/4"); setSubdivision("quarter"); setBeatStates(["N", "N", "N", "N"]); setIsGapActive(false); setIsRandomMuteActive(false); handlePlayToggle() } },
             ].map(p => (
               <button key={p.label} onClick={p.action}
                 className="px-3 py-1 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#595959] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
