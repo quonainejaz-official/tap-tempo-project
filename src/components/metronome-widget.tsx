@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Slider } from "@/components/ui/slider"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Hand } from "lucide-react"
 
 const MAX_TAPS = 8
@@ -50,13 +51,26 @@ const presets = [
   { label: "Vivace", val: 170 },
 ]
 
-export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth"
+const TIMER_PRESETS: { label: string; minutes: number }[] = [
+  { label: "Off", minutes: 0 },
+  { label: "1 min", minutes: 1 },
+  { label: "3 min", minutes: 3 },
+  { label: "5 min", minutes: 5 },
+  { label: "7 min", minutes: 7 },
+  { label: "10 min", minutes: 10 },
+  { label: "15 min", minutes: 15 },
+  { label: "20 min", minutes: 20 },
+  { label: "30 min", minutes: 30 },
+]
+
+export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth" | "shuffle"
 export const subdivisions: { label: string; value: Subdivision; clicks: number }[] = [
   { label: "None", value: "none", clicks: 1 },
   { label: "1/4", value: "quarter", clicks: 1 },
   { label: "1/8", value: "eighth", clicks: 2 },
   { label: "1/3", value: "triplet", clicks: 3 },
   { label: "1/16", value: "sixteenth", clicks: 4 },
+  { label: "Shuffle", value: "shuffle", clicks: 2 },
 ]
 
 interface QueueNote {
@@ -110,6 +124,10 @@ export function MetronomeWidget({
   const [isRandomMuteActive, setIsRandomMuteActive] = useState(defaultRandomMute ?? false)
   const [randomMutePercent, setRandomMutePercent] = useState(defaultRandomMutePercent ?? 15)
 
+  const [timerMinutes, setTimerMinutes] = useState(0)
+  const [timeRemaining, setTimeRemaining] = useState(0)
+  const [isTimerActive, setIsTimerActive] = useState(false)
+
   const tapTimestampsRef = useRef<number[]>([])
   const tapResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -142,6 +160,12 @@ export function MetronomeWidget({
   const barBeatCountRef = useRef(0)
   const barCountRef = useRef(0)
 
+  const timerMinutesRef = useRef(0)
+  const timeRemainingRef = useRef(0)
+  const isTimerActiveRef = useRef(false)
+  const timerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const lastTickAtRef = useRef(0)
+
   useEffect(() => { bpmRef.current = bpm }, [bpm])
   useEffect(() => { volumeRef.current = volume }, [volume])
   useEffect(() => { soundStyleRef.current = soundStyle }, [soundStyle])
@@ -153,6 +177,10 @@ export function MetronomeWidget({
   useEffect(() => { silentBarsRef.current = silentBars }, [silentBars])
   useEffect(() => { isRandomMuteRef.current = isRandomMuteActive }, [isRandomMuteActive])
   useEffect(() => { randomMutePercentRef.current = randomMutePercent }, [randomMutePercent])
+
+  useEffect(() => { timerMinutesRef.current = timerMinutes }, [timerMinutes])
+  useEffect(() => { timeRemainingRef.current = timeRemaining }, [timeRemaining])
+  useEffect(() => { isTimerActiveRef.current = isTimerActive }, [isTimerActive])
 
   useEffect(() => {
     const nb = parseInt(signature.split("/")[0])
@@ -238,6 +266,9 @@ export function MetronomeWidget({
       awaitCtxOnStartRef.current = true
       setPlaying(true)
     } else {
+      if (isTimerActiveRef.current && timerMinutesRef.current > 0) {
+        setTimeRemaining(timerMinutesRef.current * 60)
+      }
       setPlaying(false)
     }
   }, [])
@@ -361,7 +392,13 @@ export function MetronomeWidget({
       })
 
       const secondsPerBeat = 60.0 / bpmRef.current
-      nextNoteTimeRef.current += secondsPerBeat / clicksPerBeat
+      if (subdRef.current === "shuffle") {
+        nextNoteTimeRef.current += subdBeatRef.current === 0
+          ? (secondsPerBeat * 2) / 3
+          : secondsPerBeat / 3
+      } else {
+        nextNoteTimeRef.current += secondsPerBeat / clicksPerBeat
+      }
 
       subdBeatRef.current = (subdBeatRef.current + 1) % clicksPerBeat
       if (subdBeatRef.current === 0) {
@@ -448,6 +485,75 @@ export function MetronomeWidget({
       notesInQueueRef.current = []
     }
   }, [playing, startScheduler, stopScheduler])
+
+  const selectTimerPreset = useCallback((minutes: number) => {
+    if (minutes === 0) {
+      setTimerMinutes(0)
+      setTimeRemaining(0)
+      setIsTimerActive(false)
+      return
+    }
+    setTimerMinutes(minutes)
+    setTimeRemaining(minutes * 60)
+    setIsTimerActive(true)
+  }, [])
+
+  const playCompletionChime = useCallback(() => {
+    const ctx = audioCtxRef.current
+    if (!ctx || ctx.state === "closed") return
+    if (ctx.state === "suspended") ctx.resume()
+    const t = ctx.currentTime
+    const notes = [880, 1318.5]
+    notes.forEach((freq, i) => {
+      const at = t + i * 0.15
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = "sine"
+      osc.frequency.setValueAtTime(freq, at)
+      gain.gain.setValueAtTime(0.25, at)
+      gain.gain.exponentialRampToValueAtTime(0.001, at + 0.3)
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start(at)
+      osc.stop(at + 0.35)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (isTimerActive && timerMinutes > 0 && timeRemaining === 0) {
+      setPlaying(false)
+      setIsTimerActive(false)
+      setTimeRemaining(timerMinutes * 60)
+      playCompletionChime()
+    }
+  }, [timeRemaining, isTimerActive, timerMinutes, playCompletionChime])
+
+  useEffect(() => {
+    const shouldRun =
+      playing && isTimerActive && timerMinutes > 0 && timeRemainingRef.current > 0
+    if (!shouldRun) {
+      if (timerIntervalRef.current !== null) {
+        clearInterval(timerIntervalRef.current)
+        timerIntervalRef.current = null
+      }
+      return
+    }
+    if (timerIntervalRef.current !== null) return
+    lastTickAtRef.current = Date.now()
+    const interval = setInterval(() => {
+      if (!playingRef.current || !isTimerActiveRef.current || timerMinutesRef.current === 0) return
+      const now = Date.now()
+      const elapsed = Math.floor((now - lastTickAtRef.current) / 1000)
+      if (elapsed <= 0) return
+      lastTickAtRef.current += elapsed * 1000
+      setTimeRemaining(prev => Math.max(0, prev - elapsed))
+    }, 1000)
+    timerIntervalRef.current = interval
+    return () => {
+      if (timerIntervalRef.current === interval) timerIntervalRef.current = null
+      clearInterval(interval)
+    }
+  }, [playing, isTimerActive, timerMinutes])
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -753,6 +859,26 @@ export function MetronomeWidget({
               <span className="text-xs font-mono text-muted-foreground w-8 text-right shrink-0">{randomMutePercent}%</span>
             </div>
           )}
+
+          {/* Practice Timer */}
+          <div className="flex items-center justify-between py-1 mt-2 border-t border-gray-100 pt-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xs font-medium text-[#595959] shrink-0">Practice Timer</span>
+              <span className="font-mono text-sm font-bold text-gray-900 tabular-nums shrink-0">
+                {`${String(Math.floor(timeRemaining / 60)).padStart(2, "0")}:${String(timeRemaining % 60).padStart(2, "0")}`}
+              </span>
+            </div>
+            <Select value={String(timerMinutes)} onValueChange={(v) => selectTimerPreset(Number(v))}>
+              <SelectTrigger className="h-8 w-[88px] shrink-0 rounded border border-[#D9D9D9] bg-white px-2 text-xs shadow-none focus:ring-1 focus:ring-[#1565FF]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {TIMER_PRESETS.map(p => (
+                  <SelectItem key={p.label} value={String(p.minutes)}>{p.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Quick Presets */}
           <div className="flex gap-1.5 flex-wrap mt-2">
