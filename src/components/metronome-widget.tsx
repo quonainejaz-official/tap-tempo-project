@@ -5,7 +5,7 @@ import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Hand } from "lucide-react"
+import { Hand, Plus, Minus } from "lucide-react"
 
 const MAX_TAPS = 8
 const RESET_MS = 3000
@@ -50,6 +50,30 @@ const presets = [
   { label: "Allegro", val: 140 },
   { label: "Vivace", val: 170 },
 ]
+
+const quickTempoPresets = [60, 80, 100, 120, 140, 160]
+
+interface TapButtonProps {
+  tapPulse: boolean
+  onTap: (e: { preventDefault: () => void }) => void
+}
+
+function TapButton({ tapPulse, onTap }: TapButtonProps) {
+  return (
+    <button
+      onPointerDown={onTap}
+      className={`relative flex flex-col items-center justify-center w-14 h-14 rounded-xl border-2 select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 ${
+        tapPulse ? "border-[#1565FF] bg-[#1565FF]/10" : "border-[#D9D9D9] bg-white shadow-sm hover:border-[#1565FF] hover:shadow-md"
+      }`}
+    >
+      <Hand size={18} className={`mb-0.5 transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#767676]"}`} />
+      <span className={`text-[7px] font-bold uppercase tracking-[0.15em] transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#767676]"}`}>
+        TAP
+      </span>
+      {tapPulse && <span className="absolute inset-0 rounded-xl border-2 border-[#1565FF] animate-ping opacity-30" />}
+    </button>
+  )
+}
 
 const TIMER_PRESETS: { label: string; minutes: number }[] = [
   { label: "Off", minutes: 0 },
@@ -123,6 +147,7 @@ export function MetronomeWidget({
   const [silentBars, setSilentBars] = useState(defaultSilentBars ?? 2)
   const [isRandomMuteActive, setIsRandomMuteActive] = useState(defaultRandomMute ?? false)
   const [randomMutePercent, setRandomMutePercent] = useState(defaultRandomMutePercent ?? 15)
+  const [quickTempoSelection, setQuickTempoSelection] = useState<number | null>(null)
 
   const [timerMinutes, setTimerMinutes] = useState(0)
   const [timeRemaining, setTimeRemaining] = useState(0)
@@ -576,6 +601,7 @@ export function MetronomeWidget({
     const clamped = Math.max(20, Math.min(300, val))
     setBpm(clamped)
     bpmRef.current = clamped
+    setQuickTempoSelection(null)
     localStorage.setItem("taptempo_last_bpm", String(clamped))
   }, [])
 
@@ -635,55 +661,65 @@ export function MetronomeWidget({
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       {/* ── LEFT COLUMN ──────────────────────────────────────── */}
       <div className="lg:col-span-5 h-full flex flex-col justify-between items-center py-2 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
-        {/* BPM Pulse Ring + TAP */}
-        <div className="flex items-center justify-center gap-4">
-          <div className="relative flex items-center justify-center w-[140px] h-[140px]">
-            <svg
-              className="absolute inset-0 m-auto pointer-events-none"
-              width="140"
-              height="140"
-              viewBox="0 0 160 160"
-            >
-              {/* Idle ring — always visible at 40% */}
-              <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="3"
-                strokeOpacity="0.4"
-                className="transition-all duration-150 ease-out"
-                style={{ transformOrigin: "80px 80px", transform: "scale(1)" }}
-              />
-              {/* Active pulse ring — scales up and brightens on beat */}
-              <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="3"
-                className={`transition-all duration-150 ease-out ${
-                  pulseActive
-                    ? pulseState === "A"
-                      ? "opacity-100"
-                      : "opacity-70"
-                    : "opacity-0"
-                }`}
-                style={{ transformOrigin: "80px 80px", transform: pulseActive ? "scale(1.05)" : "scale(1)" }}
-              />
-              {/* Accent fill glow */}
-              {pulseActive && pulseState === "A" && <circle cx="80" cy="80" r="68" fill="#1565FF" opacity="0.08" />}
-            </svg>
-            <div className="relative flex flex-col items-center justify-center z-10">
-              <span className="font-mono text-3xl font-extrabold tracking-tight text-gray-900 leading-none">
-                {bpm}
-              </span>
-              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">BPM</span>
+        {/* BPM Pulse Ring + TAP + +/− */}
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex items-center justify-center gap-4">
+            <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
+            <div className="relative flex items-center justify-center w-[140px] h-[140px]">
+              <svg
+                className="absolute inset-0 m-auto pointer-events-none"
+                width="140"
+                height="140"
+                viewBox="0 0 160 160"
+              >
+                {/* Idle ring — always visible at 40% */}
+                <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="3"
+                  strokeOpacity="0.4"
+                  className="transition-all duration-150 ease-out"
+                  style={{ transformOrigin: "80px 80px", transform: "scale(1)" }}
+                />
+                {/* Active pulse ring — scales up and brightens on beat */}
+                <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="3"
+                  className={`transition-all duration-150 ease-out ${
+                    pulseActive
+                      ? pulseState === "A"
+                        ? "opacity-100"
+                        : "opacity-70"
+                      : "opacity-0"
+                  }`}
+                  style={{ transformOrigin: "80px 80px", transform: pulseActive ? "scale(1.05)" : "scale(1)" }}
+                />
+                {/* Accent fill glow */}
+                {pulseActive && pulseState === "A" && <circle cx="80" cy="80" r="68" fill="#1565FF" opacity="0.08" />}
+              </svg>
+              <div className="relative flex flex-col items-center justify-center z-10">
+                <span className="font-mono text-3xl font-extrabold tracking-tight text-gray-900 leading-none">
+                  {bpm}
+                </span>
+                <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">BPM</span>
+              </div>
             </div>
+
+            <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
           </div>
 
-          <button
-            onPointerDown={e => { e.preventDefault(); fireTap() }}
-            className={`relative flex flex-col items-center justify-center w-12 h-12 rounded-xl border-2 select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 ${
-              tapPulse ? "border-[#1565FF] bg-[#1565FF]/10" : "border-[#D9D9D9] bg-white shadow-sm hover:border-[#1565FF] hover:shadow-md"
-            }`}
-          >
-            <Hand size={16} className={`mb-0.5 transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#767676]"}`} />
-            <span className={`text-[7px] font-bold uppercase tracking-[0.15em] transition-colors ${tapPulse ? "text-[#1565FF]" : "text-[#767676]"}`}>
-              TAP
-            </span>
-            {tapPulse && <span className="absolute inset-0 rounded-xl border-2 border-[#1565FF] animate-ping opacity-30" />}
-          </button>
+          <div className="flex items-center justify-center gap-1.5 shrink-0">
+            <button
+              aria-label="Increase tempo by 1 BPM"
+              onClick={() => handleBpmInput(bpm + 1)}
+              className="group relative flex items-center justify-center w-9 h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
+            >
+              <Plus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
+            </button>
+
+            <button
+              aria-label="Decrease tempo by 1 BPM"
+              onClick={() => handleBpmInput(bpm - 1)}
+              className="group relative flex items-center justify-center w-9 h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
+            >
+              <Minus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
+            </button>
+          </div>
         </div>
 
         {/* Helper */}
@@ -710,7 +746,7 @@ export function MetronomeWidget({
 
         {/* START / STOP */}
         <button onClick={handlePlayToggle}
-          className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 ${
+          className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 mt-2 ${
             playing
               ? "bg-[#FF3B30] hover:bg-[#E03126] text-white"
               : "bg-[#1565FF] hover:bg-[#0D52D6] text-white"
@@ -741,6 +777,35 @@ export function MetronomeWidget({
               aria-label="Volume"
               className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
             />
+          </div>
+
+          {/* Quick Tempo */}
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider shrink-0">QUICK TEMPO</span>
+              <button
+                onClick={() => setQuickTempoSelection(null)}
+                className="text-[11px] font-bold uppercase tracking-wider text-[#1565FF] hover:underline"
+              >
+                CLEAR
+              </button>
+            </div>
+            <div className="flex gap-1.5 flex-wrap">
+              {quickTempoPresets.map(v => (
+                <button
+                  key={v}
+                  aria-pressed={quickTempoSelection === v}
+                  onClick={() => { handleBpmInput(v); setQuickTempoSelection(v) }}
+                  className={`flex-1 px-2 py-1.5 rounded-full text-xs font-medium text-center transition-all shadow-sm ${
+                    quickTempoSelection === v
+                      ? "bg-[#1565FF] text-white border border-[#1565FF]"
+                      : "bg-white border border-[#D9D9D9] text-[#595959] hover:text-[#1565FF] hover:border-[#1565FF]"
+                  }`}
+                >
+                  {v}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
