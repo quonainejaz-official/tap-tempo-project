@@ -51,7 +51,7 @@ const presets = [
   { label: "Vivace", val: 170 },
 ]
 
-const quickTempoPresets = [60, 80, 100, 120, 140, 160]
+const quickTempoPresets = [60, 100, 140, 180, 220, 260]
 
 interface TapButtonProps {
   tapPulse: boolean
@@ -223,7 +223,7 @@ export function MetronomeWidget({
     const saved = localStorage.getItem("taptempo_last_bpm")
     if (saved) {
       const parsed = parseInt(saved, 10)
-      if (!isNaN(parsed)) setBpm(Math.max(20, Math.min(300, parsed)))
+      if (!isNaN(parsed)) setBpm(Math.max(1, Math.min(500, parsed)))
     }
   }, [defaultBpm])
 
@@ -598,7 +598,7 @@ export function MetronomeWidget({
   }, [])
 
   const handleBpmInput = useCallback((val: number) => {
-    const clamped = Math.max(20, Math.min(300, val))
+    const clamped = Math.max(1, Math.min(500, val))
     setBpm(clamped)
     bpmRef.current = clamped
     setQuickTempoSelection(null)
@@ -761,7 +761,7 @@ export function MetronomeWidget({
           <div className="flex items-center gap-3">
             <span className="text-xs font-bold text-gray-500 w-10 uppercase tracking-wider shrink-0">BPM</span>
             <Slider
-              value={[bpm]} min={20} max={300}
+              value={[bpm]} min={1} max={500}
               onValueChange={v => handleBpmInput(v[0])}
               aria-label="BPM"
               className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
