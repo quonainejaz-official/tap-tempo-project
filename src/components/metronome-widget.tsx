@@ -135,6 +135,9 @@ export function MetronomeWidget({
   const [playing, setPlaying] = useState(false)
   const [volume, setVolume] = useState(0.8)
   const [signature, setSignature] = useState(defaultSignature ?? "4/4")
+  const [customTimeActive, setCustomTimeActive] = useState(false)
+  const [customBeats, setCustomBeats] = useState<number | null>(null)
+  const [customUnit, setCustomUnit] = useState<4 | 8 | 16>(4)
   const [beat, setBeat] = useState(-1)
   const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">(defaultSound ?? "click")
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
@@ -655,6 +658,29 @@ export function MetronomeWidget({
     })
   }, [])
 
+  const handleCustomBeatsInput = useCallback((raw: string) => {
+    const trimmed = raw.trim()
+    if (trimmed === "") {
+      setCustomBeats(null)
+      return
+    }
+    const parsed = parseInt(trimmed, 10)
+    if (isNaN(parsed)) {
+      setCustomBeats(null)
+      return
+    }
+    const clamped = Math.max(1, Math.min(32, parsed))
+    setCustomBeats(clamped)
+    setSignature(`${clamped}/${customUnit}`)
+  }, [customUnit])
+
+  const handleCustomUnitChange = useCallback((unit: 4 | 8 | 16) => {
+    setCustomUnit(unit)
+    if (customBeats !== null) {
+      setSignature(`${customBeats}/${unit}`)
+    }
+  }, [customBeats])
+
   const numBeats = parseInt(signature.split("/")[0])
 
   return (
@@ -728,7 +754,7 @@ export function MetronomeWidget({
         </p>
 
         {/* Beat Dots */}
-        <div className="flex justify-center gap-3">
+        <div className="flex justify-center gap-3 flex-wrap max-w-[350px]">
           {Array.from({ length: numBeats }).map((_, i) => {
             const state = beatStates[i] || "N"
             const isActive = i === beat && playing
@@ -816,14 +842,46 @@ export function MetronomeWidget({
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Time Signature</span>
           <div className="flex gap-1.5 flex-wrap">
-            {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8"].map(sig => (
-              <button key={sig} onClick={() => setSignature(sig)}
+            {["2/4", "3/4", "4/4", "5/4", "6/8", "7/8", "9/8", "12/8"].map(sig => (
+              <button key={sig} onClick={() => { setSignature(sig); setCustomTimeActive(false); setCustomBeats(null) }}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                  signature === sig ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                  !customTimeActive && signature === sig ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
                 }`}
               >{sig}</button>
             ))}
+            <button onClick={() => setCustomTimeActive(true)}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                customTimeActive ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+              }`}
+            >Custom</button>
           </div>
+          {customTimeActive && (
+            <div className="flex flex-wrap items-center gap-2 mt-2">
+              <input
+                type="number"
+                min={1}
+                max={32}
+                inputMode="numeric"
+                value={customBeats ?? ""}
+                onChange={e => handleCustomBeatsInput(e.target.value)}
+                aria-label="Custom beats per measure"
+                placeholder="Beats"
+                className="w-14 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+              />
+              <span className="text-[10px] text-muted-foreground shrink-0">Beats</span>
+              <select
+                aria-label="Custom beat unit"
+                value={customUnit}
+                onChange={e => handleCustomUnitChange(Number(e.target.value) as 4 | 8 | 16)}
+                className="text-xs border border-[#D9D9D9] rounded px-1.5 py-0.5 bg-white text-[#595959]"
+              >
+                <option value="4">4</option>
+                <option value="8">8</option>
+                <option value="16">16</option>
+              </select>
+              <span className="text-[10px] text-muted-foreground shrink-0">Note value</span>
+            </div>
+          )}
         </div>
 
         {/* Sound Style */}
