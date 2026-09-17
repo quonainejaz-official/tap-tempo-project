@@ -198,12 +198,12 @@ test("rapid preset <-> custom switching: no stale dots, no errors", async ({ pag
   expect(errors).toEqual([])
 })
 
-test("subdivisions (incl Shuffle) work on 9/8, 12/8, and custom", async ({ page }) => {
+test("subdivisions (incl Swing) work on 9/8, 12/8, and custom", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 })
   await gotoWidget(page, "/metronome-with-subdivisions")
-  // default route has subdivisions panel but default is 'quarter'; ensure 1/8 + shuffle clickable
+  // default route has subdivisions + swing panels; ensure 1/8 and a swing preset are clickable
 
-  for (const subd of ["1/8", "Shuffle"]) {
+  for (const subd of ["1/8", "Swing"]) {
     await page.getByRole("button", { name: subd, exact: true }).click()
     for (const sigLabel of ["9/8", "12/8"]) {
       await page.getByRole("button", { name: sigLabel, exact: true }).click()

@@ -87,14 +87,21 @@ const TIMER_PRESETS: { label: string; minutes: number }[] = [
   { label: "30 min", minutes: 30 },
 ]
 
-export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth" | "shuffle"
+export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth"
 export const subdivisions: { label: string; value: Subdivision; clicks: number }[] = [
   { label: "None", value: "none", clicks: 1 },
   { label: "1/4", value: "quarter", clicks: 1 },
   { label: "1/8", value: "eighth", clicks: 2 },
   { label: "1/3", value: "triplet", clicks: 3 },
   { label: "1/16", value: "sixteenth", clicks: 4 },
-  { label: "Shuffle", value: "shuffle", clicks: 2 },
+]
+
+export type SwingPreset = "straight" | "triplet" | "dotted" | "swing" | "custom"
+const swingPresets: { label: string; value: Exclude<SwingPreset, "custom">; fraction: number }[] = [
+  { label: "Straight", value: "straight", fraction: 0.5 },
+  { label: "Triplet", value: "triplet", fraction: 2 / 3 },
+  { label: "Dotted", value: "dotted", fraction: 3 / 4 },
+  { label: "Swing", value: "swing", fraction: 2 / 3 },
 ]
 
 interface QueueNote {
@@ -141,6 +148,8 @@ export function MetronomeWidget({
   const [beat, setBeat] = useState(-1)
   const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">(defaultSound ?? "click")
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
+  const [swing, setSwing] = useState(0.5)
+  const [swingPreset, setSwingPreset] = useState<SwingPreset>("straight")
   const [tapPulse, setTapPulse] = useState(false)
   const [beatStates, setBeatStates] = useState<BeatState[]>(defaultBeatStates ?? ["N", "N", "N", "N"])
   const [pulseActive, setPulseActive] = useState(false)
@@ -176,6 +185,7 @@ export function MetronomeWidget({
   const numBeatsRef = useRef(parseInt(signature.split("/")[0]))
   const soundStyleRef = useRef<"click" | "beep" | "woodblock">(defaultSound ?? "click")
   const subdRef = useRef(subdivision)
+  const swingRef = useRef(swing)
   const beatStatesRef = useRef(beatStates)
   const signatureRef = useRef(signature)
   const gapClickRef = useRef(defaultGapClick ?? false)
@@ -198,6 +208,7 @@ export function MetronomeWidget({
   useEffect(() => { volumeRef.current = volume }, [volume])
   useEffect(() => { soundStyleRef.current = soundStyle }, [soundStyle])
   useEffect(() => { subdRef.current = subdivision }, [subdivision])
+  useEffect(() => { swingRef.current = swing }, [swing])
   useEffect(() => { beatStatesRef.current = beatStates }, [beatStates])
   useEffect(() => { signatureRef.current = signature }, [signature])
   useEffect(() => { gapClickRef.current = isGapActive }, [isGapActive])
@@ -420,10 +431,11 @@ export function MetronomeWidget({
       })
 
       const secondsPerBeat = 60.0 / bpmRef.current
-      if (subdRef.current === "shuffle") {
+      const swingFraction = swingRef.current
+      if (clicksPerBeat === 2 && swingFraction !== 0.5) {
         nextNoteTimeRef.current += subdBeatRef.current === 0
-          ? (secondsPerBeat * 2) / 3
-          : secondsPerBeat / 3
+          ? secondsPerBeat * swingFraction
+          : secondsPerBeat * (1 - swingFraction)
       } else {
         nextNoteTimeRef.current += secondsPerBeat / clicksPerBeat
       }
@@ -898,18 +910,48 @@ export function MetronomeWidget({
           </div>
         </div>
 
-        {/* Subdivisions */}
+        {/* Subdivisions + Swing */}
         {showSubdivisions && (
           <div className="mt-2.5">
-            <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Subdivisions</span>
-            <div className="flex gap-1.5">
-              {subdivisions.map(s => (
-                <button key={s.value} onClick={() => setSubdivision(s.value)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                    subdivision === s.value ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
-                  }`}
-                >{s.label}</button>
-              ))}
+            <div className="grid grid-cols-1 gap-y-1.5 sm:grid-cols-[auto_1px_auto] sm:items-center sm:gap-x-1.5 sm:gap-y-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 sm:col-start-1 sm:row-start-1">Subdivisions</span>
+              <div className="flex flex-wrap items-center gap-1.5 sm:col-start-1 sm:row-start-2">
+                {subdivisions.map(s => (
+                  <button key={s.value} onClick={() => setSubdivision(s.value)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                      subdivision === s.value ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                    }`}
+                  >{s.label}</button>
+                ))}
+              </div>
+              <div className="hidden sm:block sm:col-start-2 sm:row-start-2 w-px self-stretch bg-border shrink-0" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 sm:col-start-3 sm:row-start-1">Swing</span>
+              <div className="flex flex-wrap items-center gap-1.5 sm:col-start-3 sm:row-start-2">
+                {swingPresets.map(p => (
+                  <button key={p.value} aria-pressed={swingPreset === p.value}
+                    onClick={() => { setSwing(p.fraction); setSwingPreset(p.value) }}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                      swingPreset === p.value ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                    }`}
+                  >{p.label}</button>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center gap-3 mt-2">
+              <Slider
+                value={[swing * 100]} min={50} max={75} step={0.1}
+                onValueChange={v => {
+                  const frac = v[0] / 100
+                  setSwing(frac)
+                  const match = swingPresets.find(p => Math.abs(p.fraction - frac) < 0.0005)
+                  setSwingPreset(match ? match.value : "custom")
+                }}
+                aria-label="Swing amount"
+                className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+              />
+              <span className="text-xs font-mono text-muted-foreground w-12 text-right shrink-0">
+                {Number((swing * 100).toFixed(1))}%
+              </span>
             </div>
           </div>
         )}
