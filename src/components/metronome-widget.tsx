@@ -87,13 +87,14 @@ const TIMER_PRESETS: { label: string; minutes: number }[] = [
   { label: "30 min", minutes: 30 },
 ]
 
-export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth"
+export type Subdivision = "none" | "quarter" | "eighth" | "triplet" | "sixteenth" | "sextuplet"
 export const subdivisions: { label: string; value: Subdivision; clicks: number }[] = [
   { label: "None", value: "none", clicks: 1 },
   { label: "1/4", value: "quarter", clicks: 1 },
   { label: "1/8", value: "eighth", clicks: 2 },
   { label: "1/3", value: "triplet", clicks: 3 },
   { label: "1/16", value: "sixteenth", clicks: 4 },
+  { label: "1/6", value: "sextuplet", clicks: 6 },
 ]
 
 export type SwingPreset = "straight" | "triplet" | "dotted" | "swing" | "custom"
