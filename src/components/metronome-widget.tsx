@@ -1287,10 +1287,9 @@ export function MetronomeWidget({
             </div>
           )}
 
-          {/* Practice Timer */}
-          <div className="flex items-center justify-between py-1 mt-2 border-t border-gray-100 pt-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">PRACTICE TIME</span>
+          <div className="flex items-center justify-between py-1">
             <div className="flex items-center gap-2 min-w-0">
-              <span className="text-xs font-medium text-[#595959] shrink-0">Practice Timer</span>
               <span className="font-mono text-sm font-bold text-gray-900 tabular-nums shrink-0">
                 {`${String(Math.floor(timeRemaining / 60)).padStart(2, "0")}:${String(timeRemaining % 60).padStart(2, "0")}`}
               </span>
@@ -1308,6 +1307,7 @@ export function MetronomeWidget({
           </div>
 
           {/* Quick Presets */}
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">PRACTICE MODES</span>
           <div className="flex gap-1.5 flex-wrap mt-2">
             {[
               { label: "1/16 Mode", href: "/metronome-with-subdivisions" },
