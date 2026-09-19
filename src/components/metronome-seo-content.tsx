@@ -99,7 +99,7 @@ export function MetronomeSeoContent() {
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">Free Online Metronome &amp; Beat Generator: Core Concepts</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Whether you use a traditional device or generate <strong>metronome beats online</strong>, a metronome produces a regular, audible pulse (a click or tick) at a speed you can set. As a responsive <strong>app metronome</strong> running directly in your browser, this tool helps musicians stay perfectly in time on any device. The speed is measured in BPM (beats per minute). For example, a tempo of 60 BPM equals one beat per second; 120 BPM equals two beats per second. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
+          Whether you use a traditional device or generate <strong>metronome beats online</strong>, a metronome produces a regular, audible pulse (a click or tick) at a speed you can set. As a responsive <strong>app metronome</strong> running directly in your browser, this tool helps musicians stay perfectly in time on any device. The speed is measured in BPM (beats per minute). For example, a tempo of 60 BPM equals one beat per second; 120 BPM equals two beats per second. This online metronome covers a tempo range from 1 to 500 BPM, wider than most physical metronomes, making it suitable for both extremely slow practice tempos and very fast passages. Use our <Link href="/bpm-calculator" className="text-primary hover:underline font-bold">BPM Calculator</Link> for advanced tempo conversions.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Think of the metronome as your personal timekeeper. It doesn&apos;t judge; it simply gives you a steady rhythmic reference. Whether you&apos;re practicing scales, learning a new piece, or recording in a studio, it keeps you locked into the tempo.
@@ -129,9 +129,18 @@ export function MetronomeSeoContent() {
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-sm">3. Accent the First Beat</h3>
+            <h3 className="font-semibold text-sm">3. Adjust Beat Dynamics (Accent, Normal, Ghost, and Mute)</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Turn on the accent option to make the first beat of each measure louder or higher-pitched. This helps you feel the musical phrase, not just an endless series of identical clicks.
+              Beyond accenting the first beat, you can control the loudness of every single beat in the measure. Each beat has four states, and you cycle through them by clicking on the beat dots:
+            </p>
+            <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-5">
+              <li><strong>Accent (A)</strong> — the loudest level, ideal for the first beat of a measure or any beat you want to stand out.</li>
+              <li><strong>Normal (N)</strong> — the standard, even-tempo click.</li>
+              <li><strong>Ghost (G)</strong> — a much quieter, softer click for practicing dynamic control and coordination.</li>
+              <li><strong>Mute (M)</strong> — completely silent, so you can build custom rhythmic patterns and test your internal timekeeping.</li>
+            </ul>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Mix and match these states: keep the first beat on Accent for a clear downbeat, drop selected beats to Ghost for a quarter-note pulse feel, or mute a beat entirely for target practice that makes your internal pulse do the work.
             </p>
           </div>
           <div>
@@ -147,6 +156,12 @@ export function MetronomeSeoContent() {
             </p>
           </div>
         </div>
+      <div>
+        <h3 className="font-semibold text-sm">6. Save Your Setup as a Favorite</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          When you dial in a tempo, time signature, sound, swing, and accent pattern that you want to reuse, save the complete setup as a named favorite. One click restores the entire configuration -- handy for teachers assigning specific metronome settings for students, or musicians returning to the same drills week after week.
+        </p>
+      </div>
       </section>
 
       {/* Types of Metronomes */}
@@ -256,6 +271,26 @@ export function MetronomeSeoContent() {
         </p>
       </section>
 
+      {/* Swing & Feel */}
+      <section className="space-y-3">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Swing & Feel: Straight, Triplet, Dotted, and Adjustable Swing</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Swing (or feel) shifts the timing of the "off" subdivision slightly later than the straight-click spacing, creating a shuffle or groove feel instead of perfectly even gaps. This is common in jazz, blues, funk, and shuffle-based rock.
+        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          The tool offers four swing presets and a fine-tuning slider:
+        </p>
+        <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-5">
+          <li><strong>Straight</strong> — no swing; every beat is evenly spaced.</li>
+          <li><strong>Triplet</strong> — classic jazz swing ratio (two-thirds of the beat, delaying the second note).</li>
+          <li><strong>Dotted</strong> — a heavier shuffle feel, dividing the beat into a dotted rhythm.</li>
+          <li><strong>Swing</strong> — the default swing feel, typically around a 66 % delay.</li>
+        </ul>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Adjust the slider to fine‑tune the exact swing percentage for your musical style.
+        </p>
+      </section>
+
       {/* 6/4 Time Signature and Compound Meter */}
       <section className="space-y-3">
         <h2 className="text-xl md:text-2xl font-serif font-bold">6/4 Time Signature and Compound Meter: Going Beyond 4/4</h2>
@@ -276,6 +311,27 @@ export function MetronomeSeoContent() {
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Exercise: Many musicians initially struggle with 6/8 because they count six separate beats instead of feeling two larger pulses. Practicing with accented subdivisions often resolved this issue more effectively than increasing tempo.
+        </p>
+      </section>
+
+      {/* Odd Meters & Custom Time Signatures */}
+      <section className="space-y-3">
+        <h2 className="text-xl md:text-2xl font-serif font-bold">Odd Meters & Custom Time Signatures</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Beyond the standard 4/4, the tool supports a variety of time signatures and a flexible custom builder.
+        </p>
+        <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-5">
+          <li>2/4 -- march-like, punchy feel</li>
+          <li>3/4 -- waltz time, common for ballads</li>
+          <li>4/4 -- common time, the default</li>
+          <li>5/4 -- an odd meter with a natural sense of forward motion</li>
+          <li>6/8 -- compound meter, often felt in two groups of three</li>
+          <li>7/8 -- asymmetric, frequently used in progressive rock</li>
+          <li>9/8 -- triplet-based compound meter</li>
+          <li>12/8 -- deep shuffle feel, common in blues and gospel</li>
+        </ul>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          The custom time signature builder lets you create any meter by choosing any number of beats and any note value -- for example, 11/8 or 13/16. Odd meters are essential for progressive rock, jazz composition, film scoring, and contemporary classical music, where unconventional groupings create unique rhythmic textures.
         </p>
       </section>
 
@@ -327,11 +383,10 @@ export function MetronomeSeoContent() {
         </p>
         <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-5">
           <li>Click (standard)</li>
+          <li>Beep (electronic, easy to hear)</li>
+          <li>Woodblock (dry, punchy tone)</li>
           <li>Cowbell (clear attack)</li>
-          <li>Snare drum (for drummers)</li>
-          <li>Conga (for Latin grooves)</li>
-          <li>Electronic beep (easy to hear)</li>
-          <li>Human voice (counts &ldquo;1, 2, 3, 4&rdquo; aloud)</li>
+          <li>Snare (for drummers)</li>
         </ul>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Experiment with different sounds. Some musicians prefer a low-pitched tone for downbeats and a higher-pitched tone for upbeats.
