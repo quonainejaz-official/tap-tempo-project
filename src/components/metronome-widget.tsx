@@ -119,7 +119,7 @@ interface Favorite {
   customTimeActive: boolean
   customBeats: number | null
   customUnit: 4 | 8 | 16
-  soundStyle: "click" | "beep" | "woodblock"
+  soundStyle: "click" | "beep" | "woodblock" | "cowbell" | "snare"
   subdivision: Subdivision
   swing: number
   swingPreset: SwingPreset
@@ -138,7 +138,7 @@ interface MetronomeWidgetProps {
   defaultBpm?: number
   defaultSignature?: string
   defaultBeatStates?: BeatState[]
-  defaultSound?: "click" | "beep" | "woodblock"
+  defaultSound?: "click" | "beep" | "woodblock" | "cowbell" | "snare"
   defaultGapClick?: boolean
   defaultPlayBars?: number
   defaultSilentBars?: number
@@ -167,7 +167,7 @@ export function MetronomeWidget({
   const [customBeats, setCustomBeats] = useState<number | null>(null)
   const [customUnit, setCustomUnit] = useState<4 | 8 | 16>(4)
   const [beat, setBeat] = useState(-1)
-  const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock">(defaultSound ?? "click")
+  const [soundStyle, setSoundStyle] = useState<"click" | "beep" | "woodblock" | "cowbell" | "snare">(defaultSound ?? "click")
   const [subdivision, setSubdivision] = useState<Subdivision>(defaultSubdivision)
   const [swing, setSwing] = useState(0.5)
   const [swingPreset, setSwingPreset] = useState<SwingPreset>("straight")
@@ -208,7 +208,7 @@ export function MetronomeWidget({
   const bpmRef = useRef(bpm)
   const volumeRef = useRef(volume)
   const numBeatsRef = useRef(parseInt(signature.split("/")[0]))
-  const soundStyleRef = useRef<"click" | "beep" | "woodblock">(defaultSound ?? "click")
+  const soundStyleRef = useRef<"click" | "beep" | "woodblock" | "cowbell" | "snare">(defaultSound ?? "click")
   const subdRef = useRef(subdivision)
   const swingRef = useRef(swing)
   const beatStatesRef = useRef(beatStates)
@@ -399,6 +399,64 @@ export function MetronomeWidget({
       gain.connect(ctx.destination)
       source.start(t)
       source.stop(t + 0.04)
+      return
+    }
+
+    if (style === "cowbell") {
+      const baseFreq = freq >= 800 ? 880 : 620
+      const osc1 = ctx.createOscillator()
+      const osc2 = ctx.createOscillator()
+      osc1.type = "square"
+      osc1.frequency.setValueAtTime(baseFreq, t)
+      osc2.type = "square"
+      osc2.frequency.setValueAtTime(baseFreq * 2.76, t)
+      const filter = ctx.createBiquadFilter()
+      filter.type = "bandpass"
+      filter.frequency.value = baseFreq * 2
+      filter.Q.value = 0.8
+      const gain = ctx.createGain()
+      gain.gain.setValueAtTime(vol * 0.4, t)
+      gain.gain.exponentialRampToValueAtTime(0.01, t + 0.06)
+      osc1.connect(filter)
+      osc2.connect(filter)
+      filter.connect(gain)
+      gain.connect(ctx.destination)
+      osc1.start(t)
+      osc2.start(t)
+      osc1.stop(t + 0.06)
+      osc2.stop(t + 0.06)
+      return
+    }
+
+    if (style === "snare") {
+      const bufferSize = ctx.sampleRate * 0.09
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+      const data = buffer.getChannelData(0)
+      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1
+      const source = ctx.createBufferSource()
+      source.buffer = buffer
+      const filter = ctx.createBiquadFilter()
+      filter.type = "highpass"
+      filter.frequency.value = freq >= 800 ? 2400 : 1800
+      filter.Q.value = 0.6
+      const noiseGain = ctx.createGain()
+      noiseGain.gain.setValueAtTime(vol * 0.65, t)
+      noiseGain.gain.exponentialRampToValueAtTime(0.01, t + 0.045)
+      const osc = ctx.createOscillator()
+      osc.type = "triangle"
+      osc.frequency.setValueAtTime(freq >= 800 ? 205 : 175, t)
+      const oscGain = ctx.createGain()
+      oscGain.gain.setValueAtTime(vol * 0.45, t)
+      oscGain.gain.exponentialRampToValueAtTime(0.01, t + 0.055)
+      source.connect(filter)
+      filter.connect(noiseGain)
+      noiseGain.connect(ctx.destination)
+      osc.connect(oscGain)
+      oscGain.connect(ctx.destination)
+      source.start(t)
+      source.stop(t + 0.09)
+      osc.start(t)
+      osc.stop(t + 0.06)
       return
     }
 
@@ -1102,7 +1160,7 @@ export function MetronomeWidget({
         <div className="mt-2.5">
           <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
           <div className="flex gap-1.5">
-            {(["click", "beep", "woodblock"] as const).map(s => (
+            {(["click", "beep", "woodblock", "cowbell", "snare"] as const).map(s => (
               <button key={s} onClick={() => setSoundStyle(s)}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-all capitalize ${
                   soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
