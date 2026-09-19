@@ -111,6 +111,27 @@ interface QueueNote {
   isSubdivision: boolean
 }
 
+interface Favorite {
+  name: string
+  bpm: number
+  volume: number
+  signature: string
+  customTimeActive: boolean
+  customBeats: number | null
+  customUnit: 4 | 8 | 16
+  soundStyle: "click" | "beep" | "woodblock"
+  subdivision: Subdivision
+  swing: number
+  swingPreset: SwingPreset
+  isGapActive: boolean
+  playBars: number
+  silentBars: number
+  isRandomMuteActive: boolean
+  randomMutePercent: number
+  timerMinutes: number
+  beatStates: BeatState[]
+}
+
 interface MetronomeWidgetProps {
   defaultSubdivision?: Subdivision
   showSubdivisions?: boolean
@@ -160,6 +181,10 @@ export function MetronomeWidget({
   const [isRandomMuteActive, setIsRandomMuteActive] = useState(defaultRandomMute ?? false)
   const [randomMutePercent, setRandomMutePercent] = useState(defaultRandomMutePercent ?? 15)
   const [quickTempoSelection, setQuickTempoSelection] = useState<number | null>(null)
+
+  const [favorites, setFavorites] = useState<Favorite[]>([])
+  const [isSavingFavorite, setIsSavingFavorite] = useState(false)
+  const [favoriteName, setFavoriteName] = useState("")
 
   const [timerMinutes, setTimerMinutes] = useState(0)
   const [timeRemaining, setTimeRemaining] = useState(0)
@@ -240,6 +265,18 @@ export function MetronomeWidget({
       if (!isNaN(parsed)) setBpm(Math.max(1, Math.min(500, parsed)))
     }
   }, [defaultBpm])
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("taptempo_favorites")
+      if (raw) {
+        const parsed = JSON.parse(raw)
+        if (Array.isArray(parsed)) setFavorites(parsed as Favorite[])
+      }
+    } catch {
+      setFavorites([])
+    }
+  }, [])
 
   const initAudio = useCallback(() => {
     const engine = AudioEngine.getInstance()
@@ -693,6 +730,84 @@ export function MetronomeWidget({
     }
   }, [customBeats])
 
+  const saveFavorite = useCallback(() => {
+    const trimmed = favoriteName.trim().slice(0, 30)
+    if (trimmed === "") return
+    const fav: Favorite = {
+      name: trimmed,
+      bpm,
+      volume,
+      signature,
+      customTimeActive,
+      customBeats,
+      customUnit,
+      soundStyle,
+      subdivision,
+      swing,
+      swingPreset,
+      isGapActive,
+      playBars,
+      silentBars,
+      isRandomMuteActive,
+      randomMutePercent,
+      timerMinutes,
+      beatStates: [...beatStates],
+    }
+    setFavorites(prev => {
+      const next = [...prev.filter(f => f.name.toLowerCase() !== trimmed.toLowerCase()), fav]
+      try {
+        localStorage.setItem("taptempo_favorites", JSON.stringify(next))
+      } catch {
+        // storage unavailable — keep in-memory list only
+      }
+      return next
+    })
+    setIsSavingFavorite(false)
+    setFavoriteName("")
+  }, [favoriteName, bpm, volume, signature, customTimeActive, customBeats, customUnit, soundStyle, subdivision, swing, swingPreset, isGapActive, playBars, silentBars, isRandomMuteActive, randomMutePercent, timerMinutes, beatStates])
+
+  const applyFavorite = useCallback((fav: Favorite) => {
+    handleBpmInput(fav.bpm)
+
+    if (fav.customTimeActive && fav.customBeats !== null) {
+      const beats = Math.max(1, Math.min(32, fav.customBeats))
+      const unit = fav.customUnit === 8 || fav.customUnit === 16 ? fav.customUnit : 4
+      setCustomTimeActive(true)
+      setCustomBeats(beats)
+      setCustomUnit(unit)
+      setSignature(`${beats}/${unit}`)
+    } else {
+      setSignature(/^\d+\/\d+$/.test(fav.signature) ? fav.signature : "4/4")
+      setCustomTimeActive(false)
+      setCustomBeats(null)
+    }
+
+    setVolume(Math.max(0, Math.min(1, fav.volume)))
+    setSoundStyle(fav.soundStyle)
+    setSubdivision(fav.subdivision)
+    setSwing(fav.swing)
+    setSwingPreset(fav.swingPreset)
+    setIsGapActive(fav.isGapActive)
+    setPlayBars(Math.max(1, Math.min(16, fav.playBars)))
+    setSilentBars(Math.max(1, Math.min(16, fav.silentBars)))
+    setIsRandomMuteActive(fav.isRandomMuteActive)
+    setRandomMutePercent(Math.max(0, Math.min(50, fav.randomMutePercent)))
+    setBeatStates(prev => fav.beatStates.slice(0, parseInt(fav.signature.split("/")[0]) || prev.length))
+    selectTimerPreset(fav.timerMinutes)
+  }, [handleBpmInput, selectTimerPreset])
+
+  const deleteFavorite = useCallback((name: string) => {
+    setFavorites(prev => {
+      const next = prev.filter(f => f.name !== name)
+      try {
+        localStorage.setItem("taptempo_favorites", JSON.stringify(next))
+      } catch {
+        // storage unavailable — keep in-memory list only
+      }
+      return next
+    })
+  }, [])
+
   const numBeats = parseInt(signature.split("/")[0])
 
   return (
@@ -880,6 +995,58 @@ export function MetronomeWidget({
               </div>
             )
           })}
+        </div>
+
+        {/* Favorites */}
+        <div className="w-full flex flex-col gap-1.5 mt-3">
+          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider shrink-0">Favorites</span>
+          {isSavingFavorite ? (
+            <div className="flex items-center gap-1.5">
+              <input
+                autoFocus
+                maxLength={30}
+                value={favoriteName}
+                onChange={e => setFavoriteName(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter") saveFavorite() }}
+                aria-label="Favorite name"
+                placeholder="Name this setup"
+                className="flex-1 min-w-0 text-xs border border-[#D9D9D9] rounded-full px-3 py-1.5 bg-white text-[#595959] focus:border-[#1565FF] outline-none"
+              />
+              <button onClick={saveFavorite} aria-label="Save favorite"
+                className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#1565FF] text-white shadow-sm">
+                Save
+              </button>
+              <button onClick={() => { setIsSavingFavorite(false); setFavoriteName("") }} aria-label="Cancel"
+                className="px-3 py-1.5 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#595959] bg-white">
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setIsSavingFavorite(true)}
+              className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#1565FF] text-white shadow-sm">
+              Save current setup
+            </button>
+          )}
+          {favorites.length === 0 ? (
+            <p className="text-[10px] text-muted-foreground font-mono leading-none">No favorites saved yet</p>
+          ) : (
+            <div className="flex flex-wrap gap-1.5">
+              {favorites.map(fav => (
+                <div key={fav.name}
+                  className="inline-flex items-center max-w-full rounded-full border border-[#D9D9D9] bg-white shadow-sm transition-all hover:border-[#1565FF]">
+                  <button onClick={() => applyFavorite(fav)}
+                    className="pl-3 pr-1.5 py-1 text-xs font-medium text-[#595959] hover:text-[#1565FF] min-w-0">
+                    <span className="block max-w-[180px] truncate">{fav.name}</span>
+                  </button>
+                  <button onClick={() => deleteFavorite(fav.name)}
+                    aria-label={`Delete favorite ${fav.name}`}
+                    className="pr-2.5 pl-1 py-1 text-xs font-bold text-muted-foreground hover:text-[#FF3B30] transition-colors">
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
