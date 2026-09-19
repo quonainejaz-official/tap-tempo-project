@@ -770,9 +770,19 @@ export function MetronomeWidget({
           {Array.from({ length: numBeats }).map((_, i) => {
             const state = beatStates[i] || "N"
             const isActive = i === beat && playing
+            const stateClass =
+              state === "A"
+                ? "bg-[#1565FF] border border-[#1565FF] shadow-[0_0_6px_rgba(21,101,255,0.7)]"
+                : state === "G"
+                ? "bg-[#E5E7EB]/70 border border-[#D9D9D9]"
+                : state === "M"
+                ? "bg-white border-2 border-[#D9D9D9]"
+                : "bg-[#595959] border border-[#595959]"
             const dotClass = isActive && state !== "M"
-              ? "bg-[#1565FF] scale-125 shadow-[0_0_12px_rgba(21,101,255,0.6)]"
-              : "bg-[#E5E7EB] hover:bg-[#D1D5DB] border border-[#D9D9D9]"
+              ? `${stateClass} scale-125 ring-2 ring-[#1565FF]/30 shadow-[0_0_12px_rgba(21,101,255,0.6)]`
+              : isActive
+              ? `${stateClass} opacity-70`
+              : stateClass
             return (
               <button key={i} onClick={() => cycleBeatState(i)}
                 className={`w-4 h-4 rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
@@ -845,6 +855,31 @@ export function MetronomeWidget({
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Beat State Legend */}
+        <div className="flex justify-center gap-x-4 gap-y-1.5 flex-wrap mt-3">
+          {([
+            { state: "A", label: "Accent" },
+            { state: "N", label: "Normal" },
+            { state: "G", label: "Ghost" },
+            { state: "M", label: "Mute" },
+          ]).map(({ state, label }) => {
+            const sampleClass =
+              state === "A"
+                ? "bg-[#1565FF] border border-[#1565FF] shadow-[0_0_6px_rgba(21,101,255,0.7)]"
+                : state === "G"
+                ? "bg-[#E5E7EB]/70 border border-[#D9D9D9]"
+                : state === "M"
+                ? "bg-white border-2 border-[#D9D9D9]"
+                : "bg-[#595959] border border-[#595959]"
+            return (
+              <div key={state} className="flex items-center gap-1.5">
+                <span className={`w-4 h-4 rounded-full shrink-0 ${sampleClass}`} aria-hidden="true" />
+                <span className="text-[10px] text-muted-foreground font-mono leading-none">{label}</span>
+              </div>
+            )
+          })}
         </div>
       </div>
 
