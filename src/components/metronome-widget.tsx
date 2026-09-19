@@ -1173,9 +1173,9 @@ export function MetronomeWidget({
         {/* Subdivisions + Swing */}
         {showSubdivisions && (
           <div className="mt-2.5">
-            <div className="grid grid-cols-1 gap-y-1.5 sm:grid-cols-[auto_1px_auto] sm:items-center sm:gap-x-1.5 sm:gap-y-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 sm:col-start-1 sm:row-start-1">Subdivisions</span>
-              <div className="flex flex-wrap items-center gap-1.5 sm:col-start-1 sm:row-start-2">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1.5">Subdivisions</span>
+              <div className="flex flex-wrap items-center gap-1.5">
                 {subdivisions.map(s => (
                   <button key={s.value} onClick={() => setSubdivision(s.value)}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
@@ -1184,9 +1184,10 @@ export function MetronomeWidget({
                   >{s.label}</button>
                 ))}
               </div>
-              <div className="hidden sm:block sm:col-start-2 sm:row-start-2 w-px self-stretch bg-border shrink-0" aria-hidden="true" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 sm:col-start-3 sm:row-start-1">Swing</span>
-              <div className="flex flex-wrap items-center gap-1.5 sm:col-start-3 sm:row-start-2">
+            </div>
+            <div className="mt-2.5">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1.5">Swing</span>
+              <div className="flex flex-wrap items-center gap-1.5">
                 {swingPresets.map(p => (
                   <button key={p.value} aria-pressed={swingPreset === p.value}
                     onClick={() => { setSwing(p.fraction); setSwingPreset(p.value) }}
@@ -1196,22 +1197,22 @@ export function MetronomeWidget({
                   >{p.label}</button>
                 ))}
               </div>
-            </div>
-            <div className="flex items-center gap-3 mt-2">
-              <Slider
-                value={[swing * 100]} min={50} max={75} step={0.1}
-                onValueChange={v => {
-                  const frac = v[0] / 100
-                  setSwing(frac)
-                  const match = swingPresets.find(p => Math.abs(p.fraction - frac) < 0.0005)
-                  setSwingPreset(match ? match.value : "custom")
-                }}
-                aria-label="Swing amount"
-                className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
-              />
-              <span className="text-xs font-mono text-muted-foreground w-12 text-right shrink-0">
-                {Number((swing * 100).toFixed(1))}%
-              </span>
+              <div className="flex items-center gap-3 mt-2">
+                <Slider
+                  value={[swing * 100]} min={50} max={75} step={0.1}
+                  onValueChange={v => {
+                    const frac = v[0] / 100
+                    setSwing(frac)
+                    const match = swingPresets.find(p => Math.abs(p.fraction - frac) < 0.0005)
+                    setSwingPreset(match ? match.value : "custom")
+                  }}
+                  aria-label="Swing amount"
+                  className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+                />
+                <span className="text-xs font-mono text-muted-foreground w-12 text-right shrink-0">
+                  {Number((swing * 100).toFixed(1))}%
+                </span>
+              </div>
             </div>
           </div>
         )}
