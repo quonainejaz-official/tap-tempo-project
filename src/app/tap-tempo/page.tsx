@@ -249,6 +249,31 @@ export default function TapTempoPage() {
   const [bpmScale, setBpmScale] = useState<"asTapped"|"half"|"double">("asTapped")
   const ringIdRef = useRef(0)
 
+  const stats = useMemo(() => {
+    // AVERAGE BPM across all taps in the session
+    const intervalArray = taps.length > 1
+      ? Array.from({ length: taps.length - 1 }, (_, i) => taps[i + 1].timestamp - taps[i].timestamp)
+      : [];
+    const averageInterval = intervalArray.reduce((a, b) => a + b, 0) / intervalArray.length;
+    const averageBpm = averageInterval > 0 ? Math.round(60000 / averageInterval) : null;
+
+    // LAST 8 TAPS average BPM (rolling window of up to 8 most recent taps)
+    const last8 = taps.slice(-8);
+    const last8Intervals = last8.length > 1
+      ? Array.from({ length: last8.length - 1 }, (_, i) => last8[i + 1].timestamp - last8[i].timestamp)
+      : [];
+    const last8AvgInterval = last8Intervals.reduce((a, b) => a + b, 0) / last8Intervals.length;
+    const last8Bpm = last8AvgInterval > 0 ? Math.round(60000 / last8AvgInterval) : null;
+
+    // Raw interval between the two most recent taps (ms)
+    const lastInterval = intervalArray.length > 0 ? intervalArray[intervalArray.length - 1] : 0;
+
+    // Total tap count (same logic as existing "X taps" display)
+    const totalTaps = tapCount;
+
+    return { averageBpm, last8Bpm, lastInterval, totalTaps };
+  }, [taps, tapCount]);
+
   const idleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const flashIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const latestBpmRef = useRef<number>(0)
@@ -443,22 +468,17 @@ export default function TapTempoPage() {
 
 
 
-                <div className="flex items-center gap-2 h-6">
-                  {tapCount > 0 && (
-                    <Badge variant={isStable ? "default" : "secondary"} className="font-mono text-xs">
-                      {tapCount} taps
-                    </Badge>
-                  )}
-                  {tapCount >= 2 && (
-                    <span className={`text-sm ${isStable ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
-                      {isStable ? (
-                        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Stable</span>
-                      ) : (
-                        "Tap more to stabilize"
-                      )}
-                    </span>
-                  )}
-                </div>
+                {tapCount >= 2 && (
+                  <span className={`text-sm ${isStable ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
+                    {isStable ? (
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Stable
+                      </span>
+                    ) : (
+                      "Tap more to stabilize"
+                    )}
+                  </span>
+                )}
               </div>
             )}
 
@@ -581,23 +601,36 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {activeBpm !== null && activeBpm > 0 && (
-        <div className="mt-3 p-2.5 px-4 rounded-xl border bg-card/80">
-          <div className="grid grid-cols-3 gap-2 mb-2.5" role="group" aria-label="BPM scale">
+        <div className="mt-2 px-3 rounded-xl border bg-card/80">
+          {/* Row 1: BPM scale boxes (identical styling to Row 2 stats boxes) */}
+          <div className="flex flex-col sm:flex-row gap-1.5 sm:w-full sm:grid sm:grid-cols-3">
             {([["asTapped", "As tapped"], ["half", "Half-time"], ["double", "Double-time"]] as const).map(([val, label]) => (
-              <button
-                key={val}
-                type="button"
-                onClick={(e) => { e.stopPropagation(); handleBpmScale(val) }}
-                className={`flex flex-col items-center gap-1 py-2.5 rounded-xl border transition-all ${bpmScale === val ? "bg-primary/10 border-primary/40 shadow-glow-accent" : "border-muted hover:bg-secondary/60 text-muted-foreground"}`}
-              >
-                <span className={`font-mono font-bold text-lg leading-none ${bpmScale === val ? "text-primary" : "text-foreground"}`}>
-                  {val === "asTapped" ? bpm : val === "half" ? Math.round((bpm ?? 0) / 2) : Math.round((bpm ?? 0) * 2)}
-                </span>
-                <span className={`text-[10px] font-semibold uppercase tracking-wide ${bpmScale === val ? "text-primary" : "text-muted-foreground"}`}>{label}</span>
-              </button>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">{label}</span>
+                <span className="font-bold text-sm">{val === "asTapped" ? bpm : val === "half" ? Math.round((bpm ?? 0) / 2) : Math.round((bpm ?? 0) * 2)}</span>
+              </div>
             ))}
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
+          {/* Row 2: Stats boxes */}
+          <div className="flex flex-col sm:flex-row gap-1.5 mt-1 sm:mt-0 sm:w-full sm:grid sm:grid-cols-4">
+            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+              <span className="text-xs uppercase text-muted-foreground">AVERAGE</span>
+              <span className="font-bold text-sm">{stats.averageBpm ?? "—"}</span>
+            </div>
+            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+              <span className="text-xs uppercase text-muted-foreground">LAST 8 TAPS</span>
+              <span className="font-bold text-sm">{stats.last8Bpm ?? "—"}</span>
+            </div>
+            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+              <span className="text-xs uppercase text-muted-foreground">INTERVAL</span>
+              <span className="font-bold text-sm">{stats.lastInterval > 0 ? `${Math.round(stats.lastInterval)} ms` : "—"}</span>
+            </div>
+            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+              <span className="text-xs uppercase text-muted-foreground">TAPS</span>
+              <span className="font-bold text-sm">{tapCount}</span>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm mt-2">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -613,13 +646,13 @@ export default function TapTempoPage() {
             <div className="flex items-center gap-2 ml-auto">
               <a
                 href={`/bpm-to-ms?bpm=${activeBpm}`}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
+                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
               >
                 Convert to MS ({Math.round(60000 / (activeBpm ?? 0))}ms) →
               </a>
               <a
                 href={`/delay-reverb-time-calculator?bpm=${activeBpm}`}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
+                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
               >
                 Delay Calculator →
               </a>
