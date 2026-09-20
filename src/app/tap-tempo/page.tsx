@@ -246,6 +246,7 @@ export default function TapTempoPage() {
   const [volume, setVolume] = useState(1)
   const [rings, setRings] = useState<{id: number, time: number}[]>([])
   const [lastMethod, setLastMethod] = useState<"touch"|"keyboard"|"space"|null>(null)
+  const [bpmScale, setBpmScale] = useState<"asTapped"|"half"|"double">("asTapped")
   const ringIdRef = useRef(0)
 
   const idleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -256,15 +257,38 @@ export default function TapTempoPage() {
   const displayBpm = useSpring(0, { stiffness: 300, damping: 30 })
   const roundedBpm = useTransform(displayBpm, v => Math.round(v))
 
+  const activeBpm = bpm !== null
+    ? bpmScale === "half" ? Math.round(bpm / 2)
+    : bpmScale === "double" ? Math.round(bpm * 2)
+    : bpm
+    : null
+
+  const handleBpmScale = (scale: "asTapped"|"half"|"double") => {
+    if (scale === "asTapped" && bpmScale === "asTapped") return
+    if (scale === "half" && bpmScale === "half") return
+    if (scale === "double" && bpmScale === "double") return
+    setBpmScale(scale)
+  }
+
+  // Reset scale selection whenever the tapped BPM changes (new taps, reset, presets, slider)
   useEffect(() => {
-    if (bpm !== null) {
-      displayBpm.set(bpm)
-      latestBpmRef.current = bpm
+    setBpmScale("asTapped")
+  }, [bpm])
+
+  useEffect(() => {
+    if (activeBpm !== null) {
+      displayBpm.set(activeBpm)
+      latestBpmRef.current = bpm ?? 0
     } else {
       displayBpm.set(0)
       latestBpmRef.current = 0
     }
-  }, [bpm, displayBpm])
+  }, [bpm, activeBpm, displayBpm])
+
+  // Reset scale selection to "As tapped" whenever the tapped BPM changes (new tap or Reset)
+  useEffect(() => {
+    setBpmScale("asTapped")
+  }, [bpm])
 
   const triggerSingleFlash = useCallback(() => {
     setIsFlashing(true)
@@ -351,8 +375,8 @@ export default function TapTempoPage() {
 
   const copyBpm = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (bpm) {
-      navigator.clipboard.writeText(bpm.toString())
+    if (activeBpm) {
+      navigator.clipboard.writeText(activeBpm.toString())
       toast.success("Copied to clipboard!")
     }
   }
@@ -414,8 +438,10 @@ export default function TapTempoPage() {
                 </div>
 
                 <div className="font-mono text-8xl md:text-[120px] font-bold tracking-tighter leading-none py-4 text-foreground drop-shadow-sm">
-                  {bpm === null ? "---" : <motion.span>{roundedBpm}</motion.span>}
+                  {activeBpm === null ? "---" : <motion.span>{roundedBpm}</motion.span>}
                 </div>
+
+
 
                 <div className="flex items-center gap-2 h-6">
                   {tapCount > 0 && (
@@ -462,9 +488,9 @@ export default function TapTempoPage() {
                   <DrawerTitle>Recent Sessions</DrawerTitle>
                 </DrawerHeader>
                 <div className="p-4 flex flex-col gap-2 max-w-sm mx-auto w-full">
-                  {bpm ? (
+                  {activeBpm ? (
                     <div className="flex justify-between items-center p-3 rounded bg-muted">
-                      <span className="font-mono font-bold text-xl">{bpm} BPM</span>
+                      <span className="font-mono font-bold text-xl">{activeBpm} BPM</span>
                       <span className="text-sm text-muted-foreground">Just now</span>
                     </div>
                   ) : (
@@ -554,8 +580,23 @@ export default function TapTempoPage() {
         )}
       </AnimatePresence>
 
-      {bpm !== null && bpm > 0 && (
+      {activeBpm !== null && activeBpm > 0 && (
         <div className="mt-3 p-2.5 px-4 rounded-xl border bg-card/80">
+          <div className="grid grid-cols-3 gap-2 mb-2.5" role="group" aria-label="BPM scale">
+            {([["asTapped", "As tapped"], ["half", "Half-time"], ["double", "Double-time"]] as const).map(([val, label]) => (
+              <button
+                key={val}
+                type="button"
+                onClick={(e) => { e.stopPropagation(); handleBpmScale(val) }}
+                className={`flex flex-col items-center gap-1 py-2.5 rounded-xl border transition-all ${bpmScale === val ? "bg-primary/10 border-primary/40 shadow-glow-accent" : "border-muted hover:bg-secondary/60 text-muted-foreground"}`}
+              >
+                <span className={`font-mono font-bold text-lg leading-none ${bpmScale === val ? "text-primary" : "text-foreground"}`}>
+                  {val === "asTapped" ? bpm : val === "half" ? Math.round((bpm ?? 0) / 2) : Math.round((bpm ?? 0) * 2)}
+                </span>
+                <span className={`text-[10px] font-semibold uppercase tracking-wide ${bpmScale === val ? "text-primary" : "text-muted-foreground"}`}>{label}</span>
+              </button>
+            ))}
+          </div>
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
@@ -563,21 +604,21 @@ export default function TapTempoPage() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
               <span className="text-muted-foreground font-medium">
-                Target: <strong className="text-foreground font-bold">{bpm} BPM</strong>
+                Target: <strong className="text-foreground font-bold">{activeBpm} BPM</strong>
               </span>
               <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
-                {getTempoMarking(bpm)}
+                {getTempoMarking(activeBpm)}
               </span>
             </div>
             <div className="flex items-center gap-2 ml-auto">
               <a
-                href={`/bpm-to-ms?bpm=${bpm}`}
+                href={`/bpm-to-ms?bpm=${activeBpm}`}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
               >
-                Convert to MS ({Math.round(60000 / bpm)}ms) →
+                Convert to MS ({Math.round(60000 / (activeBpm ?? 0))}ms) →
               </a>
               <a
-                href={`/delay-reverb-time-calculator?bpm=${bpm}`}
+                href={`/delay-reverb-time-calculator?bpm=${activeBpm}`}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
               >
                 Delay Calculator →
