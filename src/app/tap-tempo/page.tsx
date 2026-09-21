@@ -15,6 +15,13 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Slider } from "@/components/ui/slider"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Copy, History, Activity, Music2, Moon } from "lucide-react"
 import { toast } from "sonner"
 import { SeoContent } from "@/components/seo-content"
@@ -251,6 +258,8 @@ export default function TapTempoPage() {
   const [lastMethod, setLastMethod] = useState<"touch"|"keyboard"|"space"|null>(null)
   const [bpmScale, setBpmScale] = useState<"asTapped"|"half"|"double">("asTapped")
   const ringIdRef = useRef(0)
+  const [autoResetMin, setAutoResetMin] = useState(0)
+  const [autoResetSec, setAutoResetSec] = useState(0)
 
   const stats = useMemo(() => {
     // AVERAGE BPM across all taps in the session
@@ -281,6 +290,38 @@ export default function TapTempoPage() {
   const flashIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const latestBpmRef = useRef<number>(0)
   const [isFlashing, setIsFlashing] = useState(false)
+
+  const autoResetMinRef = useRef(0)
+  const autoResetSecRef = useRef(0)
+  const autoResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const clearAutoResetTimer = () => {
+    if (autoResetTimerRef.current) {
+      clearTimeout(autoResetTimerRef.current)
+      autoResetTimerRef.current = null
+    }
+  }
+
+  const performReset = () => {
+    clearAutoResetTimer()
+    stopMetronome()
+    reset()
+    setRings([])
+    if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
+    if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
+    latestBpmRef.current = 0
+    setIsFlashing(false)
+  }
+
+  const scheduleAutoReset = () => {
+    clearAutoResetTimer()
+    const totalMs = (autoResetMinRef.current * 60 + autoResetSecRef.current) * 1000
+    if (totalMs <= 0) return
+    autoResetTimerRef.current = setTimeout(() => {
+      autoResetTimerRef.current = null
+      performReset()
+    }, totalMs)
+  }
 
   const displayBpm = useSpring(0, { stiffness: 300, damping: 30 })
   const roundedBpm = useTransform(displayBpm, v => Math.round(v))
@@ -335,6 +376,7 @@ export default function TapTempoPage() {
     return () => {
       if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
       if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
+      clearAutoResetTimer()
     }
   }, [])
 
@@ -388,6 +430,8 @@ export default function TapTempoPage() {
       if (sound === "cowbell") playCowbell(volume)
     }
 
+    scheduleAutoReset()
+
     wake()
   }
 
@@ -431,13 +475,7 @@ export default function TapTempoPage() {
 
   const handleReset = (e: React.MouseEvent) => {
     e.stopPropagation()
-    stopMetronome()
-    reset()
-    setRings([])
-    if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
-    if (flashIntervalRef.current) clearInterval(flashIntervalRef.current)
-    latestBpmRef.current = 0
-    setIsFlashing(false)
+    performReset()
   }
 
   const copyBpm = (e: React.MouseEvent) => {
@@ -534,33 +572,35 @@ export default function TapTempoPage() {
 
         {/* BOX 2 & 3: Right Column */}
         <div className="lg:col-span-1 flex flex-col justify-between gap-3.5 h-full">
-          <div className="flex flex-wrap gap-2 p-3 rounded-xl border bg-card">
-            <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={handleReset} disabled={!bpm}>Reset</Button>
-            <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
-              <Copy className="w-4 h-4 mr-2" /> Copy
-            </Button>
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" disabled={!bpm}>
-                  <History className="w-4 h-4 mr-2" /> History
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>Recent Sessions</DrawerTitle>
-                </DrawerHeader>
-                <div className="p-4 flex flex-col gap-2 max-w-sm mx-auto w-full">
-                  {activeBpm ? (
-                    <div className="flex justify-between items-center p-3 rounded bg-muted">
-                      <span className="font-mono font-bold text-xl">{activeBpm} BPM</span>
-                      <span className="text-sm text-muted-foreground">Just now</span>
-                    </div>
-                  ) : (
-                    <p className="text-center text-muted-foreground py-8">No recent sessions.</p>
-                  )}
-                </div>
-              </DrawerContent>
-            </Drawer>
+          <div className="flex flex-col gap-2 p-3 rounded-xl border bg-card">
+            <Button variant="outline" size="sm" className="w-full" onClick={handleReset} disabled={!bpm}>Reset</Button>
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Auto-Reset after</span>
+              <div className="flex items-center gap-1.5">
+                <Select value={String(autoResetMin)} onValueChange={(v) => { const val = Number(v); setAutoResetMin(val); autoResetMinRef.current = val; scheduleAutoReset() }}>
+                  <SelectTrigger className="h-7 w-14 rounded border border-input bg-transparent px-1.5 text-xs shadow-none focus:ring-1 focus:ring-ring [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Array.from({ length: 11 }, (_, i) => (
+                      <SelectItem key={i} value={String(i)}>{i}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <span className="text-xs text-muted-foreground shrink-0">min</span>
+                <Select value={String(autoResetSec)} onValueChange={(v) => { const val = Number(v); setAutoResetSec(val); autoResetSecRef.current = val; scheduleAutoReset() }}>
+                  <SelectTrigger className="h-7 w-14 rounded border border-input bg-transparent px-1.5 text-xs shadow-none focus:ring-1 focus:ring-ring [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Array.from({ length: 60 }, (_, i) => (
+                      <SelectItem key={i} value={String(i)}>{i}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <span className="text-xs text-muted-foreground shrink-0">sec</span>
+              </div>
+            </div>
           </div>
 
           <div className="flex-1 flex flex-col justify-between rounded-xl border bg-card p-3.5">
@@ -572,6 +612,33 @@ export default function TapTempoPage() {
             >
               <Activity className="w-3.5 h-3.5 mr-1.5" /> {showGraph ? "Hide" : "Show"} Graph
             </Button>
+            <div className="flex flex-wrap gap-1.5">
+              <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" onClick={copyBpm} disabled={!bpm}>
+                <Copy className="w-4 h-4 mr-2" /> Copy
+              </Button>
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex-1 min-w-[80px]" disabled={!bpm}>
+                    <History className="w-4 h-4 mr-2" /> History
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle>Recent Sessions</DrawerTitle>
+                  </DrawerHeader>
+                  <div className="p-4 flex flex-col gap-2 max-w-sm mx-auto w-full">
+                    {activeBpm ? (
+                      <div className="flex justify-between items-center p-3 rounded bg-muted">
+                        <span className="font-mono font-bold text-xl">{activeBpm} BPM</span>
+                        <span className="text-sm text-muted-foreground">Just now</span>
+                      </div>
+                    ) : (
+                      <p className="text-center text-muted-foreground py-8">No recent sessions.</p>
+                    )}
+                  </div>
+                </DrawerContent>
+              </Drawer>
+            </div>
             <Button
               variant={showMusic ? "default" : "outline"}
               size="sm"
