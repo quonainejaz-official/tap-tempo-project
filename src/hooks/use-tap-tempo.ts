@@ -14,7 +14,14 @@ const MAX_TAPS = 8
 const MAX_GRAPH_POINTS = 30
 const TIMEOUT_MS = 3000
 
-export function useTapTempo() {
+// Single source of truth for how the "Tap on" bar multiplier is applied:
+// the base tapped BPM (rounded 60000/interval, existing formula) is computed
+// first, then the multiplier is applied once on top of that base BPM.
+export function applyTapMultiplier(baseBpm: number, multiplier: number): number {
+  return Math.round(baseBpm * multiplier)
+}
+
+export function useTapTempo(multiplierRef: { current: number }) {
   const [bpm, setBpm] = useState<number | null>(null)
   const [taps, setTaps] = useState<TapData[]>([])
   const tapTimesRef = useRef<number[]>([])
@@ -71,7 +78,7 @@ export function useTapTempo() {
 
       // Instantaneous BPM: BPM from only the most recent interval
       rawInterval = intervals[intervals.length - 1]
-      instantBpm = Math.round(60000 / rawInterval)
+      instantBpm = applyTapMultiplier(Math.round(60000 / rawInterval), multiplierRef.current)
 
       // Outlier rejection for rolling average (discard >2.5x of simple mean)
       const simpleAvg = intervals.reduce((a, b) => a + b, 0) / intervals.length
@@ -87,7 +94,7 @@ export function useTapTempo() {
           weightTotal += w
         })
         const finalAvg = weightedSum / weightTotal
-        rollingBpm = Math.round(60000 / finalAvg)
+        rollingBpm = applyTapMultiplier(Math.round(60000 / finalAvg), multiplierRef.current)
         setBpm(rollingBpm)
         localStorage.setItem("taptempo_last_bpm", rollingBpm.toString())
       }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion"
-import { useTapTempo, type TapData } from "@/hooks/use-tap-tempo"
+import { useTapTempo, applyTapMultiplier, type TapData } from "@/hooks/use-tap-tempo"
 import { useSleepDetect } from "@/hooks/use-sleep-detect"
 import { useAudioEngine } from "@/hooks/use-audio-engine"
 import { Button } from "@/components/ui/button"
@@ -228,6 +228,19 @@ function TapGraph({ taps }: { taps: TapData[] }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+// "Tap on" time-signature grouping. Multiplier applied once on top of the base
+// tapped BPM (per-bar beat counts): 4/4 = 4 beats, 3/4 = 3 beats, 6/8 = 6 beats.
+// For 6/8 the beat count matches the metronome tool's interpretation
+// (top number of the signature = beats per bar; see metronome-widget.tsx).
+const TAP_ON_OPTIONS = [
+  { value: "beat", label: "Every beat", multiplier: 1 },
+  { value: "bar_44", label: "Every bar (4/4)", multiplier: 4 },
+  { value: "bar_34", label: "Every bar (3/4)", multiplier: 3 },
+  { value: "bar_68", label: "Every bar (6/8)", multiplier: 6 },
+] as const
+
+type TapOnValue = (typeof TAP_ON_OPTIONS)[number]["value"]
+
 function getTempoMarking(bpm: number): string {
   if (bpm < 25) return "Larghissimo"
   if (bpm < 45) return "Grave"
@@ -243,7 +256,8 @@ function getTempoMarking(bpm: number): string {
 }
 
 export default function TapTempoPage() {
-  const { bpm, taps, tap, reset, tapCount } = useTapTempo()
+  const tapOnMultiplierRef = useRef(1)
+  const { bpm, taps, tap, reset, tapCount } = useTapTempo(tapOnMultiplierRef)
   const { state: sleepState, wake, setSleeping } = useSleepDetect()
   const { init, playKick, playClap, playHiHat, playCowbell } = useAudioEngine()
 
@@ -260,6 +274,12 @@ export default function TapTempoPage() {
   const ringIdRef = useRef(0)
   const [autoResetMin, setAutoResetMin] = useState(0)
   const [autoResetSec, setAutoResetSec] = useState(0)
+  const [tapOn, setTapOn] = useState<TapOnValue>("beat")
+  const tapOnMultiplier = TAP_ON_OPTIONS.find(o => o.value === tapOn)?.multiplier ?? 1
+
+  useEffect(() => {
+    tapOnMultiplierRef.current = tapOnMultiplier
+  }, [tapOnMultiplier])
 
   const stats = useMemo(() => {
     // AVERAGE BPM across all taps in the session
@@ -267,7 +287,7 @@ export default function TapTempoPage() {
       ? Array.from({ length: taps.length - 1 }, (_, i) => taps[i + 1].timestamp - taps[i].timestamp)
       : [];
     const averageInterval = intervalArray.reduce((a, b) => a + b, 0) / intervalArray.length;
-    const averageBpm = averageInterval > 0 ? Math.round(60000 / averageInterval) : null;
+    const averageBpm = averageInterval > 0 ? applyTapMultiplier(Math.round(60000 / averageInterval), tapOnMultiplier) : null;
 
     // LAST 8 TAPS average BPM (rolling window of up to 8 most recent taps)
     const last8 = taps.slice(-8);
@@ -275,7 +295,7 @@ export default function TapTempoPage() {
       ? Array.from({ length: last8.length - 1 }, (_, i) => last8[i + 1].timestamp - last8[i].timestamp)
       : [];
     const last8AvgInterval = last8Intervals.reduce((a, b) => a + b, 0) / last8Intervals.length;
-    const last8Bpm = last8AvgInterval > 0 ? Math.round(60000 / last8AvgInterval) : null;
+    const last8Bpm = last8AvgInterval > 0 ? applyTapMultiplier(Math.round(60000 / last8AvgInterval), tapOnMultiplier) : null;
 
     // Raw interval between the two most recent taps (ms)
     const lastInterval = intervalArray.length > 0 ? intervalArray[intervalArray.length - 1] : 0;
@@ -284,7 +304,7 @@ export default function TapTempoPage() {
     const totalTaps = tapCount;
 
     return { averageBpm, last8Bpm, lastInterval, totalTaps };
-  }, [taps, tapCount]);
+  }, [taps, tapCount, tapOnMultiplier]);
 
   const idleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const flashIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -484,6 +504,12 @@ export default function TapTempoPage() {
       navigator.clipboard.writeText(activeBpm.toString())
       toast.success("Copied to clipboard!")
     }
+  }
+
+  const handleTapOnChange = (value: string) => {
+    if (!TAP_ON_OPTIONS.some(o => o.value === value)) return
+    setTapOn(value as TapOnValue)
+    performReset()
   }
 
   const isStable = tapCount >= 4
@@ -747,7 +773,19 @@ export default function TapTempoPage() {
                 <span className="text-xs uppercase text-muted-foreground">DOUBLE-TIME</span>
                 <span className="font-bold text-sm">{Math.round((bpm ?? 0) * 2)}</span>
               </div>
-              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card/60"></div>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">TAP ON</span>
+                <Select value={tapOn} onValueChange={handleTapOnChange}>
+                  <SelectTrigger className="h-5 w-full rounded border border-input bg-transparent px-2 text-xs shadow-none focus:ring-1 focus:ring-ring [&>svg]:h-3 [&>svg]:w-3 [&>svg]:opacity-60">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {TAP_ON_OPTIONS.map(o => (
+                      <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             {/* Bottom: Target / Convert to MS / Delay Calculator */}
             <div className="mt-2 pt-2 border-t flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
