@@ -244,6 +244,9 @@ export default function TapTempoPage() {
   const [showMusic, setShowMusic] = useState(true)
   const [sound, setSound] = useState<"kick"|"clap"|"hihat"|"cowbell">("kick")
   const [volume, setVolume] = useState(1)
+  const [metronomePlaying, setMetronomePlaying] = useState(false)
+  const [metronomeDot, setMetronomeDot] = useState(0)
+  const metronomeTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const [rings, setRings] = useState<{id: number, time: number}[]>([])
   const [lastMethod, setLastMethod] = useState<"touch"|"keyboard"|"space"|null>(null)
   const [bpmScale, setBpmScale] = useState<"asTapped"|"half"|"double">("asTapped")
@@ -388,8 +391,47 @@ export default function TapTempoPage() {
     wake()
   }
 
+
+  const METRONOME_DOTS = 6
+
+  const playMetronomeTick = () => {
+    if (sound === "kick") playKick(volume)
+    if (sound === "clap") playClap(volume)
+    if (sound === "hihat") playHiHat(volume)
+    if (sound === "cowbell") playCowbell(volume)
+  }
+
+  const stopMetronome = () => {
+    if (metronomeTimerRef.current) {
+      clearInterval(metronomeTimerRef.current)
+      metronomeTimerRef.current = null
+    }
+    setMetronomePlaying(false)
+    setMetronomeDot(0)
+  }
+
+  const startMetronome = () => {
+    stopMetronome()
+    if (activeBpm === null || activeBpm <= 0) return
+    setMetronomePlaying(true)
+    setMetronomeDot(0)
+    let step = 0
+    const tick = () => {
+      playMetronomeTick()
+      step += 1
+      setMetronomeDot(step)
+      if (step >= METRONOME_DOTS) stopMetronome()
+    }
+    tick()
+    metronomeTimerRef.current = setInterval(
+      tick,
+      Math.max(1, Math.round(60000 / activeBpm))
+    )
+  }
+
   const handleReset = (e: React.MouseEvent) => {
     e.stopPropagation()
+    stopMetronome()
     reset()
     setRings([])
     if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current)
@@ -601,61 +643,99 @@ export default function TapTempoPage() {
       </AnimatePresence>
 
       {activeBpm !== null && activeBpm > 0 && (
-        <div className="mt-2 px-3 rounded-xl border bg-card/80">
-          {/* Row 1: BPM scale boxes (identical styling to Row 2 stats boxes) */}
-          <div className="flex flex-col sm:flex-row gap-1.5 sm:w-full sm:grid sm:grid-cols-3">
-            {([["asTapped", "As tapped"], ["half", "Half-time"], ["double", "Double-time"]] as const).map(([val, label]) => (
+        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+          <div className="lg:col-span-2">
+            <div className="px-3 rounded-xl border bg-card/80 min-h-full">
+            {/* Row 1: Taps / Interval / Average / Last 8 Taps */}
+            <div className="flex flex-col justify-evenly flex-1 gap-1.5">
+            <div className="flex flex-col sm:flex-row gap-1.5 sm:w-full sm:grid sm:grid-cols-4">
               <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-                <span className="text-xs uppercase text-muted-foreground">{label}</span>
-                <span className="font-bold text-sm">{val === "asTapped" ? bpm : val === "half" ? Math.round((bpm ?? 0) / 2) : Math.round((bpm ?? 0) * 2)}</span>
+                <span className="text-xs uppercase text-muted-foreground">TAPS</span>
+                <span className="font-bold text-sm">{tapCount}</span>
               </div>
-            ))}
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">INTERVAL</span>
+                <span className="font-bold text-sm">{stats.lastInterval > 0 ? `${Math.round(stats.lastInterval)} ms` : "—"}</span>
+              </div>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">AVERAGE</span>
+                <span className="font-bold text-sm">{stats.averageBpm ?? "—"}</span>
+              </div>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">LAST 8 TAPS</span>
+                <span className="font-bold text-sm">{stats.last8Bpm ?? "—"}</span>
+              </div>
+            </div>
+            {/* Row 2: As Tapped / Half-Time / Double-Time / (empty) */}
+            <div className="flex flex-col sm:flex-row gap-1.5 mt-1 sm:mt-0 sm:w-full sm:grid sm:grid-cols-4">
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">AS TAPPED</span>
+                <span className="font-bold text-sm">{bpm ?? "—"}</span>
+              </div>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">HALF-TIME</span>
+                <span className="font-bold text-sm">{Math.round((bpm ?? 0) / 2)}</span>
+              </div>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+                <span className="text-xs uppercase text-muted-foreground">DOUBLE-TIME</span>
+                <span className="font-bold text-sm">{Math.round((bpm ?? 0) * 2)}</span>
+              </div>
+              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card/60"></div>
+            </div>
+            {/* Bottom: Target / Convert to MS / Delay Calculator */}
+            <div className="mt-2 pt-2 border-t flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                <span className="text-muted-foreground font-medium">
+                  Target: <strong className="text-foreground font-bold">{activeBpm} BPM</strong>
+                </span>
+                <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
+                  {getTempoMarking(activeBpm)}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 ml-auto">
+                <a
+                  href={`/bpm-to-ms?bpm=${activeBpm}`}
+                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
+                >
+                  Convert to MS ({Math.round(60000 / (activeBpm ?? 0))}ms) →
+                </a>
+                <a
+                  href={`/delay-reverb-time-calculator?bpm=${activeBpm}`}
+                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
+                >
+                  Delay Calculator →
+                </a>
+              </div>
+            </div>
+</div>
+            </div>
           </div>
-          {/* Row 2: Stats boxes */}
-          <div className="flex flex-col sm:flex-row gap-1.5 mt-1 sm:mt-0 sm:w-full sm:grid sm:grid-cols-4">
-            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-              <span className="text-xs uppercase text-muted-foreground">AVERAGE</span>
-              <span className="font-bold text-sm">{stats.averageBpm ?? "—"}</span>
-            </div>
-            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-              <span className="text-xs uppercase text-muted-foreground">LAST 8 TAPS</span>
-              <span className="font-bold text-sm">{stats.last8Bpm ?? "—"}</span>
-            </div>
-            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-              <span className="text-xs uppercase text-muted-foreground">INTERVAL</span>
-              <span className="font-bold text-sm">{stats.lastInterval > 0 ? `${Math.round(stats.lastInterval)} ms` : "—"}</span>
-            </div>
-            <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-              <span className="text-xs uppercase text-muted-foreground">TAPS</span>
-              <span className="font-bold text-sm">{tapCount}</span>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm mt-2">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              <span className="text-muted-foreground font-medium">
-                Target: <strong className="text-foreground font-bold">{activeBpm} BPM</strong>
-              </span>
-              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
-                {getTempoMarking(activeBpm)}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 ml-auto">
-              <a
-                href={`/bpm-to-ms?bpm=${activeBpm}`}
-                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
+         <div className="lg:col-span-1 rounded-xl border bg-card/80 min-h-full">
+            <div className="flex flex-col gap-3 p-4">
+              <h2 className="text-sm font-semibold">Metronome Check</h2>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Tap your level, then hit Play to hear the click at the active tempo.
+              </p>
+              <div className="flex items-center gap-1.5" aria-label="Metronome progress">
+                {Array.from({ length: METRONOME_DOTS }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-2 w-2 rounded-full transition-colors ${i < metronomeDot ? "bg-primary" : "bg-muted"}`}
+                  />
+                ))}
+              </div>
+              <Button
+                variant={metronomePlaying ? "outline" : "default"}
+                size="sm"
+                onClick={(e) => { e.stopPropagation(); metronomePlaying ? stopMetronome() : startMetronome() }}
+                className="w-full"
               >
-                Convert to MS ({Math.round(60000 / (activeBpm ?? 0))}ms) →
-              </a>
-              <a
-                href={`/delay-reverb-time-calculator?bpm=${activeBpm}`}
-                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
-              >
-                Delay Calculator →
-              </a>
+                {metronomePlaying ? "Stop click" : "Play click"}
+              </Button>
             </div>
           </div>
         </div>
