@@ -5,7 +5,7 @@ import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Hand, Plus, Minus } from "lucide-react"
+import { Hand, Plus, Minus, Activity, Volume2, Gauge, Target } from "lucide-react"
 
 const MAX_TAPS = 8
 const RESET_MS = 3000
@@ -72,6 +72,20 @@ function TapButton({ tapPulse, onTap }: TapButtonProps) {
       </span>
       {tapPulse && <span className="absolute inset-0 rounded-xl border-2 border-[#1565FF] animate-ping opacity-30" />}
     </button>
+  )
+}
+
+function SectionCard({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+      <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+          {icon}
+        </span>
+        <span className="text-xs font-bold uppercase tracking-wider text-gray-800">{title}</span>
+      </div>
+      <div className="p-2.5">{children}</div>
+    </div>
   )
 }
 
@@ -1110,7 +1124,9 @@ export function MetronomeWidget({
       </div>
 
       {/* ── RIGHT COLUMN ─────────────────────────────────────── */}
-      <div className="lg:col-span-7 h-full flex flex-col justify-between rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+      <div className="lg:col-span-7 h-full flex flex-col gap-2 rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+        {/* RHYTHM */}
+        <SectionCard icon={<Activity size={14} strokeWidth={2.5} />} title="Rhythm">
         {/* Time Signatures */}
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Time Signature</span>
@@ -1157,23 +1173,9 @@ export function MetronomeWidget({
           )}
         </div>
 
-        {/* Sound Style */}
-        <div className="mt-2.5">
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
-          <div className="flex gap-1.5">
-            {(["click", "beep", "woodblock", "cowbell", "snare"] as const).map(s => (
-              <button key={s} onClick={() => setSoundStyle(s)}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-all capitalize ${
-                  soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
-                }`}
-              >{s}</button>
-            ))}
-          </div>
-        </div>
-
         {/* Subdivisions + Swing */}
         {showSubdivisions && (
-          <div className="mt-2.5">
+          <div className="mt-3">
             <div>
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1.5">Subdivisions</span>
               <div className="flex flex-wrap items-center gap-1.5">
@@ -1216,10 +1218,24 @@ export function MetronomeWidget({
               </div>
             </div>
           </div>
-        )}
+        )}</SectionCard>
 
-        {/* Tempo Presets */}
-        <div className="mt-2.5">
+        {/* SOUND */}
+        <SectionCard icon={<Volume2 size={14} strokeWidth={2.5} />} title="Sound">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
+          <div className="flex gap-1.5">
+            {(["click", "beep", "woodblock", "cowbell", "snare"] as const).map(s => (
+              <button key={s} onClick={() => setSoundStyle(s)}
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-all capitalize ${
+                  soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                }`}
+              >{s}</button>
+            ))}
+          </div>
+        </SectionCard>
+
+        {/* TEMPO PRESETS */}
+        <SectionCard icon={<Gauge size={14} strokeWidth={2.5} />} title="Tempo Presets">
           <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Tempo Presets</span>
           <div className="flex gap-1.5 flex-wrap">
             {presets.map(p => (
@@ -1228,10 +1244,10 @@ export function MetronomeWidget({
               >{p.label} <span className="ml-0.5">{p.val}</span></button>
             ))}
           </div>
-        </div>
+        </SectionCard>
 
-        {/* Practice Tools */}
-        <div className="flex-1 border-t border-gray-200 pt-2 mt-2.5">
+        {/* PRACTICE */}
+        <SectionCard icon={<Target size={14} strokeWidth={2.5} />} title="Practice">
           <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Practice Tools</span>
 
           {/* Gap Click */}
@@ -1320,7 +1336,7 @@ export function MetronomeWidget({
               >{p.label}</Link>
             ))}
           </div>
-        </div>
+        </SectionCard>
       </div>
     </div>
   )
