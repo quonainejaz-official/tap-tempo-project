@@ -245,7 +245,7 @@ export const content = `<p>On a classic hardware sampler, shifting a sound up or
 <li><a href="https://www.thetaptempo.com/blog/pitch-percentage-bpm" class="text-primary hover:underline font-bold">Pitch Percentage to BPM: What the Numbers Actually Mean</a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-tempo-affects-emotion" class="text-primary hover:underline font-bold">How Tempo Affects Emotion in Music</a></li>
 <li><a href="https://www.thetaptempo.com/blog/why-slow-practice-makes-better-musician" class="text-primary hover:underline font-bold">Why Slow Practice Makes You a Better Musician</a></li>
+<li><a href="/blog/master-tempo-vs-key-lock" class="text-primary hover:underline font-bold">Master Tempo vs Key Lock: Serato & Rekordbox Guide</a></li>
 </ul>
-
 <p>Ready to work out your own numbers? The <a href="https://www.thetaptempo.com/pitch-tempo-calculator" class="text-primary hover:underline font-bold">Pitch Tempo Calculator</a> applies the exact formula from this guide so you can find the resulting BPM for any semitone shift before you commit to a resample.</p>
 `;

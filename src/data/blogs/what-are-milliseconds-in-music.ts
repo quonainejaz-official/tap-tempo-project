@@ -178,8 +178,8 @@ export const content = `
 <li><a href="https://www.thetaptempo.com/blog/how-to-find-bpm-of-any-song"><strong>How to Find the BPM of Any Song</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/practice-with-a-metronome"><strong>How to Practice with a Metronome</strong></a></li>
 <li><a href="https://www.thetaptempo.com/blog/how-djs-calculate-bpm"><strong>How DJs Calculate BPM Before Mixing Songs</strong></a></li>
+<li><a href="/blog/master-tempo-vs-key-lock" class="text-primary hover:underline font-bold">Master Tempo vs Key Lock: Serato & Rekordbox Guide</a></li>
 </ul>
-
 <p>Milliseconds may seem like tiny numbers, but they're one of the foundations of modern digital audio. From recording performances and editing tracks to processing audio and keeping projects synchronized, milliseconds allow software to measure time with the precision that music production demands.</p>
 
 <p>The important thing to remember is that milliseconds don't replace musical concepts like tempo; they complement them. They provide a universal way of measuring extremely short periods of time, allowing producers and engineers to work accurately across countless recording and editing tasks.</p>
