@@ -5,7 +5,7 @@ import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Hand, Plus, Minus, Activity, Gauge, Target } from "lucide-react"
+import { Hand, Plus, Minus, Activity, Gauge, Target, Download } from "lucide-react"
 
 const MAX_TAPS = 8
 const RESET_MS = 3000
@@ -150,6 +150,31 @@ interface Favorite {
   speedIntervalBars: number
   timerMinutes: number
   beatStates: BeatState[]
+}
+
+function sanitizeFavoriteFileName(name: string): string {
+  const base = name
+    .toLowerCase()
+    .trim()
+    .replace(/[/\\:*?"<>|]+/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/[^a-z0-9-_]/g, "")
+    .replace(/^-+|-+$/g, "")
+  return base || "metronome-setup"
+}
+
+export function downloadFavoriteAsJson(favorite: Favorite): void {
+  const content = JSON.stringify(favorite, null, 2)
+  const blob = new Blob([content], { type: "application/json" })
+  const objectUrl = URL.createObjectURL(blob)
+  const anchor = document.createElement("a")
+  anchor.href = objectUrl
+  anchor.download = `${sanitizeFavoriteFileName(favorite.name)}.json`
+  document.body.appendChild(anchor)
+  anchor.click()
+  anchor.remove()
+  URL.revokeObjectURL(objectUrl)
 }
 
 interface MetronomeWidgetProps {
@@ -1232,6 +1257,11 @@ export function MetronomeWidget({
                   <button onClick={() => applyFavorite(fav)}
                     className="pl-3 pr-1.5 py-1 text-xs font-medium text-[#595959] hover:text-[#1565FF] min-w-0">
                     <span className="block max-w-[180px] truncate">{fav.name}</span>
+                  </button>
+                  <button onClick={() => downloadFavoriteAsJson(fav)}
+                    aria-label={`Download favorite ${fav.name}`}
+                    className="pl-1 pr-1 py-1 text-muted-foreground hover:text-[#1565FF] transition-colors">
+                    <Download size={13} strokeWidth={2} />
                   </button>
                   <button onClick={() => deleteFavorite(fav.name)}
                     aria-label={`Delete favorite ${fav.name}`}
