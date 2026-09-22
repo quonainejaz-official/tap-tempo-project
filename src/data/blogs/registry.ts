@@ -1557,6 +1557,57 @@ export const hardcodedBlogs: HardcodedBlogMeta[] = [
     }
   ]
 },
+{
+  "slug": "master-tempo-vs-key-lock",
+  "title": "Master Tempo vs Key Lock: Serato & Rekordbox Guide",
+  "excerpt": "Learn what Master Tempo and Key Lock really do, why they can cause audio artifacts, how pitch shifts affect the Camelot Wheel, and when to turn Key Lock off.",
+  "metaTitle": "Master Tempo vs Key Lock: Serato & Rekordbox Guide | TheTapTempo",
+  "metaDescription": "Learn what Master Tempo and Key Lock really do, why they can cause audio artifacts, how pitch shifts affect the Camelot Wheel, and when to turn Key Lock off.",
+  "coverImage": "/images/blog/master-tempo-vs-key-lock-comparison.webp",
+  "coverImagePublicId": "",
+  "coverImageAlt": "Comparison chart showing Key Lock off vs Key Lock on — tempo change, pitch behavior, processing trade-off, and typical DJ use case for each setting",
+  "author": "TheTapTempo Editorial Team",
+  "readTime": "12 min read",
+  "tags": [
+    "master tempo",
+    "key lock",
+    "serato",
+    "rekordbox",
+    "camelot wheel",
+    "pitch shift",
+    "harmonic mixing",
+    "time-stretching",
+    "djing"
+  ],
+  "createdAt": "2026-09-22T00:00:00.000Z",
+  "updatedAt": "2026-09-22T00:00:00.000Z",
+  "faqs": [
+    {
+      "q": "What is the difference between Master Tempo and Key Lock?",
+      "a": "They're generally different names for the same function: changing tempo while attempting to preserve pitch. Serato uses \"Key Lock\"; rekordbox and AlphaTheta hardware generally use \"Master Tempo.\" The underlying DSP engine isn't guaranteed to be identical across platforms, but the user-facing goal is the same."
+    },
+    {
+      "q": "Does pitch shifting without Key Lock ruin harmonic mixing?",
+      "a": "Not necessarily, but it can move a track's sounding pitch away from its analyzed Camelot key, especially with larger tempo adjustments, while the displayed label stays the same. For short transitions or small corrections, the drift is often too small to matter. For large or sustained shifts during a harmonic blend, Key Lock helps keep that displayed label meaningful."
+    },
+    {
+      "q": "Why does my music sound robotic or phased when Key Lock is ON?",
+      "a": "Key Lock relies on pitch-preserving time and frequency processing, and that reprocessing can introduce transient smearing, phasiness, or vocal warbling, especially on larger shifts or exposed vocal and synth material. AlphaTheta documents this as an expected part of the feature's specification, not a sign something is broken. Before assuming Key Lock is the cause, also rule out clipping, gain staging, and source file quality."
+    },
+    {
+      "q": "How far can you pitch shift a song before it sounds bad?",
+      "a": "There's no universal safe percentage that holds across every algorithm and track. It depends on the source material, how exposed the vocals or transients are, and the specific software's processing. Auditioning the actual track is more reliable than any fixed rule."
+    },
+    {
+      "q": "Does pitch shift change the key on the Camelot wheel?",
+      "a": "With Key Lock off, yes, pitch and key move together with tempo, even though the software's library label typically doesn't update in real time. With Key Lock on, the software works to keep the analyzed key stable during the tempo change. Camelot movement follows circle-of-fifths logic, not simple semitone counting, so a one-semitone shift does not equal a one-number move on the wheel."
+    },
+    {
+      "q": "Should Key Lock always be on?",
+      "a": "No. It's well suited to large or sustained tempo changes and harmonically sensitive blends, but it's often unnecessary, and sometimes audibly worse, for small corrections, short transitions, or scratching, where natural speed-linked pitch movement can sound cleaner than the processed alternative."
+    }
+  ]
+}
 ]
 
 export function getHardcodedBlogMeta(slug: string): HardcodedBlogMeta | undefined {

@@ -28,6 +28,7 @@ import { content as c26 } from "@/data/blogs/musical-phrases"
 import { content as c27 } from "@/data/blogs/measure-numbers-in-music"
 import { content as c28 } from "@/data/blogs/pitch-percentage-bpm"
 import { content as c29 } from "@/data/blogs/semitones-to-bpm-shift"
+import { content as c30 } from "@/data/blogs/master-tempo-vs-key-lock"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -62,6 +63,7 @@ const blogContentMap: Record<string, string> = {
   "measure-numbers-in-music": c27,
   "pitch-percentage-bpm": c28,
   "semitones-to-bpm-shift": c29,
+  "master-tempo-vs-key-lock": c30,
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
