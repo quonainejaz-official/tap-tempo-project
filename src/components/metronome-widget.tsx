@@ -1455,35 +1455,35 @@ export function MetronomeWidget({
             </button>
           </div>
           {speedTrainerEnabled && (
-            <div className="space-y-1 pl-2 pb-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] text-muted-foreground shrink-0">Start</span>
+            <div className="mt-1.5 mb-2 pl-2">
+              <div className="grid grid-cols-[auto_auto_auto_auto_auto] items-center gap-x-2 gap-y-1">
+                <span className="text-[10px] text-muted-foreground whitespace-nowrap">Start</span>
                 <input type="number" min={1} max={500} inputMode="numeric" value={speedStartTempo}
                   onChange={e => handleSpeedStartInput(e.target.value)}
                   aria-label="Speed Trainer Start Tempo"
                   className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
-                <span className="text-[10px] text-muted-foreground shrink-0">End</span>
+                <span />
                 <input type="number" min={1} max={500} inputMode="numeric" value={speedEndTempo}
                   onChange={e => handleSpeedEndInput(e.target.value)}
                   aria-label="Speed Trainer End Tempo"
                   className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] text-muted-foreground shrink-0">+</span>
+                <span className="text-[10px] text-muted-foreground whitespace-nowrap">End</span>
+
+                <span className="text-[10px] text-muted-foreground whitespace-nowrap">+</span>
                 <input type="number" min={1} max={50} inputMode="numeric" value={speedStepSize}
                   onChange={e => handleSpeedStepInput(e.target.value)}
                   aria-label="Speed Trainer Step Size"
-                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                  className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
-                <span className="text-[10px] text-muted-foreground shrink-0">BPM every</span>
+                <span className="text-[10px] text-muted-foreground whitespace-nowrap">BPM Every</span>
                 <input type="number" min={1} max={16} inputMode="numeric" value={speedIntervalBars}
                   onChange={e => handleSpeedIntervalInput(e.target.value)}
                   aria-label="Speed Trainer Increment Interval"
-                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                  className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
-                <span className="text-[10px] text-muted-foreground shrink-0">bars</span>
+                <span className="text-[10px] text-muted-foreground whitespace-nowrap">Bars</span>
               </div>
             </div>
           )}
