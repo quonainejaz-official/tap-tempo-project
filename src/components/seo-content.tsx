@@ -50,7 +50,7 @@ function StepCard({ num, title, desc }: { num: number; title: string; desc: Reac
   )
 }
 
-function MistakeCard({ num, title, desc, fix }: { num: number; title: string; desc: string; fix: string }) {
+function MistakeCard({ num, title, desc, fix, extra }: { num: number; title: string; desc: string; fix: string; extra?: string }) {
   return (
     <div className="p-4 rounded-xl border border-destructive/30 bg-destructive/5 space-y-2">
       <div className="flex items-start gap-2">
@@ -64,6 +64,9 @@ function MistakeCard({ num, title, desc, fix }: { num: number; title: string; de
         <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
         <p className="text-xs text-green-800 dark:text-green-400 font-medium">{fix}</p>
       </div>
+      {extra && (
+        <p className="text-xs text-green-800 dark:text-green-400 font-medium pl-6">{extra}</p>
+      )}
     </div>
   )
 }
@@ -184,6 +187,7 @@ export function SeoContent() {
           If the average interval between your taps is 0.5 seconds, the BPM is <code className="px-1.5 py-0.5 rounded bg-muted text-foreground font-mono text-xs">60 ÷ 0.5 = 120 BPM</code>.
           Most tools, including ours, average several of the most recent intervals to produce a smooth, stable reading.
           That&apos;s why tapping 8–12 times yields a significantly more reliable BPM detection than just hitting the button twice.
+          You can watch this process happen live: the tool displays AS TAPPED (your current calculated tempo), AVERAGE (the mean across your whole session), LAST 8 TAPS (a rolling average of only your most recent taps), INTERVAL (the raw millisecond gap between your last two taps), and TAPS (your total tap count). When LAST 8 TAPS converges toward AVERAGE, that&apos;s a reliable sign your tapping has stabilized.
         </p>
       </Collapsible>
 
@@ -199,7 +203,7 @@ export function SeoContent() {
           <StepCard num={1} title="Start your song" desc="Play the track from any source, Spotify, a DAW session, a YouTube video, or even a vinyl record. Place yourself in a quiet enough environment to focus on the percussion." />
           <StepCard num={2} title="Tap the beat, not the melody" desc="Identify the core pulse. In most popular music, the kick drum and snare provide the strongest reference. For classical or ambient pieces without drums, listen for the rhythmic phrasing of the melody itself." />
           <StepCard num={3} title="Keep tapping until the number stabilizes" desc="BPM readings typically settle within ±1 BPM after 8–12 consistent taps on songs with a steady tempo, while live recordings often required additional taps for a stable average." />
-          <StepCard num={4} title="Interpret your result" desc={<>The large number you see is your average BPM. If you tapped exactly on every quarter note, that&apos;s the song&apos;s tempo. Hit the reset button to clear the memory and start fresh. Curious how reliable that number really is? See our full breakdown in <Link href="/blog/how-accurate-is-tap-tempo" className="text-primary hover:underline font-bold">How Accurate Is Tap Tempo?</Link>.</>} />
+          <StepCard num={4} title="Interpret your result" desc={<>The large number you see is your average BPM. If you tapped exactly on every quarter note, that&apos;s the song&apos;s tempo. Hit the reset button to clear the memory and start fresh. If you&apos;d rather this happen automatically, set &quot;Auto-Reset after&quot; (in minutes and seconds) so the tool clears itself after a period of inactivity, handy when moving between songs without stopping to reset manually. You can also verify your tapped tempo instantly without leaving the page: pick your tap sound, then hit &quot;Play click&quot; under Metronome Check to hear a short click track at the exact BPM you tapped, and play it alongside the original track to confirm it stays locked in. Curious how reliable that number really is? See our full breakdown in <Link href="/blog/how-accurate-is-tap-tempo" className="text-primary hover:underline font-bold">How Accurate Is Tap Tempo?</Link>.</>} />
           <StepCard num={5} title="Apply the BPM immediately" desc={<>Enter it into your metronome, set your DAW to that BPM, align the beat grid in DJ software, or use our <Link href="/bpm-to-ms" className="text-primary hover:underline font-bold">BPM to Milliseconds Calculator</Link> for exact delay timing.</>} />
           <p className="text-xs text-muted-foreground">Try the <Link href="/delay-reverb-time-calculator" className="text-primary hover:underline font-bold">Delay & Reverb Time Calculator</Link> for precise pedal and effect settings.</p>
         </div>
@@ -230,9 +234,9 @@ export function SeoContent() {
         <div className="space-y-3">
           <MistakeCard num={1} title="Tapping only 2 or 3 times" desc="A two-tap measurement gives you a single interval, which is the definition of unreliable. If your second tap is even slightly early, your BPM could be off by 20." fix="Go for 8–12 taps minimum. If the rhythm is complex, go to 16." />
           <MistakeCard num={2} title="Tapping the melody instead of the beat" desc="Vocals and lead guitar lines often weave around the pulse. If you tap along to the singer's phrasing, your BPM reading will be chaotic." fix="Focus exclusively on the drum kit or the steady bass rhythm." />
-          <MistakeCard num={3} title="Confusing eighth notes for quarter notes" desc="If you tap twice per beat (eighth notes), the tapper will return a BPM that is double the actual tempo. A 90 BPM hip-hop track will read as 180 BPM." fix="Ask yourself: Am I tapping the foot-stomping pulse, or a faster subdivision?" />
+          <MistakeCard num={3} title="Confusing eighth notes for quarter notes" desc="If you tap twice per beat (eighth notes), the tapper will return a BPM that is double the actual tempo. A 90 BPM hip-hop track will read as 180 BPM." fix="Ask yourself: Am I tapping the foot-stomping pulse, or a faster subdivision?" extra="If you&apos;re still not sure, use the tool&apos;s built-in Half-time and Double-time display. Alongside your As-Tapped reading, the tool automatically shows both the halved and doubled tempo, so you can instantly check whether the true pulse is half or twice what you tapped, without re-tapping the song." />
           <MistakeCard num={4} title="Ignoring tempo changes" desc="Live recordings, classical pieces, and progressive rock often drift or deliberately change tempo. A single BPM number won't describe the whole track." fix="Use the tapper on the main verse or chorus, resetting in between sections." />
-          <MistakeCard num={5} title="Forgetting the time signature context" desc="A 4/4 song at 120 BPM feels different from a 6/8 jig at 120 BPM, even though the tapper returns the same number." fix="Always consider the time signature when applying the result musically." />
+          <MistakeCard num={5} title="Forgetting the time signature context" desc="A 4/4 song at 120 BPM feels different from a 6/8 jig at 120 BPM, even though the tapper returns the same number." fix="Always consider the time signature when applying the result musically." extra="For very fast tempos or syncopated material where tapping every single beat is difficult, use the tool&apos;s &quot;Tap On&quot; control and set it to &quot;Every bar&quot; for 4/4, 3/4, or 6/8. This lets you tap once per measure instead of once per beat, which is often easier to lock onto and still produces an accurate BPM reading." />
         </div>
       </section>
 
