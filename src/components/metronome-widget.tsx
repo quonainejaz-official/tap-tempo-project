@@ -143,6 +143,11 @@ interface Favorite {
   silentBars: number
   isRandomMuteActive: boolean
   randomMutePercent: number
+  speedTrainerEnabled: boolean
+  speedStartTempo: number
+  speedEndTempo: number
+  speedStepSize: number
+  speedIntervalBars: number
   timerMinutes: number
   beatStates: BeatState[]
 }
@@ -190,11 +195,17 @@ export function MetronomeWidget({
   const [beatStates, setBeatStates] = useState<BeatState[]>(defaultBeatStates ?? ["N", "N", "N", "N"])
   const [pulseActive, setPulseActive] = useState(false)
   const [pulseState, setPulseState] = useState<BeatState>("N")
+  const [tempoSpikePulse, setTempoSpikePulse] = useState(false)
   const [isGapActive, setIsGapActive] = useState(defaultGapClick ?? false)
   const [playBars, setPlayBars] = useState(defaultPlayBars ?? 2)
   const [silentBars, setSilentBars] = useState(defaultSilentBars ?? 2)
   const [isRandomMuteActive, setIsRandomMuteActive] = useState(defaultRandomMute ?? false)
   const [randomMutePercent, setRandomMutePercent] = useState(defaultRandomMutePercent ?? 15)
+  const [speedTrainerEnabled, setSpeedTrainerEnabled] = useState(false)
+  const [speedStartTempo, setSpeedStartTempo] = useState(100)
+  const [speedEndTempo, setSpeedEndTempo] = useState(120)
+  const [speedStepSize, setSpeedStepSize] = useState(4)
+  const [speedIntervalBars, setSpeedIntervalBars] = useState(8)
   const [quickTempoSelection, setQuickTempoSelection] = useState<number | null>(null)
 
   const [favorites, setFavorites] = useState<Favorite[]>([])
@@ -233,6 +244,13 @@ export function MetronomeWidget({
   const silentBarsRef = useRef(defaultSilentBars ?? 2)
   const isRandomMuteRef = useRef(defaultRandomMute ?? false)
   const randomMutePercentRef = useRef(defaultRandomMutePercent ?? 25)
+  const speedTrainerRef = useRef(false)
+  const speedStartRef = useRef(100)
+  const speedEndRef = useRef(120)
+  const speedStepRef = useRef(4)
+  const speedIntervalRef = useRef(8)
+  const applyBpmRef = useRef<((val: number) => void) | null>(null)
+  const tempoSpikeActiveRef = useRef(false)
   const playingRef = useRef(false)
   const pulseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const barBeatCountRef = useRef(0)
@@ -256,6 +274,11 @@ export function MetronomeWidget({
   useEffect(() => { silentBarsRef.current = silentBars }, [silentBars])
   useEffect(() => { isRandomMuteRef.current = isRandomMuteActive }, [isRandomMuteActive])
   useEffect(() => { randomMutePercentRef.current = randomMutePercent }, [randomMutePercent])
+  useEffect(() => { speedTrainerRef.current = speedTrainerEnabled }, [speedTrainerEnabled])
+  useEffect(() => { speedStartRef.current = speedStartTempo }, [speedStartTempo])
+  useEffect(() => { speedEndRef.current = speedEndTempo }, [speedEndTempo])
+  useEffect(() => { speedStepRef.current = speedStepSize }, [speedStepSize])
+  useEffect(() => { speedIntervalRef.current = speedIntervalBars }, [speedIntervalBars])
 
   useEffect(() => { timerMinutesRef.current = timerMinutes }, [timerMinutes])
   useEffect(() => { timeRemainingRef.current = timeRemaining }, [timeRemaining])
@@ -355,6 +378,9 @@ export function MetronomeWidget({
         await audioCtxRef.current.resume()
       }
       awaitCtxOnStartRef.current = true
+      if (speedTrainerRef.current && applyBpmRef.current) {
+        applyBpmRef.current(speedStartRef.current)
+      }
       setPlaying(true)
     } else {
       if (isTimerActiveRef.current && timerMinutesRef.current > 0) {
@@ -486,6 +512,27 @@ export function MetronomeWidget({
     osc.stop(t + 0.05)
   }, [])
 
+  const playCompletionChime = useCallback((volumeFactor = 1) => {
+    const ctx = audioCtxRef.current
+    if (!ctx || ctx.state === "closed") return
+    if (ctx.state === "suspended") ctx.resume()
+    const t = ctx.currentTime
+    const notes = [880, 1318.5]
+    notes.forEach((freq, i) => {
+      const at = t + i * 0.15
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = "sine"
+      osc.frequency.setValueAtTime(freq, at)
+      gain.gain.setValueAtTime(0.25 * volumeFactor, at)
+      gain.gain.exponentialRampToValueAtTime(0.001, at + 0.3)
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start(at)
+      osc.stop(at + 0.35)
+    })
+  }, [])
+
   const scheduleNotes = useCallback(() => {
     const ctx = audioCtxRef.current
     if (!ctx) return
@@ -516,6 +563,18 @@ export function MetronomeWidget({
         if (barBeatCountRef.current >= numBeats) {
           barBeatCountRef.current = 0
           barCountRef.current++
+          if (speedTrainerRef.current && speedIntervalRef.current > 0 && speedStepRef.current > 0) {
+            if (barCountRef.current % speedIntervalRef.current === 0) {
+              const speedNext = Math.min(bpmRef.current + speedStepRef.current, speedEndRef.current)
+              if (speedNext > bpmRef.current && applyBpmRef.current) {
+                applyBpmRef.current(speedNext)
+                tempoSpikeActiveRef.current = true
+                if (speedNext >= speedEndRef.current) {
+                  playCompletionChime(volumeRef.current)
+                }
+              }
+            }
+          }
         }
       } else {
         if (gapClickRef.current) {
@@ -555,7 +614,7 @@ export function MetronomeWidget({
         currentBeatRef.current = (currentBeatRef.current + 1) % numBeats
       }
     }
-  }, [playNote])
+  }, [playNote, playCompletionChime])
 
   // Keep ref always current so scheduler never hits stale closure
   useEffect(() => { scheduleNotesRef.current = scheduleNotes }, [scheduleNotes])
@@ -580,6 +639,10 @@ export function MetronomeWidget({
       }
 
       if (note.beatState !== "M") {
+        if (tempoSpikeActiveRef.current) {
+          tempoSpikeActiveRef.current = false
+          setTempoSpikePulse(true)
+        }
         if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
         setPulseState(note.beatState)
         setPulseActive(true)
@@ -631,6 +694,8 @@ export function MetronomeWidget({
       stopScheduler()
       setBeat(-1)
       setPulseActive(false)
+      tempoSpikeActiveRef.current = false
+      setTempoSpikePulse(false)
       if (pulseTimerRef.current !== null) clearTimeout(pulseTimerRef.current)
       notesInQueueRef.current = []
     }
@@ -646,27 +711,6 @@ export function MetronomeWidget({
     setTimerMinutes(minutes)
     setTimeRemaining(minutes * 60)
     setIsTimerActive(true)
-  }, [])
-
-  const playCompletionChime = useCallback(() => {
-    const ctx = audioCtxRef.current
-    if (!ctx || ctx.state === "closed") return
-    if (ctx.state === "suspended") ctx.resume()
-    const t = ctx.currentTime
-    const notes = [880, 1318.5]
-    notes.forEach((freq, i) => {
-      const at = t + i * 0.15
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      osc.type = "sine"
-      osc.frequency.setValueAtTime(freq, at)
-      gain.gain.setValueAtTime(0.25, at)
-      gain.gain.exponentialRampToValueAtTime(0.001, at + 0.3)
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      osc.start(at)
-      osc.stop(at + 0.35)
-    })
   }, [])
 
   useEffect(() => {
@@ -729,6 +773,14 @@ export function MetronomeWidget({
     setQuickTempoSelection(null)
     localStorage.setItem("taptempo_last_bpm", String(clamped))
   }, [])
+
+  useEffect(() => { applyBpmRef.current = handleBpmInput }, [handleBpmInput])
+
+  useEffect(() => {
+    if (!tempoSpikePulse) return
+    const t = setTimeout(() => setTempoSpikePulse(false), 300)
+    return () => clearTimeout(t)
+  }, [tempoSpikePulse])
 
   const fireTap = useCallback(() => {
     const ctx = audioCtxRef.current
@@ -803,6 +855,40 @@ export function MetronomeWidget({
     }
   }, [customBeats])
 
+  const handleSpeedStartInput = useCallback((raw: string) => {
+    const trimmed = raw.trim()
+    if (trimmed === "") return
+    const parsed = parseInt(trimmed, 10)
+    if (isNaN(parsed)) return
+    const clamped = Math.max(1, Math.min(500, parsed))
+    setSpeedStartTempo(clamped)
+    setSpeedEndTempo(Math.min(500, Math.max(clamped + 1, Math.min(500, speedEndTempo))))
+  }, [speedEndTempo])
+
+  const handleSpeedEndInput = useCallback((raw: string) => {
+    const trimmed = raw.trim()
+    if (trimmed === "") return
+    const parsed = parseInt(trimmed, 10)
+    if (isNaN(parsed)) return
+    setSpeedEndTempo(Math.min(500, Math.max(speedStartTempo + 1, parsed)))
+  }, [speedStartTempo])
+
+  const handleSpeedStepInput = useCallback((raw: string) => {
+    const trimmed = raw.trim()
+    if (trimmed === "") return
+    const parsed = parseInt(trimmed, 10)
+    if (isNaN(parsed)) return
+    setSpeedStepSize(Math.max(1, Math.min(50, parsed)))
+  }, [])
+
+  const handleSpeedIntervalInput = useCallback((raw: string) => {
+    const trimmed = raw.trim()
+    if (trimmed === "") return
+    const parsed = parseInt(trimmed, 10)
+    if (isNaN(parsed)) return
+    setSpeedIntervalBars(Math.max(1, Math.min(16, parsed)))
+  }, [])
+
   const saveFavorite = useCallback(() => {
     const trimmed = favoriteName.trim().slice(0, 30)
     if (trimmed === "") return
@@ -823,6 +909,11 @@ export function MetronomeWidget({
       silentBars,
       isRandomMuteActive,
       randomMutePercent,
+      speedTrainerEnabled,
+      speedStartTempo,
+      speedEndTempo,
+      speedStepSize,
+      speedIntervalBars,
       timerMinutes,
       beatStates: [...beatStates],
     }
@@ -837,7 +928,7 @@ export function MetronomeWidget({
     })
     setIsSavingFavorite(false)
     setFavoriteName("")
-  }, [favoriteName, bpm, volume, signature, customTimeActive, customBeats, customUnit, soundStyle, subdivision, swing, swingPreset, isGapActive, playBars, silentBars, isRandomMuteActive, randomMutePercent, timerMinutes, beatStates])
+  }, [favoriteName, bpm, volume, signature, customTimeActive, customBeats, customUnit, soundStyle, subdivision, swing, swingPreset, isGapActive, playBars, silentBars, isRandomMuteActive, randomMutePercent, speedTrainerEnabled, speedStartTempo, speedEndTempo, speedStepSize, speedIntervalBars, timerMinutes, beatStates])
 
   const applyFavorite = useCallback((fav: Favorite) => {
     handleBpmInput(fav.bpm)
@@ -865,6 +956,11 @@ export function MetronomeWidget({
     setSilentBars(Math.max(1, Math.min(16, fav.silentBars)))
     setIsRandomMuteActive(fav.isRandomMuteActive)
     setRandomMutePercent(Math.max(0, Math.min(50, fav.randomMutePercent)))
+    setSpeedTrainerEnabled(fav.speedTrainerEnabled ?? false)
+    setSpeedStartTempo(Math.max(1, Math.min(500, fav.speedStartTempo ?? 100)))
+    setSpeedEndTempo(Math.max(1, Math.min(500, fav.speedEndTempo ?? 120)))
+    setSpeedStepSize(Math.max(1, Math.min(50, fav.speedStepSize ?? 4)))
+    setSpeedIntervalBars(Math.max(1, Math.min(16, fav.speedIntervalBars ?? 8)))
     setBeatStates(prev => fav.beatStates.slice(0, parseInt(fav.signature.split("/")[0]) || prev.length))
     selectTimerPreset(fav.timerMinutes)
   }, [handleBpmInput, selectTimerPreset])
@@ -917,6 +1013,14 @@ export function MetronomeWidget({
                 />
                 {/* Accent fill glow */}
                 {pulseActive && pulseState === "A" && <circle cx="80" cy="80" r="68" fill="#1565FF" opacity="0.08" />}
+                {/* Tempo-change spike — extra-bright one-shot flash layered on top of the regular beat flash */}
+                <circle cx="80" cy="80" r="68" fill="#1565FF"
+                  className={`transition-all duration-150 ease-out ${tempoSpikePulse ? "opacity-[0.14]" : "opacity-0"}`}
+                />
+                <circle cx="80" cy="80" r="68" fill="none" stroke="#1565FF" strokeWidth="4"
+                  className={`transition-all duration-150 ease-out ${tempoSpikePulse ? "opacity-100" : "opacity-0"}`}
+                  style={{ transformOrigin: "80px 80px", transform: tempoSpikePulse ? "scale(1.12)" : "scale(1)" }}
+                />
               </svg>
               <div className="relative flex flex-col items-center justify-center z-10">
                 <span className="font-mono text-3xl font-extrabold tracking-tight text-gray-900 leading-none">
@@ -1300,6 +1404,53 @@ export function MetronomeWidget({
                 className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-3 [&_[role=slider]]:w-3 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
               />
               <span className="text-xs font-mono text-muted-foreground w-8 text-right shrink-0">{randomMutePercent}%</span>
+            </div>
+          )}
+
+          {/* Speed Trainer */}
+          <div className="flex items-center justify-between py-1">
+            <span className="text-xs font-medium text-[#595959]">Speed Trainer</span>
+            <button role="switch" aria-checked={speedTrainerEnabled} aria-label="Toggle Speed Trainer" onClick={() => setSpeedTrainerEnabled(e => !e)}
+              className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
+                speedTrainerEnabled ? "bg-[#1565FF]" : "bg-[#D9D9D9]"
+              }`}
+            >
+              <span className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out mt-0.5 ${
+                speedTrainerEnabled ? "translate-x-4" : "translate-x-0.5"
+              }`} />
+            </button>
+          </div>
+          {speedTrainerEnabled && (
+            <div className="space-y-1 pl-2 pb-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] text-muted-foreground shrink-0">Start</span>
+                <input type="number" min={1} max={500} inputMode="numeric" value={speedStartTempo}
+                  onChange={e => handleSpeedStartInput(e.target.value)}
+                  aria-label="Speed Trainer Start Tempo"
+                  className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                />
+                <span className="text-[10px] text-muted-foreground shrink-0">End</span>
+                <input type="number" min={1} max={500} inputMode="numeric" value={speedEndTempo}
+                  onChange={e => handleSpeedEndInput(e.target.value)}
+                  aria-label="Speed Trainer End Tempo"
+                  className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] text-muted-foreground shrink-0">+</span>
+                <input type="number" min={1} max={50} inputMode="numeric" value={speedStepSize}
+                  onChange={e => handleSpeedStepInput(e.target.value)}
+                  aria-label="Speed Trainer Step Size"
+                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                />
+                <span className="text-[10px] text-muted-foreground shrink-0">BPM every</span>
+                <input type="number" min={1} max={16} inputMode="numeric" value={speedIntervalBars}
+                  onChange={e => handleSpeedIntervalInput(e.target.value)}
+                  aria-label="Speed Trainer Increment Interval"
+                  className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
+                />
+                <span className="text-[10px] text-muted-foreground shrink-0">bars</span>
+              </div>
             </div>
           )}
 
