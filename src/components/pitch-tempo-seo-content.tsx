@@ -432,6 +432,12 @@ export function PitchTempoSeoContent() {
                   "How semitone pitch shifts changed BPM on the Akai MPC60 and E-mu SP-1200, with the exact formula, worked examples, and the golden-era memory-saving hack.",
                 href: "/blog/semitones-to-bpm-shift",
               },
+              {
+                title: "Master Tempo vs Key Lock: Serato & Rekordbox Guide",
+                description:
+                  "Why Key Lock keeps pitch stable but can smear transients and phase vocals, and when it's worth turning off.",
+                href: "/blog/master-tempo-vs-key-lock",
+              },
             ]}
           />
         </div>
