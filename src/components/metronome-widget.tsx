@@ -5,7 +5,7 @@ import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Hand, Plus, Minus, Activity, Volume2, Gauge, Target } from "lucide-react"
+import { Hand, Plus, Minus, Activity, Gauge, Target } from "lucide-react"
 
 const MAX_TAPS = 8
 const RESET_MS = 3000
@@ -983,11 +983,10 @@ export function MetronomeWidget({
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       {/* ── LEFT COLUMN ──────────────────────────────────────── */}
       <div className="lg:col-span-5 h-full flex flex-col justify-between items-center py-2 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
-        {/* BPM Pulse Ring + TAP + +/− */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="flex items-center justify-center gap-4">
-            <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
-            <div className="relative flex items-center justify-center w-[140px] h-[140px]">
+{/* BPM Pulse Ring + TAP */}
+        <div className="flex items-center justify-center gap-4">
+          <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
+          <div className="relative flex items-center justify-center w-[140px] h-[140px]">
               <svg
                 className="absolute inset-0 m-auto pointer-events-none"
                 width="140"
@@ -1031,17 +1030,11 @@ export function MetronomeWidget({
             </div>
 
             <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
-          </div>
+        </div>
 
-          <div className="flex items-center justify-center gap-1.5 shrink-0">
-            <button
-              aria-label="Increase tempo by 1 BPM"
-              onClick={() => handleBpmInput(bpm + 1)}
-              className="group relative flex items-center justify-center w-9 h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
-            >
-              <Plus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
-            </button>
-
+        {/* − under LEFT TAP · “Press T or tap” centered · + under RIGHT TAP */}
+        <div className="flex items-center justify-center gap-4">
+          <div className="w-14 shrink-0 flex justify-center">
             <button
               aria-label="Decrease tempo by 1 BPM"
               onClick={() => handleBpmInput(bpm - 1)}
@@ -1050,12 +1043,21 @@ export function MetronomeWidget({
               <Minus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
             </button>
           </div>
+          <div className="w-[140px] flex justify-center">
+            <p className="text-center text-[10px] text-muted-foreground font-mono leading-none">
+              Press <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px] font-sans">T</kbd> or tap
+            </p>
+          </div>
+          <div className="w-14 shrink-0 flex justify-center">
+            <button
+              aria-label="Increase tempo by 1 BPM"
+              onClick={() => handleBpmInput(bpm + 1)}
+              className="group relative flex items-center justify-center w-9 h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
+            >
+              <Plus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
+            </button>
+          </div>
         </div>
-
-        {/* Helper */}
-        <p className="text-center text-[10px] text-muted-foreground font-mono leading-none">
-          Press <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px] font-sans">T</kbd> or tap
-        </p>
 
         {/* Beat Dots */}
         <div className="flex justify-center gap-3 flex-wrap max-w-[350px]">
@@ -1084,6 +1086,33 @@ export function MetronomeWidget({
           })}
         </div>
 
+        {/* Beat State Legend */}
+        <div className="flex justify-center w-full mt-2">
+          <div className="inline-flex items-center justify-center gap-x-4 gap-y-1.5 flex-wrap rounded-lg border border-gray-100 bg-gray-50 px-4 py-2">
+            {([
+              { state: "A", label: "Accent" },
+              { state: "N", label: "Normal" },
+              { state: "G", label: "Ghost" },
+              { state: "M", label: "Mute" },
+            ]).map(({ state, label }) => {
+              const sampleClass =
+                state === "A"
+                  ? "bg-[#1565FF] border border-[#1565FF] shadow-[0_0_6px_rgba(21,101,255,0.7)]"
+                  : state === "G"
+                  ? "bg-[#E5E7EB]/70 border border-[#D9D9D9]"
+                  : state === "M"
+                  ? "bg-white border-2 border-[#D9D9D9]"
+                  : "bg-[#595959] border border-[#595959]"
+              return (
+                <div key={state} className="flex items-center gap-1.5">
+                  <span className={`w-4 h-4 rounded-full shrink-0 ${sampleClass}`} aria-hidden="true" />
+                  <span className="text-[10px] text-muted-foreground font-mono leading-none">{label}</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
         {/* START / STOP */}
         <button onClick={handlePlayToggle}
           className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 mt-2 ${
@@ -1095,8 +1124,22 @@ export function MetronomeWidget({
           {playing ? "STOP" : "START"}
         </button>
 
-        {/* Sliders */}
+        {/* Sound + Sliders + Quick Tempo */}
         <div className="flex flex-col gap-5 w-full mt-2">
+          {/* Sound */}
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
+            <div className="flex gap-1.5 flex-wrap">
+              {(["click", "beep", "woodblock", "cowbell", "snare"] as const).map(s => (
+                <button key={s} onClick={() => setSoundStyle(s)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all capitalize ${
+                    soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                  }`}
+                >{s}</button>
+              ))}
+            </div>
+          </div>
+
           {/* BPM Slider */}
           <div className="flex items-center gap-3">
             <span className="text-xs font-bold text-gray-500 w-10 uppercase tracking-wider shrink-0">BPM</span>
@@ -1122,7 +1165,7 @@ export function MetronomeWidget({
           {/* Quick Tempo */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider shrink-0">QUICK TEMPO</span>
+              <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider shrink-0">QUICK TEMPO</span>
               <button
                 onClick={() => setQuickTempoSelection(null)}
                 className="text-[11px] font-bold uppercase tracking-wider text-[#1565FF] hover:underline"
@@ -1149,34 +1192,9 @@ export function MetronomeWidget({
           </div>
         </div>
 
-        {/* Beat State Legend */}
-        <div className="flex justify-center gap-x-4 gap-y-1.5 flex-wrap mt-3">
-          {([
-            { state: "A", label: "Accent" },
-            { state: "N", label: "Normal" },
-            { state: "G", label: "Ghost" },
-            { state: "M", label: "Mute" },
-          ]).map(({ state, label }) => {
-            const sampleClass =
-              state === "A"
-                ? "bg-[#1565FF] border border-[#1565FF] shadow-[0_0_6px_rgba(21,101,255,0.7)]"
-                : state === "G"
-                ? "bg-[#E5E7EB]/70 border border-[#D9D9D9]"
-                : state === "M"
-                ? "bg-white border-2 border-[#D9D9D9]"
-                : "bg-[#595959] border border-[#595959]"
-            return (
-              <div key={state} className="flex items-center gap-1.5">
-                <span className={`w-4 h-4 rounded-full shrink-0 ${sampleClass}`} aria-hidden="true" />
-                <span className="text-[10px] text-muted-foreground font-mono leading-none">{label}</span>
-              </div>
-            )
-          })}
-        </div>
-
         {/* Favorites */}
         <div className="w-full flex flex-col gap-1.5 mt-3">
-          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider shrink-0">Favorites</span>
+          <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider shrink-0">Favorites</span>
           {isSavingFavorite ? (
             <div className="flex items-center gap-1.5">
               <input
@@ -1323,20 +1341,6 @@ export function MetronomeWidget({
             </div>
           </div>
         )}</SectionCard>
-
-        {/* SOUND */}
-        <SectionCard icon={<Volume2 size={14} strokeWidth={2.5} />} title="Sound">
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
-          <div className="flex gap-1.5">
-            {(["click", "beep", "woodblock", "cowbell", "snare"] as const).map(s => (
-              <button key={s} onClick={() => setSoundStyle(s)}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-all capitalize ${
-                  soundStyle === s ? "bg-[#1565FF] text-white" : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
-                }`}
-              >{s}</button>
-            ))}
-          </div>
-        </SectionCard>
 
         {/* TEMPO PRESETS */}
         <SectionCard icon={<Gauge size={14} strokeWidth={2.5} />} title="Tempo Presets">
