@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Copy, History, Activity, Music2, Moon, RotateCcw, Target } from "lucide-react"
+import { Copy, History, Activity, Music2, Moon, RotateCcw, Target, Undo2 } from "lucide-react"
 import { toast } from "sonner"
 import { SeoContent } from "@/components/seo-content"
 
@@ -285,7 +285,7 @@ function getTempoMarking(bpm: number): string {
 
 export default function TapTempoPage() {
   const tapOnMultiplierRef = useRef(1)
-  const { bpm, taps, tap, reset, tapCount } = useTapTempo(tapOnMultiplierRef)
+  const { bpm, taps, tap, reset, undo, tapCount } = useTapTempo(tapOnMultiplierRef)
   const { state: sleepState, wake, setSleeping } = useSleepDetect()
   const { init, playKick, playClap, playHiHat, playCowbell } = useAudioEngine()
 
@@ -483,8 +483,18 @@ export default function TapTempoPage() {
     wake()
   }
 
+  const handleUndo = () => {
+    undo()
+    scheduleAutoReset()
+    wake()
+  }
+
 
   const METRONOME_DOTS = 6
+
+  // Consistent with the 8-12 taps guidance: below this count show a
+  // low-confidence message; at/above it the existing "Stable" indicator applies.
+  const MIN_CONFIDENCE_TAPS = 8
 
   const playMetronomeTick = () => {
     if (sound === "kick") playKick(volume)
@@ -603,15 +613,19 @@ export default function TapTempoPage() {
 
 
                 {tapCount >= 2 && (
-                  <span className={`text-sm ${isStable ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
-                    {isStable ? (
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Stable
-                      </span>
-                    ) : (
-                      "Tap more to stabilize"
-                    )}
-                  </span>
+                  tapCount < MIN_CONFIDENCE_TAPS ? (
+                    <span className="text-sm text-muted-foreground">Low confidence — keep tapping</span>
+                  ) : (
+                    <span className={`text-sm ${isStable ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
+                      {isStable ? (
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Stable
+                        </span>
+                      ) : (
+                        "Tap more to stabilize"
+                      )}
+                    </span>
+                  )
                 )}
               </div>
             )}
@@ -621,6 +635,19 @@ export default function TapTempoPage() {
               <Badge variant={lastMethod === 'keyboard' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Key</Badge>
               <Badge variant={lastMethod === 'space' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Space</Badge>
             </div>
+
+            {sleepState !== "sleeping" && (
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={tapCount === 0}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={handleUndo}
+                className="absolute bottom-4 left-4 z-10 h-7 gap-1.5 px-2.5 text-xs"
+              >
+                <Undo2 className="w-3.5 h-3.5" /> Undo
+              </Button>
+            )}
           </motion.div>
         </div>
 

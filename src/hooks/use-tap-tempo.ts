@@ -21,6 +21,44 @@ export function applyTapMultiplier(baseBpm: number, multiplier: number): number 
   return Math.round(baseBpm * multiplier)
 }
 
+// Existing single BPM calculation path (instant + weighted rolling), reused by
+// both a new tap and an undo (which simply passes one fewer data point).
+function computeFromTimes(
+  times: number[],
+  multiplier: number,
+): { instantBpm: number | null; rollingBpm: number | null; rawInterval: number | null } {
+  if (times.length < 2) return { instantBpm: null, rollingBpm: null, rawInterval: null }
+
+  const intervals: number[] = []
+  for (let i = 1; i < times.length; i++) {
+    intervals.push(times[i] - times[i - 1])
+  }
+
+  // Instantaneous BPM: BPM from only the most recent interval
+  const rawInterval = intervals[intervals.length - 1]
+  const instantBpm = applyTapMultiplier(Math.round(60000 / rawInterval), multiplier)
+
+  // Outlier rejection for rolling average (discard >2.5x of simple mean)
+  const simpleAvg = intervals.reduce((a, b) => a + b, 0) / intervals.length
+  const valid = intervals.filter(v => v < simpleAvg * 2.5)
+
+  let rollingBpm: number | null = null
+  if (valid.length > 0) {
+    // Weighted: more recent intervals count more
+    let weightedSum = 0
+    let weightTotal = 0
+    valid.forEach((inv, idx) => {
+      const w = idx + 1
+      weightedSum += inv * w
+      weightTotal += w
+    })
+    const finalAvg = weightedSum / weightTotal
+    rollingBpm = applyTapMultiplier(Math.round(60000 / finalAvg), multiplier)
+  }
+
+  return { instantBpm, rollingBpm, rawInterval }
+}
+
 export function useTapTempo(multiplierRef: { current: number }) {
   const [bpm, setBpm] = useState<number | null>(null)
   const [taps, setTaps] = useState<TapData[]>([])
@@ -66,38 +104,11 @@ export function useTapTempo(multiplierRef: { current: number }) {
     if (tapTimesRef.current.length > MAX_TAPS) tapTimesRef.current.shift()
 
     const times = tapTimesRef.current
-    let rollingBpm: number | null = null
-    let instantBpm: number | null = null
-    let rawInterval: number | null = null
+    const { instantBpm, rollingBpm, rawInterval } = computeFromTimes(times, multiplierRef.current)
 
-    if (times.length >= 2) {
-      const intervals: number[] = []
-      for (let i = 1; i < times.length; i++) {
-        intervals.push(times[i] - times[i - 1])
-      }
-
-      // Instantaneous BPM: BPM from only the most recent interval
-      rawInterval = intervals[intervals.length - 1]
-      instantBpm = applyTapMultiplier(Math.round(60000 / rawInterval), multiplierRef.current)
-
-      // Outlier rejection for rolling average (discard >2.5x of simple mean)
-      const simpleAvg = intervals.reduce((a, b) => a + b, 0) / intervals.length
-      const valid = intervals.filter(v => v < simpleAvg * 2.5)
-
-      if (valid.length > 0) {
-        // Weighted: more recent intervals count more
-        let weightedSum = 0
-        let weightTotal = 0
-        valid.forEach((inv, idx) => {
-          const w = idx + 1
-          weightedSum += inv * w
-          weightTotal += w
-        })
-        const finalAvg = weightedSum / weightTotal
-        rollingBpm = applyTapMultiplier(Math.round(60000 / finalAvg), multiplierRef.current)
-        setBpm(rollingBpm)
-        localStorage.setItem("taptempo_last_bpm", rollingBpm.toString())
-      }
+    if (rollingBpm !== null) {
+      setBpm(rollingBpm)
+      localStorage.setItem("taptempo_last_bpm", rollingBpm.toString())
     }
 
     setTaps(prev => {
@@ -117,5 +128,31 @@ export function useTapTempo(multiplierRef: { current: number }) {
     }, TIMEOUT_MS)
   }, [])
 
-  return { bpm, taps, tap, reset, tapCount: tapIndexRef.current }
+  const undo = useCallback(() => {
+    if (tapTimesRef.current.length === 0) return
+
+    tapTimesRef.current.pop()
+    lastTapTimeRef.current = performance.now()
+    tapIndexRef.current = Math.max(0, tapIndexRef.current - 1)
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+
+    const times = tapTimesRef.current
+    const { rollingBpm } = computeFromTimes(times, multiplierRef.current)
+
+    setTaps(prev => prev.slice(0, -1))
+
+    if (rollingBpm !== null) {
+      setBpm(rollingBpm)
+      localStorage.setItem("taptempo_last_bpm", rollingBpm.toString())
+    } else {
+      setBpm(null)
+      localStorage.removeItem("taptempo_last_bpm")
+    }
+
+    resetTimerRef.current = setTimeout(() => {
+      tapTimesRef.current = []
+    }, TIMEOUT_MS)
+  }, [])
+
+  return { bpm, taps, tap, reset, undo, tapCount: tapIndexRef.current }
 }
