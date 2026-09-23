@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Copy, History, Activity, Music2, Moon } from "lucide-react"
+import { Copy, History, Activity, Music2, Moon, RotateCcw, Target } from "lucide-react"
 import { toast } from "sonner"
 import { SeoContent } from "@/components/seo-content"
 
@@ -222,6 +222,34 @@ function TapGraph({ taps }: { taps: TapData[] }) {
           )}
         </svg>
       </div>
+    </div>
+  )
+}
+
+// ─── SectionCard (matches the Metronome page's right-panel header pattern) ────
+
+function SectionCard({
+  icon,
+  title,
+  children,
+  className = "",
+  bodyClassName = "",
+}: {
+  icon: React.ReactNode
+  title: string
+  children: React.ReactNode
+  className?: string
+  bodyClassName?: string
+}) {
+  return (
+    <div className={`rounded-xl border bg-card overflow-hidden ${className}`}>
+      <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+          {icon}
+        </span>
+        <span className="text-xs font-bold uppercase tracking-wider text-gray-800">{title}</span>
+      </div>
+      <div className={`p-2.5 ${bodyClassName}`}>{children}</div>
     </div>
   )
 }
@@ -563,12 +591,12 @@ export default function TapTempoPage() {
               </motion.div>
             ) : (
               <div className="relative z-10 flex flex-col items-center">
-                <div className={`w-3.5 h-3.5 rounded-full bg-primary/30 opacity-30 transition-all duration-100 inline-block mb-2 ${isFlashing ? "opacity-100 scale-125 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.8)]" : ""}`} />
-                <div className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground mb-2 uppercase">
+                <div className={`w-3.5 h-3.5 rounded-full bg-primary/30 opacity-30 transition-all duration-100 inline-block mb-3 ${isFlashing ? "opacity-100 scale-125 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.8)]" : ""}`} />
+                <div className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground mb-4 uppercase">
                   Beats Per Minute
                 </div>
 
-                <div className="font-mono text-8xl md:text-[120px] font-bold tracking-tighter leading-none py-4 text-foreground drop-shadow-sm">
+                <div className="font-mono text-8xl md:text-[120px] font-bold tracking-tighter leading-none py-7 text-foreground drop-shadow-sm">
                   {activeBpm === null ? "---" : <motion.span>{roundedBpm}</motion.span>}
                 </div>
 
@@ -588,7 +616,7 @@ export default function TapTempoPage() {
               </div>
             )}
 
-            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 pointer-events-none opacity-60">
+            <div className="absolute bottom-12 left-0 right-0 flex justify-center gap-2 pointer-events-none opacity-60">
               <Badge variant={lastMethod === 'touch' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Touch</Badge>
               <Badge variant={lastMethod === 'keyboard' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Key</Badge>
               <Badge variant={lastMethod === 'space' ? 'default' : 'outline'} className="text-xs transition-colors duration-150">Space</Badge>
@@ -598,14 +626,14 @@ export default function TapTempoPage() {
 
         {/* BOX 2 & 3: Right Column */}
         <div className="lg:col-span-1 flex flex-col justify-between gap-3.5 h-full">
-          <div className="flex flex-col gap-2 p-3 rounded-xl border bg-card">
+          <SectionCard icon={<RotateCcw size={14} strokeWidth={2.5} />} title="Session" bodyClassName="p-3 flex flex-col gap-2">
             <Button variant="outline" size="sm" className="w-full" onClick={handleReset} disabled={!bpm}>Reset</Button>
             <div className="flex flex-col gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Auto-Reset after</span>
               <div className="flex items-center gap-1.5">
                 <Select value={String(autoResetMin)} onValueChange={(v) => { const val = Number(v); setAutoResetMin(val); autoResetMinRef.current = val; scheduleAutoReset() }}>
                   <SelectTrigger className="h-7 w-14 rounded border border-input bg-transparent px-1.5 text-xs shadow-none focus:ring-1 focus:ring-ring [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60">
-                    <SelectValue />
+                    <SelectValue>{String(autoResetMin)}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {Array.from({ length: 11 }, (_, i) => (
@@ -616,7 +644,7 @@ export default function TapTempoPage() {
                 <span className="text-xs text-muted-foreground shrink-0">min</span>
                 <Select value={String(autoResetSec)} onValueChange={(v) => { const val = Number(v); setAutoResetSec(val); autoResetSecRef.current = val; scheduleAutoReset() }}>
                   <SelectTrigger className="h-7 w-14 rounded border border-input bg-transparent px-1.5 text-xs shadow-none focus:ring-1 focus:ring-ring [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60">
-                    <SelectValue />
+                    <SelectValue>{String(autoResetSec)}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {Array.from({ length: 60 }, (_, i) => (
@@ -627,9 +655,9 @@ export default function TapTempoPage() {
                 <span className="text-xs text-muted-foreground shrink-0">sec</span>
               </div>
             </div>
-          </div>
+          </SectionCard>
 
-          <div className="flex-1 flex flex-col justify-between rounded-xl border bg-card p-3.5">
+          <SectionCard icon={<Music2 size={14} strokeWidth={2.5} />} title="Audio" className="flex-1 flex flex-col" bodyClassName="p-3.5 flex-1 flex flex-col justify-between">
             <Button
               variant={showGraph ? "default" : "outline"}
               size="sm"
@@ -713,7 +741,7 @@ export default function TapTempoPage() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </SectionCard>
         </div>
       </div>
 
@@ -819,30 +847,27 @@ export default function TapTempoPage() {
 </div>
             </div>
           </div>
-         <div className="lg:col-span-1 rounded-xl border bg-card/80 min-h-full">
-            <div className="flex flex-col gap-3 p-4">
-              <h2 className="text-sm font-semibold">Metronome Check</h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Tap your level, then hit Play to hear the click at the active tempo.
-              </p>
-              <div className="flex items-center gap-1.5" aria-label="Metronome progress">
-                {Array.from({ length: METRONOME_DOTS }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`h-2 w-2 rounded-full transition-colors ${i < metronomeDot ? "bg-primary" : "bg-muted"}`}
-                  />
-                ))}
-              </div>
-              <Button
-                variant={metronomePlaying ? "outline" : "default"}
-                size="sm"
-                onClick={(e) => { e.stopPropagation(); metronomePlaying ? stopMetronome() : startMetronome() }}
-                className="w-full"
-              >
-                {metronomePlaying ? "Stop click" : "Play click"}
-              </Button>
+<SectionCard icon={<Target size={14} strokeWidth={2.5} />} title="Metronome Check" className="lg:col-span-1 min-h-full" bodyClassName="flex flex-col gap-3 p-4">
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Tap your level, then hit Play to hear the click at the active tempo.
+            </p>
+            <div className="flex items-center gap-1.5" aria-label="Metronome progress">
+              {Array.from({ length: METRONOME_DOTS }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-2 w-2 rounded-full transition-colors ${i < metronomeDot ? "bg-primary" : "bg-muted"}`}
+                />
+              ))}
             </div>
-          </div>
+            <Button
+              variant={metronomePlaying ? "outline" : "default"}
+              size="sm"
+              onClick={(e) => { e.stopPropagation(); metronomePlaying ? stopMetronome() : startMetronome() }}
+              className="w-full"
+            >
+              {metronomePlaying ? "Stop click" : "Play click"}
+            </Button>
+          </SectionCard>
         </div>
       )}
 
