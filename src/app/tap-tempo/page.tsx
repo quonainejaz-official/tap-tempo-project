@@ -789,19 +789,31 @@ export default function TapTempoPage() {
             </div>
             {/* Row 2: As Tapped / Half-Time / Double-Time / (empty) */}
             <div className="flex flex-col sm:flex-row gap-1.5 mt-1 sm:mt-0 sm:w-full sm:grid sm:grid-cols-4">
-              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-                <span className="text-xs uppercase text-muted-foreground">AS TAPPED</span>
-                <span className="font-bold text-sm">{bpm ?? "—"}</span>
-              </div>
-              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-                <span className="text-xs uppercase text-muted-foreground">HALF-TIME</span>
-                <span className="font-bold text-sm">{Math.round((bpm ?? 0) / 2)}</span>
-              </div>
-              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
-                <span className="text-xs uppercase text-muted-foreground">DOUBLE-TIME</span>
-                <span className="font-bold text-sm">{Math.round((bpm ?? 0) * 2)}</span>
-              </div>
-              <div className="flex flex-col items-center py-1 px-3 rounded border bg-card">
+              <button
+                type="button"
+                onClick={() => handleBpmScale("asTapped")}
+                className={`flex flex-col items-center py-1 px-3 rounded border cursor-pointer transition-colors ${bpmScale === "asTapped" ? "bg-primary border-primary text-primary-foreground shadow-sm" : "bg-card hover:bg-accent/30"}`}
+              >
+                <span className={`text-xs uppercase ${bpmScale === "asTapped" ? "text-primary-foreground/80" : "text-muted-foreground"}`}>AS TAPPED</span>
+                <span className={`font-bold text-sm ${bpmScale === "asTapped" ? "text-primary-foreground" : ""}`}>{bpm ?? "—"}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleBpmScale("half")}
+                className={`flex flex-col items-center py-1 px-3 rounded border cursor-pointer transition-colors ${bpmScale === "half" ? "bg-primary border-primary text-primary-foreground shadow-sm" : "bg-card hover:bg-accent/30"}`}
+              >
+                <span className={`text-xs uppercase ${bpmScale === "half" ? "text-primary-foreground/80" : "text-muted-foreground"}`}>HALF-TIME</span>
+                <span className={`font-bold text-sm ${bpmScale === "half" ? "text-primary-foreground" : ""}`}>{Math.round((bpm ?? 0) / 2)}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleBpmScale("double")}
+                className={`flex flex-col items-center py-1 px-3 rounded border cursor-pointer transition-colors ${bpmScale === "double" ? "bg-primary border-primary text-primary-foreground shadow-sm" : "bg-card hover:bg-accent/30"}`}
+              >
+                <span className={`text-xs uppercase ${bpmScale === "double" ? "text-primary-foreground/80" : "text-muted-foreground"}`}>DOUBLE-TIME</span>
+                <span className={`font-bold text-sm ${bpmScale === "double" ? "text-primary-foreground" : ""}`}>{Math.round((bpm ?? 0) * 2)}</span>
+              </button>
+              <div className="flex flex-col items-center py-1 px-3 rounded border border-primary/40 bg-primary/[0.04]">
                 <span className="text-xs uppercase text-muted-foreground">TAP ON</span>
                 <Select value={tapOn} onValueChange={handleTapOnChange}>
                   <SelectTrigger className="h-5 w-full rounded border border-input bg-transparent px-2 text-xs shadow-none focus:ring-1 focus:ring-ring [&>svg]:h-3 [&>svg]:w-3 [&>svg]:opacity-60">
