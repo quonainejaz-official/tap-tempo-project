@@ -287,10 +287,10 @@ export default function TapTempoPage() {
   const tapOnMultiplierRef = useRef(1)
   const { bpm, taps, tap, reset, undo, tapCount } = useTapTempo(tapOnMultiplierRef)
   const { state: sleepState, wake, setSleeping } = useSleepDetect()
-  const { init, playKick, playClap, playHiHat, playCowbell } = useAudioEngine()
+  const { playKick, playClap, playHiHat, playCowbell } = useAudioEngine()
 
   const [showGraph, setShowGraph] = useState(false)
-  const [showMusic, setShowMusic] = useState(true)
+  const [showMusic, setShowMusic] = useState(false)
   const [sound, setSound] = useState<"kick"|"clap"|"hihat"|"cowbell">("kick")
   const [volume, setVolume] = useState(1)
   const [metronomePlaying, setMetronomePlaying] = useState(false)
@@ -470,13 +470,11 @@ export default function TapTempoPage() {
     ringIdRef.current += 1
     setRings(prev => [...prev.slice(-4), { id: ringIdRef.current, time: now }])
 
-    // Audio
-    if (showMusic) {
-      if (sound === "kick") playKick(volume)
-      if (sound === "clap") playClap(volume)
-      if (sound === "hihat") playHiHat(volume)
-      if (sound === "cowbell") playCowbell(volume)
-    }
+    // Audio — always active regardless of whether the audio controls are expanded
+    if (sound === "kick") playKick(volume)
+    if (sound === "clap") playClap(volume)
+    if (sound === "hihat") playHiHat(volume)
+    if (sound === "cowbell") playCowbell(volume)
 
     scheduleAutoReset()
 
@@ -727,7 +725,6 @@ export default function TapTempoPage() {
               onClick={(e) => {
                 e.stopPropagation()
                 setShowMusic(!showMusic)
-                if (!showMusic) init()
               }}
             >
               <Music2 className="w-3.5 h-3.5 mr-1.5" /> {showMusic ? "Hide" : "Show"} Audio
