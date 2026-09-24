@@ -607,24 +607,6 @@ export default function TapTempoPage() {
                 <div className="font-mono text-8xl md:text-[120px] font-bold tracking-tighter leading-none py-7 text-foreground drop-shadow-sm">
                   {activeBpm === null ? "---" : <motion.span>{roundedBpm}</motion.span>}
                 </div>
-
-
-
-                {tapCount >= 2 && (
-                  tapCount < MIN_CONFIDENCE_TAPS ? (
-                    <span className="text-sm text-muted-foreground">Low confidence — keep tapping</span>
-                  ) : (
-                    <span className={`text-sm ${isStable ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
-                      {isStable ? (
-                        <span className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Stable
-                        </span>
-                      ) : (
-                        "Tap more to stabilize"
-                      )}
-                    </span>
-                  )
-                )}
               </div>
             )}
 
@@ -635,16 +617,35 @@ export default function TapTempoPage() {
             </div>
 
             {sleepState !== "sleeping" && (
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={tapCount === 0}
-                onPointerDown={(e) => e.stopPropagation()}
-                onClick={handleUndo}
-                className="absolute bottom-4 left-4 z-10 h-7 gap-1.5 px-2.5 text-xs"
-              >
-                <Undo2 className="w-3.5 h-3.5" /> Undo
-              </Button>
+              <div className="absolute bottom-2 left-0 right-0 px-4 flex items-center pointer-events-none">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={tapCount === 0}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={handleUndo}
+                  className="pointer-events-auto h-7 gap-1.5 px-2.5 text-xs"
+                >
+                  <Undo2 className="w-3.5 h-3.5" /> Undo
+                </Button>
+                <div className="flex-1 flex justify-center">
+                  {tapCount >= 2 && (
+                    tapCount < MIN_CONFIDENCE_TAPS ? (
+                      <span className="text-sm text-muted-foreground">Low confidence — keep tapping</span>
+                    ) : (
+                      <span className={`text-sm ${isStable ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
+                        {isStable ? (
+                          <span className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Stable
+                          </span>
+                        ) : (
+                          "Tap more to stabilize"
+                        )}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
             )}
           </motion.div>
         </div>
@@ -790,7 +791,7 @@ export default function TapTempoPage() {
       {activeBpm !== null && activeBpm > 0 && (
         <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
           <div className="lg:col-span-2">
-            <div className="px-3 rounded-xl border bg-card/80 min-h-full">
+            <div className="p-3 rounded-xl border bg-card/80 min-h-full">
             {/* Row 1: Taps / Interval / Average / Last 8 Taps */}
             <div className="flex flex-col justify-evenly flex-1 gap-1.5">
             <div className="flex flex-col sm:flex-row gap-1.5 sm:w-full sm:grid sm:grid-cols-4">
