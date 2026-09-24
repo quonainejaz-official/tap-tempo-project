@@ -628,7 +628,7 @@ export default function TapTempoPage() {
                 >
                   <Undo2 className="w-3.5 h-3.5" /> Undo
                 </Button>
-                <div className="flex-1 flex justify-center">
+                <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-center">
                   {tapCount >= 2 && (
                     tapCount < MIN_CONFIDENCE_TAPS ? (
                       <span className="text-sm text-muted-foreground">Low confidence — keep tapping</span>
