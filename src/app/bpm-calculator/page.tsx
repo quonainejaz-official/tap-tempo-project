@@ -60,9 +60,9 @@ export default function BpmCalculatorPage() {
 
       <Tabs defaultValue="find-bpm" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="find-bpm">Find BPM</TabsTrigger>
-          <TabsTrigger value="find-beats">Find Beats</TabsTrigger>
-          <TabsTrigger value="find-duration">Find Duration</TabsTrigger>
+          <TabsTrigger value="find-bpm" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">Find BPM</TabsTrigger>
+          <TabsTrigger value="find-beats" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">Find Beats</TabsTrigger>
+          <TabsTrigger value="find-duration" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">Find Duration</TabsTrigger>
         </TabsList>
 
         <TabsContent value="find-bpm" className="mt-4">
@@ -78,10 +78,10 @@ export default function BpmCalculatorPage() {
               </div>
             </div>
 
-            <div className="p-6 bg-muted/50 rounded-lg flex justify-between items-center">
+            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5 flex justify-between items-center">
               <div>
                 <div className="text-sm text-muted-foreground mb-1">Result (BPM)</div>
-                <div className="text-4xl font-mono font-bold text-primary">{calcBpm(beats, seconds)}</div>
+                <div className="text-5xl font-mono font-bold text-primary">{calcBpm(beats, seconds)}</div>
                 <div className="text-xs text-muted-foreground mt-2 font-mono">(60 × {beats || 0}) ÷ {seconds || 0}</div>
               </div>
               <Button size="icon" variant="outline" onClick={() => copy(calcBpm(beats, seconds))}><Copy className="w-4 h-4" /></Button>
@@ -119,10 +119,10 @@ export default function BpmCalculatorPage() {
                 <Input type="number" value={secForBeats} onChange={e => setSecForBeats(e.target.value)} />
               </div>
             </div>
-            <div className="p-6 bg-muted/50 rounded-lg flex justify-between items-center">
+            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5 flex justify-between items-center">
               <div>
                 <div className="text-sm text-muted-foreground mb-1">Result (Beats)</div>
-                <div className="text-4xl font-mono font-bold text-primary">{calcBeats(bpmForBeats, secForBeats)}</div>
+                <div className="text-5xl font-mono font-bold text-primary">{calcBeats(bpmForBeats, secForBeats)}</div>
                 <div className="text-xs text-muted-foreground mt-2 font-mono">{bpmForBeats || 0} × ({secForBeats || 0} ÷ 60)</div>
               </div>
               <Button size="icon" variant="outline" onClick={() => copy(calcBeats(bpmForBeats, secForBeats))}><Copy className="w-4 h-4" /></Button>
@@ -142,10 +142,10 @@ export default function BpmCalculatorPage() {
                 <Input type="number" value={beatsForDuration} onChange={e => setBeatsForDuration(e.target.value)} />
               </div>
             </div>
-            <div className="p-6 bg-muted/50 rounded-lg flex justify-between items-center">
+            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5 flex justify-between items-center">
               <div>
                 <div className="text-sm text-muted-foreground mb-1">Result (Seconds)</div>
-                <div className="text-4xl font-mono font-bold text-primary">{calcDuration(bpmForDuration, beatsForDuration)}</div>
+                <div className="text-5xl font-mono font-bold text-primary">{calcDuration(bpmForDuration, beatsForDuration)}</div>
                 <div className="text-xs text-muted-foreground mt-2 font-mono">{beatsForDuration || 0} ÷ ({bpmForDuration || 0} ÷ 60)</div>
               </div>
               <Button size="icon" variant="outline" onClick={() => copy(calcDuration(bpmForDuration, beatsForDuration))}><Copy className="w-4 h-4" /></Button>
