@@ -86,6 +86,18 @@ export default function BpmCalculatorPage() {
               </div>
               <Button size="icon" variant="outline" onClick={() => copy(calcBpm(beats, seconds))}><Copy className="w-4 h-4" /></Button>
             </div>
+
+            {parseFloat(calcBpm(beats, seconds)) > 0 && (
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5 px-4 rounded-xl border border-primary/20 bg-primary/5">
+                <p className="text-sm text-muted-foreground">Want to play at this tempo?</p>
+                <Link
+                  href={`/metronome?bpm=${Math.round(parseFloat(calcBpm(beats, seconds)))}`}
+                  className="text-sm font-bold text-primary hover:underline"
+                >
+                  Use {Math.round(parseFloat(calcBpm(beats, seconds)))} BPM in Metronome →
+                </Link>
+              </div>
+            )}
           </div>
         </TabsContent>
 

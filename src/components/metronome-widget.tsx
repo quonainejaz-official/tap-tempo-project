@@ -802,6 +802,15 @@ export function MetronomeWidget({
   useEffect(() => { applyBpmRef.current = handleBpmInput }, [handleBpmInput])
 
   useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("bpm")
+    if (raw === null) return
+    const parsed = Math.round(parseFloat(raw))
+    if (!isNaN(parsed) && isFinite(parsed)) {
+      handleBpmInput(parsed)
+    }
+  }, [handleBpmInput])
+
+  useEffect(() => {
     if (!tempoSpikePulse) return
     const t = setTimeout(() => setTempoSpikePulse(false), 300)
     return () => clearTimeout(t)
