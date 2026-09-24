@@ -96,6 +96,12 @@ export default function BpmCalculatorPage() {
                 >
                   Use {Math.round(parseFloat(calcBpm(beats, seconds)))} BPM in Metronome →
                 </Link>
+                <Link
+                  href={`/tap-tempo?bpm=${Math.round(parseFloat(calcBpm(beats, seconds)))}`}
+                  className="text-sm font-bold text-primary hover:underline"
+                >
+                  Use {Math.round(parseFloat(calcBpm(beats, seconds)))} BPM in Tap Tempo →
+                </Link>
               </div>
             )}
           </div>

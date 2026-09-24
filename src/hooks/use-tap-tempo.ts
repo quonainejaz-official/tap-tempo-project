@@ -154,5 +154,10 @@ export function useTapTempo(multiplierRef: { current: number }) {
     }, TIMEOUT_MS)
   }, [])
 
-  return { bpm, taps, tap, reset, undo, tapCount: tapIndexRef.current }
+  const setBpmValue = useCallback((value: number) => {
+    setBpm(value)
+    localStorage.setItem("taptempo_last_bpm", value.toString())
+  }, [])
+
+  return { bpm, taps, tap, reset, undo, tapCount: tapIndexRef.current, setBpmValue }
 }

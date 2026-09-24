@@ -285,7 +285,7 @@ function getTempoMarking(bpm: number): string {
 
 export default function TapTempoPage() {
   const tapOnMultiplierRef = useRef(1)
-  const { bpm, taps, tap, reset, undo, tapCount } = useTapTempo(tapOnMultiplierRef)
+  const { bpm, taps, tap, reset, undo, tapCount, setBpmValue } = useTapTempo(tapOnMultiplierRef)
   const { state: sleepState, wake, setSleeping } = useSleepDetect()
   const { playKick, playClap, playHiHat, playCowbell } = useAudioEngine()
 
@@ -308,6 +308,15 @@ export default function TapTempoPage() {
   useEffect(() => {
     tapOnMultiplierRef.current = tapOnMultiplier
   }, [tapOnMultiplier])
+
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("bpm")
+    if (raw === null) return
+    const parsed = Math.round(parseFloat(raw))
+    if (!isNaN(parsed) && isFinite(parsed) && parsed > 0) {
+      setBpmValue(parsed)
+    }
+  }, [setBpmValue])
 
   const stats = useMemo(() => {
     // AVERAGE BPM across all taps in the session
