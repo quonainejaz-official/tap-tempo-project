@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Copy } from "lucide-react"
+import { Calculator, Copy } from "lucide-react"
 import { toast } from "sonner"
 import { BpmCalculatorSeoContent } from "@/components/bpm-calculator-seo-content"
 
@@ -66,15 +66,23 @@ export default function BpmCalculatorPage() {
         </TabsList>
 
         <TabsContent value="find-bpm" className="mt-4">
-          <div className="p-6 rounded-xl border bg-card">
+          <div className="p-6 rounded-xl border bg-card overflow-hidden">
+            <div className="-mx-6 -mt-6 mb-5 flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+                <Calculator size={14} strokeWidth={2.5} />
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-800">Find BPM</span>
+            </div>
             <div className="grid grid-cols-2 gap-6 mb-5">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label>Number of Beats</Label>
-                <Input type="number" value={beats} onChange={e => setBeats(e.target.value)} />
+                <p className="text-xs text-muted-foreground">Count individual beats, not full measures</p>
+                <Input type="number" value={beats} onChange={e => setBeats(e.target.value)} className="mt-auto" />
               </div>
-              <div className="space-y-2">
-                <Label>Duration (Seconds)</Label>
-                <Input type="number" value={seconds} onChange={e => setSeconds(e.target.value)} />
+              <div className="flex flex-col gap-2">
+                <Label>Duration</Label>
+                <p className="text-xs text-muted-foreground">Seconds</p>
+                <Input type="number" value={seconds} onChange={e => setSeconds(e.target.value)} className="mt-auto" />
               </div>
             </div>
 
@@ -108,7 +116,13 @@ export default function BpmCalculatorPage() {
         </TabsContent>
 
         <TabsContent value="find-beats" className="mt-6">
-          <div className="p-6 rounded-xl border bg-card">
+          <div className="p-6 rounded-xl border bg-card overflow-hidden">
+            <div className="-mx-6 -mt-6 mb-5 flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+                <Calculator size={14} strokeWidth={2.5} />
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-800">Find Beats</span>
+            </div>
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="space-y-2">
                 <Label>BPM</Label>
@@ -131,15 +145,23 @@ export default function BpmCalculatorPage() {
         </TabsContent>
 
         <TabsContent value="find-duration" className="mt-6">
-          <div className="p-6 rounded-xl border bg-card">
+          <div className="p-6 rounded-xl border bg-card overflow-hidden">
+            <div className="-mx-6 -mt-6 mb-5 flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+                <Calculator size={14} strokeWidth={2.5} />
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-800">Find Duration</span>
+            </div>
             <div className="grid grid-cols-2 gap-6 mb-8">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label>BPM</Label>
-                <Input type="number" value={bpmForDuration} onChange={e => setBpmForDuration(e.target.value)} />
+                <p className="text-xs text-muted-foreground">Beats per minute</p>
+                <Input type="number" value={bpmForDuration} onChange={e => setBpmForDuration(e.target.value)} className="mt-auto" />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label>Number of Beats</Label>
-                <Input type="number" value={beatsForDuration} onChange={e => setBeatsForDuration(e.target.value)} />
+                <p className="text-xs text-muted-foreground">Count individual beats, not full measures</p>
+                <Input type="number" value={beatsForDuration} onChange={e => setBeatsForDuration(e.target.value)} className="mt-auto" />
               </div>
             </div>
             <div className="p-6 rounded-lg border border-primary/20 bg-primary/5 flex justify-between items-center">
