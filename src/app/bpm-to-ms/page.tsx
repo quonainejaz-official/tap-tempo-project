@@ -23,6 +23,7 @@ const noteDivisions = [
   { label: "Sixteenth Triplet", fraction: 1 / 6 },
   { label: "Dotted Quarter", fraction: 1.5 },
   { label: "Dotted Eighth", fraction: 0.75 },
+  { label: "Dotted Sixteenth", fraction: 0.375 },
 ]
 
 const noteNotation: Record<string, string> = {
@@ -37,6 +38,7 @@ const noteNotation: Record<string, string> = {
   "Sixteenth Triplet": "\u{1D161}\u00B3",
   "Dotted Quarter": "\u{1D15F}\u00B7",
   "Dotted Eighth": "\u{1D160}\u00B7",
+  "Dotted Sixteenth": "\u{1D161}\u00B7",
 }
 
 export default function BpmToMsPage() {
