@@ -24,6 +24,20 @@ const noteDivisions = [
   { label: "Dotted Eighth", fraction: 0.75 },
 ]
 
+const noteNotation: Record<string, string> = {
+  "Whole Note": "\u{1D15D}",
+  "Half Note": "\u{1D15E}",
+  "Quarter Note": "\u{1D15F}",
+  "Eighth Note": "\u{1D160}",
+  "Sixteenth Note": "\u{1D161}",
+  "Thirty-Second Note": "\u{1D162}",
+  "Quarter Triplet": "\u{1D15F}\u00B3",
+  "Eighth Triplet": "\u{1D160}\u00B3",
+  "Sixteenth Triplet": "\u{1D161}\u00B3",
+  "Dotted Quarter": "\u{1D15F}\u00B7",
+  "Dotted Eighth": "\u{1D160}\u00B7",
+}
+
 export default function BpmToMsPage() {
   return (
     <Suspense>
@@ -109,38 +123,51 @@ function BpmToMsContent() {
         </div>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Note Division</TableHead>
-            <TableHead className="text-right">Milliseconds</TableHead>
-            <TableHead className="text-right">Frequency (Hz)</TableHead>
-            <TableHead className="w-10"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {noteDivisions.map((nd) => (
-            <TableRow key={nd.label}>
-              <TableCell className="font-medium">{nd.label}</TableCell>
-              <TableCell className="text-right font-mono">
-                {calculateMs(nd.fraction).toFixed(2)} ms
-              </TableCell>
-              <TableCell className="text-right font-mono text-muted-foreground">
-                {calculateHz(nd.fraction).toFixed(2)} Hz
-              </TableCell>
-              <TableCell>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => copy(calculateMs(nd.fraction).toFixed(2))}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
-              </TableCell>
+      <div className="rounded-xl border bg-card overflow-hidden shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+                Note Division
+              </TableHead>
+              <TableHead className="text-right text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+                Milliseconds
+              </TableHead>
+              <TableHead className="text-right text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+                Frequency (Hz)
+              </TableHead>
+              <TableHead className="w-10"></TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {noteDivisions.map((nd) => (
+              <TableRow key={nd.label}>
+                <TableCell className="font-medium whitespace-nowrap">
+                  <span className="text-[15px] leading-none mr-1.5 text-[#1565FF] select-none" aria-hidden="true">
+                    {noteNotation[nd.label]}
+                  </span>
+                  {nd.label}
+                </TableCell>
+                <TableCell className="text-right font-mono whitespace-nowrap">
+                  {calculateMs(nd.fraction).toFixed(2)} ms
+                </TableCell>
+                <TableCell className="text-right font-mono text-muted-foreground whitespace-nowrap">
+                  {calculateHz(nd.fraction).toFixed(2)} Hz
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => copy(calculateMs(nd.fraction).toFixed(2))}
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
 
       <BpmToMsSeoContent />
 
