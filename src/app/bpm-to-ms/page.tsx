@@ -4,8 +4,9 @@ import { Suspense, useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Copy } from "lucide-react"
+import { Gauge, Copy } from "lucide-react"
 import { toast } from "sonner"
 import { BpmToMsSeoContent } from "@/components/bpm-to-ms-seo-content"
 
@@ -67,28 +68,44 @@ function BpmToMsContent() {
         Convert tempo to exact millisecond values for all note divisions.
       </p>
 
-      <div className="max-w-xs mx-auto mb-6">
-        <Input
-          type="number"
-          value={bpm}
-          onChange={(e) => setBpm(e.target.value)}
-          className="text-center text-2xl h-14"
-          placeholder="Enter BPM"
-        />
-      </div>
+      <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
+        <div className="grid md:grid-cols-6 gap-6 items-center p-6">
+          <div className="flex flex-col gap-2 md:col-span-2">
+            <Label>BPM</Label>
+            <Input
+              type="number"
+              value={bpm}
+              onChange={(e) => setBpm(e.target.value)}
+              className="text-center text-2xl h-16 w-44"
+              placeholder="Enter BPM"
+            />
+            <p className="text-xs text-muted-foreground">Beats per minute</p>
+          </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-10 max-w-md mx-auto">
-        <div className="p-4 rounded-xl border bg-card text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Quarter</div>
-          <div className="text-lg font-mono font-bold text-primary">{calculateMs(1).toFixed(1)} ms</div>
-        </div>
-        <div className="p-4 rounded-xl border bg-card text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Eighth</div>
-          <div className="text-lg font-mono font-bold text-primary">{calculateMs(0.5).toFixed(1)} ms</div>
-        </div>
-        <div className="p-4 rounded-xl border bg-card text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Dotted Quarter</div>
-          <div className="text-lg font-mono font-bold text-primary">{calculateMs(1.5).toFixed(1)} ms</div>
+          <div className="rounded-xl border bg-card overflow-hidden shadow-sm md:col-span-4">
+            <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+                <Gauge size={14} strokeWidth={2.5} />
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-800">Quick Reference</span>
+            </div>
+            <div className="p-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl border bg-card text-center">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Quarter</div>
+                  <div className="text-lg font-mono font-bold text-primary">{calculateMs(1).toFixed(1)} ms</div>
+                </div>
+                <div className="p-4 rounded-xl border bg-card text-center">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Eighth</div>
+                  <div className="text-lg font-mono font-bold text-primary">{calculateMs(0.5).toFixed(1)} ms</div>
+                </div>
+                <div className="p-4 rounded-xl border bg-card text-center">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Dotted Quarter</div>
+                  <div className="text-lg font-mono font-bold text-primary">{calculateMs(1.5).toFixed(1)} ms</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
