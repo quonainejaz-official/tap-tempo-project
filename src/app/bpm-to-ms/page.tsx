@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useState, useEffect } from "react"
+import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -83,17 +84,33 @@ function BpmToMsContent() {
       </p>
 
       <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
-        <div className="grid md:grid-cols-6 gap-6 items-center p-6">
+        <div className="grid md:grid-cols-6 gap-6 items-center p-4">
           <div className="flex flex-col gap-2 md:col-span-2">
-            <Label>BPM</Label>
+            <Label>BPM (Beats per minute)</Label>
             <Input
               type="number"
               value={bpm}
               onChange={(e) => setBpm(e.target.value)}
-              className="text-center text-2xl h-16 w-44"
+              className="text-center text-2xl h-16 w-full"
               placeholder="Enter BPM"
             />
-            <p className="text-xs text-muted-foreground">Beats per minute</p>
+            {parseFloat(bpm) > 0 && (
+              <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+                <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+                <Link
+                  href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
+                  className="text-xs font-bold text-primary hover:underline leading-snug"
+                >
+                  Use {Math.round(parseFloat(bpm))} BPM in Metronome →
+                </Link>
+                <Link
+                  href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
+                  className="text-xs font-bold text-primary hover:underline leading-snug"
+                >
+                  Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
+                </Link>
+              </div>
+            )}
           </div>
 
           <div className="rounded-xl border bg-card overflow-hidden shadow-sm md:col-span-4">
