@@ -124,16 +124,16 @@ function BpmToMsContent() {
       </div>
 
       <div className="rounded-xl border bg-card overflow-hidden shadow-sm">
-        <Table>
+        <Table className="[&_th]:h-9 [&_th]:bg-blue-50 [&_th]:text-gray-800 [&_td]:py-1 [&_td_button]:h-7 [&_td_button]:w-7">
           <TableHeader>
             <TableRow>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+              <TableHead className="text-xs font-bold uppercase tracking-wider whitespace-nowrap">
                 Note Division
               </TableHead>
-              <TableHead className="text-right text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+              <TableHead className="text-right text-xs font-bold uppercase tracking-wider whitespace-nowrap">
                 Milliseconds
               </TableHead>
-              <TableHead className="text-right text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+              <TableHead className="text-right text-xs font-bold uppercase tracking-wider whitespace-nowrap">
                 Frequency (Hz)
               </TableHead>
               <TableHead className="w-10"></TableHead>
