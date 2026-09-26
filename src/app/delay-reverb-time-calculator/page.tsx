@@ -134,7 +134,7 @@ function DelayTimeCalculatorContent() {
 
   const currentPresets = mode === "reverb" ? reverbPresets : feels
 
-  const splitIndex = allNoteDivisions.findIndex((nd) => nd.label === "1/8")
+  const splitIndex = allNoteDivisions.findIndex((nd) => nd.label === "1/8") + 1
   const leftDivisions = visibleDivisions.slice(0, splitIndex)
   const rightDivisions = visibleDivisions.slice(splitIndex)
 
