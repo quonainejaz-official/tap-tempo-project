@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useState, useRef, useEffect } from "react"
+import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -180,6 +181,23 @@ function DelayTimeCalculatorContent() {
           className="text-center text-2xl h-14"
           placeholder="Enter BPM"
         />
+        {parseFloat(bpm) > 0 && (
+          <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+            <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+            <Link
+              href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
+              className="text-xs font-bold text-primary hover:underline leading-snug"
+            >
+              Use {Math.round(parseFloat(bpm))} BPM in Metronome →
+            </Link>
+            <Link
+              href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
+              className="text-xs font-bold text-primary hover:underline leading-snug"
+            >
+              Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-8 justify-center">
