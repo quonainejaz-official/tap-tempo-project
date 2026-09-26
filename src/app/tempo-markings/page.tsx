@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import { tempoMarkings } from "@/lib/content/tempoMarkings"
 import { Slider } from "@/components/ui/slider"
@@ -55,9 +56,9 @@ export default function TempoMarkingsPage() {
   const gradientPosition = ((bpm - 10) / (300 - 10)) * 100
 
   return (
-    <div className="min-h-[calc(100dvh-3.5rem)] flex flex-col items-center px-4 py-6 bg-background">
+    <div className="min-h-[calc(100dvh-3.5rem)] flex flex-col items-center px-4 pt-4 pb-6 bg-background">
       <div className="w-full max-w-3xl">
-        <div className="mt-8">
+        <div>
           <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight">
             Tempo Markings Chart (Italian Terms)
           </h1>
@@ -82,13 +83,13 @@ export default function TempoMarkingsPage() {
           </div>
         </div>
 
-      <div className="rounded-xl border px-6 py-8 bg-card mt-8" style={{ borderColor: "#e5e7eb", borderRadius: "12px" }}>
+      <div className="rounded-xl border px-6 py-3 bg-card mt-8" style={{ borderColor: "#e5e7eb", borderRadius: "12px" }}>
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-muted-foreground">BPM Range Explorer</span>
           <span className="text-2xl font-bold text-blue-500 font-mono">{bpm}</span>
         </div>
 
-        <p className="text-xs text-muted-foreground mb-6">
+        <p className="text-xs text-muted-foreground mb-4">
           Drag the slider to explore which tempo marking matches each BPM. Tap any marking below to hear it at its natural speed.
         </p>
 
@@ -98,7 +99,7 @@ export default function TempoMarkingsPage() {
           min={10}
           max={300}
           step={1}
-          className="mb-5 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5"
+          className="mb-4 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5"
         />
 
         <div className="relative h-2 rounded-full overflow-hidden mb-2" style={{ background: "linear-gradient(to right, #3b82f6, #22c55e, #eab308, #f97316, #ef4444)" }}>
@@ -111,6 +112,22 @@ export default function TempoMarkingsPage() {
         <div className="flex justify-between text-xs text-muted-foreground mt-2">
           <span>Larghissimo (10)</span>
           <span>Prestissimo (300)</span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 mt-4 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+          <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+          <Link
+            href={`/metronome?bpm=${Math.round(bpm)}`}
+            className="text-xs font-bold text-primary hover:underline leading-snug"
+          >
+            Use {Math.round(bpm)} BPM in Metronome →
+          </Link>
+          <Link
+            href={`/tap-tempo?bpm=${Math.round(bpm)}`}
+            className="text-xs font-bold text-primary hover:underline leading-snug"
+          >
+            Use {Math.round(bpm)} BPM in Tap Tempo →
+          </Link>
         </div>
       </div>
 
