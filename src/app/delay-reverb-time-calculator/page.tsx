@@ -158,7 +158,7 @@ function DelayTimeCalculatorContent() {
             <button
               onClick={() => { setMode("delay"); setActivePreset(null); setCopiedLabel(null) }}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                mode === "delay" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                mode === "delay" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-primary hover:bg-primary/5"
               }`}
             >
               Delay Time
@@ -166,7 +166,7 @@ function DelayTimeCalculatorContent() {
             <button
               onClick={() => { setMode("reverb"); setActivePreset(null); setCopiedLabel(null) }}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                mode === "reverb" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                mode === "reverb" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-primary hover:bg-primary/5"
               }`}
             >
               Reverb Pre-Delay
