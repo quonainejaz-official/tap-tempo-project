@@ -152,65 +152,67 @@ function DelayTimeCalculatorContent() {
         </Button>
       </div>
 
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex rounded-lg border p-0.5 bg-muted/30">
-          <button
-            onClick={() => { setMode("delay"); setActivePreset(null); setCopiedLabel(null) }}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-              mode === "delay" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Delay Time
-          </button>
-          <button
-            onClick={() => { setMode("reverb"); setActivePreset(null); setCopiedLabel(null) }}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-              mode === "reverb" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Reverb Pre-Delay
-          </button>
-        </div>
-      </div>
-
-      <div className="max-w-xs mx-auto mb-8">
-        <Input
-          type="number"
-          value={bpm}
-          onChange={(e) => setBpm(e.target.value)}
-          className="text-center text-2xl h-14"
-          placeholder="Enter BPM"
-        />
-        {parseFloat(bpm) > 0 && (
-          <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
-            <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
-            <Link
-              href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
-              className="text-xs font-bold text-primary hover:underline leading-snug"
+      <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
+        <div className="flex justify-center pt-4">
+          <div className="inline-flex rounded-lg border p-0.5 bg-muted/30">
+            <button
+              onClick={() => { setMode("delay"); setActivePreset(null); setCopiedLabel(null) }}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                mode === "delay" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              Use {Math.round(parseFloat(bpm))} BPM in Metronome →
-            </Link>
-            <Link
-              href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
-              className="text-xs font-bold text-primary hover:underline leading-snug"
+              Delay Time
+            </button>
+            <button
+              onClick={() => { setMode("reverb"); setActivePreset(null); setCopiedLabel(null) }}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                mode === "reverb" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
-            </Link>
+              Reverb Pre-Delay
+            </button>
           </div>
-        )}
-      </div>
+        </div>
 
-      <div className="flex flex-wrap gap-2 mb-8 justify-center">
-        {Object.keys(currentPresets).map((preset) => (
-          <Button
-            key={preset}
-            variant={activePreset === preset ? "default" : "outline"}
-            size="sm"
-            onClick={() => setActivePreset(activePreset === preset ? null : preset)}
-          >
-            {preset}
-          </Button>
-        ))}
+        <div className="grid md:grid-cols-2 gap-6 items-stretch pt-3 px-4">
+          <Input
+            type="number"
+            value={bpm}
+            onChange={(e) => setBpm(e.target.value)}
+            className="text-center text-2xl min-h-14 h-full w-full"
+            placeholder="Enter BPM"
+          />
+          {parseFloat(bpm) > 0 && (
+            <div className="w-full h-full flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+              <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+              <Link
+                href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
+                className="text-xs font-bold text-primary hover:underline leading-snug"
+              >
+                Use {Math.round(parseFloat(bpm))} BPM in Metronome →
+              </Link>
+              <Link
+                href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
+                className="text-xs font-bold text-primary hover:underline leading-snug"
+              >
+                Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
+              </Link>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-2 justify-center px-4 pt-3 pb-4">
+          {Object.keys(currentPresets).map((preset) => (
+            <Button
+              key={preset}
+              variant={activePreset === preset ? "default" : "outline"}
+              size="sm"
+              onClick={() => setActivePreset(activePreset === preset ? null : preset)}
+            >
+              {preset}
+            </Button>
+          ))}
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
