@@ -167,7 +167,7 @@ function BpmToMsContent() {
                   </span>
                   {nd.label}
                 </TableCell>
-                <TableCell className="text-right font-mono whitespace-nowrap">
+                <TableCell className="text-right font-mono text-primary whitespace-nowrap">
                   {calculateMs(nd.fraction).toFixed(2)} ms
                 </TableCell>
                 <TableCell className="text-right font-mono text-muted-foreground whitespace-nowrap">
