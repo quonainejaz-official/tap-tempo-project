@@ -45,6 +45,24 @@ const reverbPresets: Record<string, string[]> = {
   "Creative FX": ["1/8 Dotted", "1/4"],
 }
 
+const noteGlyphs: Record<string, string> = {
+  "1/64": "\u{1D163}",
+  "1/32": "\u{1D162}",
+  "1/32 Dotted": "\u{1D162}\u00B7",
+  "1/32 Triplet": "\u{1D162}\u00B3",
+  "1/16": "\u{1D161}",
+  "1/16 Dotted": "\u{1D161}\u00B7",
+  "1/16 Triplet": "\u{1D161}\u00B3",
+  "1/8": "\u{1D160}",
+  "1/8 Dotted": "\u{1D160}\u00B7",
+  "1/8 Triplet": "\u{1D160}\u00B3",
+  "1/4": "\u{1D15F}",
+  "1/4 Dotted": "\u{1D15F}\u00B7",
+  "1/4 Triplet": "\u{1D15F}\u00B3",
+  "1/2": "\u{1D15E}",
+  "1 Bar": "\u{1D15D}",
+}
+
 export default function DelayTimeCalculatorPage() {
   return (
     <Suspense>
@@ -115,6 +133,10 @@ function DelayTimeCalculatorContent() {
 
   const currentPresets = mode === "reverb" ? reverbPresets : feels
 
+  const splitIndex = allNoteDivisions.findIndex((nd) => nd.label === "1/8")
+  const leftDivisions = visibleDivisions.slice(0, splitIndex)
+  const rightDivisions = visibleDivisions.slice(splitIndex)
+
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
       <div className="flex items-center justify-between mb-8">
@@ -173,55 +195,71 @@ function DelayTimeCalculatorContent() {
         ))}
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Division</TableHead>
-            <TableHead className="text-right">Milliseconds</TableHead>
-            <TableHead className="w-10"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {visibleDivisions.map((nd) => {
-            const highlighted = isHighlighted(nd.label)
-            const justCopied = copiedLabel === nd.label
-            const ms = calculateMs(nd.fraction).toFixed(2)
-            return (
-              <TableRow
-                key={nd.label}
-                className={`cursor-pointer transition-colors ${
-                  highlighted ? "bg-muted/50" : ""
-                } ${justCopied ? "bg-primary/10" : ""} hover:bg-muted/30`}
-                onClick={() => copy(ms, nd.label)}
-              >
-                <TableCell className="font-medium">
-                  {nd.label}
-                  {highlighted && (
-                    <span className="ml-2 text-xs text-primary">(Recommended)</span>
-                  )}
-                </TableCell>
-                <TableCell className="text-right font-mono">
-                  {ms} ms
-                </TableCell>
-                <TableCell>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={(e) => { e.stopPropagation(); copy(ms, nd.label) }}
-                    className="relative"
-                  >
-                    {justCopied ? (
-                      <Check className="w-3 h-3 text-green-500" />
-                    ) : (
-                      <Copy className="w-3 h-3" />
-                    )}
-                  </Button>
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
+      <div className="grid md:grid-cols-2 gap-6">
+        {[leftDivisions, rightDivisions].map((cols, colIndex) => (
+          <div
+            key={colIndex}
+            className="rounded-xl border bg-card overflow-hidden shadow-sm flex flex-col h-full"
+          >
+            <Table className="[&_th]:h-9 [&_th]:bg-blue-50 [&_th]:text-gray-800 [&_td]:py-1 [&_td_button]:h-7 [&_td_button]:w-7">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-xs font-bold uppercase tracking-wider whitespace-nowrap">
+                    Division
+                  </TableHead>
+                  <TableHead className="text-right text-xs font-bold uppercase tracking-wider whitespace-nowrap">
+                    Milliseconds
+                  </TableHead>
+                  <TableHead className="w-10"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {cols.map((nd) => {
+                  const highlighted = isHighlighted(nd.label)
+                  const justCopied = copiedLabel === nd.label
+                  const ms = calculateMs(nd.fraction).toFixed(2)
+                  return (
+                    <TableRow
+                      key={nd.label}
+                      className={`cursor-pointer transition-colors ${
+                        highlighted ? "bg-muted/50" : ""
+                      } ${justCopied ? "bg-primary/10" : ""} hover:bg-muted/30`}
+                      onClick={() => copy(ms, nd.label)}
+                    >
+                      <TableCell className="font-medium whitespace-nowrap">
+                        <span className="text-[15px] leading-none mr-1.5 text-[#1565FF] select-none" aria-hidden="true">
+                          {noteGlyphs[nd.label]}
+                        </span>
+                        {nd.label}
+                        {highlighted && (
+                          <span className="ml-2 text-xs text-primary">(Recommended)</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right font-mono font-bold text-primary whitespace-nowrap">
+                        {ms} ms
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={(e) => { e.stopPropagation(); copy(ms, nd.label) }}
+                          className="relative"
+                        >
+                          {justCopied ? (
+                            <Check className="w-3 h-3 text-green-500" />
+                          ) : (
+                            <Copy className="w-3 h-3" />
+                          )}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </div>
+        ))}
+      </div>
 
       <div className="mt-6 sm:hidden">
         <Button variant="outline" className="w-full" onClick={copyForDaw}>
