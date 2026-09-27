@@ -7,4 +7,6 @@ export const timeSignatures = [
   { signature: "6/8", description: "Six eighth-note beats per bar (two groups of three)", feel: "Compound duple, rolling, swinging", examples: "Many ballads, Irish jigs" },
   { signature: "7/8", description: "Seven eighth-note beats per bar", feel: "Complex, driving, asymmetrical", examples: "Prog rock, Balkan folk, jazz" },
   { signature: "9/8", description: "Nine eighth-note beats per bar (three groups of three)", feel: "Compound triple, flowing, elegant", examples: "Some classical, folk dances" },
+  { signature: "6/4", description: "Six quarter-note beats per bar (two groups of three)", feel: "Two groups of three, broad and deliberate", examples: "Progressive rock, some folk and orchestral music" },
+  { signature: "12/8", description: "Twelve eighth-note beats per bar (four groups of three)", feel: "Compound quadruple, laid-back, swaying", examples: "Blues, gospel, ballads, some rock" },
 ]
