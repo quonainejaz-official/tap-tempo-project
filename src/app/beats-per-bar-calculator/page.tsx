@@ -418,6 +418,28 @@ style={{
             </div>
           </div>
         </div>
+
+        <div className="px-5 pb-5">
+          <div className="flex items-center justify-center gap-2 md:gap-5 whitespace-nowrap rounded-full border border-[#d0e3ff] bg-[#f0f7ff] px-[18px] py-2 max-w-full overflow-x-auto">
+            <span className="text-xs font-medium text-gray-700">💡 Click beat to cycle:</span>
+            <span className="flex items-center gap-1.5">
+              <span className="flex h-6 w-6 items-center justify-center rounded bg-[#1565FF] font-mono text-[10px] font-bold text-white">1</span>
+              <span className="text-xs text-gray-700">Accent</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="flex h-6 w-6 items-center justify-center rounded border border-gray-300 bg-white font-mono text-[10px] text-gray-600">2</span>
+              <span className="text-xs text-gray-700">Normal</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="flex h-6 w-6 items-center justify-center rounded border border-dashed border-[#1565FF]/60 font-mono text-[10px] text-[#1565FF]">(3)</span>
+              <span className="text-xs text-gray-700">Ghost</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="flex h-6 w-6 items-center justify-center rounded bg-gray-200 font-mono text-[10px] text-gray-500">4</span>
+              <span className="text-xs text-gray-700">Silence</span>
+            </span>
+          </div>
+        </div>
       </div>
 
       <BeatsPerBarSeoContent />
