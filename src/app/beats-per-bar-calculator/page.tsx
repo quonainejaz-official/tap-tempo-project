@@ -182,7 +182,7 @@ function BeatsPerBarCalculatorContent() {
   const matchedSig = timeSignatures.find((ts) => ts.signature === `${num}/${den}`)
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-3xl">
+    <div className="container mx-auto px-4 pt-4 pb-12 max-w-3xl">
       <h1 className="text-4xl font-serif font-bold mb-2 text-center">Beats Per Bar Calculator</h1>
       <p className="text-muted-foreground text-center mb-8">
         Interactive time signature tool with customizable accents.
@@ -275,6 +275,36 @@ function BeatsPerBarCalculatorContent() {
             )}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mb-4 text-center">
+        <p className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">
+          Quick time signatures
+        </p>
+        <div className="flex flex-wrap justify-center gap-1.5">
+          {["2/2", "2/4", "3/2", "3/4", "3/8", "4/4", "4/8", "5/4", "5/8", "6/4", "6/8", "7/4", "7/8", "9/4", "9/8", "10/4", "10/8", "11/8", "12/8"].map((sig) => {
+            const [n, d] = sig.split("/")
+            const active = num === n && den === d
+            return (
+              <button
+                key={sig}
+                type="button"
+                aria-pressed={active}
+                onClick={() => {
+                  setNum(n)
+                  setDen(d)
+                }}
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                  active
+                    ? "bg-[#1565FF] text-white"
+                    : "bg-transparent text-[#595959] hover:text-[#1565FF] hover:bg-[#1565FF]/5"
+                }`}
+              >
+                {sig}
+              </button>
+            )
+          })}
         </div>
       </div>
 

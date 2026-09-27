@@ -9,4 +9,13 @@ export const timeSignatures = [
   { signature: "9/8", description: "Nine eighth-note beats per bar (three groups of three)", feel: "Compound triple, flowing, elegant", examples: "Some classical, folk dances" },
   { signature: "6/4", description: "Six quarter-note beats per bar (two groups of three)", feel: "Two groups of three, broad and deliberate", examples: "Progressive rock, some folk and orchestral music" },
   { signature: "12/8", description: "Twelve eighth-note beats per bar (four groups of three)", feel: "Compound quadruple, laid-back, swaying", examples: "Blues, gospel, ballads, some rock" },
+  { signature: "3/2", description: "Three half-note beats per bar", feel: "Broad, stately, slow triple pulse", examples: "Renaissance/Baroque sacred music, hymns, slow waltzes in half notes" },
+  { signature: "3/8", description: "Three eighth-note beats per bar", feel: "Quick, light, dance-like triple feel", examples: "Fast classical scherzos, folk dances, quick waltz variants" },
+  { signature: "4/8", description: "Four eighth-note beats per bar (same pulse as 4/4, notated faster)", feel: "Same as 4/4 but at a faster notated tempo", examples: "Fast marches, up-tempo pieces in eighth-note notation" },
+  { signature: "5/8", description: "Five eighth-note beats per bar (asymmetric, grouped 3+2 or 2+3)", feel: "Uneven, driving, asymmetric groove", examples: "Balkan folk music, progressive rock, film scores needing tension" },
+  { signature: "7/4", description: "Seven quarter-note beats per bar (often grouped 4+3 or 3+4)", feel: "Expansive, uneven, less predictable than 4/4", examples: "Progressive rock, jazz fusion, film and game scores" },
+  { signature: "9/4", description: "Nine quarter-note beats per bar (often felt as three groups of three)", feel: "Broad, flowing triple-of-triple pulse", examples: "Some progressive rock and orchestral pieces" },
+  { signature: "10/4", description: "Ten quarter-note beats per bar (asymmetric, often grouped 5+5 or 3+3+2+2)", feel: "Complex, extended asymmetric groove", examples: "Progressive rock and jazz fusion pieces exploring extended meters" },
+  { signature: "10/8", description: "Ten eighth-note beats per bar (commonly grouped 3+3+2+2 or 2+3+3+2)", feel: "Driving, syncopated, asymmetric compound feel", examples: "Balkan and Eastern European folk music, progressive rock" },
+  { signature: "11/8", description: "Eleven eighth-note beats per bar (often grouped 3+3+3+2 or similar)", feel: "Highly asymmetric, intricate, unpredictable groove", examples: "Progressive rock, contemporary jazz, some Balkan folk music" },
 ]
