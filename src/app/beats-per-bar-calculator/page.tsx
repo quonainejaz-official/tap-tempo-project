@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select"
 import { AudioEngine } from "@/lib/audio-engine"
 import { useAudioEngine } from "@/hooks/use-audio-engine"
-import { Play, Square } from "lucide-react"
+import { Play, Square, Gauge, Music2, Drum } from "lucide-react"
 import { motion } from "framer-motion"
 import { BeatsPerBarSeoContent } from "@/components/beats-per-bar-seo-content"
 
@@ -85,7 +85,7 @@ function BeatsPerBarCalculatorContent() {
     const isMuted = muted.includes(i)
     const isCurrent = currentBeat === i
     const classes = [
-      "rounded-lg border-2 transition-colors flex items-center justify-center",
+      "rounded-lg border-2 transition-[background-color,border-color,color,box-shadow,scale] hover:scale-105 active:scale-95 flex items-center justify-center",
       isAccent || isCurrent ? "border-primary" : "border-border",
     ]
     if (isCurrent) {
@@ -188,12 +188,32 @@ function BeatsPerBarCalculatorContent() {
         Interactive time signature tool with customizable accents.
       </p>
 
-      <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
-        <div className="p-6">
-          <div className="flex gap-4 justify-center">
+      <div className="grid md:grid-cols-2 gap-4 mb-6 items-stretch">
+        <div className="rounded-xl border bg-card overflow-hidden shadow-sm flex flex-col">
+          <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+            <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+              <Gauge size={14} strokeWidth={2.5} />
+            </span>
+            <span className="text-xs font-bold uppercase tracking-wider text-gray-800">
+              Time Signature & Tempo Settings
+            </span>
+          </div>
+          <div className="p-5 flex flex-col flex-1">
+            <div className="w-full max-w-[160px] mx-auto mb-5">
+            <Input
+              type="number"
+              value={bpm}
+              min={1}
+              max={500}
+              onChange={(e) => handleBpmChange(e.target.value)}
+              placeholder="BPM"
+              className="h-12 text-center text-2xl font-semibold"
+            />
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <div className="w-24">
               <Select value={num} onValueChange={setNum}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 text-lg font-semibold">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -208,7 +228,7 @@ function BeatsPerBarCalculatorContent() {
             <div className="flex items-center text-2xl text-muted-foreground">/</div>
             <div className="w-24">
               <Select value={den} onValueChange={setDen}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 text-lg font-semibold">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -220,63 +240,101 @@ function BeatsPerBarCalculatorContent() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="w-28">
-              <Input
-                type="number"
-                value={bpm}
-                min={1}
-                max={500}
-                onChange={(e) => handleBpmChange(e.target.value)}
-                placeholder="BPM"
-              />
+          </div>
+          </div>
+        </div>
+
+        <div className="rounded-xl border bg-card overflow-hidden shadow-sm flex flex-col">
+          <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+            <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+              <Music2 size={14} strokeWidth={2.5} />
+            </span>
+            <span className="text-xs font-bold uppercase tracking-wider text-gray-800">
+              Time Signature Breakdown
+            </span>
+          </div>
+          <div className="p-5 flex flex-col flex-1">
+            <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 flex-1">
+            <h3 className="font-bold text-xl">
+              {num}/{den}
+            </h3>
+            {matchedSig ? (
+              <>
+                <p className="text-sm text-muted-foreground mt-1">{matchedSig.description}</p>
+                <p className="text-sm mt-1">
+                  <span className="font-medium">Feel:</span> {matchedSig.feel}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Examples:</span> {matchedSig.examples}
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground mt-1">
+                No breakdown available for this time signature yet.
+              </p>
+            )}
             </div>
           </div>
-
-          {parseFloat(bpm) > 0 && (
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
-              <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
-              <Link
-                href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
-                className="text-xs font-bold text-primary hover:underline leading-snug"
-              >
-                Use {Math.round(parseFloat(bpm))} BPM in Metronome →
-              </Link>
-              <Link
-                href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
-                className="text-xs font-bold text-primary hover:underline leading-snug"
-              >
-                Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
-              </Link>
-            </div>
-          )}
         </div>
       </div>
 
+      {parseFloat(bpm) > 0 && (
+        <div className="mb-6 w-full flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 py-2 px-4 rounded-xl border border-primary/20 bg-primary/5">
+          <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+          <Link
+            href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
+            className="text-xs font-bold text-primary hover:underline leading-snug"
+          >
+            Use {Math.round(parseFloat(bpm))} BPM in Metronome →
+          </Link>
+          <Link
+            href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
+            className="text-xs font-bold text-primary hover:underline leading-snug"
+          >
+            Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
+          </Link>
+        </div>
+      )}
+
       <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
-        <div className="p-6">
-          <div className="flex flex-nowrap items-start justify-center gap-1.5 md:gap-2 mb-8">
-            {Array.from({ length: Number(num) }, (_, i) => (
-              <motion.button
-                key={i}
-                onClick={() => cycleBeatState(i)}
-                className={getBeatClasses(i)}
-                style={{
-                  flex: "1 1 0",
-                  minWidth: 0,
+        <div className="p-5 grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="min-w-0 flex flex-col">
+            <div className="rounded-xl border bg-card overflow-hidden shadow-sm flex flex-col flex-1">
+              <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
+                <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+                  <Drum size={14} strokeWidth={2.5} />
+                </span>
+                <span className="text-xs font-bold uppercase tracking-wider text-gray-800">
+                  Interactive Beat Accents
+                </span>
+              </div>
+              <div className="px-4 py-3 flex flex-col flex-1">
+                <div className="flex flex-wrap items-start justify-center content-center gap-1.5 flex-1">
+              {Array.from({ length: Number(num) }, (_, i) => (
+                <motion.button
+                  key={i}
+                  onClick={() => cycleBeatState(i)}
+                  className={getBeatClasses(i)}
+style={{
+                  flex: "1 1 calc(16.6667% - 8px)",
+                  minWidth: 24,
                   maxWidth: 48,
                   aspectRatio: accents.includes(i) ? "0.64" : "0.8",
                 }}
-                layout
-              >
-                <span className={`text-[clamp(7px,2vw,12px)] font-mono ${muted.includes(i) ? "opacity-40" : ""}`}>
-                  {i + 1}
-                </span>
-              </motion.button>
-            ))}
+                  layout
+                >
+                  <span className={`text-[clamp(7px,2vw,12px)] font-mono ${muted.includes(i) ? "opacity-40" : ""}`}>
+                    {i + 1}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+            </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl border bg-muted/30 p-4 text-center">
+          <div className="min-w-0 flex flex-col gap-4">
+            <div className="rounded-xl border bg-muted/30 p-4 text-center flex flex-col items-center justify-center">
               <Button onClick={play} size="lg">
                 {isPlaying ? (
                   <><Square className="w-5 h-5 mr-2" /> Stop</>
@@ -285,34 +343,35 @@ function BeatsPerBarCalculatorContent() {
                 )}
               </Button>
               <p className="text-xs text-muted-foreground mt-2">
-                Click a beat block to cycle accent, mute, and normal
+                Click any beat block to cycle accent, mute, and normal beats.
               </p>
             </div>
-            <div className="rounded-xl border bg-muted/30 p-4 text-center flex items-center justify-center">
-              {isPlaying && currentBeat !== null && (
-                <span className="text-2xl font-mono font-bold">Beat {currentBeat + 1}</span>
+            <div className="rounded-xl border bg-muted/30 p-4 text-center flex flex-col items-center justify-center">
+              {isPlaying && currentBeat !== null ? (
+                <>
+                  <span className="text-3xl font-mono font-bold tracking-wide">BEAT {currentBeat + 1}</span>
+                  <p className="text-xs mt-1.5">
+                    <span className="font-medium">Type:</span>{" "}
+                    {muted.includes(currentBeat)
+                      ? "Muted (Silence)"
+                      : accents.includes(currentBeat)
+                        ? "Accented (Strong)"
+                        : "Normal"}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">Status: Playing</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm font-semibold">Current Beat Tracker</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Press Play to visualize active beats and accents in real time.
+                  </p>
+                </>
               )}
             </div>
           </div>
         </div>
       </div>
-
-      {matchedSig && (
-        <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
-          <div className="p-6">
-            <div className="p-4 bg-muted rounded-xl">
-              <h3 className="font-bold text-lg mb-1">{matchedSig.signature}</h3>
-              <p className="text-sm text-muted-foreground">{matchedSig.description}</p>
-              <p className="text-sm mt-1">
-                <span className="font-medium">Feel:</span> {matchedSig.feel}
-              </p>
-              <p className="text-sm">
-                <span className="font-medium">Examples:</span> {matchedSig.examples}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
 
       <BeatsPerBarSeoContent />
 
