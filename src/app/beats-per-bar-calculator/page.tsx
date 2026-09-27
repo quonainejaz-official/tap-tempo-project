@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { AudioEngine } from "@/lib/audio-engine"
+import { useAudioEngine } from "@/hooks/use-audio-engine"
 import { Play, Square } from "lucide-react"
 import { motion } from "framer-motion"
 import { BeatsPerBarSeoContent } from "@/components/beats-per-bar-seo-content"
@@ -29,6 +30,8 @@ export default function BeatsPerBarCalculatorPage() {
   const beatTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
 
   const msPerBeat = Number(bpm) > 0 ? (60000 / Number(bpm)) * (4 / Number(den)) : 500
+
+  const { playMetronomeClick } = useAudioEngine()
 
   const toggleAccent = (beat: number) => {
     setAccents((prev) =>
@@ -84,7 +87,7 @@ export default function BeatsPerBarCalculatorPage() {
         const currentBeatIndex = beatIndex % n
 
         const audioTid = setTimeout(() => {
-          engine.playMetronomeClick(snapshots.accents.includes(currentBeatIndex), 0.3)
+          playMetronomeClick(snapshots.accents.includes(currentBeatIndex), 0.3)
         }, delay)
         beatTimeoutsRef.current.push(audioTid)
 
