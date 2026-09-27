@@ -131,7 +131,7 @@ export default function TempoMarkingsPage() {
         </div>
       </div>
 
-        <section className="mt-12">
+        <section className="mt-6">
           <h2 className="text-2xl md:text-3xl font-serif font-bold">Tempo Marking Overview</h2>
           <p className="text-muted-foreground text-sm mt-2">
             Browse every Italian tempo marking by BPM range. Select any marking to instantly view its meaning, musical feel, and playback.
@@ -139,7 +139,7 @@ export default function TempoMarkingsPage() {
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[7fr_7fr_6fr] lg:gap-6 mt-6 items-stretch">
             {[tempoMarkings.slice(0, Math.ceil(tempoMarkings.length / 2)), tempoMarkings.slice(Math.ceil(tempoMarkings.length / 2))].map((list, columnIndex) => (
-              <div key={columnIndex} className="rounded-xl border bg-card p-4 flex flex-col gap-2">
+              <div key={columnIndex} className="rounded-xl border bg-card p-3 flex flex-col gap-1.5">
                 {list.map((marking) => {
                   const isActive = bpm >= marking.bpmMin && bpm <= marking.bpmMax
                   return (
@@ -169,7 +169,7 @@ export default function TempoMarkingsPage() {
               </div>
             ))}
 
-            <div className="rounded-xl border bg-card p-4">
+            <div className="rounded-xl border bg-card p-3">
               <div
                 key={selectedMarking.term}
                 className="animate-in fade-in duration-200 flex flex-col"
@@ -181,15 +181,15 @@ export default function TempoMarkingsPage() {
                   {category.label}
                 </span>
 
-                <h3 className="font-serif italic font-bold text-3xl mt-4">
+                <h3 className="font-serif italic font-bold text-3xl mt-3">
                   {selectedMarking.term}
                 </h3>
 
-                <span className="inline-flex self-start items-center rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 font-mono text-lg font-bold text-blue-600 mt-4">
+                <span className="inline-flex self-start items-center rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 font-mono text-lg font-bold text-blue-600 mt-3">
                   {selectedMarking.bpmMin}–{selectedMarking.bpmMax} BPM
                 </span>
 
-                <div className="mt-6 space-y-5">
+                <div className="mt-4 space-y-3">
                   <div>
                     <p className="text-xs uppercase tracking-wider text-muted-foreground">Meaning</p>
                     <p className="text-sm mt-1">{selectedMarking.description}</p>
@@ -200,7 +200,7 @@ export default function TempoMarkingsPage() {
                   </div>
                 </div>
 
-                <div className="mt-auto pt-6">
+                <div className="mt-auto pt-4">
                   <button
                     onClick={() =>
                       playPreview(selectedMarking.term, selectedMarking.bpmMin, selectedMarking.bpmMax)
