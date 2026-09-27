@@ -1,6 +1,8 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { Suspense, useState, useEffect, useRef } from "react"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { timeSignatures } from "@/lib/content/timeSignatures"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -18,12 +20,29 @@ import { motion } from "framer-motion"
 import { BeatsPerBarSeoContent } from "@/components/beats-per-bar-seo-content"
 
 export default function BeatsPerBarCalculatorPage() {
+  return (
+    <Suspense>
+      <BeatsPerBarCalculatorContent />
+    </Suspense>
+  )
+}
+
+function BeatsPerBarCalculatorContent() {
+  const searchParams = useSearchParams()
   const [num, setNum] = useState("4")
   const [den, setDen] = useState("4")
   const [bpm, setBpm] = useState("120")
   const [accents, setAccents] = useState<number[]>([0])
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentBeat, setCurrentBeat] = useState<number | null>(null)
+
+  useEffect(() => {
+    const param = searchParams.get("bpm")
+    if (param) {
+      const parsed = parseInt(param, 10)
+      if (!isNaN(parsed) && parsed > 0) setBpm(String(parsed))
+    }
+  }, [searchParams])
 
   const isPlayingRef = useRef(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -160,6 +179,24 @@ export default function BeatsPerBarCalculatorPage() {
           />
         </div>
       </div>
+
+      {parseFloat(bpm) > 0 && (
+        <div className="mb-8 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+          <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+          <Link
+            href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
+            className="text-xs font-bold text-primary hover:underline leading-snug"
+          >
+            Use {Math.round(parseFloat(bpm))} BPM in Metronome →
+          </Link>
+          <Link
+            href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
+            className="text-xs font-bold text-primary hover:underline leading-snug"
+          >
+            Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
+          </Link>
+        </div>
+      )}
 
       <div className="flex justify-center gap-3 mb-8">
         {Array.from({ length: Number(num) }, (_, i) => (
