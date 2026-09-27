@@ -19,6 +19,9 @@ import { Play, Square, Gauge, Music2, Drum } from "lucide-react"
 import { motion } from "framer-motion"
 import { BeatsPerBarSeoContent } from "@/components/beats-per-bar-seo-content"
 
+const BEAT_STATES = ["accent", "normal", "ghost", "muted"] as const
+type BeatState = (typeof BEAT_STATES)[number]
+
 export default function BeatsPerBarCalculatorPage() {
   return (
     <Suspense>
@@ -32,11 +35,15 @@ function BeatsPerBarCalculatorContent() {
   const [num, setNum] = useState("4")
   const [den, setDen] = useState("4")
   const [bpm, setBpm] = useState("120")
-  const [accents, setAccents] = useState<number[]>([0])
+  const [beatRing, setBeatRing] = useState<Map<number, number>>(() => new Map([[0, 0]]))
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentBeat, setCurrentBeat] = useState<number | null>(null)
-  const [muted, setMuted] = useState<number[]>([])
   const lastValidBpmRef = useRef("120")
+
+  const getBeatState = (i: number): BeatState => {
+    const pos = beatRing.get(i)
+    return pos === undefined ? "normal" : BEAT_STATES[pos]
+  }
 
   useEffect(() => {
     const param = searchParams.get("bpm")
@@ -70,29 +77,34 @@ function BeatsPerBarCalculatorContent() {
   }
 
   const cycleBeatState = (beat: number) => {
-    if (muted.includes(beat)) {
-      setMuted((prev) => prev.filter((b) => b !== beat))
-    } else if (accents.includes(beat)) {
-      setAccents((prev) => prev.filter((b) => b !== beat))
-      setMuted((prev) => (prev.includes(beat) ? prev : [...prev, beat]))
-    } else {
-      setAccents((prev) => (prev.includes(beat) ? prev : [...prev, beat]))
-    }
+    setBeatRing((prev) => {
+      const next = new Map(prev)
+      if (!next.has(beat)) {
+        next.set(beat, 0)
+      } else {
+        next.set(beat, (next.get(beat)! + 1) % BEAT_STATES.length)
+      }
+      return next
+    })
   }
 
   const getBeatClasses = (i: number) => {
-    const isAccent = accents.includes(i)
-    const isMuted = muted.includes(i)
+    const state = getBeatState(i)
     const isCurrent = currentBeat === i
+    const isGhost = state === "ghost"
+    const isAccent = state === "accent"
+    const isMuted = state === "muted"
     const classes = [
       "rounded-lg border-2 transition-[background-color,border-color,color,box-shadow,scale] hover:scale-105 active:scale-95 flex items-center justify-center",
-      isAccent || isCurrent ? "border-primary" : "border-border",
+      isAccent || isCurrent ? "border-primary" : isGhost ? "border-[#1565FF]/60" : "border-border",
     ]
     if (isCurrent) {
       classes.push("bg-primary/20 shadow-md")
       if (isAccent) classes.push("ring-2 ring-primary")
     } else if (isAccent) {
       classes.push("bg-primary/10")
+    } else if (isGhost) {
+      classes.push("border-dashed bg-[#1565FF]/10")
     } else if (isMuted) {
       classes.push("bg-muted/40")
     }
@@ -130,7 +142,7 @@ function BeatsPerBarCalculatorContent() {
 
     const n = Number(num)
     const beatDuration = msPerBeat
-    const snapshots = { accents, muted }
+    const ringSnapshot = new Map(beatRing)
     let beatIndex = 0
     const startTime = engine.ctx.currentTime
 
@@ -147,8 +159,11 @@ function BeatsPerBarCalculatorContent() {
         const currentBeatIndex = beatIndex % n
 
         const audioTid = setTimeout(() => {
-          if (!snapshots.muted.includes(currentBeatIndex)) {
-            playMetronomeClick(snapshots.accents.includes(currentBeatIndex), 0.3)
+          const state = ringSnapshot.has(currentBeatIndex)
+            ? BEAT_STATES[ringSnapshot.get(currentBeatIndex)!]
+            : "normal"
+          if (state !== "muted") {
+            playMetronomeClick(state === "accent", state === "ghost" ? 0.1 : 0.3)
           }
         }, delay)
         beatTimeoutsRef.current.push(audioTid)
@@ -349,12 +364,12 @@ style={{
                   flex: "1 1 calc(16.6667% - 8px)",
                   minWidth: 24,
                   maxWidth: 48,
-                  aspectRatio: accents.includes(i) ? "0.64" : "0.8",
+                  aspectRatio: getBeatState(i) === "accent" ? "0.64" : "0.8",
                 }}
                   layout
                 >
-                  <span className={`text-[clamp(7px,2vw,12px)] font-mono ${muted.includes(i) ? "opacity-40" : ""}`}>
-                    {i + 1}
+                  <span className={`text-[clamp(7px,2vw,12px)] font-mono ${getBeatState(i) === "muted" ? "opacity-40" : getBeatState(i) === "ghost" ? "opacity-70 italic" : ""}`}>
+                    {getBeatState(i) === "ghost" ? `(${i + 1})` : i + 1}
                   </span>
                 </motion.button>
               ))}
@@ -373,7 +388,7 @@ style={{
                 )}
               </Button>
               <p className="text-xs text-muted-foreground mt-2">
-                Click any beat block to cycle accent, mute, and normal beats.
+                Click any beat block to cycle accent, normal, ghost note, and mute.
               </p>
             </div>
             <div className="rounded-xl border bg-muted/30 p-4 text-center flex flex-col items-center justify-center">
@@ -382,11 +397,13 @@ style={{
                   <span className="text-3xl font-mono font-bold tracking-wide">BEAT {currentBeat + 1}</span>
                   <p className="text-xs mt-1.5">
                     <span className="font-medium">Type:</span>{" "}
-                    {muted.includes(currentBeat)
+                    {getBeatState(currentBeat) === "muted"
                       ? "Muted (Silence)"
-                      : accents.includes(currentBeat)
-                        ? "Accented (Strong)"
-                        : "Normal"}
+                      : getBeatState(currentBeat) === "ghost"
+                        ? "Ghost Note (Soft)"
+                        : getBeatState(currentBeat) === "accent"
+                          ? "Accented (Strong)"
+                          : "Normal"}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">Status: Playing</p>
                 </>
