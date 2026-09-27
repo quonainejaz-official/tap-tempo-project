@@ -85,7 +85,7 @@ function BeatsPerBarCalculatorContent() {
     const isMuted = muted.includes(i)
     const isCurrent = currentBeat === i
     const classes = [
-      "rounded-lg border-2 transition-colors",
+      "rounded-lg border-2 transition-colors flex items-center justify-center",
       isAccent || isCurrent ? "border-primary" : "border-border",
     ]
     if (isCurrent) {
@@ -188,111 +188,129 @@ function BeatsPerBarCalculatorContent() {
         Interactive time signature tool with customizable accents.
       </p>
 
-      <div className="flex gap-4 mb-8 justify-center">
-        <div className="w-24">
-          <Select value={num} onValueChange={setNum}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {Array.from({ length: 12 }, (_, i) => (
-                <SelectItem key={i + 1} value={String(i + 1)}>
-                  {i + 1}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex items-center text-2xl text-muted-foreground">/</div>
-        <div className="w-24">
-          <Select value={den} onValueChange={setDen}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {[2, 4, 8, 16].map((d) => (
-                <SelectItem key={d} value={String(d)}>
-                  {d}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="w-28">
-          <Input
-            type="number"
-            value={bpm}
-            min={1}
-            max={500}
-            onChange={(e) => handleBpmChange(e.target.value)}
-            placeholder="BPM"
-          />
-        </div>
-      </div>
+      <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
+        <div className="p-6">
+          <div className="flex gap-4 justify-center">
+            <div className="w-24">
+              <Select value={num} onValueChange={setNum}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <SelectItem key={i + 1} value={String(i + 1)}>
+                      {i + 1}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center text-2xl text-muted-foreground">/</div>
+            <div className="w-24">
+              <Select value={den} onValueChange={setDen}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {[2, 4, 8, 16].map((d) => (
+                    <SelectItem key={d} value={String(d)}>
+                      {d}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="w-28">
+              <Input
+                type="number"
+                value={bpm}
+                min={1}
+                max={500}
+                onChange={(e) => handleBpmChange(e.target.value)}
+                placeholder="BPM"
+              />
+            </div>
+          </div>
 
-      {parseFloat(bpm) > 0 && (
-        <div className="mb-8 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
-          <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
-          <Link
-            href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
-            className="text-xs font-bold text-primary hover:underline leading-snug"
-          >
-            Use {Math.round(parseFloat(bpm))} BPM in Metronome →
-          </Link>
-          <Link
-            href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
-            className="text-xs font-bold text-primary hover:underline leading-snug"
-          >
-            Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
-          </Link>
-        </div>
-      )}
-
-      <div className="flex flex-wrap justify-center gap-3 mb-8">
-        {Array.from({ length: Number(num) }, (_, i) => (
-          <motion.button
-            key={i}
-            onClick={() => cycleBeatState(i)}
-            className={getBeatClasses(i)}
-            style={{ width: 48, height: accents.includes(i) ? 80 : 64 }}
-            layout
-          >
-            <span className={`text-xs font-mono ${muted.includes(i) ? "opacity-40" : ""}`}>
-              {i + 1}
-            </span>
-          </motion.button>
-        ))}
-      </div>
-
-      <div className="text-center mb-8">
-        <Button onClick={play} size="lg">
-          {isPlaying ? (
-            <><Square className="w-5 h-5 mr-2" /> Stop</>
-          ) : (
-            <><Play className="w-5 h-5 mr-2" /> Play</>
+          {parseFloat(bpm) > 0 && (
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+              <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+              <Link
+                href={`/metronome?bpm=${Math.round(parseFloat(bpm))}`}
+                className="text-xs font-bold text-primary hover:underline leading-snug"
+              >
+                Use {Math.round(parseFloat(bpm))} BPM in Metronome →
+              </Link>
+              <Link
+                href={`/tap-tempo?bpm=${Math.round(parseFloat(bpm))}`}
+                className="text-xs font-bold text-primary hover:underline leading-snug"
+              >
+                Use {Math.round(parseFloat(bpm))} BPM in Tap Tempo →
+              </Link>
+            </div>
           )}
-        </Button>
-        <p className="text-xs text-muted-foreground mt-2">
-          Click a beat block to cycle accent, mute, and normal
-        </p>
+        </div>
       </div>
 
-      {currentBeat !== null && isPlaying && (
-        <div className="text-center mb-4">
-          <span className="text-2xl font-mono font-bold">Beat {currentBeat + 1}</span>
+      <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
+        <div className="p-6">
+          <div className="flex flex-nowrap items-start justify-center gap-1.5 md:gap-2 mb-8">
+            {Array.from({ length: Number(num) }, (_, i) => (
+              <motion.button
+                key={i}
+                onClick={() => cycleBeatState(i)}
+                className={getBeatClasses(i)}
+                style={{
+                  flex: "1 1 0",
+                  minWidth: 0,
+                  maxWidth: 48,
+                  aspectRatio: accents.includes(i) ? "0.64" : "0.8",
+                }}
+                layout
+              >
+                <span className={`text-[clamp(7px,2vw,12px)] font-mono ${muted.includes(i) ? "opacity-40" : ""}`}>
+                  {i + 1}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-xl border bg-muted/30 p-4 text-center">
+              <Button onClick={play} size="lg">
+                {isPlaying ? (
+                  <><Square className="w-5 h-5 mr-2" /> Stop</>
+                ) : (
+                  <><Play className="w-5 h-5 mr-2" /> Play</>
+                )}
+              </Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                Click a beat block to cycle accent, mute, and normal
+              </p>
+            </div>
+            <div className="rounded-xl border bg-muted/30 p-4 text-center flex items-center justify-center">
+              {isPlaying && currentBeat !== null && (
+                <span className="text-2xl font-mono font-bold">Beat {currentBeat + 1}</span>
+              )}
+            </div>
+          </div>
         </div>
-      )}
+      </div>
 
       {matchedSig && (
-        <div className="p-4 bg-muted rounded-xl">
-          <h3 className="font-bold text-lg mb-1">{matchedSig.signature}</h3>
-          <p className="text-sm text-muted-foreground">{matchedSig.description}</p>
-          <p className="text-sm mt-1">
-            <span className="font-medium">Feel:</span> {matchedSig.feel}
-          </p>
-          <p className="text-sm">
-            <span className="font-medium">Examples:</span> {matchedSig.examples}
-          </p>
+        <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
+          <div className="p-6">
+            <div className="p-4 bg-muted rounded-xl">
+              <h3 className="font-bold text-lg mb-1">{matchedSig.signature}</h3>
+              <p className="text-sm text-muted-foreground">{matchedSig.description}</p>
+              <p className="text-sm mt-1">
+                <span className="font-medium">Feel:</span> {matchedSig.feel}
+              </p>
+              <p className="text-sm">
+                <span className="font-medium">Examples:</span> {matchedSig.examples}
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
