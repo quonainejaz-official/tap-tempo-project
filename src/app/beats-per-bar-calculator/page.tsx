@@ -35,12 +35,17 @@ function BeatsPerBarCalculatorContent() {
   const [accents, setAccents] = useState<number[]>([0])
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentBeat, setCurrentBeat] = useState<number | null>(null)
+  const [muted, setMuted] = useState<number[]>([])
+  const lastValidBpmRef = useRef("120")
 
   useEffect(() => {
     const param = searchParams.get("bpm")
     if (param) {
       const parsed = parseInt(param, 10)
-      if (!isNaN(parsed) && parsed > 0) setBpm(String(parsed))
+      if (!isNaN(parsed) && parsed > 0) {
+        lastValidBpmRef.current = String(parsed)
+        setBpm(String(parsed))
+      }
     }
   }, [searchParams])
 
@@ -52,10 +57,46 @@ function BeatsPerBarCalculatorContent() {
 
   const { playMetronomeClick } = useAudioEngine()
 
-  const toggleAccent = (beat: number) => {
-    setAccents((prev) =>
-      prev.includes(beat) ? prev.filter((b) => b !== beat) : [...prev, beat],
-    )
+  const handleBpmChange = (raw: string) => {
+    const trimmed = raw.trim()
+    const parsed = parseInt(trimmed, 10)
+    if (trimmed === "" || isNaN(parsed)) {
+      setBpm(lastValidBpmRef.current)
+      return
+    }
+    const clamped = Math.max(1, Math.min(500, parsed))
+    lastValidBpmRef.current = String(clamped)
+    setBpm(String(clamped))
+  }
+
+  const cycleBeatState = (beat: number) => {
+    if (muted.includes(beat)) {
+      setMuted((prev) => prev.filter((b) => b !== beat))
+    } else if (accents.includes(beat)) {
+      setAccents((prev) => prev.filter((b) => b !== beat))
+      setMuted((prev) => (prev.includes(beat) ? prev : [...prev, beat]))
+    } else {
+      setAccents((prev) => (prev.includes(beat) ? prev : [...prev, beat]))
+    }
+  }
+
+  const getBeatClasses = (i: number) => {
+    const isAccent = accents.includes(i)
+    const isMuted = muted.includes(i)
+    const isCurrent = currentBeat === i
+    const classes = [
+      "rounded-lg border-2 transition-colors",
+      isAccent || isCurrent ? "border-primary" : "border-border",
+    ]
+    if (isCurrent) {
+      classes.push("bg-primary/20 shadow-md")
+      if (isAccent) classes.push("ring-2 ring-primary")
+    } else if (isAccent) {
+      classes.push("bg-primary/10")
+    } else if (isMuted) {
+      classes.push("bg-muted/40")
+    }
+    return classes.join(" ")
   }
 
   const clearAllTimeouts = () => {
@@ -89,7 +130,7 @@ function BeatsPerBarCalculatorContent() {
 
     const n = Number(num)
     const beatDuration = msPerBeat
-    const snapshots = { accents }
+    const snapshots = { accents, muted }
     let beatIndex = 0
     const startTime = engine.ctx.currentTime
 
@@ -106,7 +147,9 @@ function BeatsPerBarCalculatorContent() {
         const currentBeatIndex = beatIndex % n
 
         const audioTid = setTimeout(() => {
-          playMetronomeClick(snapshots.accents.includes(currentBeatIndex), 0.3)
+          if (!snapshots.muted.includes(currentBeatIndex)) {
+            playMetronomeClick(snapshots.accents.includes(currentBeatIndex), 0.3)
+          }
         }, delay)
         beatTimeoutsRef.current.push(audioTid)
 
@@ -130,6 +173,11 @@ function BeatsPerBarCalculatorContent() {
       clearAllTimeouts()
     }
   }, [])
+
+  useEffect(() => {
+    if (isPlayingRef.current) stopPlayback()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [num, den, bpm])
 
   const matchedSig = timeSignatures.find((ts) => ts.signature === `${num}/${den}`)
 
@@ -174,7 +222,9 @@ function BeatsPerBarCalculatorContent() {
           <Input
             type="number"
             value={bpm}
-            onChange={(e) => setBpm(e.target.value)}
+            min={1}
+            max={500}
+            onChange={(e) => handleBpmChange(e.target.value)}
             placeholder="BPM"
           />
         </div>
@@ -198,18 +248,18 @@ function BeatsPerBarCalculatorContent() {
         </div>
       )}
 
-      <div className="flex justify-center gap-3 mb-8">
+      <div className="flex flex-wrap justify-center gap-3 mb-8">
         {Array.from({ length: Number(num) }, (_, i) => (
           <motion.button
             key={i}
-            onClick={() => toggleAccent(i)}
-            className={`rounded-lg border-2 transition-colors ${
-              accents.includes(i) ? "border-primary bg-primary/10" : "border-border"
-            } ${currentBeat === i ? "border-primary bg-primary/20 shadow-md" : ""}`}
+            onClick={() => cycleBeatState(i)}
+            className={getBeatClasses(i)}
             style={{ width: 48, height: accents.includes(i) ? 80 : 64 }}
             layout
           >
-            <span className="text-xs font-mono">{i + 1}</span>
+            <span className={`text-xs font-mono ${muted.includes(i) ? "opacity-40" : ""}`}>
+              {i + 1}
+            </span>
           </motion.button>
         ))}
       </div>
@@ -223,7 +273,7 @@ function BeatsPerBarCalculatorContent() {
           )}
         </Button>
         <p className="text-xs text-muted-foreground mt-2">
-          Click a beat block to toggle accent
+          Click a beat block to cycle accent, mute, and normal
         </p>
       </div>
 
