@@ -144,12 +144,12 @@ export function BeatsPerBarSeoContent() {
           A beats‑per‑bar calculator is useful for three specific tasks:
         </p>
         <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1.5">
-          <li>Bars → total seconds. Use this to plan your radio edit length.</li>
-          <li>Seconds → bars. Use this to fit a cue point to a fixed time.</li>
-          <li>BPM ↔ ms per beat. Use this to sync effects without phase issues.</li>
+          <li>Setting the time signature. Choose any numerator and denominator to explore standard meters and odd groupings from 1/4 up to 12/16.</li>
+          <li>Accenting beats. Click a beat block to emphasize that beat, and the playback reflects exactly which beats you marked.</li>
+          <li>Auditioning the pattern. Set a BPM, press Play, and hear the rhythm as it counts through the bar, with the info box adding the musical feel and typical genre examples.</li>
         </ul>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-          Just enter the time signature, BPM, and number of bars. The calculator does the math so you can stay in creative flow.
+          Just pick a time signature, set your BPM, and click the beats you want to accent. Press Play to hear the pattern at tempo, then check the info box for its feel and typical genre examples.
         </p>
       </section>
 
