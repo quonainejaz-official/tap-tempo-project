@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState, useEffect } from "react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -30,12 +31,49 @@ const faderRanges = [
   { label: "WIDE (±100%)", value: 100 },
 ]
 
+function TempoCrossLink({ bpm }: { bpm: number }) {
+  return (
+    <div className="mt-3 w-full flex flex-wrap items-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+      <p className="text-xs text-muted-foreground leading-snug">Want to play at this tempo?</p>
+      <Link
+        href={`/metronome?bpm=${bpm}`}
+        className="text-xs font-bold text-primary hover:underline leading-snug"
+      >
+        Use {bpm} BPM in Metronome →
+      </Link>
+      <Link
+        href={`/tap-tempo?bpm=${bpm}`}
+        className="text-xs font-bold text-primary hover:underline leading-snug"
+      >
+        Use {bpm} BPM in Tap Tempo →
+      </Link>
+    </div>
+  )
+}
+
 export default function PitchTempoCalculatorPage() {
+  return (
+    <Suspense>
+      <PitchTempoCalculatorContent />
+    </Suspense>
+  )
+}
+
+function PitchTempoCalculatorContent() {
+  const searchParams = useSearchParams()
   const [baseBpm, setBaseBpm] = useState("120")
   const [pitch, setPitch] = useState("0")
   const [semitones, setSemitones] = useState("0")
   const [targetBpm, setTargetBpm] = useState("128")
   const [faderMax, setFaderMax] = useState(8)
+
+  useEffect(() => {
+    const param = searchParams.get("bpm")
+    if (param) {
+      const parsed = parseInt(param, 10)
+      if (!isNaN(parsed) && parsed > 0) setBaseBpm(String(parsed))
+    }
+  }, [searchParams])
 
   const base = parseFloat(baseBpm)
   const target = parseFloat(targetBpm)
@@ -50,6 +88,13 @@ export default function PitchTempoCalculatorPage() {
 
   const pitchPct = base > 0 && target > 0 ? pitchPctNeeded(base, target) : NaN
   const semitone = base > 0 && target > 0 ? semitoneShiftNeeded(base, target) : NaN
+
+  const djOut = base > 0 ? base * (1 + numPitch / 100) : NaN
+  const stOut = base > 0 ? base * Math.pow(2, numSemi / 12) : NaN
+  const targetOut = parseFloat(targetBpm)
+  const djRounded = Math.round(djOut)
+  const stRounded = Math.round(stOut)
+  const targetRounded = Math.round(targetOut)
 
   const [copied, setCopied] = useState<"dj" | "producer" | "target" | null>(null)
   const copiedTimer = (mode: "dj" | "producer" | "target") => {
@@ -171,6 +216,8 @@ export default function PitchTempoCalculatorPage() {
                 </div>
               )}
             </div>
+
+            {isFinite(djOut) && djOut > 0 && <TempoCrossLink bpm={djRounded} />}
           </div>
         </TabsContent>
 
@@ -231,6 +278,8 @@ export default function PitchTempoCalculatorPage() {
                 <div className="text-xl font-mono font-bold text-primary">{base > 0 ? `${stFactor(numSemi)}x` : "1x"}</div>
               </div>
             </div>
+
+            {isFinite(stOut) && stOut > 0 && <TempoCrossLink bpm={stRounded} />}
           </div>
         </TabsContent>
 
@@ -288,6 +337,8 @@ export default function PitchTempoCalculatorPage() {
                 </div>
               )}
             </div>
+
+            {isFinite(targetOut) && targetOut > 0 && <TempoCrossLink bpm={targetRounded} />}
           </div>
         </TabsContent>
       </Tabs>
