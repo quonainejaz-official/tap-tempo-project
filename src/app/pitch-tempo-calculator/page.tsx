@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useState, useEffect } from "react"
+import { Suspense, useState, useEffect, type ReactNode } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Check, Copy, AlertTriangle } from "lucide-react"
+import { Check, Copy, AlertTriangle, Gauge, Activity } from "lucide-react"
 import { PitchTempoSeoContent } from "@/components/pitch-tempo-seo-content"
 import { semitoneEquivalent, pitchPctNeeded, semitoneShiftNeeded } from "@/lib/pitch-tempo"
 
@@ -47,6 +47,25 @@ function TempoCrossLink({ bpm }: { bpm: number }) {
       >
         Use {bpm} BPM in Tap Tempo →
       </Link>
+    </div>
+  )
+}
+
+function SectionHeader({
+  icon,
+  title,
+  className = "",
+}: {
+  icon: ReactNode
+  title: string
+  className?: string
+}) {
+  return (
+    <div className={`flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100 ${className}`}>
+      <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-100 text-[#1565FF] shrink-0">
+        {icon}
+      </span>
+      <span className="text-xs font-bold uppercase tracking-wider text-gray-800">{title}</span>
     </div>
   )
 }
@@ -120,14 +139,16 @@ function PitchTempoCalculatorContent() {
 
       <Tabs defaultValue="dj" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="dj">DJ Pitch Fader Mode</TabsTrigger>
-          <TabsTrigger value="producer">Producer Semitone Mode</TabsTrigger>
-          <TabsTrigger value="target">Target BPM Mode</TabsTrigger>
+          <TabsTrigger value="dj" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">DJ Pitch Fader Mode</TabsTrigger>
+          <TabsTrigger value="producer" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">Producer Semitone Mode</TabsTrigger>
+          <TabsTrigger value="target" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">Target BPM Mode</TabsTrigger>
         </TabsList>
 
         <TabsContent value="dj" className="mt-3">
-          <div className="p-4 rounded-xl border bg-card">
-            <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="rounded-xl border bg-card overflow-hidden">
+            <SectionHeader icon={<Gauge size={14} strokeWidth={2.5} />} title="Pitch Settings" />
+            <div className="p-3">
+              <div className="grid grid-cols-2 gap-3 mb-3">
               <div className="space-y-1">
                 <Label>Base BPM</Label>
                 <Input type="number" min="0" step="any" value={baseBpm} onChange={(e) => setBaseBpm(e.target.value)} />
@@ -185,8 +206,11 @@ function PitchTempoCalculatorContent() {
                 <span>+{faderMax}%</span>
               </div>
             </div>
+            </div>
 
-            <div className="p-4 bg-muted/50 rounded-lg">
+            <SectionHeader icon={<Activity size={14} strokeWidth={2.5} />} title="Result" className="border-y" />
+            <div className="p-3">
+            <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
               <div className="flex justify-between items-center">
                 <div>
                   <div className="text-sm text-muted-foreground mb-1">Output BPM</div>
@@ -218,11 +242,14 @@ function PitchTempoCalculatorContent() {
             </div>
 
             {isFinite(djOut) && djOut > 0 && <TempoCrossLink bpm={djRounded} />}
+            </div>
           </div>
         </TabsContent>
 
         <TabsContent value="producer" className="mt-3">
-          <div className="p-4 rounded-xl border bg-card">
+          <div className="rounded-xl border bg-card overflow-hidden">
+            <SectionHeader icon={<Gauge size={14} strokeWidth={2.5} />} title="Pitch Settings" />
+            <div className="p-3">
             <div className="grid grid-cols-2 gap-3 mb-3">
               <div className="space-y-1">
                 <Label>Base BPM</Label>
@@ -241,8 +268,11 @@ function PitchTempoCalculatorContent() {
                 </Button>
               ))}
             </div>
+            </div>
 
-            <div className="p-4 bg-muted/50 rounded-lg">
+            <SectionHeader icon={<Activity size={14} strokeWidth={2.5} />} title="Result" className="border-y" />
+            <div className="p-3">
+            <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
               <div className="flex justify-between items-center">
                 <div>
                   <div className="text-sm text-muted-foreground mb-1">Output BPM</div>
@@ -280,11 +310,14 @@ function PitchTempoCalculatorContent() {
             </div>
 
             {isFinite(stOut) && stOut > 0 && <TempoCrossLink bpm={stRounded} />}
+            </div>
           </div>
         </TabsContent>
 
         <TabsContent value="target" className="mt-3">
-          <div className="p-4 rounded-xl border bg-card">
+          <div className="rounded-xl border bg-card overflow-hidden">
+            <SectionHeader icon={<Gauge size={14} strokeWidth={2.5} />} title="Pitch Settings" />
+            <div className="p-3">
             <div className="grid grid-cols-2 gap-3 mb-3">
               <div className="space-y-1">
                 <Label>Original BPM</Label>
@@ -311,8 +344,11 @@ function PitchTempoCalculatorContent() {
                 </SelectContent>
               </Select>
             </div>
+            </div>
 
-            <div className="p-4 bg-muted/50 rounded-lg">
+            <SectionHeader icon={<Activity size={14} strokeWidth={2.5} />} title="Result" className="border-y" />
+            <div className="p-3">
+            <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                 <div className="text-xs text-muted-foreground font-mono">{baseBpm || 0} BPM → {targetBpm || 0} BPM</div>
               </div>
@@ -339,6 +375,7 @@ function PitchTempoCalculatorContent() {
             </div>
 
             {isFinite(targetOut) && targetOut > 0 && <TempoCrossLink bpm={targetRounded} />}
+            </div>
           </div>
         </TabsContent>
       </Tabs>
