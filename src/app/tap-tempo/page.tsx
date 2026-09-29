@@ -37,7 +37,7 @@ function qualityLabel(stdDev: number): { text: string; color: string } {
   return              { text: "Poor",       color: "#FF3B30" }
 }
 
-function TapGraph({ taps }: { taps: TapData[] }) {
+function TapGraph({ taps, metronomeDot = 0 }: { taps: TapData[]; metronomeDot?: number }) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [size, setSize] = useState({ w: 400, h: 160 })
   const [tooltip, setTooltip] = useState<{ x: number; y: number; label: string } | null>(null)
@@ -95,6 +95,11 @@ function TapGraph({ taps }: { taps: TapData[] }) {
   const yTicks = [yMin, (yMin + yMax) / 2, yMax].map(v => Math.round(v))
 
   const quality = stdDev !== null ? qualityLabel(stdDev) : null
+
+  const highlightedIndex =
+    metronomeDot >= 1 && points.length > 0
+      ? (metronomeDot - 1) % points.length
+      : -1
 
   if (points.length === 0) {
     return (
@@ -181,6 +186,17 @@ function TapGraph({ taps }: { taps: TapData[] }) {
             const cy = toY(p.instantBpm)
             return (
               <g key={p.tapIndex}>
+                {i === highlightedIndex && (
+                  <motion.circle
+                    cx={cx} cy={cy} r={9}
+                    fill="none"
+                    stroke="#0066FF"
+                    strokeWidth={2}
+                    initial={{ scale: 0.5, opacity: 0.9 }}
+                    animate={{ scale: [0.5, 1.25, 1.05], opacity: [0.9, 0.55, 0.3] }}
+                    transition={{ duration: 0.4, times: [0, 0.55, 1], ease: "easeOut" }}
+                  />
+                )}
                 {/* Hit area */}
                 <circle
                   cx={cx} cy={cy} r={10}
@@ -792,7 +808,7 @@ export default function TapTempoPage() {
           >
             <div className="rounded-xl border bg-card p-4">
               <div className="h-[180px] w-full">
-                <TapGraph taps={taps} />
+                <TapGraph taps={taps} metronomeDot={metronomeDot} />
               </div>
             </div>
           </motion.div>
