@@ -42,20 +42,22 @@ function TapGraph({ taps }: { taps: TapData[] }) {
   const [size, setSize] = useState({ w: 400, h: 160 })
   const [tooltip, setTooltip] = useState<{ x: number; y: number; label: string } | null>(null)
 
-  useEffect(() => {
-    if (!svgRef.current) return
-    const ro = new ResizeObserver(entries => {
-      const { width, height } = entries[0].contentRect
-      setSize({ w: width, h: height })
-    })
-    ro.observe(svgRef.current)
-    return () => ro.disconnect()
-  }, [])
-
   const points = useMemo(
     () => taps.filter(t => t.instantBpm !== null) as (TapData & { instantBpm: number })[],
     [taps]
   )
+
+  useEffect(() => {
+    const el = svgRef.current
+    if (!el) return
+    const ro = new ResizeObserver(entries => {
+      const { width, height } = entries[0].contentRect
+      setSize({ w: width, h: height })
+    })
+    ro.observe(el)
+    setSize({ w: el.clientWidth, h: el.clientHeight })
+    return () => ro.disconnect()
+  }, [points.length > 0])
 
   const avgBpm = useMemo(() => {
     if (points.length === 0) return null
