@@ -89,6 +89,57 @@ function SectionCard({ icon, title, children }: { icon: React.ReactNode; title: 
   )
 }
 
+interface NumericFieldInputProps {
+  value: number
+  min: number
+  max: number
+  onCommit: (value: number) => void
+  className: string
+  ariaLabel?: string
+  inputMode?: "numeric"
+}
+
+function NumericFieldInput({ value, min, max, onCommit, className, ariaLabel, inputMode }: NumericFieldInputProps) {
+  const [draft, setDraft] = useState<string>(String(value))
+  const focused = useRef(false)
+
+  useEffect(() => {
+    if (!focused.current) setDraft(String(value))
+  }, [value])
+
+  const commit = () => {
+    focused.current = false
+    const trimmed = draft.trim()
+    if (trimmed === "") {
+      setDraft(String(value))
+      return
+    }
+    const parsed = parseInt(trimmed, 10)
+    if (isNaN(parsed)) {
+      setDraft(String(value))
+      return
+    }
+    const clamped = Math.max(min, Math.min(max, parsed))
+    setDraft(String(clamped))
+    onCommit(clamped)
+  }
+
+  return (
+    <input
+      type="number"
+      min={min}
+      max={max}
+      inputMode={inputMode}
+      value={draft}
+      onChange={e => { focused.current = true; setDraft(e.target.value) }}
+      onBlur={commit}
+      onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); (e.target as HTMLInputElement).blur() } }}
+      aria-label={ariaLabel}
+      className={className}
+    />
+  )
+}
+
 const TIMER_PRESETS: { label: string; minutes: number }[] = [
   { label: "Off", minutes: 0 },
   { label: "1 min", minutes: 1 },
@@ -923,6 +974,22 @@ export function MetronomeWidget({
     setSpeedIntervalBars(Math.max(1, Math.min(16, parsed)))
   }, [])
 
+  const commitSpeedStart = useCallback((clamped: number) => {
+    handleSpeedStartInput(String(clamped))
+  }, [handleSpeedStartInput])
+
+  const commitSpeedEnd = useCallback((clamped: number) => {
+    handleSpeedEndInput(String(clamped))
+  }, [handleSpeedEndInput])
+
+  const commitSpeedStep = useCallback((clamped: number) => {
+    handleSpeedStepInput(String(clamped))
+  }, [handleSpeedStepInput])
+
+  const commitSpeedInterval = useCallback((clamped: number) => {
+    handleSpeedIntervalInput(String(clamped))
+  }, [handleSpeedIntervalInput])
+
   const saveFavorite = useCallback(() => {
     const trimmed = favoriteName.trim().slice(0, 30)
     if (trimmed === "") return
@@ -1413,13 +1480,11 @@ export function MetronomeWidget({
           {isGapActive && (
             <div className="flex items-center gap-2 pl-2 pb-1">
               <span className="text-[10px] text-muted-foreground shrink-0">Play</span>
-              <input type="number" min={1} max={16} value={playBars}
-                onChange={e => setPlayBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
+              <NumericFieldInput value={playBars} min={1} max={16} onCommit={v => setPlayBars(v)}
                 className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
               />
               <span className="text-[10px] text-muted-foreground shrink-0">Silent</span>
-              <input type="number" min={1} max={16} value={silentBars}
-                onChange={e => setSilentBars(Math.max(1, Math.min(16, parseInt(e.target.value) || 1)))}
+              <NumericFieldInput value={silentBars} min={1} max={16} onCommit={v => setSilentBars(v)}
                 className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
               />
               <span className="text-[10px] text-muted-foreground/50 shrink-0">bars</span>
@@ -1467,29 +1532,25 @@ export function MetronomeWidget({
             <div className="mt-1.5 mb-2 pl-2">
               <div className="grid grid-cols-[auto_auto_auto_auto_auto] items-center gap-x-2 gap-y-1">
                 <span className="text-[10px] text-muted-foreground whitespace-nowrap">Start</span>
-                <input type="number" min={1} max={500} inputMode="numeric" value={speedStartTempo}
-                  onChange={e => handleSpeedStartInput(e.target.value)}
-                  aria-label="Speed Trainer Start Tempo"
+                <NumericFieldInput value={speedStartTempo} min={1} max={500} inputMode="numeric" onCommit={commitSpeedStart}
+                  ariaLabel="Speed Trainer Start Tempo"
                   className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
                 <span />
-                <input type="number" min={1} max={500} inputMode="numeric" value={speedEndTempo}
-                  onChange={e => handleSpeedEndInput(e.target.value)}
-                  aria-label="Speed Trainer End Tempo"
+                <NumericFieldInput value={speedEndTempo} min={1} max={500} inputMode="numeric" onCommit={commitSpeedEnd}
+                  ariaLabel="Speed Trainer End Tempo"
                   className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
                 <span className="text-[10px] text-muted-foreground whitespace-nowrap">End</span>
 
                 <span className="text-[10px] text-muted-foreground whitespace-nowrap">+</span>
-                <input type="number" min={1} max={50} inputMode="numeric" value={speedStepSize}
-                  onChange={e => handleSpeedStepInput(e.target.value)}
-                  aria-label="Speed Trainer Step Size"
+                <NumericFieldInput value={speedStepSize} min={1} max={50} inputMode="numeric" onCommit={commitSpeedStep}
+                  ariaLabel="Speed Trainer Step Size"
                   className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
                 <span className="text-[10px] text-muted-foreground whitespace-nowrap">BPM Every</span>
-                <input type="number" min={1} max={16} inputMode="numeric" value={speedIntervalBars}
-                  onChange={e => handleSpeedIntervalInput(e.target.value)}
-                  aria-label="Speed Trainer Increment Interval"
+                <NumericFieldInput value={speedIntervalBars} min={1} max={16} inputMode="numeric" onCommit={commitSpeedInterval}
+                  ariaLabel="Speed Trainer Increment Interval"
                   className="w-12 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
                 />
                 <span className="text-[10px] text-muted-foreground whitespace-nowrap">Bars</span>
