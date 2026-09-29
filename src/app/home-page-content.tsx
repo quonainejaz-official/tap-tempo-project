@@ -52,29 +52,30 @@ interface BlogItem {
 
 const toolCategories = [
   {
-    title: "Tempo Tools",
-    desc: "Discover, measure, and understand tempo.",
-    tools: [
-      { icon: Activity, title: "Tap Tempo", desc: "Find the BPM of any song by tapping along.", href: "/tap-tempo" },
-      { icon: Calculator, title: "BPM Calculator", desc: "Calculate BPM from duration, or duration from BPM.", href: "/bpm-calculator" },
-      { icon: Music, title: "Tempo Markings", desc: "Classical tempo dictionary with BPM ranges.", href: "/tempo-markings" },
-    ],
-  },
-  {
     title: "Practice Tools",
     desc: "Train rhythm, timing, and musical precision.",
     tools: [
-      { icon: Clock, title: "Metronome", desc: "Precision audio engine for focused practice.", href: "/metronome" },
-      { icon: ListOrdered, title: "Beats Per Bar", desc: "Interactive time signature tool.", href: "/beats-per-bar-calculator" },
+      { icon: Activity, title: "Tap Tempo", desc: "Find any song's BPM by tapping along, with half-time/double-time detection, live tap stats, and instant tempo verification.", href: "/tap-tempo" },
+      { icon: Clock, title: "Metronome", desc: "A precision practice metronome with custom time signatures, adjustable swing, gap click, random mute, and a built-in speed trainer.", href: "/metronome" },
+      { icon: ListOrdered, title: "Beats Per Bar", desc: "Build and hear any time signature with customizable beat accents, an interactive breakdown, and instant playback.", href: "/beats-per-bar-calculator" },
+    ],
+  },
+  {
+    title: "Tempo Tools",
+    desc: "Discover, measure, and understand tempo.",
+    tools: [
+      { icon: Calculator, title: "BPM Calculator", desc: "Calculate BPM from duration, find total beats from tempo, or estimate song length — three calculators in one.", href: "/bpm-calculator" },
+      { icon: Music, title: "Tempo Markings", desc: "Explore all 17 Italian tempo markings with BPM ranges, real song examples, and instant audio playback.", href: "/tempo-markings" },
+      { icon: Activity, title: "Tap Tempo", desc: "Find any song's BPM by tapping along, with half-time/double-time detection, live tap stats, and instant tempo verification.", href: "/tap-tempo" },
     ],
   },
   {
     title: "Music Production Tools",
     desc: "Convert and calculate precise timing values.",
     tools: [
-      { icon: Table2, title: "BPM to ms", desc: "Convert tempo to exact millisecond values.", href: "/bpm-to-ms" },
-      { icon: Sliders, title: "Delay & Reverb Time", desc: "Calculate delay and reverb timing from BPM.", href: "/delay-reverb-time-calculator" },
-      { icon: Sliders, title: "Pitch Tempo Calculator", desc: "Calculate BPM shifts from DJ pitch faders (%) or producer semitone transposition.", href: "/pitch-tempo-calculator" },
+      { icon: Table2, title: "BPM to ms", desc: "Convert any tempo into exact millisecond values for every standard note division, from whole notes to triplets.", href: "/bpm-to-ms" },
+      { icon: Sliders, title: "Delay & Reverb Time", desc: "Calculate precise delay and reverb pre-delay timing from BPM, with built-in presets for common delay styles.", href: "/delay-reverb-time-calculator" },
+      { icon: Sliders, title: "Pitch Tempo Calculator", desc: "Calculate exact BPM shifts from DJ pitch faders or producer semitone transposition, across three calculation modes.", href: "/pitch-tempo-calculator" },
     ],
   },
   {
