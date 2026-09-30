@@ -66,7 +66,7 @@ export default function AiTempoPage() {
               </a>
               <div className="flex items-center gap-1 text-muted-foreground text-sm bg-black/30 px-4 py-2 rounded-full border border-border">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                <span>instant response · zero latency</span>
+                <span>answers in real time</span>
               </div>
             </div>
 
@@ -95,8 +95,8 @@ export default function AiTempoPage() {
                   <p className="text-[0.7rem] text-primary whitespace-pre-wrap">{`Want to find the BPM of a track? Use our Tap Tempo tool to tap along and get instant results.`}</p>
                 </div>
                 <div className="flex gap-2 pt-2 text-xs text-muted-foreground">
-                  <span>explained in 0.2s</span>
-                  <span>98% accuracy</span>
+                  <span>tempo Q&amp;A</span>
+                  <span>free to ask</span>
                 </div>
               </div>
             </div>
@@ -197,9 +197,9 @@ export default function AiTempoPage() {
           </div>
           <p className="text-4xl font-bold mt-4 text-foreground leading-tight">Built for musicians, producers, DJs, and creators</p>
           <div className="flex items-center justify-center gap-12 mt-10 flex-wrap">
-            <div><span className="text-4xl font-black text-primary">98%</span><span className="text-muted-foreground ml-1">satisfaction</span></div>
-            <div><span className="text-4xl font-black text-primary">~0.4s</span><span className="text-muted-foreground ml-1">avg response</span></div>
-            <div><span className="text-4xl font-black text-primary">30k+</span><span className="text-muted-foreground ml-1">daily requests</span></div>
+            <div><span className="text-4xl font-black text-primary">Free</span><span className="text-muted-foreground ml-1">no signup</span></div>
+            <div><span className="text-4xl font-black text-primary">24/7</span><span className="text-muted-foreground ml-1">music &amp; tempo answers</span></div>
+            <div><span className="text-4xl font-black text-primary">Tempo</span><span className="text-muted-foreground ml-1">metronome &amp; calculator guides</span></div>
           </div>
         </div>
       </div>

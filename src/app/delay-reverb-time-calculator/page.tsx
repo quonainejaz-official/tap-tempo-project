@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Copy, Check } from "lucide-react"
 import { toast } from "sonner"
+import { parseBpmParam } from "@/lib/bpm"
 import { DelayReverbSeoContent } from "@/components/delay-reverb-seo-content"
 
 const allNoteDivisions = [
@@ -66,9 +67,17 @@ const noteGlyphs: Record<string, string> = {
 
 export default function DelayTimeCalculatorPage() {
   return (
-    <Suspense>
-      <DelayTimeCalculatorContent />
-    </Suspense>
+    <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <div className="mb-8">
+        <h1 className="text-4xl font-serif font-bold">Delay & Reverb Time Calculator</h1>
+        <p className="text-muted-foreground mt-1">
+          Calculate precise millisecond values for your delays and reverb pre-delays.
+        </p>
+      </div>
+      <Suspense>
+        <DelayTimeCalculatorContent />
+      </Suspense>
+    </div>
   )
 }
 
@@ -81,11 +90,8 @@ function DelayTimeCalculatorContent() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    const param = searchParams.get("bpm")
-    if (param) {
-      const parsed = parseInt(param, 10)
-      if (!isNaN(parsed) && parsed > 0) setBpm(String(parsed))
-    }
+    const parsed = parseBpmParam(searchParams.get("bpm"))
+    if (parsed !== null) setBpm(String(parsed))
   }, [searchParams])
 
   const calculateMs = (noteFraction: number) => {
@@ -139,14 +145,8 @@ function DelayTimeCalculatorContent() {
   const rightDivisions = visibleDivisions.slice(splitIndex)
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-3xl">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-4xl font-serif font-bold">Delay & Reverb Time Calculator</h1>
-          <p className="text-muted-foreground mt-1">
-            Calculate precise millisecond values for your delays and reverb pre-delays.
-          </p>
-        </div>
+    <>
+      <div className="hidden sm:flex items-center justify-end mb-8">
         <Button variant="outline" onClick={copyForDaw} className="hidden sm:flex">
           <Copy className="w-4 h-4 mr-2" /> Copy for DAW
         </Button>
@@ -297,6 +297,6 @@ function DelayTimeCalculatorContent() {
           </a>
         </p>
       </div>
-    </div>
+    </>
   )
 }

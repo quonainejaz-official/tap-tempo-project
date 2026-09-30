@@ -4,6 +4,7 @@ import { Suspense, useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { timeSignatures } from "@/lib/content/timeSignatures"
+import { parseBpmParam } from "@/lib/bpm"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -24,9 +25,15 @@ type BeatState = (typeof BEAT_STATES)[number]
 
 export default function BeatsPerBarCalculatorPage() {
   return (
-    <Suspense>
-      <BeatsPerBarCalculatorContent />
-    </Suspense>
+    <div className="container mx-auto px-4 pt-4 pb-12 max-w-3xl">
+      <h1 className="text-4xl font-serif font-bold mb-2 text-center">Beats Per Bar Calculator</h1>
+      <p className="text-muted-foreground text-center mb-8">
+        Interactive time signature tool with customizable accents.
+      </p>
+      <Suspense>
+        <BeatsPerBarCalculatorContent />
+      </Suspense>
+    </div>
   )
 }
 
@@ -46,13 +53,10 @@ function BeatsPerBarCalculatorContent() {
   }
 
   useEffect(() => {
-    const param = searchParams.get("bpm")
-    if (param) {
-      const parsed = parseInt(param, 10)
-      if (!isNaN(parsed) && parsed > 0) {
-        lastValidBpmRef.current = String(parsed)
-        setBpm(String(parsed))
-      }
+    const parsed = parseBpmParam(searchParams.get("bpm"))
+    if (parsed !== null) {
+      lastValidBpmRef.current = String(parsed)
+      setBpm(String(parsed))
     }
   }, [searchParams])
 
@@ -197,12 +201,7 @@ function BeatsPerBarCalculatorContent() {
   const matchedSig = timeSignatures.find((ts) => ts.signature === `${num}/${den}`)
 
   return (
-    <div className="container mx-auto px-4 pt-4 pb-12 max-w-3xl">
-      <h1 className="text-4xl font-serif font-bold mb-2 text-center">Beats Per Bar Calculator</h1>
-      <p className="text-muted-foreground text-center mb-8">
-        Interactive time signature tool with customizable accents.
-      </p>
-
+    <>
       <div className="grid md:grid-cols-2 gap-4 mb-6 items-stretch">
         <div className="rounded-xl border bg-card overflow-hidden shadow-sm flex flex-col">
           <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 border-b border-gray-100">
@@ -452,6 +451,6 @@ style={{
           </a>
         </p>
       </div>
-    </div>
+    </>
   )
 }

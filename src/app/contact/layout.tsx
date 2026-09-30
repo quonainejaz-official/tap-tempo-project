@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "Contact Us",
     description:
       "Contact The Tap Tempo for questions, feedback, feature requests, or support regarding our browser-based music tools.",

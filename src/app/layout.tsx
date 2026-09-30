@@ -33,7 +33,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 })
 
-const metadataBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || BASE_URL
+const metadataBaseUrl = BASE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(metadataBaseUrl),

@@ -4,21 +4,30 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/metronome-with-subdivisions`
 
 export const metadata: Metadata = {
-  title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths",
+  title: "Metronome Subdivisions: Eighth Notes & Triplets",
   description:
     "Free online metronome with subdivisions. Practice eighth notes, triplets, and sixteenth notes with precise subdivision clicks for better rhythmic accuracy.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths",
+    title: "Metronome Subdivisions: Eighth Notes & Triplets",
     description:
       "Free online metronome with subdivisions. Practice eighth notes, triplets, and sixteenth notes with precise subdivision clicks for better rhythmic accuracy.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Metronome with Subdivisions - Practice Eighth Notes, Triplets & Sixteenths",
+    images: ["/opengraph.png"],
+    title: "Metronome Subdivisions: Eighth Notes & Triplets",
     description:
       "Free online metronome with subdivisions. Practice eighth notes, triplets, and sixteenth notes with precise subdivision clicks for better rhythmic accuracy.",
   },

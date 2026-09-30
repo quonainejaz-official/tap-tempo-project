@@ -155,7 +155,7 @@ export function TempoMarkingsSeoContent() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:auto-rows-fr">
           <div className="rounded-xl border bg-card p-4">
-            <h4 className="font-semibold text-sm text-foreground mb-1">Emotional Impact</h4>
+            <h3 className="font-semibold text-sm text-foreground mb-1">Emotional Impact</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Changing tempo changes mood instantly.
             </p>
@@ -167,14 +167,14 @@ export function TempoMarkingsSeoContent() {
           </div>
 
           <div className="rounded-xl border bg-card p-4">
-            <h4 className="font-semibold text-sm text-foreground mb-1">Performance Consistency</h4>
+            <h3 className="font-semibold text-sm text-foreground mb-1">Performance Consistency</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Without tempo markings, musicians might perform the same piece very differently. This is exactly why tempo markings became essential once the same compositions began being performed by different orchestras, in different cities, and across different generations.
             </p>
           </div>
 
           <div className="rounded-xl border bg-card p-4">
-            <h4 className="font-semibold text-sm text-foreground mb-1">Genre Influence</h4>
+            <h3 className="font-semibold text-sm text-foreground mb-1">Genre Influence</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Different music styles often use specific tempo ranges:
             </p>
@@ -187,7 +187,7 @@ export function TempoMarkingsSeoContent() {
           </div>
 
           <div className="rounded-xl border bg-card p-4">
-            <h4 className="font-semibold text-sm text-foreground mb-1">Musical Interpretation</h4>
+            <h3 className="font-semibold text-sm text-foreground mb-1">Musical Interpretation</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Professional musicians do not simply count beats. They use tempo to shape expression and musical storytelling. Two performers can play the exact same notes yet sound completely different, depending on how they interpret the tempo marking.
             </p>

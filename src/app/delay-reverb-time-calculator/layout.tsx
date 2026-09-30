@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "Delay & Reverb Time Calculator",
     description:
       "Use our Delay & Reverb Time Calculator to get exact delay time and reverb pre-delay values for pedals, plugins, dotted notes, triplets, and slapback.",

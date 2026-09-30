@@ -136,8 +136,7 @@ Push to GitHub → Import in Vercel → Set environment variables:
 | `CLOUDINARY_API_SECRET` | Cloudinary API secret |
 | `ADMIN_EMAIL` | Admin login email |
 | `ADMIN_PASSWORD` | Admin login password |
-| `JWT_SECRET` | JWT signing secret |
-| `NEXT_PUBLIC_SITE_URL` | Production URL |
+| `JWT_SECRET` | JWT signing secret. Required in production, minimum 16 characters; admin login refuses to run without it |
 
 Vercel auto-detects `apps/web` as root directory via `vercel.json`.
 

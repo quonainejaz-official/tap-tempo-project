@@ -1,9 +1,32 @@
 import OpenAI from "openai"
+import { requireAdmin } from "@/lib/auth"
+import { generateContentSchema } from "@/lib/validation"
+import { readJson, HttpError } from "@/lib/request"
+import { checkRateLimit } from "@/lib/rate-limit"
+import { getClientIp } from "@/lib/ip"
+import { sanitizeHtml } from "@/lib/sanitize"
 
 export async function POST(req: Request) {
-  try {
-    const { prompt, type, includeImages } = await req.json()
+  const authError = await requireAdmin(req)
+  if (authError) return authError
 
+  const ip = getClientIp(req)
+  const limiter = await checkRateLimit(`generate-content:${ip}`, 20, 60 * 60 * 1000)
+  if (!limiter.ok) {
+    return Response.json(
+      { error: "Rate limit exceeded. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(limiter.retryAfterSeconds) } },
+    )
+  }
+
+  try {
+    const body = await readJson(req, 15_000)
+    const parsed = generateContentSchema.safeParse(body)
+    if (!parsed.success) {
+      return Response.json({ error: "Invalid request format" }, { status: 400 })
+    }
+
+    const { prompt, type, includeImages } = parsed.data
     const apiKey = process.env.OPencode_API_KEY
     const baseUrl = process.env.OPencode_API_BASE_URL || "https://opencode.ai/zen/v1"
     const model = process.env.OPencode_MODEL || "big-pickle"
@@ -17,7 +40,7 @@ export async function POST(req: Request) {
     const stream = await client.chat.completions.create({
       model,
       messages: [
-        { role: "system", content: buildSystemPrompt(type, includeImages) },
+        { role: "system", content: buildSystemPrompt(type, includeImages ?? false) },
         { role: "user", content: prompt },
       ],
       max_tokens: 16384,
@@ -36,19 +59,18 @@ export async function POST(req: Request) {
       }, { status: 500 })
     }
 
-    // Try to extract JSON from the response
     const jsonMatch = fullContent.match(/\{[\s\S]*\}/m)
     if (jsonMatch) {
       try {
-        const parsed = JSON.parse(jsonMatch[0])
-        if (parsed.content) {
+        const parsedJson = JSON.parse(jsonMatch[0])
+        if (parsedJson.content) {
           return Response.json({
-            title: parsed.title || "",
-            slug: parsed.slug || "",
-            excerpt: parsed.excerpt || "",
-            metaTitle: parsed.metaTitle || "",
-            metaDescription: parsed.metaDescription || "",
-            content: parsed.content,
+            title: parsedJson.title || "",
+            slug: parsedJson.slug || "",
+            excerpt: parsedJson.excerpt || "",
+            metaTitle: parsedJson.metaTitle || "",
+            metaDescription: parsedJson.metaDescription || "",
+            content: sanitizeHtml(parsedJson.content),
           })
         }
       } catch {
@@ -62,9 +84,12 @@ export async function POST(req: Request) {
       excerpt: "",
       metaTitle: "",
       metaDescription: "",
-      content: fullContent,
+      content: sanitizeHtml(fullContent),
     })
   } catch (err) {
+    if (err instanceof HttpError) {
+      return Response.json({ error: err.message }, { status: err.status })
+    }
     const message = err instanceof Error ? err.message : "Unknown error"
     console.error("Generate content error:", err)
     return Response.json({ error: message }, { status: 500 })

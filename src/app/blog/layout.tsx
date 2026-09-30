@@ -18,9 +18,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "Blog",
     description:
       "Read articles on BPM, tap tempo, music production, metronome practice, delay and reverb techniques, and music theory for musicians, producers, and DJs.",

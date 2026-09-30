@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "TapTempoAI — Ask Any Question About BPM, Tempo & Rhythm",
     description:
       "Ask TapTempoAI anything about BPM, tempo, rhythm, and music practice. Get instant answers for musicians, producers, DJs, and creators. Free AI-powered music assistant.",

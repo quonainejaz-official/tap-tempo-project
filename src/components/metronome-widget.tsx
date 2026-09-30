@@ -3,6 +3,13 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
 import { AudioEngine } from "@/lib/audio-engine"
+import { parseBpmParam, readStoredBpm, clampBpm } from "@/lib/bpm"
+import {
+  parseFavorites,
+  sanitizeFavoriteName,
+  FAVORITE_MAX_COUNT,
+  type Favorite,
+} from "@/lib/favorites"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Hand, Plus, Minus, Activity, Gauge, Target, Download } from "lucide-react"
@@ -177,41 +184,17 @@ interface QueueNote {
   isSubdivision: boolean
 }
 
-interface Favorite {
-  name: string
-  bpm: number
-  volume: number
-  signature: string
-  customTimeActive: boolean
-  customBeats: number | null
-  customUnit: 4 | 8 | 16
-  soundStyle: "click" | "beep" | "woodblock" | "cowbell" | "snare"
-  subdivision: Subdivision
-  swing: number
-  swingPreset: SwingPreset
-  isGapActive: boolean
-  playBars: number
-  silentBars: number
-  isRandomMuteActive: boolean
-  randomMutePercent: number
-  speedTrainerEnabled: boolean
-  speedStartTempo: number
-  speedEndTempo: number
-  speedStepSize: number
-  speedIntervalBars: number
-  timerMinutes: number
-  beatStates: BeatState[]
-}
-
 function sanitizeFavoriteFileName(name: string): string {
   const base = name
     .toLowerCase()
     .trim()
+    .replace(/[\u0000-\u001f\u007f]+/g, "")
     .replace(/[/\\:*?"<>|]+/g, "")
     .replace(/\s+/g, "-")
     .replace(/-{2,}/g, "-")
     .replace(/[^a-z0-9-_]/g, "")
     .replace(/^-+|-+$/g, "")
+    .slice(0, 48)
   return base || "metronome-setup"
 }
 
@@ -373,23 +356,12 @@ export function MetronomeWidget({
 
   useEffect(() => {
     if (defaultBpm !== undefined) return
-    const saved = localStorage.getItem("taptempo_last_bpm")
-    if (saved) {
-      const parsed = parseInt(saved, 10)
-      if (!isNaN(parsed)) setBpm(Math.max(1, Math.min(500, parsed)))
-    }
+    const saved = readStoredBpm(localStorage.getItem("taptempo_last_bpm"))
+    if (saved !== null) setBpm(saved)
   }, [defaultBpm])
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("taptempo_favorites")
-      if (raw) {
-        const parsed = JSON.parse(raw)
-        if (Array.isArray(parsed)) setFavorites(parsed as Favorite[])
-      }
-    } catch {
-      setFavorites([])
-    }
+    setFavorites(parseFavorites(localStorage.getItem("taptempo_favorites")))
   }, [])
 
   const initAudio = useCallback(() => {
@@ -853,10 +825,8 @@ export function MetronomeWidget({
   useEffect(() => { applyBpmRef.current = handleBpmInput }, [handleBpmInput])
 
   useEffect(() => {
-    const raw = new URLSearchParams(window.location.search).get("bpm")
-    if (raw === null) return
-    const parsed = Math.round(parseFloat(raw))
-    if (!isNaN(parsed) && isFinite(parsed)) {
+    const parsed = parseBpmParam(new URLSearchParams(window.location.search).get("bpm"))
+    if (parsed !== null) {
       handleBpmInput(parsed)
     }
   }, [handleBpmInput])
@@ -991,7 +961,7 @@ export function MetronomeWidget({
   }, [handleSpeedIntervalInput])
 
   const saveFavorite = useCallback(() => {
-    const trimmed = favoriteName.trim().slice(0, 30)
+    const trimmed = sanitizeFavoriteName(favoriteName)
     if (trimmed === "") return
     const fav: Favorite = {
       name: trimmed,
@@ -1020,6 +990,7 @@ export function MetronomeWidget({
     }
     setFavorites(prev => {
       const next = [...prev.filter(f => f.name.toLowerCase() !== trimmed.toLowerCase()), fav]
+      if (next.length > FAVORITE_MAX_COUNT) next.splice(0, next.length - FAVORITE_MAX_COUNT)
       try {
         localStorage.setItem("taptempo_favorites", JSON.stringify(next))
       } catch {

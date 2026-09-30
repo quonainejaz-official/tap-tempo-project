@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "Free Online Metronome – Precision Beats & Web App",
     description:
       "Practice rhythm with our free online metronome app. Generate precise metronome beats online, adjust subdivisions, use tap tempo, and master timing on any device.",

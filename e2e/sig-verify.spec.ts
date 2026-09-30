@@ -5,7 +5,12 @@ let errors: string[] = []
 test.beforeEach(async ({ page }) => {
   errors = []
   page.on("console", msg => {
-    if (msg.type() === "error" && !msg.text().includes("Failed to load resource")) errors.push(msg.text())
+    const text = msg.text()
+    // "/_vercel/*" instrumentation is not served locally, so nosniff surfaces it as a MIME refusal
+    const isDevInstrumentation = text.includes("/_vercel/")
+    if (msg.type() === "error" && !text.includes("Failed to load resource") && !isDevInstrumentation) {
+      errors.push(text)
+    }
   })
   page.on("pageerror", err => errors.push(err.message))
 })
@@ -18,7 +23,13 @@ async function gotoWidget(page: Page, route = "/metronome") {
 const dots = (page: Page) => page.locator('button[title^="Beat "]')
 
 async function sigButtons(page: Page): Promise<string[]> {
-  return page.locator("div.lg\\:col-span-7 > div").first().getByRole("button").allTextContents()
+  return page
+    .locator("div.lg\\:col-span-7 > div")
+    .first()
+    .locator("div.flex.gap-1\\.5")
+    .first()
+    .getByRole("button")
+    .allTextContents()
 }
 
 async function dotCount(page: Page): Promise<number> {

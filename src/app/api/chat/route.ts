@@ -1,8 +1,35 @@
 import OpenAI from "openai"
-import jwt from "jsonwebtoken"
+import { verifyAdminToken } from "@/lib/auth"
+import { chatRequestSchema } from "@/lib/validation"
+import { readJson, HttpError } from "@/lib/request"
+import { checkRateLimit } from "@/lib/rate-limit"
+import { getClientIp } from "@/lib/ip"
 
 export async function POST(req: Request) {
-  const { messages } = await req.json()
+  let messages
+
+  try {
+    const body = await readJson(req, 150_000)
+    const parsed = chatRequestSchema.safeParse(body)
+    if (!parsed.success) {
+      return Response.json({ error: "Invalid message format" }, { status: 400 })
+    }
+    messages = parsed.data.messages
+  } catch (e) {
+    if (e instanceof HttpError) {
+      return Response.json({ error: e.message }, { status: e.status })
+    }
+    return Response.json({ error: "Invalid request body" }, { status: 400 })
+  }
+
+  const ip = getClientIp(req)
+  const limiter = await checkRateLimit(`chat:${ip}`, 20, 60 * 1000)
+  if (!limiter.ok) {
+    return Response.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429, headers: { "Retry-After": String(limiter.retryAfterSeconds) } },
+    )
+  }
 
   const apiKey = process.env.OPencode_API_KEY
   const baseUrl = process.env.OPencode_API_BASE_URL || "https://opencode.ai/zen/v1"
@@ -12,7 +39,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "API key not configured" }, { status: 500 })
   }
 
-  const isAdmin = checkAdmin(req)
+  const isAdmin = verifyAdminToken(req)
   const systemPrompt = buildPrompt(isAdmin)
 
   const client = new OpenAI({ apiKey, baseURL: baseUrl })
@@ -45,22 +72,6 @@ export async function POST(req: Request) {
   return new Response(readable, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   })
-}
-
-function checkAdmin(req: Request): boolean {
-  const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret"
-  const cookies = req.headers.get("cookie") || ""
-  const token = cookies
-    .split("; ")
-    .find((c) => c.startsWith("admin_token="))
-    ?.split("=")[1]
-  if (!token) return false
-  try {
-    jwt.verify(token, JWT_SECRET)
-    return true
-  } catch {
-    return false
-  }
 }
 
 function buildPrompt(isAdmin: boolean): string {
@@ -109,4 +120,3 @@ RULES:
 - If someone who is NOT admin asks admin questions, say: "Admin features are restricted to authorized users only."
 - Keep answers fast and practical — give direct steps, not explanations`
 }
-

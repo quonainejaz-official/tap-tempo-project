@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Gauge, Copy } from "lucide-react"
+import { parseBpmParam } from "@/lib/bpm"
 import { toast } from "sonner"
 import { BpmToMsSeoContent } from "@/components/bpm-to-ms-seo-content"
 
@@ -43,9 +44,15 @@ const noteNotation: Record<string, string> = {
 
 export default function BpmToMsPage() {
   return (
-    <Suspense>
-      <BpmToMsContent />
-    </Suspense>
+    <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <h1 className="text-4xl font-serif font-bold mb-2 text-center">BPM to ms (Milliseconds) Converter</h1>
+      <p className="text-muted-foreground text-center mb-8">
+        Convert tempo to exact millisecond values for all note divisions.
+      </p>
+      <Suspense>
+        <BpmToMsContent />
+      </Suspense>
+    </div>
   )
 }
 
@@ -54,11 +61,8 @@ function BpmToMsContent() {
   const [bpm, setBpm] = useState("120")
 
   useEffect(() => {
-    const param = searchParams.get("bpm")
-    if (param) {
-      const parsed = parseInt(param, 10)
-      if (!isNaN(parsed) && parsed > 0) setBpm(String(parsed))
-    }
+    const parsed = parseBpmParam(searchParams.get("bpm"))
+    if (parsed !== null) setBpm(String(parsed))
   }, [searchParams])
 
   const calculateMs = (noteFraction: number) => {
@@ -79,12 +83,7 @@ function BpmToMsContent() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-3xl">
-      <h1 className="text-4xl font-serif font-bold mb-2 text-center">BPM to ms (Milliseconds) Converter</h1>
-      <p className="text-muted-foreground text-center mb-8">
-        Convert tempo to exact millisecond values for all note divisions.
-      </p>
-
+    <>
       <div className="rounded-xl border bg-card overflow-hidden shadow-sm mb-8">
         <div className="grid md:grid-cols-6 gap-6 items-stretch p-4">
           <div className="flex flex-col gap-2 h-full md:col-span-2">
@@ -198,6 +197,6 @@ function BpmToMsContent() {
           </a>
         </p>
       </div>
-    </div>
+    </>
   )
 }

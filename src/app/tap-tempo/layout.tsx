@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "Tap Tempo - BPM Tapper & Online Tempo Finder",
     description:
       "Use our free Tap Tempo tool (BPM Tapper) to find any song's BPM by tapping along with the beat. Fast, accurate, and perfect for musicians, DJs, and producers.",

@@ -1,21 +1,15 @@
 import { NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
-
-const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret"
+import { parseAdminToken, getJwtSecret } from "@/lib/auth"
 
 export async function GET(req: Request) {
-  const cookies = req.headers.get("cookie") || ""
-  const token = cookies
-    .split("; ")
-    .find((c) => c.startsWith("admin_token="))
-    ?.split("=")[1]
-
+  const token = parseAdminToken(req)
   if (!token) {
     return NextResponse.json({ authenticated: false }, { status: 401 })
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET)
+    const decoded = jwt.verify(token, getJwtSecret())
     return NextResponse.json({ authenticated: true, user: decoded })
   } catch {
     return NextResponse.json({ authenticated: false }, { status: 401 })

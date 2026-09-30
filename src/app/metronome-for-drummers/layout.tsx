@@ -4,21 +4,30 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/metronome-for-drummers`
 
 export const metadata: Metadata = {
-  title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice",
+  title: "Metronome for Drummers: Rudiments & Groove",
   description:
     "Use a metronome for drum practice to build clean rudiments, limb independence, and consistent groove timing at any tempo.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice",
+    title: "Metronome for Drummers: Rudiments & Groove",
     description:
       "Use a metronome for drum practice to build clean rudiments, limb independence, and consistent groove timing at any tempo.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Metronome for Drummers - Rudiments, Limb Independence & Groove Practice",
+    images: ["/opengraph.png"],
+    title: "Metronome for Drummers: Rudiments & Groove",
     description:
       "Use a metronome for drum practice to build clean rudiments, limb independence, and consistent groove timing at any tempo.",
   },

@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server"
 import { getCollection } from "@/lib/mongodb"
+import { requireAdmin } from "@/lib/auth"
+import { readJson, HttpError } from "@/lib/request"
+import { blogCreateSchema, normalizeSlug } from "@/lib/validation"
+import { sanitizeHtml } from "@/lib/sanitize"
 import { revalidatePath } from "next/cache"
 import { hardcodedBlogs } from "@/data/blogs/registry"
 
@@ -34,29 +38,33 @@ export async function GET(req: Request) {
   }
 }
 
-function sanitizeSlug(slug: string): string {
-  return slug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
-}
-
 export async function POST(req: Request) {
-  try {
-    const body = await req.json()
-    const blogs = await getCollection("blogs")
+  const authError = await requireAdmin(req)
+  if (authError) return authError
 
+  try {
+    const body = await readJson(req)
+    const parsed = blogCreateSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid blog data" }, { status: 400 })
+    }
+    const data = parsed.data
+
+    const blogs = await getCollection("blogs")
     const now = new Date()
     const blog = {
-      title: body.title,
-      slug: sanitizeSlug(body.slug || ""),
-      content: body.content || "",
-      excerpt: body.excerpt || "",
-      coverImage: body.coverImage || "",
-      coverImagePublicId: body.coverImagePublicId || "",
-      metaTitle: body.metaTitle || "",
-      metaDescription: body.metaDescription || "",
-      author: body.author || "TheTapTempo Editorial Team",
-      tags: body.tags || [],
-      published: body.published ?? true,
-      readTime: body.readTime || "",
+      title: data.title,
+      slug: normalizeSlug(data.slug),
+      content: data.content ? sanitizeHtml(data.content) : "",
+      excerpt: data.excerpt || "",
+      coverImage: data.coverImage || "",
+      coverImagePublicId: data.coverImagePublicId || "",
+      metaTitle: data.metaTitle || "",
+      metaDescription: data.metaDescription || "",
+      author: data.author || "TheTapTempo Editorial Team",
+      tags: data.tags || [],
+      published: data.published ?? true,
+      readTime: data.readTime || "",
       createdAt: now,
       updatedAt: now,
     }
@@ -71,7 +79,10 @@ export async function POST(req: Request) {
       { ...blog, _id: result.insertedId.toString() },
       { status: 201 },
     )
-  } catch {
+  } catch (e) {
+    if (e instanceof HttpError) {
+      return NextResponse.json({ error: e.message }, { status: e.status })
+    }
     return NextResponse.json({ error: "Failed to create blog" }, { status: 500 })
   }
 }

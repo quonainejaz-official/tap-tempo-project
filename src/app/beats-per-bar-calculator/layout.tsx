@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "Beats Per Bar Calculator: Any Time Signature",
     description:
       "Use our Beats Per Bar Calculator to find bar duration for 4/4, 3/4, 6/8 & more. Get exact formulas to convert bars to real time-fast, free, accurate.",

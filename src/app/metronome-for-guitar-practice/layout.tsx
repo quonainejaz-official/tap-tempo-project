@@ -4,21 +4,30 @@ import { BASE_URL } from "@/lib/constants"
 const pageUrl = `${BASE_URL}/metronome-for-guitar-practice`
 
 export const metadata: Metadata = {
-  title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking",
+  title: "Metronome for Guitar Practice: Chord Changes",
   description:
     "Use a metronome for guitar practice to build clean chord changes, steady strumming patterns, and consistent picking technique at any tempo.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking",
+    title: "Metronome for Guitar Practice: Chord Changes",
     description:
       "Use a metronome for guitar practice to build clean chord changes, steady strumming patterns, and consistent picking technique at any tempo.",
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Metronome for Guitar Practice - Chord Changes, Strumming & Picking",
+    images: ["/opengraph.png"],
+    title: "Metronome for Guitar Practice: Chord Changes",
     description:
       "Use a metronome for guitar practice to build clean chord changes, steady strumming patterns, and consistent picking technique at any tempo.",
   },

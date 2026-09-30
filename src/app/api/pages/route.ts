@@ -1,12 +1,20 @@
 import { NextResponse } from "next/server"
-import { ObjectId } from "mongodb"
 import { getCollection } from "@/lib/mongodb"
+import { requireAdmin } from "@/lib/auth"
+import { readJson, HttpError } from "@/lib/request"
+import { pageCreateSchema, normalizeSlug } from "@/lib/validation"
+import { sanitizeHtml } from "@/lib/sanitize"
 import { revalidatePath } from "next/cache"
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const all = searchParams.get("all") === "true"
+
+    if (all) {
+      const authError = await requireAdmin(req)
+      if (authError) return authError
+    }
 
     const pages = await getCollection("pages")
     const filter = all ? {} : { published: true }
@@ -26,62 +34,68 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  try {
-    const body = await req.json()
+  const authError = await requireAdmin(req)
+  if (authError) return authError
 
-    if (!body.title || !body.slug) {
-      return NextResponse.json({ error: "Title and slug are required" }, { status: 400 })
+  try {
+    const body = await readJson(req)
+    const parsed = pageCreateSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid page data" }, { status: 400 })
     }
+
+    const data = parsed.data
+    const slug = normalizeSlug(data.slug)
 
     const pages = await getCollection("pages")
     const now = new Date()
 
-    const existing = await pages.findOne({ slug: body.slug })
+    const existing = await pages.findOne({ slug })
     if (existing) {
       return NextResponse.json({ error: "A page with this slug already exists" }, { status: 409 })
     }
 
     const page = {
-      title: body.title,
-      slug: body.slug,
-      content: body.content || "",
-      metaTitle: body.metaTitle || "",
-      metaDescription: body.metaDescription || "",
-      published: body.published ?? true,
-      allowHtml: body.allowHtml ?? false,
-      display: body.display || {},
+      title: data.title,
+      slug,
+      content: data.content ? sanitizeHtml(data.content) : "",
+      metaTitle: data.metaTitle || "",
+      metaDescription: data.metaDescription || "",
+      published: data.published ?? true,
+      allowHtml: data.allowHtml ?? false,
+      display: data.display || {},
       createdAt: now,
       updatedAt: now,
     }
 
     const result = await pages.insertOne(page)
 
-    if (body.display?.inNav) {
+    if (data.display?.inNav) {
       const nav = await getCollection("navigation")
       await nav.insertOne({
-        label: body.display.navLabel || body.title,
-        href: `/${body.slug}`,
-        parentId: body.display.navParent || null,
-        order: body.display.navOrder ?? 0,
-        section: body.display.navSection || "",
+        label: data.display.navLabel || data.title,
+        href: `/${slug}`,
+        parentId: data.display.navParent || null,
+        order: data.display.navOrder ?? 0,
+        section: data.display.navSection || "",
         createdAt: now,
         updatedAt: now,
       })
     }
 
-    if (body.display?.inFooter) {
+    if (data.display?.inFooter) {
       const fl = await getCollection("footer_links")
       await fl.insertOne({
-        label: body.display.footerLabel || body.title,
-        href: `/${body.slug}`,
-        section: body.display.footerSection || "More",
-        order: body.display.footerOrder ?? 0,
+        label: data.display.footerLabel || data.title,
+        href: `/${slug}`,
+        section: data.display.footerSection || "More",
+        order: data.display.footerOrder ?? 0,
         createdAt: now,
         updatedAt: now,
       })
     }
 
-    revalidatePath(`/${body.slug}`)
+    revalidatePath(`/${slug}`)
     revalidatePath("/")
 
     return NextResponse.json(
@@ -89,6 +103,9 @@ export async function POST(req: Request) {
       { status: 201 },
     )
   } catch (e) {
+    if (e instanceof HttpError) {
+      return NextResponse.json({ error: e.message }, { status: e.status })
+    }
     console.error("Create page error:", e)
     return NextResponse.json({ error: "Failed to create page" }, { status: 500 })
   }

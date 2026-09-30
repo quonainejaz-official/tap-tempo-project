@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
+import { parseBpmParam } from "@/lib/bpm"
 import { Badge } from "@/components/ui/badge"
 import {
   Select,
@@ -72,9 +73,15 @@ function SectionHeader({
 
 export default function PitchTempoCalculatorPage() {
   return (
-    <Suspense>
-      <PitchTempoCalculatorContent />
-    </Suspense>
+    <div className="container mx-auto px-4 py-4 max-w-3xl">
+      <div className="mb-3">
+        <h1 className="text-3xl font-serif font-bold tracking-tight mb-1">Pitch Tempo Calculator</h1>
+        <p className="text-muted-foreground text-sm leading-snug">Shift a track&apos;s tempo when you change its pitch. Use DJ-style percentage faders, producer semitone offsets, or a target BPM to find the required adjustment instantly.</p>
+      </div>
+      <Suspense>
+        <PitchTempoCalculatorContent />
+      </Suspense>
+    </div>
   )
 }
 
@@ -87,11 +94,8 @@ function PitchTempoCalculatorContent() {
   const [faderMax, setFaderMax] = useState(8)
 
   useEffect(() => {
-    const param = searchParams.get("bpm")
-    if (param) {
-      const parsed = parseInt(param, 10)
-      if (!isNaN(parsed) && parsed > 0) setBaseBpm(String(parsed))
-    }
+    const parsed = parseBpmParam(searchParams.get("bpm"))
+    if (parsed !== null) setBaseBpm(String(parsed))
   }, [searchParams])
 
   const base = parseFloat(baseBpm)
@@ -131,12 +135,7 @@ function PitchTempoCalculatorContent() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4 max-w-3xl">
-      <div className="mb-3">
-        <h1 className="text-3xl font-serif font-bold tracking-tight mb-1">Pitch Tempo Calculator</h1>
-        <p className="text-muted-foreground text-sm leading-snug">Shift a track&apos;s tempo when you change its pitch. Use DJ-style percentage faders, producer semitone offsets, or a target BPM to find the required adjustment instantly.</p>
-      </div>
-
+    <>
       <Tabs defaultValue="dj" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="dj" className="data-[state=inactive]:text-foreground/70 data-[state=inactive]:transition-colors data-[state=inactive]:hover:bg-primary/5 data-[state=inactive]:hover:text-primary">DJ Pitch Fader Mode</TabsTrigger>
@@ -390,6 +389,6 @@ function PitchTempoCalculatorContent() {
           </Link>
         </p>
       </div>
-    </div>
+    </>
   )
 }

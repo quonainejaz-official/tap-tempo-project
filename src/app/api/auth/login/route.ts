@@ -1,13 +1,37 @@
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
 import { getCollection } from "@/lib/mongodb"
-
-const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret"
+import { signAdminToken } from "@/lib/auth"
+import { loginSchema } from "@/lib/validation"
+import { readJson, HttpError } from "@/lib/request"
+import { checkRateLimit } from "@/lib/rate-limit"
+import { getClientIp } from "@/lib/ip"
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req)
+  const ipLimiter = await checkRateLimit(`login:ip:${ip}`, 10, 15 * 60 * 1000)
+  if (!ipLimiter.ok) {
+    return NextResponse.json(
+      { error: "Too many attempts. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(ipLimiter.retryAfterSeconds) } },
+    )
+  }
+
   try {
-    const { email, password } = await req.json()
+    const body = await readJson(req, 10_000)
+    const parsed = loginSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+    }
+
+    const { email, password } = parsed.data
+    const emailLimiter = await checkRateLimit(`login:email:${email}`, 10, 15 * 60 * 1000)
+    if (!emailLimiter.ok) {
+      return NextResponse.json(
+        { error: "Too many attempts. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(emailLimiter.retryAfterSeconds) } },
+      )
+    }
 
     const admins = await getCollection("admins")
     const admin = await admins.findOne({ email })
@@ -21,11 +45,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
     }
 
-    const token = jwt.sign(
-      { id: admin._id, email: admin.email, username: admin.username },
-      JWT_SECRET,
-      { expiresIn: "7d" },
-    )
+    const token = signAdminToken({
+      id: admin._id.toString(),
+      email: admin.email,
+      username: admin.username || "",
+    })
 
     const response = NextResponse.json({ success: true })
     response.cookies.set("admin_token", token, {
@@ -37,7 +61,10 @@ export async function POST(req: Request) {
     })
 
     return response
-  } catch {
+  } catch (e) {
+    if (e instanceof HttpError) {
+      return NextResponse.json({ error: e.message }, { status: e.status })
+    }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

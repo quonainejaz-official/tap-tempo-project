@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback, useEffect } from "react"
+import { readStoredBpm, clampBpm } from "@/lib/bpm"
 
 export interface TapData {
   tapIndex: number
@@ -78,8 +79,8 @@ export function useTapTempo(multiplierRef: { current: number }) {
   }, [])
 
   useEffect(() => {
-    const saved = localStorage.getItem("taptempo_last_bpm")
-    if (saved) setBpm(Number(saved))
+    const saved = readStoredBpm(localStorage.getItem("taptempo_last_bpm"))
+    if (saved !== null) setBpm(saved)
   }, [])
 
   const tap = useCallback(() => {
@@ -155,8 +156,9 @@ export function useTapTempo(multiplierRef: { current: number }) {
   }, [])
 
   const setBpmValue = useCallback((value: number) => {
-    setBpm(value)
-    localStorage.setItem("taptempo_last_bpm", value.toString())
+    const clamped = clampBpm(value)
+    setBpm(clamped)
+    localStorage.setItem("taptempo_last_bpm", clamped.toString())
   }, [])
 
   return { bpm, taps, tap, reset, undo, tapCount: tapIndexRef.current, setBpmValue }

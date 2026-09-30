@@ -2,11 +2,22 @@ import { NextResponse } from "next/server"
 import { ObjectId } from "mongodb"
 import { getCollection } from "@/lib/mongodb"
 import { deleteImage, getPublicIdFromUrl } from "@/lib/cloudinary"
+import { requireAdmin } from "@/lib/auth"
+import { readJson, HttpError } from "@/lib/request"
+import { blogUpdateSchema, normalizeSlug } from "@/lib/validation"
+import { sanitizeHtml } from "@/lib/sanitize"
 import { revalidatePath } from "next/cache"
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const authError = await requireAdmin(req)
+  if (authError) return authError
+
   try {
     const { id } = await params
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ error: "Invalid blog id" }, { status: 400 })
+    }
+
     const blogs = await getCollection("blogs")
     const blog = await blogs.findOne({ _id: new ObjectId(id) })
 
@@ -20,56 +31,92 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   }
 }
 
-function sanitizeSlug(slug: string): string {
-  return slug.trim().replace(/^\/+|\/+$/g, "").toLowerCase()
-}
-
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const authError = await requireAdmin(req)
+  if (authError) return authError
+
   try {
     const { id } = await params
-    const body = await req.json()
-    const blogs = await getCollection("blogs")
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ error: "Invalid blog id" }, { status: 400 })
+    }
+    const objectId = new ObjectId(id)
 
-    // If coverImage changed, delete old one from Cloudinary
-    if (body.oldCoverImage && body.oldCoverImage !== body.coverImage) {
-      const publicId = getPublicIdFromUrl(body.oldCoverImage)
-      if (publicId) await deleteImage(publicId)
+    const body = (await readJson(req)) as Record<string, unknown>
+    const parsed = blogUpdateSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid blog data" }, { status: 400 })
+    }
+    const data = parsed.data
+
+    const blogs = await getCollection("blogs")
+    const existing = await blogs.findOne({ _id: objectId })
+    if (!existing) {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
 
-    const update: any = {
-      title: body.title,
-      slug: sanitizeSlug(body.slug || ""),
-      content: body.content || "",
-      excerpt: body.excerpt || "",
-      coverImage: body.coverImage || "",
-      coverImagePublicId: body.coverImagePublicId || "",
-      metaTitle: body.metaTitle || "",
-      metaDescription: body.metaDescription || "",
-      author: body.author || "TheTapTempo Editorial Team",
-      tags: body.tags || [],
-      published: body.published ?? true,
-      readTime: body.readTime || "",
+    const slug = data.slug !== undefined ? normalizeSlug(data.slug) : existing.slug
+    const coverImage = data.coverImage ?? existing.coverImage ?? ""
+    const oldCoverImage =
+      typeof body.oldCoverImage === "string" ? body.oldCoverImage : ""
+
+    if (oldCoverImage && oldCoverImage !== coverImage) {
+      const storedPublicId =
+        (typeof existing.coverImagePublicId === "string" && existing.coverImagePublicId) ||
+        (typeof existing.coverImage === "string"
+          ? getPublicIdFromUrl(existing.coverImage)
+          : null)
+      const oldPublicId = getPublicIdFromUrl(oldCoverImage)
+      if (oldPublicId && storedPublicId && oldPublicId === storedPublicId) {
+        await deleteImage(oldPublicId)
+      }
+    }
+
+    const update: Record<string, unknown> = {
+      title: data.title ?? existing.title,
+      slug,
+      content: data.content !== undefined ? sanitizeHtml(data.content) : existing.content,
+      excerpt: data.excerpt ?? existing.excerpt ?? "",
+      coverImage,
+      coverImagePublicId: data.coverImagePublicId ?? existing.coverImagePublicId ?? "",
+      metaTitle: data.metaTitle ?? existing.metaTitle ?? "",
+      metaDescription: data.metaDescription ?? existing.metaDescription ?? "",
+      author: data.author ?? existing.author ?? "TheTapTempo Editorial Team",
+      tags: data.tags ?? existing.tags ?? [],
+      published: data.published ?? existing.published ?? true,
+      readTime: data.readTime ?? existing.readTime ?? "",
       updatedAt: new Date(),
     }
 
-    await blogs.updateOne({ _id: new ObjectId(id) }, { $set: update })
+    await blogs.updateOne({ _id: objectId }, { $set: update })
 
     revalidatePath("/blog")
     revalidatePath("/")
     revalidatePath("/llms.txt")
-    revalidatePath(`/blog/${body.slug}`)
+    revalidatePath(`/blog/${slug}`)
 
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (e) {
+    if (e instanceof HttpError) {
+      return NextResponse.json({ error: e.message }, { status: e.status })
+    }
     return NextResponse.json({ error: "Failed to update blog" }, { status: 500 })
   }
 }
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const authError = await requireAdmin(req)
+  if (authError) return authError
+
   try {
     const { id } = await params
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ error: "Invalid blog id" }, { status: 400 })
+    }
+    const objectId = new ObjectId(id)
+
     const blogs = await getCollection("blogs")
-    const blog = await blogs.findOne({ _id: new ObjectId(id) })
+    const blog = await blogs.findOne({ _id: objectId })
 
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
@@ -84,7 +131,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     }
 
     const deletedSlug = blog.slug
-    await blogs.deleteOne({ _id: new ObjectId(id) })
+    await blogs.deleteOne({ _id: objectId })
 
     revalidatePath("/blog")
     revalidatePath("/")

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion"
 import { useTapTempo, applyTapMultiplier, type TapData } from "@/hooks/use-tap-tempo"
+import { parseBpmParam } from "@/lib/bpm"
 import { useSleepDetect } from "@/hooks/use-sleep-detect"
 import { useAudioEngine } from "@/hooks/use-audio-engine"
 import { Button } from "@/components/ui/button"
@@ -328,10 +329,8 @@ export default function TapTempoPage() {
   }, [tapOnMultiplier])
 
   useEffect(() => {
-    const raw = new URLSearchParams(window.location.search).get("bpm")
-    if (raw === null) return
-    const parsed = Math.round(parseFloat(raw))
-    if (!isNaN(parsed) && isFinite(parsed) && parsed > 0) {
+    const parsed = parseBpmParam(new URLSearchParams(window.location.search).get("bpm"))
+    if (parsed !== null) {
       setBpmValue(parsed)
     }
   }, [setBpmValue])

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
-import { ObjectId } from "mongodb"
 import { getCollection } from "@/lib/mongodb"
+import { requireAdmin } from "@/lib/auth"
+import { readJson, HttpError } from "@/lib/request"
+import { footerLinkSchema } from "@/lib/validation"
 
 export async function GET() {
   try {
@@ -19,22 +21,33 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  try {
-    const body = await req.json()
-    const col = await getCollection("footer_links")
+  const authError = await requireAdmin(req)
+  if (authError) return authError
 
+  try {
+    const body = await readJson(req)
+    const parsed = footerLinkSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid footer link data" }, { status: 400 })
+    }
+    const data = parsed.data
+
+    const col = await getCollection("footer_links")
     const item = {
-      label: body.label,
-      href: body.href,
-      section: body.section || "More",
-      order: body.order ?? 0,
+      label: data.label,
+      href: data.href,
+      section: data.section || "More",
+      order: data.order ?? 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     }
 
     const result = await col.insertOne(item)
     return NextResponse.json({ ...item, _id: result.insertedId.toString() }, { status: 201 })
-  } catch {
+  } catch (e) {
+    if (e instanceof HttpError) {
+      return NextResponse.json({ error: e.message }, { status: e.status })
+    }
     return NextResponse.json({ error: "Failed to create footer link" }, { status: 500 })
   }
 }

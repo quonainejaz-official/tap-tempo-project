@@ -15,9 +15,18 @@ export const metadata: Metadata = {
     type: "website",
     url: pageUrl,
     siteName: "TheTapTempo",
+    images: [
+      {
+        url: "/opengraph.png",
+        width: 1200,
+        height: 630,
+        alt: "TheTapTempo - Music Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/opengraph.png"],
     title: "BPM Calculator - Tempo, Beats & Song Duration",
     description:
       "Use our BPM Calculator to calculate tempo from beats and time, find beats from BPM, or estimate song duration. Fast, accurate, free, and works offline.",

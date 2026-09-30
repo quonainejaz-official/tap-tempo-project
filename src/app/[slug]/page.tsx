@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import { getCollection } from "@/lib/mongodb"
 import type { Metadata } from "next"
 import { BASE_URL } from "@/lib/constants"
+import { sanitizeHtml } from "@/lib/sanitize"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -48,6 +49,8 @@ export default async function DynamicPage({ params }: Props) {
 
   if (!page) notFound()
 
+  const content = sanitizeHtml(page.content)
+
   if (page.allowHtml) {
     // Inject script to intercept links — they load in the iframe, not new tab/window
     const linkScript = `<script>
@@ -63,11 +66,11 @@ document.addEventListener('click', function(e) {
   }
 });
 <\/script>`
-    const content = page.content + linkScript
+    const iframeContent = content + linkScript
 
     return (
       <iframe
-        srcDoc={content}
+        srcDoc={iframeContent}
         className="w-full border-0"
         style={{ height: "100dvh" }}
         title={page.title}
@@ -84,7 +87,7 @@ document.addEventListener('click', function(e) {
 
       <div
         className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-headings:tracking-tight prose-a:text-primary"
-        dangerouslySetInnerHTML={{ __html: page.content }}
+        dangerouslySetInnerHTML={{ __html: content }}
       />
     </div>
   )

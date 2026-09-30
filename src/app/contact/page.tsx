@@ -72,10 +72,8 @@ export default function ContactPage() {
     const apiUrl = process.env.NEXT_PUBLIC_CONTACT_API
 
     if (!apiUrl) {
-      // No API configured — simulate success for frontend demo
-      await new Promise((r) => setTimeout(r, 1000))
-      setStatus("success")
-      setFormData({ name: "", email: "", subject: "", message: "" })
+      setServerError("This form is not available right now. Email us directly at taptempous@gmail.com.")
+      setStatus("error")
       return
     }
 
