@@ -118,9 +118,23 @@ Visit `/admin/login` and sign in with:
 
 
 From the dashboard you can:
-- Create/edit/delete blog posts with TipTap rich editor
+- View published blog posts (read-only — see note below)
 - Create/edit/delete custom pages (auto-routed at `/[slug]`)
 - Upload images to Cloudinary
+
+### Blog publishing workflow (intentionally not an admin feature)
+
+Blog posts are **version-controlled source**, not database rows. `/blog/[slug]` sets
+`dynamicParams = false` and renders exclusively from the registry in `src/data/blogs/`,
+so MongoDB-backed blog writes would never become public. The admin blog section is
+therefore read-only, and `POST /api/blogs` plus `/api/blogs/[id]` return `410 Gone`
+with an explanatory error.
+
+To publish or change a blog post:
+
+1. Edit the registry/markdown in `src/data/blogs/`.
+2. Run `npm run build` to confirm `npm run seo:check` passes.
+3. Deploy — `sitemap.xml` and `llms.txt` are generated from the same registry.
 
 ---
 

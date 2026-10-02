@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Plus, Edit, Trash2, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { PageNav } from "@/components/page-nav"
 
 export default function AdminBlogsPage() {
@@ -27,28 +27,27 @@ export default function AdminBlogsPage() {
     setRefreshing(false)
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Delete this blog post?")) return
-    await fetch(`/api/blogs/${id}`, { method: "DELETE" })
-    fetchBlogs()
-  }
-
   return (
     <div>
       <PageNav backHref="/admin" onRefresh={handleRefresh} refreshing={refreshing} />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-serif font-bold">Blogs</h1>
-        <Link href="/admin/blogs/create">
-          <Button>
-            <Plus className="w-4 h-4 mr-2" /> New Blog
-          </Button>
-        </Link>
       </div>
+
+      <Card className="mb-6">
+        <CardContent className="py-4 text-sm text-muted-foreground">
+          Blog posts are published from version-controlled source in{" "}
+          <code className="text-foreground">src/data/blogs/</code>. The admin blog
+          CMS is read-only because public blog routes render from that registry, so
+          edits made here would never go live. To publish a post, add or update a
+          registry entry and redeploy.
+        </CardContent>
+      </Card>
 
       {blogs.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center text-muted-foreground">
-            No blogs yet. Create your first one!
+            No blog posts found in the registry.
           </CardContent>
         </Card>
       ) : (
@@ -68,14 +67,6 @@ export default function AdminBlogsPage() {
                       <ExternalLink className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href={`/admin/blogs/${blog._id}/edit`}>
-                    <Button variant="ghost" size="icon">
-                      <Edit className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                  <Button variant="ghost" size="icon" onClick={() => handleDelete(blog._id)}>
-                    <Trash2 className="w-4 h-4 text-destructive" />
-                  </Button>
                 </div>
               </CardContent>
             </Card>

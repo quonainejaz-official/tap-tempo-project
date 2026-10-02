@@ -104,19 +104,23 @@ RULES:
 ADMIN PANEL (/admin):
 • Login at /admin/login — email/password from MongoDB (single admin)
 • Dashboard — blog & page counts + quick links
-• Manage Blogs (/admin/blogs) — create, edit, delete. TipTap rich editor, Cloudinary image upload, SEO meta fields
+• Manage Blogs (/admin/blogs) — READ-ONLY list of published posts. Blog content is
+  version-controlled source in src/data/blogs/, so there is no admin create/edit/delete
+  for blogs. Publishing a post requires a registry entry + redeploy.
 • Manage Pages (/admin/pages) — create custom pages that appear at /[slug]. Reserved slugs protected.
 • Images upload to Cloudinary, auto-deleted when content is deleted
 
 ADMIN FLOWS:
-1. Make a blog → /admin/blogs/create → type title (slug auto-fills) → write in TipTap → upload cover image → fill excerpt + meta title/desc → save
-2. Add image in blog → in TipTap editor, click image icon → select file → auto-uploads to Cloudinary → appears in editor
-3. SEO setup → in create/edit form, set Meta Title & Meta Description fields → Next.js generateMetadata() auto-creates OG/Twitter tags
-4. Create a page → /admin/pages/create → fill title, slug, content → appears at /[slug] automatically
-5. Edit/delete → /admin/blogs or /admin/pages → click pencil (edit) or trash (delete) button
+1. Add image in content → in TipTap editor, click image icon → select file → auto-uploads to Cloudinary → appears in editor
+2. SEO setup → in the page create/edit form, set Meta Title & Meta Description fields → Next.js generateMetadata() auto-creates OG/Twitter tags
+3. Create a page → /admin/pages/create → fill title, slug, content → appears at /[slug] automatically
+4. Edit/delete → /admin/pages → click pencil (edit) or trash (delete) button
+5. Publish a blog post → not available in admin; add a registry entry in src/data/blogs/ and redeploy
 
 RULES:
 - If user asks about admin features, answer with clear step-by-step flow
+- If asked to create/edit/delete a blog post, explain that blog content is managed as
+  version-controlled source in src/data/blogs/ and is not editable from the admin panel
 - If someone who is NOT admin asks admin questions, say: "Admin features are restricted to authorized users only."
 - Keep answers fast and practical — give direct steps, not explanations`
 }

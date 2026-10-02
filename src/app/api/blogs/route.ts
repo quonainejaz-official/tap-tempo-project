@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server"
-import { getCollection } from "@/lib/mongodb"
-import { requireAdmin } from "@/lib/auth"
-import { readJson, HttpError } from "@/lib/request"
-import { blogCreateSchema, normalizeSlug } from "@/lib/validation"
-import { sanitizeHtml } from "@/lib/sanitize"
-import { revalidatePath } from "next/cache"
 import { hardcodedBlogs } from "@/data/blogs/registry"
+
+const CMS_DISABLED =
+  "Blog content is managed as version-controlled source in src/data/blogs/. " +
+  "The MongoDB-backed blog CMS is intentionally disabled because published posts " +
+  "are rendered from the hardcoded registry, so writes here would never become public."
 
 export async function GET(req: Request) {
   try {
@@ -38,51 +37,6 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
-  const authError = await requireAdmin(req)
-  if (authError) return authError
-
-  try {
-    const body = await readJson(req)
-    const parsed = blogCreateSchema.safeParse(body)
-    if (!parsed.success) {
-      return NextResponse.json({ error: "Invalid blog data" }, { status: 400 })
-    }
-    const data = parsed.data
-
-    const blogs = await getCollection("blogs")
-    const now = new Date()
-    const blog = {
-      title: data.title,
-      slug: normalizeSlug(data.slug),
-      content: data.content ? sanitizeHtml(data.content) : "",
-      excerpt: data.excerpt || "",
-      coverImage: data.coverImage || "",
-      coverImagePublicId: data.coverImagePublicId || "",
-      metaTitle: data.metaTitle || "",
-      metaDescription: data.metaDescription || "",
-      author: data.author || "TheTapTempo Editorial Team",
-      tags: data.tags || [],
-      published: data.published ?? true,
-      readTime: data.readTime || "",
-      createdAt: now,
-      updatedAt: now,
-    }
-
-    const result = await blogs.insertOne(blog)
-    revalidatePath("/blog")
-    revalidatePath("/")
-    revalidatePath("/llms.txt")
-    revalidatePath(`/blog/${blog.slug}`)
-
-    return NextResponse.json(
-      { ...blog, _id: result.insertedId.toString() },
-      { status: 201 },
-    )
-  } catch (e) {
-    if (e instanceof HttpError) {
-      return NextResponse.json({ error: e.message }, { status: e.status })
-    }
-    return NextResponse.json({ error: "Failed to create blog" }, { status: 500 })
-  }
+export async function POST() {
+  return NextResponse.json({ error: CMS_DISABLED }, { status: 410 })
 }

@@ -59,11 +59,6 @@ export default function AdminDashboard() {
       </div>
 
       <div className="flex gap-4">
-        <Link href="/admin/blogs/create">
-          <Button>
-            <Plus className="w-4 h-4 mr-2" /> New Blog
-          </Button>
-        </Link>
         <Link href="/admin/pages/create">
           <Button variant="outline">
             <Plus className="w-4 h-4 mr-2" /> New Page
