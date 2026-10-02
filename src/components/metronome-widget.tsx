@@ -1237,14 +1237,16 @@ export function MetronomeWidget({
           </div>
 
           {/* Volume Slider */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-gray-500 w-10 uppercase tracking-wider shrink-0">VOL</span>
+          <div className="flex items-center gap-1.5 sm:gap-2 w-full">
+            <span className="text-xs font-bold text-gray-500 w-8 sm:w-10 uppercase tracking-wider shrink-0">VOL</span>
+            <BpmStepButton label="-" ariaLabel="Decrease volume by 5 percent" onClick={() => setVolume(Math.max(0, Math.min(1, volume - 0.05)))} />
             <Slider
               value={[Math.round(volume * 100)]} max={100}
               onValueChange={v => setVolume(v[0] / 100)}
               aria-label="Volume"
-              className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+              className="flex-1 min-w-0 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
             />
+            <BpmStepButton label="+" ariaLabel="Increase volume by 5 percent" onClick={() => setVolume(Math.max(0, Math.min(1, volume + 0.05)))} />
           </div>
 
           {/* Quick Tempo */}
