@@ -12,7 +12,7 @@ import {
 } from "@/lib/favorites"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Hand, Plus, Minus, Activity, Gauge, Target, Download } from "lucide-react"
+import { Hand, Activity, Gauge, Target, Download } from "lucide-react"
 
 const MAX_TAPS = 8
 const RESET_MS = 3000
@@ -78,6 +78,27 @@ function TapButton({ tapPulse, onTap }: TapButtonProps) {
         TAP
       </span>
       {tapPulse && <span className="absolute inset-0 rounded-xl border-2 border-[#1565FF] animate-ping opacity-30" />}
+    </button>
+  )
+}
+
+interface BpmStepButtonProps {
+  label: string
+  ariaLabel: string
+  onClick: () => void
+}
+
+function BpmStepButton({ label, ariaLabel, onClick }: BpmStepButtonProps) {
+  return (
+    <button
+      type="button"
+      aria-label={ariaLabel}
+      onClick={onClick}
+      className="group relative flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
+    >
+      <span className="text-[10px] sm:text-[11px] font-bold leading-none transition-colors text-[#767676] group-hover:text-[#1565FF]">
+        {label}
+      </span>
     </button>
   )
 }
@@ -1050,6 +1071,8 @@ export function MetronomeWidget({
   }, [])
 
   const numBeats = parseInt(signature.split("/")[0])
+  // Beat-number label shrinks with density so 1..N stays legible inside the fixed 16px dot
+  const beatNumberSizeClass = numBeats >= 10 ? "text-[7px]" : "text-[8px]"
 
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -1104,31 +1127,11 @@ export function MetronomeWidget({
             <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
         </div>
 
-        {/* − under LEFT TAP · “Press T or tap” centered · + under RIGHT TAP */}
-        <div className="flex items-center justify-center gap-4">
-          <div className="w-14 shrink-0 flex justify-center">
-            <button
-              aria-label="Decrease tempo by 1 BPM"
-              onClick={() => handleBpmInput(bpm - 1)}
-              className="group relative flex items-center justify-center w-9 h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
-            >
-              <Minus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
-            </button>
-          </div>
-          <div className="w-[140px] flex justify-center">
-            <p className="text-center text-[10px] text-muted-foreground font-mono leading-none">
-              Press <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px] font-sans">T</kbd> or tap
-            </p>
-          </div>
-          <div className="w-14 shrink-0 flex justify-center">
-            <button
-              aria-label="Increase tempo by 1 BPM"
-              onClick={() => handleBpmInput(bpm + 1)}
-              className="group relative flex items-center justify-center w-9 h-9 rounded-xl border-2 border-[#D9D9D9] bg-white shadow-sm select-none cursor-pointer transition-all duration-100 active:scale-95 shrink-0 hover:border-[#1565FF] hover:shadow-md"
-            >
-              <Plus size={14} className="transition-colors text-[#767676] group-hover:text-[#1565FF]" />
-            </button>
-          </div>
+        {/* “Press T or tap” hint — BPM step buttons now live on the slider row */}
+        <div className="flex items-center justify-center">
+          <p className="text-center text-[10px] text-muted-foreground font-mono leading-none">
+            Press <kbd className="px-1 py-0.5 rounded bg-muted text-muted-foreground text-[9px] font-sans">T</kbd> or tap
+          </p>
         </div>
 
         {/* Beat Dots */}
@@ -1149,18 +1152,24 @@ export function MetronomeWidget({
               : isActive
               ? `${stateClass} opacity-70`
               : stateClass
+            // Dark fills (Accent/Normal) take white text; light fills (Ghost/Mute) take #595959
+            const numberClass = state === "A" || state === "N" ? "text-white" : "text-[#595959]"
             return (
               <button key={i} onClick={() => cycleBeatState(i)}
-                className={`w-4 h-4 rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
+                className={`flex items-center justify-center w-4 h-4 rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
                 title={`Beat ${i + 1}: ${state === "A" ? "Accent" : state === "N" ? "Normal" : state === "G" ? "Ghost" : "Mute"} (click to change)`}
-              />
+              >
+                <span className={`${beatNumberSizeClass} font-bold leading-none tabular-nums select-none pointer-events-none ${numberClass}`}>
+                  {i + 1}
+                </span>
+              </button>
             )
           })}
         </div>
 
         {/* Beat State Legend */}
         <div className="flex justify-center w-full mt-2">
-          <div className="inline-flex items-center justify-center gap-x-4 gap-y-1.5 flex-wrap rounded-lg border border-gray-100 bg-gray-50 px-4 py-2">
+          <div className="inline-flex items-center justify-center gap-x-2.5 gap-y-1 flex-wrap rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1">
             {([
               { state: "A", label: "Accent" },
               { state: "N", label: "Normal" },
@@ -1176,9 +1185,9 @@ export function MetronomeWidget({
                   ? "bg-white border-2 border-[#D9D9D9]"
                   : "bg-[#595959] border border-[#595959]"
               return (
-                <div key={state} className="flex items-center gap-1.5">
-                  <span className={`w-4 h-4 rounded-full shrink-0 ${sampleClass}`} aria-hidden="true" />
-                  <span className="text-[10px] text-muted-foreground font-mono leading-none">{label}</span>
+                <div key={state} className="flex items-center gap-1">
+                  <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${sampleClass}`} aria-hidden="true" />
+                  <span className="text-[9px] text-muted-foreground font-mono leading-none">{label}</span>
                 </div>
               )
             })}
@@ -1213,14 +1222,18 @@ export function MetronomeWidget({
           </div>
 
           {/* BPM Slider */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-gray-500 w-10 uppercase tracking-wider shrink-0">BPM</span>
+          <div className="flex items-center gap-1.5 sm:gap-2 w-full">
+            <span className="text-xs font-bold text-gray-500 w-8 sm:w-10 uppercase tracking-wider shrink-0">BPM</span>
+            <BpmStepButton label="-5" ariaLabel="Decrease tempo by 5 BPM" onClick={() => handleBpmInput(bpm - 5)} />
+            <BpmStepButton label="-1" ariaLabel="Decrease tempo by 1 BPM" onClick={() => handleBpmInput(bpm - 1)} />
             <Slider
               value={[bpm]} min={1} max={500}
               onValueChange={v => handleBpmInput(v[0])}
               aria-label="BPM"
-              className="flex-1 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
+              className="flex-1 min-w-0 [&_[role=slider]]:bg-white [&_[role=slider]]:border-[#D9D9D9] [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-sm [&_.relative]:bg-[#D9D9D9] [&_.absolute]:bg-[#1565FF]"
             />
+            <BpmStepButton label="+1" ariaLabel="Increase tempo by 1 BPM" onClick={() => handleBpmInput(bpm + 1)} />
+            <BpmStepButton label="+5" ariaLabel="Increase tempo by 5 BPM" onClick={() => handleBpmInput(bpm + 5)} />
           </div>
 
           {/* Volume Slider */}
