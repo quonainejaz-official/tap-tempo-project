@@ -1206,9 +1206,9 @@ export function MetronomeWidget({
         </button>
 
         {/* Sound + Sliders + Quick Tempo */}
-        <div className="flex flex-col gap-5 w-full mt-2">
+        <div className="flex flex-col gap-2 w-full mt-1">
           {/* Sound */}
-          <div>
+          <div className="border-t border-gray-100 pt-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Sound</span>
             <div className="flex gap-1.5 flex-wrap">
               {(["click", "beep", "woodblock", "cowbell", "snare"] as const).map(s => (
@@ -1222,7 +1222,7 @@ export function MetronomeWidget({
           </div>
 
           {/* BPM Slider */}
-          <div className="flex items-center gap-1.5 sm:gap-2 w-full">
+          <div className="flex items-center gap-1.5 sm:gap-2 w-full border-t border-gray-100 pt-2">
             <span className="text-xs font-bold text-gray-500 w-8 sm:w-10 uppercase tracking-wider shrink-0">BPM</span>
             <BpmStepButton label="-5" ariaLabel="Decrease tempo by 5 BPM" onClick={() => handleBpmInput(bpm - 5)} />
             <BpmStepButton label="-1" ariaLabel="Decrease tempo by 1 BPM" onClick={() => handleBpmInput(bpm - 1)} />
@@ -1250,7 +1250,7 @@ export function MetronomeWidget({
           </div>
 
           {/* Quick Tempo */}
-          <div>
+          <div className="border-t border-gray-100 pt-2">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider shrink-0">QUICK TEMPO</span>
               <button
@@ -1280,7 +1280,7 @@ export function MetronomeWidget({
         </div>
 
         {/* Favorites */}
-        <div className="w-full flex flex-col gap-1.5 mt-3">
+        <div className="w-full flex flex-col gap-1.5 mt-1 border-t border-gray-100 pt-2">
           <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider shrink-0">Favorites</span>
           {isSavingFavorite ? (
             <div className="flex items-center gap-1.5">
@@ -1389,7 +1389,7 @@ export function MetronomeWidget({
 
         {/* Subdivisions + Swing */}
         {showSubdivisions && (
-          <div className="mt-3">
+          <div className="mt-2 border-t border-gray-100 pt-1.5">
             <div>
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1.5">Subdivisions</span>
               <div className="flex flex-wrap items-center gap-1.5">
@@ -1402,7 +1402,7 @@ export function MetronomeWidget({
                 ))}
               </div>
             </div>
-            <div className="mt-2.5">
+            <div className="mt-2 border-t border-gray-100 pt-1.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1.5">Swing</span>
               <div className="flex flex-wrap items-center gap-1.5">
                 {swingPresets.map(p => (
@@ -1451,7 +1451,7 @@ export function MetronomeWidget({
           <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Practice Tools</span>
 
           {/* Gap Click */}
-          <div className="flex items-center justify-between py-1">
+          <div className="flex items-center justify-between py-0.5">
             <span className="text-xs font-medium text-[#595959]">Gap Click</span>
             <button role="switch" aria-checked={isGapActive} aria-label="Toggle Gap Click" onClick={() => setIsGapActive(g => !g)}
               className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
@@ -1464,7 +1464,7 @@ export function MetronomeWidget({
             </button>
           </div>
           {isGapActive && (
-            <div className="flex items-center gap-2 pl-2 pb-1">
+            <div className="flex items-center gap-2 pl-2 pb-0.5">
               <span className="text-[10px] text-muted-foreground shrink-0">Play</span>
               <NumericFieldInput value={playBars} min={1} max={16} onCommit={v => setPlayBars(v)}
                 className="w-10 text-center text-xs border border-[#D9D9D9] rounded px-1 py-0.5 bg-white"
@@ -1478,7 +1478,7 @@ export function MetronomeWidget({
           )}
 
           {/* Random Mute */}
-          <div className="flex items-center justify-between py-1">
+          <div className="flex items-center justify-between mt-1 pt-1 pb-0.5 border-t border-gray-100">
             <span className="text-xs font-medium text-[#595959]">Random Mute</span>
             <button role="switch" aria-checked={isRandomMuteActive} aria-label="Toggle Random Mute" onClick={() => setIsRandomMuteActive(r => !r)}
               className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
@@ -1491,7 +1491,7 @@ export function MetronomeWidget({
             </button>
           </div>
           {isRandomMuteActive && (
-            <div className="flex items-center gap-2 pl-2 pb-1">
+            <div className="flex items-center gap-2 pl-2 pb-0.5">
               <Slider value={[randomMutePercent]} min={0} max={50}
                 onValueChange={v => setRandomMutePercent(v[0])}
                 aria-label="Random Mute Percentage"
@@ -1502,7 +1502,7 @@ export function MetronomeWidget({
           )}
 
           {/* Speed Trainer */}
-          <div className="flex items-center justify-between py-1">
+          <div className="flex items-center justify-between mt-1 pt-1 pb-0.5 border-t border-gray-100">
             <span className="text-xs font-medium text-[#595959]">Speed Trainer</span>
             <button role="switch" aria-checked={speedTrainerEnabled} aria-label="Toggle Speed Trainer" onClick={() => setSpeedTrainerEnabled(e => !e)}
               className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1565FF] focus-visible:ring-offset-2 ${
@@ -1515,7 +1515,7 @@ export function MetronomeWidget({
             </button>
           </div>
           {speedTrainerEnabled && (
-            <div className="mt-1.5 mb-2 pl-2">
+            <div className="mt-1.5 mb-1 pl-2">
               <div className="grid grid-cols-[auto_auto_auto_auto_auto] items-center gap-x-2 gap-y-1">
                 <span className="text-[10px] text-muted-foreground whitespace-nowrap">Start</span>
                 <NumericFieldInput value={speedStartTempo} min={1} max={500} inputMode="numeric" onCommit={commitSpeedStart}
@@ -1544,8 +1544,8 @@ export function MetronomeWidget({
             </div>
           )}
 
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">PRACTICE TIME</span>
-          <div className="flex items-center justify-between py-1">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1 border-t border-gray-100 pt-1">PRACTICE TIME</span>
+          <div className="flex items-center justify-between py-0.5">
             <div className="flex items-center gap-2 min-w-0">
               <span className="font-mono text-sm font-bold text-gray-900 tabular-nums shrink-0">
                 {`${String(Math.floor(timeRemaining / 60)).padStart(2, "0")}:${String(timeRemaining % 60).padStart(2, "0")}`}
@@ -1564,7 +1564,7 @@ export function MetronomeWidget({
           </div>
 
           {/* Quick Presets */}
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">PRACTICE MODES</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1 border-t border-gray-100 pt-1">PRACTICE MODES</span>
           <div className="flex gap-1.5 flex-wrap mt-2">
             {[
               { label: "1/16 Mode", href: "/metronome-with-subdivisions" },
