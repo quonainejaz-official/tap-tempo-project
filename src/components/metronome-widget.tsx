@@ -1071,8 +1071,17 @@ export function MetronomeWidget({
   }, [])
 
   const numBeats = parseInt(signature.split("/")[0])
-  // Beat-number label shrinks with density so 1..N stays legible inside the fixed 16px dot
+  // Beat-number label shrinks with density so 1..N stays legible inside the dot
   const beatNumberSizeClass = numBeats >= 10 ? "text-[7px]" : "text-[8px]"
+
+  // Beat dots wrap after BEATS_PER_ROW so wide time signatures stay compact:
+  // 1-11 beats -> 1 row, 12-22 -> 2 rows, 23-32 -> 3 rows (32 = 11 + 11 + 10).
+  // Rows carry absolute beat indices, so state, numbering and click behavior are unchanged.
+  const BEATS_PER_ROW = 11
+  const beatDotRows: number[][] = []
+  for (let i = 0; i < numBeats; i += BEATS_PER_ROW) {
+    beatDotRows.push(Array.from({ length: Math.min(BEATS_PER_ROW, numBeats - i) }, (_, k) => i + k))
+  }
 
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -1135,36 +1144,40 @@ export function MetronomeWidget({
         </div>
 
         {/* Beat Dots */}
-        <div className="flex justify-center gap-3 flex-wrap max-w-[350px]">
-          {Array.from({ length: numBeats }).map((_, i) => {
-            const state = beatStates[i] || "N"
-            const isActive = i === beat && playing
-            const stateClass =
-              state === "A"
-                ? "bg-[#1565FF] border border-[#1565FF] shadow-[0_0_6px_rgba(21,101,255,0.7)]"
-                : state === "G"
-                ? "bg-[#E5E7EB]/70 border border-[#D9D9D9]"
-                : state === "M"
-                ? "bg-white border-2 border-[#D9D9D9]"
-                : "bg-[#595959] border border-[#595959]"
-            const dotClass = isActive && state !== "M"
-              ? `${stateClass} scale-125 ring-2 ring-[#1565FF]/30 shadow-[0_0_12px_rgba(21,101,255,0.6)]`
-              : isActive
-              ? `${stateClass} opacity-70`
-              : stateClass
-            // Dark fills (Accent/Normal) take white text; light fills (Ghost/Mute) take #595959
-            const numberClass = state === "A" || state === "N" ? "text-white" : "text-[#595959]"
-            return (
-              <button key={i} onClick={() => cycleBeatState(i)}
-                className={`flex items-center justify-center w-4 h-4 rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
-                title={`Beat ${i + 1}: ${state === "A" ? "Accent" : state === "N" ? "Normal" : state === "G" ? "Ghost" : "Mute"} (click to change)`}
-              >
-                <span className={`${beatNumberSizeClass} font-bold leading-none tabular-nums select-none pointer-events-none ${numberClass}`}>
-                  {i + 1}
-                </span>
-              </button>
-            )
-          })}
+        <div className="flex flex-col items-center gap-2">
+          {beatDotRows.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex flex-wrap justify-center gap-2.5">
+              {row.map((i) => {
+                const state = beatStates[i] || "N"
+                const isActive = i === beat && playing
+                const stateClass =
+                  state === "A"
+                    ? "bg-[#1565FF] border border-[#1565FF] shadow-[0_0_6px_rgba(21,101,255,0.7)]"
+                    : state === "G"
+                    ? "bg-[#E5E7EB]/70 border border-[#D9D9D9]"
+                    : state === "M"
+                    ? "bg-white border-2 border-[#D9D9D9]"
+                    : "bg-[#595959] border border-[#595959]"
+                const dotClass = isActive && state !== "M"
+                  ? `${stateClass} scale-125 ring-2 ring-[#1565FF]/30 shadow-[0_0_12px_rgba(21,101,255,0.6)]`
+                  : isActive
+                  ? `${stateClass} opacity-70`
+                  : stateClass
+                // Dark fills (Accent/Normal) take white text; light fills (Ghost/Mute) take #595959
+                const numberClass = state === "A" || state === "N" ? "text-white" : "text-[#595959]"
+                return (
+                  <button key={i} onClick={() => cycleBeatState(i)}
+                    className={`flex items-center justify-center w-[18px] h-[18px] rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
+                    title={`Beat ${i + 1}: ${state === "A" ? "Accent" : state === "N" ? "Normal" : state === "G" ? "Ghost" : "Mute"} (click to change)`}
+                  >
+                    <span className={`${beatNumberSizeClass} font-bold leading-none tabular-nums select-none pointer-events-none ${numberClass}`}>
+                      {i + 1}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          ))}
         </div>
 
         {/* Beat State Legend */}
