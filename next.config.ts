@@ -29,6 +29,7 @@ const contentSecurityPolicy = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["isomorphic-dompurify"],
   images: {
     remotePatterns: [
       {
