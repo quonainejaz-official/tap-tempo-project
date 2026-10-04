@@ -1072,12 +1072,13 @@ export function MetronomeWidget({
 
   const numBeats = parseInt(signature.split("/")[0])
   // Beat-number label shrinks with density so 1..N stays legible inside the dot
-  const beatNumberSizeClass = numBeats >= 10 ? "text-[7px]" : "text-[8px]"
+  const beatNumberSizeClass = numBeats >= 10 ? "text-[11px]" : "text-[13px]"
 
   // Beat dots wrap after BEATS_PER_ROW so wide time signatures stay compact:
-  // 1-11 beats -> 1 row, 12-22 -> 2 rows, 23-32 -> 3 rows (32 = 11 + 11 + 10).
-  // Rows carry absolute beat indices, so state, numbering and click behavior are unchanged.
-  const BEATS_PER_ROW = 11
+  // 1-8 beats -> 1 row, 9-16 -> 2 rows, 17-24 -> 3 rows, 25-32 -> 4 rows
+  // (32 = 8 + 8 + 8 + 8). Rows carry absolute beat indices, so state, numbering
+  // and click behavior are unchanged.
+  const BEATS_PER_ROW = 8
   const beatDotRows: number[][] = []
   for (let i = 0; i < numBeats; i += BEATS_PER_ROW) {
     beatDotRows.push(Array.from({ length: Math.min(BEATS_PER_ROW, numBeats - i) }, (_, k) => i + k))
@@ -1145,9 +1146,9 @@ export function MetronomeWidget({
         </div>
 
         {/* Beat Dots */}
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-1">
           {beatDotRows.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex flex-wrap justify-center gap-2.5">
+            <div key={rowIndex} className="flex flex-wrap justify-center gap-1.5">
               {row.map((i) => {
                 const state = beatStates[i] || "N"
                 const isActive = i === beat && playing
@@ -1168,7 +1169,7 @@ export function MetronomeWidget({
                 const numberClass = state === "A" || state === "N" ? "text-white" : "text-[#595959]"
                 return (
                   <button key={i} onClick={() => cycleBeatState(i)}
-                    className={`flex items-center justify-center w-[18px] h-[18px] rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
+                    className={`flex items-center justify-center w-[26px] h-[26px] rounded-full transition-all duration-75 cursor-pointer hover:scale-110 ${dotClass}`}
                     title={`Beat ${i + 1}: ${state === "A" ? "Accent" : state === "N" ? "Normal" : state === "G" ? "Ghost" : "Mute"} (click to change)`}
                   >
                     <span className={`${beatNumberSizeClass} font-bold leading-none tabular-nums select-none pointer-events-none ${numberClass}`}>
@@ -1182,7 +1183,7 @@ export function MetronomeWidget({
         </div>
 
         {/* Beat State Legend */}
-        <div className="flex justify-center w-full mt-2">
+        <div className="flex justify-center w-full mt-1.5">
           <div className="inline-flex items-center justify-center gap-x-2.5 gap-y-1 flex-wrap rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1">
             {([
               { state: "A", label: "Accent" },
@@ -1210,7 +1211,7 @@ export function MetronomeWidget({
 
         {/* START / STOP */}
         <button onClick={handlePlayToggle}
-          className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 mt-2 ${
+          className={`w-full py-3.5 rounded-full text-base font-semibold transition-all duration-200 shadow-md active:scale-95 mt-1.5 ${
             playing
               ? "bg-[#FF3B30] hover:bg-[#E03126] text-white"
               : "bg-[#1565FF] hover:bg-[#0D52D6] text-white"
