@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react"
+  import Link from "next/link"
+  import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion"
 import { useTapTempo, applyTapMultiplier, type TapData } from "@/hooks/use-tap-tempo"
 import { parseBpmParam } from "@/lib/bpm"
@@ -514,7 +515,7 @@ export default function TapTempoPage() {
   }
 
 
-  const METRONOME_DOTS = 6
+  const METRONOME_DOTS = 10
 
   // Consistent with the 8-12 taps guidance: below this count show a
   // low-confidence message; at/above it the existing "Stable" indicator applies.
@@ -543,10 +544,10 @@ export default function TapTempoPage() {
     setMetronomeDot(0)
     let step = 0
     const tick = () => {
+      if (step >= METRONOME_DOTS) { stopMetronome(); return }
       playMetronomeTick()
       step += 1
       setMetronomeDot(step)
-      if (step >= METRONOME_DOTS) stopMetronome()
     }
     tick()
     metronomeTimerRef.current = setInterval(
@@ -907,18 +908,29 @@ export default function TapTempoPage() {
                 </a>
               </div>
             </div>
+            {/* Cross-link to Metronome at the active tempo (same pattern as sibling tool pages) */}
+            <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-2.5 gap-y-0.5 py-1.5 px-3 rounded-xl border border-primary/20 bg-primary/5">
+              <p className="text-xs text-muted-foreground leading-snug sm:whitespace-nowrap">Want to play at this tempo?</p>
+              <Link
+                href={`/metronome?bpm=${activeBpm}`}
+                className="text-xs font-bold text-primary hover:underline leading-snug sm:whitespace-nowrap"
+              >
+                Use {activeBpm} BPM in Metronome →
+              </Link>
+            </div>
 </div>
             </div>
           </div>
-<SectionCard icon={<Target size={14} strokeWidth={2.5} />} title="Metronome Check" className="lg:col-span-1 min-h-full" bodyClassName="flex flex-col gap-3 p-4">
+<SectionCard icon={<Target size={14} strokeWidth={2.5} />} title="Metronome Check" className="lg:col-span-1 min-h-full flex flex-col" bodyClassName="flex flex-1 flex-col gap-3 p-4">
             <p className="text-xs text-muted-foreground leading-relaxed">
               Tap your level, then hit Play to hear the click at the active tempo.
             </p>
-            <div className="flex items-center gap-1.5" aria-label="Metronome progress">
+            {/* 10 tap dots in a 2 x 5 grid, stretched to fill the card's leftover height */}
+            <div className="grid flex-1 grid-cols-5 grid-rows-2 gap-2 place-items-center py-1" aria-label="Metronome progress">
               {Array.from({ length: METRONOME_DOTS }).map((_, i) => (
                 <span
                   key={i}
-                  className={`h-2 w-2 rounded-full transition-colors ${i < metronomeDot ? "bg-primary" : "bg-muted"}`}
+                  className={`h-2.5 w-2.5 rounded-full transition-colors ${i < metronomeDot ? "bg-primary" : "bg-muted"}`}
                 />
               ))}
             </div>
