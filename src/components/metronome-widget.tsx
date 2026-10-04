@@ -1094,44 +1094,44 @@ export function MetronomeWidget({
           <TapButton tapPulse={tapPulse} onTap={e => { e.preventDefault(); fireTap() }} />
           <div className="relative flex items-center justify-center w-[140px] h-[140px]">
               <svg
-                className="absolute inset-0 m-auto pointer-events-none"
+                className="absolute inset-0 m-auto pointer-events-none overflow-visible"
                 width="140"
                 height="140"
                 viewBox="0 0 160 160"
               >
                 {/* Idle ring — always visible at 40% */}
-                <circle cx="80" cy="80" r="72" fill="none" stroke="#1565FF" strokeWidth="3"
+                <circle cx="80" cy="80" r="74" fill="none" stroke="#1565FF" strokeWidth="3"
                   strokeOpacity="0.4"
                   className="transition-all duration-150 ease-out"
                   style={{ transformOrigin: "80px 80px", transform: "scale(1)" }}
                 />
                 {/* Active pulse ring — scales up and brightens on beat */}
-                <circle cx="80" cy="80" r="72" fill="none" stroke="#1565FF" strokeWidth="3"
+                <circle cx="80" cy="80" r="74" fill="none" stroke="#1565FF" strokeWidth="3"
                   className={`transition-all duration-150 ease-out ${
                     pulseActive
                       ? pulseState === "A"
                         ? "opacity-100"
-                        : "opacity-70"
+                        : "opacity-[0.85]"
                       : "opacity-0"
                   }`}
                   style={{ transformOrigin: "80px 80px", transform: pulseActive ? "scale(1.05)" : "scale(1)" }}
                 />
                 {/* Accent fill glow */}
-                {pulseActive && pulseState === "A" && <circle cx="80" cy="80" r="72" fill="#1565FF" opacity="0.08" />}
+                {pulseActive && pulseState === "A" && <circle cx="80" cy="80" r="74" fill="#1565FF" opacity="0.13" />}
                 {/* Tempo-change spike — extra-bright one-shot flash layered on top of the regular beat flash */}
-                <circle cx="80" cy="80" r="72" fill="#1565FF"
-                  className={`transition-all duration-150 ease-out ${tempoSpikePulse ? "opacity-[0.14]" : "opacity-0"}`}
+                <circle cx="80" cy="80" r="74" fill="#1565FF"
+                  className={`transition-all duration-150 ease-out ${tempoSpikePulse ? "opacity-[0.18]" : "opacity-0"}`}
                 />
-                <circle cx="80" cy="80" r="72" fill="none" stroke="#1565FF" strokeWidth="4"
+                <circle cx="80" cy="80" r="74" fill="none" stroke="#1565FF" strokeWidth="4"
                   className={`transition-all duration-150 ease-out ${tempoSpikePulse ? "opacity-100" : "opacity-0"}`}
                   style={{ transformOrigin: "80px 80px", transform: tempoSpikePulse ? "scale(1.12)" : "scale(1)" }}
                 />
               </svg>
               <div className="relative flex flex-col items-center justify-center z-10">
-                <span className="font-mono text-[34px] font-extrabold tracking-tight text-gray-900 leading-none">
+                <span className="font-mono text-[36px] font-extrabold tracking-tight text-gray-900 leading-none">
                   {bpm}
                 </span>
-                <span className="text-[12px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">BPM</span>
+                <span className="text-[13px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">BPM</span>
               </div>
             </div>
 
