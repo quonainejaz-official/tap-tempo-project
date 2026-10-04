@@ -12,7 +12,7 @@ import {
 } from "@/lib/favorites"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Hand, Activity, Gauge, Target, Download } from "lucide-react"
+import { Hand, Activity, Target, Download } from "lucide-react"
 
 const MAX_TAPS = 8
 const RESET_MS = 3000
@@ -1084,6 +1084,7 @@ export function MetronomeWidget({
   }
 
   return (
+    <>
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       {/* ── LEFT COLUMN ──────────────────────────────────────── */}
       <div className="lg:col-span-5 h-full flex flex-col justify-between items-center py-2 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
@@ -1262,92 +1263,7 @@ export function MetronomeWidget({
             <BpmStepButton label="+" ariaLabel="Increase volume by 5 percent" onClick={() => setVolume(Math.max(0, Math.min(1, volume + 0.05)))} />
           </div>
 
-          {/* Quick Tempo */}
-          <div className="border-t border-gray-100 pt-2">
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider shrink-0">QUICK TEMPO</span>
-              <button
-                onClick={() => setQuickTempoSelection(null)}
-                className="text-[11px] font-bold uppercase tracking-wider text-[#1565FF] hover:underline"
-              >
-                CLEAR
-              </button>
-            </div>
-            <div className="flex gap-1.5 flex-wrap">
-              {quickTempoPresets.map(v => (
-                <button
-                  key={v}
-                  aria-pressed={quickTempoSelection === v}
-                  onClick={() => { handleBpmInput(v); setQuickTempoSelection(v) }}
-                  className={`flex-1 px-2 py-1.5 rounded-full text-xs font-medium text-center transition-all shadow-sm ${
-                    quickTempoSelection === v
-                      ? "bg-[#1565FF] text-white border border-[#1565FF]"
-                      : "bg-white border border-[#D9D9D9] text-[#595959] hover:text-[#1565FF] hover:border-[#1565FF]"
-                  }`}
-                >
-                  {v}
-                </button>
-              ))}
-            </div>
           </div>
-        </div>
-
-        {/* Favorites */}
-        <div className="w-full flex flex-col gap-1.5 mt-1 border-t border-gray-100 pt-2">
-          <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider shrink-0">Favorites</span>
-          {isSavingFavorite ? (
-            <div className="flex items-center gap-1.5">
-              <input
-                autoFocus
-                maxLength={30}
-                value={favoriteName}
-                onChange={e => setFavoriteName(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter") saveFavorite() }}
-                aria-label="Favorite name"
-                placeholder="Name this setup"
-                className="flex-1 min-w-0 text-xs border border-[#D9D9D9] rounded-full px-3 py-1.5 bg-white text-[#595959] focus:border-[#1565FF] outline-none"
-              />
-              <button onClick={saveFavorite} aria-label="Save favorite"
-                className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#1565FF] text-white shadow-sm">
-                Save
-              </button>
-              <button onClick={() => { setIsSavingFavorite(false); setFavoriteName("") }} aria-label="Cancel"
-                className="px-3 py-1.5 rounded-full text-xs font-medium border border-[#D9D9D9] text-[#595959] bg-white">
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <button onClick={() => setIsSavingFavorite(true)}
-              className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#1565FF] text-white shadow-sm">
-              Save current setup
-            </button>
-          )}
-          {favorites.length === 0 ? (
-            <p className="text-[10px] text-muted-foreground font-mono leading-none">No favorites saved yet</p>
-          ) : (
-            <div className="flex flex-wrap gap-1.5">
-              {favorites.map(fav => (
-                <div key={fav.name}
-                  className="inline-flex items-center max-w-full rounded-full border border-[#D9D9D9] bg-white shadow-sm transition-all hover:border-[#1565FF]">
-                  <button onClick={() => applyFavorite(fav)}
-                    className="pl-3 pr-1.5 py-1 text-xs font-medium text-[#595959] hover:text-[#1565FF] min-w-0">
-                    <span className="block max-w-[180px] truncate">{fav.name}</span>
-                  </button>
-                  <button onClick={() => downloadFavoriteAsJson(fav)}
-                    aria-label={`Download favorite ${fav.name}`}
-                    className="pl-1 pr-1 py-1 text-muted-foreground hover:text-[#1565FF] transition-colors">
-                    <Download size={13} strokeWidth={2} />
-                  </button>
-                  <button onClick={() => deleteFavorite(fav.name)}
-                    aria-label={`Delete favorite ${fav.name}`}
-                    className="pr-2.5 pl-1 py-1 text-xs font-bold text-muted-foreground hover:text-[#FF3B30] transition-colors">
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
       </div>
 
       {/* ── RIGHT COLUMN ─────────────────────────────────────── */}
@@ -1446,18 +1362,6 @@ export function MetronomeWidget({
             </div>
           </div>
         )}</SectionCard>
-
-        {/* TEMPO PRESETS */}
-        <SectionCard icon={<Gauge size={14} strokeWidth={2.5} />} title="Tempo Presets">
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-700 block mb-1">Tempo Presets</span>
-          <div className="flex gap-1.5 flex-wrap">
-            {presets.map(p => (
-              <button key={p.label} onClick={() => handleBpmInput(p.val)}
-                className="px-3 py-1 rounded-full text-xs border border-[#D9D9D9] text-[#595959] bg-white hover:text-[#1565FF] hover:border-[#1565FF] transition-all shadow-sm"
-              >{p.label} <span className="ml-0.5">{p.val}</span></button>
-            ))}
-          </div>
-        </SectionCard>
 
         {/* PRACTICE */}
         <SectionCard icon={<Target size={14} strokeWidth={2.5} />} title="Practice">
@@ -1593,5 +1497,110 @@ export function MetronomeWidget({
         </SectionCard>
       </div>
     </div>
+
+    <div className="w-full mt-6 rounded-2xl bg-white border border-gray-200 shadow-sm px-3 py-2">
+      <div className="grid grid-cols-1 lg:grid-cols-[30fr_55fr_15fr] items-start">
+
+        {/* QUICK TEMPO */}
+        <div className="flex min-w-0 flex-col gap-1 py-2 lg:py-0 lg:pr-2">
+          <div className="flex min-w-0 items-center justify-between gap-2">
+            <span className="shrink-0 whitespace-nowrap text-[11px] font-semibold text-gray-700 uppercase tracking-wider">QUICK TEMPO</span>
+            <button
+              onClick={() => setQuickTempoSelection(null)}
+              className="shrink-0 whitespace-nowrap text-[9px] font-bold uppercase tracking-wider text-[#1565FF] hover:underline"
+            >
+              CLEAR
+            </button>
+          </div>
+          <div className="flex min-w-0 flex-wrap items-center gap-1 lg:flex-nowrap">
+            {quickTempoPresets.map(v => (
+              <button
+                key={v}
+                aria-pressed={quickTempoSelection === v}
+                onClick={() => { handleBpmInput(v); setQuickTempoSelection(v) }}
+                className={`shrink-0 whitespace-nowrap rounded-full px-1 py-0.5 text-[12px] font-medium leading-none text-center transition-all shadow-sm ${
+                  quickTempoSelection === v
+                    ? "bg-[#1565FF] text-white border border-[#1565FF]"
+                    : "bg-white border border-[#D9D9D9] text-[#595959] hover:text-[#1565FF] hover:border-[#1565FF]"
+                }`}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* TEMPO PRESETS */}
+        <div className="flex min-w-0 flex-col gap-1 border-t border-gray-100 py-2 lg:border-t-0 lg:border-l lg:px-2 lg:py-0">
+          <span className="shrink-0 whitespace-nowrap text-[11px] font-semibold uppercase tracking-wider text-gray-700">Tempo Presets</span>
+          <div className="flex min-w-0 flex-wrap items-center gap-1 lg:flex-nowrap">
+            {presets.map(p => (
+              <button key={p.label} onClick={() => handleBpmInput(p.val)}
+                className="shrink-0 whitespace-nowrap rounded-full border border-[#D9D9D9] bg-white px-1.5 py-0.5 text-[12px] leading-none text-[#595959] shadow-sm transition-all hover:border-[#1565FF] hover:text-[#1565FF]"
+              >{p.label} <span className="ml-0.5">{p.val}</span></button>
+            ))}
+          </div>
+        </div>
+
+        {/* FAVORITES */}
+        <div className="flex min-w-0 flex-col justify-center gap-1 border-t border-gray-100 py-2 lg:border-t-0 lg:border-l lg:py-0 lg:pl-2">
+          <span className="shrink-0 whitespace-nowrap text-[11px] font-semibold text-gray-700 uppercase tracking-wider">Favorites</span>
+          {isSavingFavorite ? (
+            <div className="flex min-w-0 items-center gap-1">
+              <input
+                autoFocus
+                maxLength={30}
+                value={favoriteName}
+                onChange={e => setFavoriteName(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter") saveFavorite() }}
+                aria-label="Favorite name"
+                placeholder="Name this setup"
+                className="min-w-0 flex-1 rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[9px] leading-none text-[#595959] outline-none focus:border-[#1565FF]"
+              />
+              <button onClick={saveFavorite} aria-label="Save favorite"
+                className="shrink-0 whitespace-nowrap rounded-full bg-[#1565FF] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white shadow-sm">
+                Save
+              </button>
+              <button onClick={() => { setIsSavingFavorite(false); setFavoriteName("") }} aria-label="Cancel"
+                className="shrink-0 whitespace-nowrap rounded-full border border-[#D9D9D9] bg-white px-1.5 py-0.5 text-[9px] font-medium leading-none text-[#595959]">
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setIsSavingFavorite(true)}
+              className="shrink-0 whitespace-nowrap rounded-full bg-[#1565FF] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white shadow-sm">
+              Save current setup
+            </button>
+          )}
+          {favorites.length === 0 ? (
+            <p className="whitespace-nowrap text-[8px] leading-none text-muted-foreground font-mono">No favorites saved yet</p>
+          ) : (
+            <div className="flex min-w-0 flex-wrap gap-1">
+              {favorites.map(fav => (
+                <div key={fav.name}
+                  className="inline-flex max-w-full items-center rounded-full border border-[#D9D9D9] bg-white shadow-sm transition-all hover:border-[#1565FF]">
+                  <button onClick={() => applyFavorite(fav)}
+                    className="min-w-0 py-0.5 pl-2 pr-1 text-[9px] font-medium leading-none text-[#595959] hover:text-[#1565FF]">
+                    <span className="block max-w-[110px] truncate">{fav.name}</span>
+                  </button>
+                  <button onClick={() => downloadFavoriteAsJson(fav)}
+                    aria-label={`Download favorite ${fav.name}`}
+                    className="py-0.5 pl-1 pr-1 text-muted-foreground transition-colors hover:text-[#1565FF]">
+                    <Download size={11} strokeWidth={2} />
+                  </button>
+                  <button onClick={() => deleteFavorite(fav.name)}
+                    aria-label={`Delete favorite ${fav.name}`}
+                    className="py-0.5 pl-1 pr-2 text-[9px] font-bold leading-none text-muted-foreground transition-colors hover:text-[#FF3B30]">
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+    </>
   )
 }
