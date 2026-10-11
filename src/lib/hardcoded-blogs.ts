@@ -1,4 +1,4 @@
-import { content as c0 } from "@/data/blogs/how-to-find-bpm-of-any-song"
+﻿import { content as c0 } from "@/data/blogs/how-to-find-bpm-of-any-song"
 import { content as c1 } from "@/data/blogs/how-accurate-is-tap-tempo"
 import { content as c2 } from "@/data/blogs/practice-with-a-metronome"
 import { content as c3 } from "@/data/blogs/common-metronome-mistakes"
@@ -29,6 +29,7 @@ import { content as c27 } from "@/data/blogs/measure-numbers-in-music"
 import { content as c28 } from "@/data/blogs/pitch-percentage-bpm"
 import { content as c29 } from "@/data/blogs/semitones-to-bpm-shift"
 import { content as c30 } from "@/data/blogs/master-tempo-vs-key-lock"
+import { content as c31 } from "@/data/blogs/how-musicians-find-song-tempo-by-ear"
 import type { HardcodedBlogMeta } from "@/data/blogs/registry"
 import { getHardcodedBlogMeta } from "@/data/blogs/registry"
 
@@ -64,6 +65,8 @@ const blogContentMap: Record<string, string> = {
   "pitch-percentage-bpm": c28,
   "semitones-to-bpm-shift": c29,
   "master-tempo-vs-key-lock": c30,
+  "how-musicians-find-song-tempo-by-ear": c31,
+
 }
 
 export function getHardcodedBlogContent(slug: string): string | null {
@@ -72,3 +75,4 @@ export function getHardcodedBlogContent(slug: string): string | null {
 
 export { getHardcodedBlogMeta }
 export type { HardcodedBlogMeta }
+
